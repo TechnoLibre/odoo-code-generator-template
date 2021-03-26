@@ -26,6 +26,7 @@ def post_init_hook(cr, e):
 
         # TODO HUMAN: enable your functionality to generate
         value["enable_sync_template"] = True
+        value["ignore_fields"] = ""
         value["post_init_hook_show"] = False
         value["uninstall_hook_show"] = False
         value["post_init_hook_feature_code_generator"] = False
@@ -59,7 +60,7 @@ def post_init_hook(cr, e):
         }
         model_demo_model_portal = env["ir.model"].create(value)
 
-        ##### Begin Field
+        # Begin Field
         value_field_demo_binary = {
             "name": "demo_binary",
             "model": "demo.model.portal",
@@ -148,16 +149,18 @@ def post_init_hook(cr, e):
             "model": "demo.model.portal",
             "field_description": "Selection demo",
             "ttype": "selection",
-            "selection": str(list()),
+            "selection": "[]",
             "model_id": model_demo_model_portal.id,
         }
         env["ir.model.fields"].create(value_field_demo_selection)
 
         # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search([("model_id", "=", model_demo_model_portal.id), ("name", "=", "x_name")])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_demo_model_portal.id), ("name", "=", "x_name")]
+        )
         field_x_name.name = "name"
         model_demo_model_portal.rec_name = "name"
-        ##### End Field
+        # End Field
 
         # Add Demo Model 2 Portal
         value = {
@@ -169,7 +172,7 @@ def post_init_hook(cr, e):
         }
         model_demo_model_2_portal = env["ir.model"].create(value)
 
-        ##### Begin Field
+        # Begin Field
         value_field_demo_many2one = {
             "name": "demo_many2one",
             "model": "demo.model_2.portal",
@@ -182,7 +185,9 @@ def post_init_hook(cr, e):
         env["ir.model.fields"].create(value_field_demo_many2one)
 
         # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search([("model_id", "=", model_demo_model_2_portal.id), ("name", "=", "x_name")])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_demo_model_2_portal.id), ("name", "=", "x_name")]
+        )
         field_x_name.name = "name"
         model_demo_model_2_portal.rec_name = "name"
 
@@ -199,21 +204,21 @@ def post_init_hook(cr, e):
         }
         env["ir.model.fields"].create(value_field_demo_one2many)
 
-        ##### End Field
+        # End Field
 
         # Generate view
-        wizard_view = env['code.generator.generate.views.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'enable_generate_all': False,
-            'enable_generate_portal': True,
-        })
+        wizard_view = env["code.generator.generate.views.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "enable_generate_all": False,
+                "enable_generate_portal": True,
+            }
+        )
 
         wizard_view.button_generate_views()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 

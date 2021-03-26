@@ -34,7 +34,9 @@ def post_init_hook(cr, e):
         # Hook
         if HIDE_OLD_WEBSITE:
             value["pre_init_hook_show"] = True
-            value["pre_init_hook_code"] = """with api.Environment.manage():
+            value[
+                "pre_init_hook_code"
+            ] = """with api.Environment.manage():
     env = api.Environment(cr, SUPERUSER_ID, {})
     # Remove all website pages before installing data
 
@@ -58,7 +60,7 @@ def post_init_hook(cr, e):
         value_dependency_website = {
             "module_id": code_generator_id.id,
             "name": depend,
-            "depend_id": module_id[0].id
+            "depend_id": module_id[0].id,
         }
         env["code.generator.module.dependency"].create(value_dependency_website)
 
@@ -80,8 +82,8 @@ def post_init_hook(cr, e):
             ]
 
             lst_website_field = env["ir.model.fields"].search(
-                [("model_id", "=", website_model_id.id),
-                 ("name", "in", lst_website_field_name)])
+                [("model_id", "=", website_model_id.id), ("name", "in", lst_website_field_name)]
+            )
 
         # ir.ui.view
         ir_ui_view_model_id = env["ir.model"].search([("model", "=", "ir.ui.view")])
@@ -94,8 +96,8 @@ def post_init_hook(cr, e):
         ]
 
         lst_ir_ui_view_field = env["ir.model.fields"].search(
-            [("model_id", "=", ir_ui_view_model_id.id),
-             ("name", "in", lst_ir_ui_view_field_name)])
+            [("model_id", "=", ir_ui_view_model_id.id), ("name", "in", lst_ir_ui_view_field_name)]
+        )
 
         # website.page
         website_page_model_id = env["ir.model"].search([("model", "=", "website.page")])
@@ -109,8 +111,11 @@ def post_init_hook(cr, e):
         ]
 
         lst_website_page_field = env["ir.model.fields"].search(
-            [("model_id", "=", website_page_model_id.id),
-             ("name", "in", lst_website_page_field_name)])
+            [
+                ("model_id", "=", website_page_model_id.id),
+                ("name", "in", lst_website_page_field_name),
+            ]
+        )
 
         # website.menu
         website_menu_model_id = env["ir.model"].search([("model", "=", "website.menu")])
@@ -120,11 +125,11 @@ def post_init_hook(cr, e):
             "parent_id",
             "page_id",
             "website_id",
-            "sequence"
+            "sequence",
         ]
         lst_website_menu_field = env["ir.model.fields"].search(
-            [("model_id", "=", website_menu_model_id.id),
-             ("name", "in", lst_ir_ui_view_field_name)])
+            [("model_id", "=", website_menu_model_id.id), ("name", "in", lst_ir_ui_view_field_name)]
+        )
 
         # Generate view
         model_ids = ir_ui_view_model_id + website_page_model_id + website_menu_model_id
@@ -135,12 +140,14 @@ def post_init_hook(cr, e):
         if not REPLACE_DEFAULT_WEBSITE:
             lst_field += lst_website_field
 
-        wizard_view = env['code.generator.add.model.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'model_ids': [(6, 0, model_ids.ids)],
-            'field_ids': [(6, 0, [a.id for a in lst_field])],
-            'option_blacklist': 'whitelist',
-        })
+        wizard_view = env["code.generator.add.model.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "model_ids": [(6, 0, model_ids.ids)],
+                "field_ids": [(6, 0, [a.id for a in lst_field])],
+                "option_blacklist": "whitelist",
+            }
+        )
 
         wizard_view.button_generate_add_model()
 
@@ -154,16 +161,17 @@ def post_init_hook(cr, e):
         else:
             lst_id_website = [env.ref("website.default_website").id]
 
-        lst_id_view = [b for a in env["website.page"].search([('website_id', 'in', lst_id_website)]) for b in
-                       a.view_id.ids]
+        lst_id_view = [
+            b
+            for a in env["website.page"].search([("website_id", "in", lst_id_website)])
+            for b in a.view_id.ids
+        ]
         website_menu_model_id.expression_export_data = f"('website_id', 'in', {lst_id_website})"
         website_page_model_id.expression_export_data = f"('website_id', 'in', {lst_id_website})"
         ir_ui_view_model_id.expression_export_data = f"('id', 'in', {lst_id_view})"
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 
@@ -172,12 +180,12 @@ def uninstall_hook(cr, e):
         env = api.Environment(cr, SUPERUSER_ID, {})
 
         # Disable association with existing model
-        lst_model_name = ['ir.ui.view', 'website.page', 'website.menu']
-        model_ids = env["ir.model"].search([('model', 'in', lst_model_name)])
+        lst_model_name = ["ir.ui.view", "website.page", "website.menu"]
+        model_ids = env["ir.model"].search([("model", "in", lst_model_name)])
         for model_id in model_ids:
             model_id.m2o_module = None
             model_id.nomenclator = False
 
-        code_generator_id = env["code.generator.module"].search([('name', '=', MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
         if code_generator_id:
             code_generator_id.unlink()

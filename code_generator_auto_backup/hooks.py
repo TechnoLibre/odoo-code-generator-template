@@ -10,7 +10,9 @@ def post_init_hook(cr, e):
         env = api.Environment(cr, SUPERUSER_ID, {})
 
         # The path of the actual file
-        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..', 'OCA_server-tools'))
+        path_module_generate = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), "..", "..", "OCA_server-tools")
+        )
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -48,11 +50,11 @@ def post_init_hook(cr, e):
         }
         model_db_backup = env["ir.model"].create(value)
 
-        ##### Cron
+        # Cron
         value = {
             "m2o_module": code_generator_id.id,
             "name": "Backup Scheduler",
-            "user_id": env.ref('base.user_root').id,
+            "user_id": env.ref("base.user_root").id,
             "interval_number": 1,
             "interval_type": "days",
             "numbercall": -1,
@@ -75,7 +77,7 @@ return self.search([]).action_backup()''',
         }
         env["code.generator.model.code"].create(value)
 
-        ##### Begin Field
+        # Begin Field
         value_field_backup_format = {
             "name": "backup_format",
             "model": "db.backup",
@@ -208,23 +210,25 @@ return self.search([]).action_backup()''',
         env["ir.model.fields"].create(value_field_sftp_user)
 
         # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search([("model_id", "=", model_db_backup.id), ("name", "=", "x_name")])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_db_backup.id), ("name", "=", "x_name")]
+        )
         field_x_name.unlink()
         model_db_backup.rec_name = "name"
-        ##### End Field
+        # End Field
 
         # Generate view
-        wizard_view = env['code.generator.generate.views.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'enable_generate_all': False,
-        })
+        wizard_view = env["code.generator.generate.views.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "enable_generate_all": False,
+            }
+        )
 
         wizard_view.button_generate_views()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 

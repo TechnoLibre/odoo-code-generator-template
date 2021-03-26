@@ -8,9 +8,14 @@ from collections import defaultdict
 
 
 class MapFeatureController(http.Controller):
-
-    @http.route(['/demo_website_leaflet/map/config'], type='json', auth="public", website=True,
-                methods=['POST', 'GET'], csrf=False)
+    @http.route(
+        ["/demo_website_leaflet/map/config"],
+        type="json",
+        auth="public",
+        website=True,
+        methods=["POST", "GET"],
+        csrf=False,
+    )
     def map_detail(self):
         name = "test"
         lat = 45.587134
@@ -24,7 +29,9 @@ class MapFeatureController(http.Controller):
         features = defaultdict(list)
         transformer = Transformer.from_crs("epsg:3857", "epsg:4326")
 
-        map_feature_ids = request.env["demo.website_leaflet.map.feature"].sudo().search([("active", "=", True)])
+        map_feature_ids = (
+            request.env["demo.website_leaflet.map.feature"].sudo().search([("active", "=", True)])
+        )
         for feature in map_feature_ids:
             value = {}
             # Help robot, ignore this
