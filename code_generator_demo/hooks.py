@@ -31,6 +31,7 @@ def post_init_hook(cr, e):
         value["enable_template_wizard_view"] = False
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = False
+        value["ignore_fields"] = ""
         value["post_init_hook_show"] = True
         value["uninstall_hook_show"] = True
         value["post_init_hook_feature_code_generator"] = True
@@ -42,7 +43,7 @@ def post_init_hook(cr, e):
                 if value["enable_template_code_generator_demo"]:
                     new_module_name = f"code_generator_{MODULE_NAME[len('code_generator_template_'):]}"
                 else:
-                    new_module_name = MODULE_NAME[len('code_generator_template_'):]
+                    new_module_name = MODULE_NAME[len("code_generator_template_"):]
             else:
                 new_module_name = MODULE_NAME[len("code_generator_"):]
             value["template_module_name"] = new_module_name
@@ -64,6 +65,19 @@ def post_init_hook(cr, e):
                 "name": depend.display_name,
             }
             env["code.generator.module.dependency"].create(value)
+
+        lst_depend = [
+            "code_generator",
+            "code_generator_hook",
+        ]
+        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        for depend in lst_dependencies:
+            value = {
+                "module_id": code_generator_id.id,
+                "depend_id": depend.id,
+                "name": depend.display_name,
+            }
+            env["code.generator.module.template.dependency"].create(value)
 
         # Generate module
         value = {
