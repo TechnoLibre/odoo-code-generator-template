@@ -36,7 +36,7 @@ KEEP_CACHE = True
 def download_url_and_get_content(url, dir_path):
     if KEEP_CACHE:
         filename_js = wget.download(url, out=dir_path)
-        with open(filename_js, 'r') as file:
+        with open(filename_js, "r") as file:
             content = file.read()
     else:
         r = requests.get(url)
@@ -83,7 +83,7 @@ def amend_sentence(string):
 
         # Convert to lowercase if its
         # an uppercase character
-        if string[i] >= 'A' and string[i] <= 'Z':
+        if string[i] >= "A" and string[i] <= "Z":
             string[i] = chr(ord(string[i]) + 32)
 
             # Print space before it
@@ -103,7 +103,7 @@ def amend_sentence(string):
 
 def extract_field_from_html(content):
     lst_field = []
-    soup = BeautifulSoup(content, 'html.parser')
+    soup = BeautifulSoup(content, "html.parser")
     all_div = soup.find_all("div", class_=KEY_ALL_DIV)
     for div in all_div:
         # Get help
@@ -169,13 +169,15 @@ def generate_model_from_js():
     path_py = os.path.join(temp_dir_path, "file_to_convert.py")
     filename_js = wget.download(URL_JS, out=path_js)
     # Special treatment, support only specific js
-    with open(filename_js, 'r') as file:
+    with open(filename_js, "r") as file:
         file_content = file.read()
-        assert KEY_GOOD_JS_FILE not in file_content, f"js {URL_JS} not supported, need key {KEY_GOOD_JS_FILE}"
+        assert (
+            KEY_GOOD_JS_FILE not in file_content
+        ), f"js {URL_JS} not supported, need key {KEY_GOOD_JS_FILE}"
         if KEY_REMOVE_SECTION_JS_FILE in file_content:
-            file_content = file_content[:file_content.rfind(KEY_REMOVE_SECTION_JS_FILE)]
+            file_content = file_content[: file_content.rfind(KEY_REMOVE_SECTION_JS_FILE)]
         file_content = KEY_TO_ADD_BEGIN_FILE + file_content.replace(KEY_JS_VARIABLE, "content")
-    with open(filename_js, 'w') as file:
+    with open(filename_js, "w") as file:
         file.write(file_content)
     js2py.translate_file(filename_js, path_py)
     sys.path.append(temp_dir_path)
@@ -239,7 +241,7 @@ def generate_i18n(module_name, module_path, lst_translation):
         file.write('msgid ""\n')
         file.write('msgstr ""\n')
         file.write('"Project-Id-Version: Odoo Server 12.0"\n')
-        file.write('\n')
+        file.write("\n")
         for txt_en, _ in lst_translation:
             new_txt_en = txt_en.replace("\n", "\\n").replace('"', '\\"')
             file.write(f"#. module: {module_name}\n")
@@ -253,7 +255,7 @@ def generate_i18n(module_name, module_path, lst_translation):
         file.write('msgid ""\n')
         file.write('msgstr ""\n')
         file.write('"Project-Id-Version: Odoo Server 12.0"\n')
-        file.write('\n')
+        file.write("\n")
         for txt_en, txt_fr in lst_translation:
             new_txt_en = txt_en.replace("\n", "\\n").replace('"', '\\"')
             new_txt_fr = txt_fr.replace("\n", "\\n").replace('"', '\\"')
@@ -270,7 +272,7 @@ def post_init_hook(cr, e):
         lst_data, lst_translation = generate_model_from_js()
 
         # The path of the actual file
-        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -308,7 +310,8 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [('model_id', '=', model_business_plan.id), ('name', '=', 'x_name')])
+            [("model_id", "=", model_business_plan.id), ("name", "=", "x_name")]
+        )
         field_x_name.name = "name"
         model_business_plan.rec_name = "name"
 
@@ -376,24 +379,25 @@ def post_init_hook(cr, e):
 
             # Hack to solve field name
             field_x_name = env["ir.model.fields"].search(
-                [('model_id', '=', model_data.id), ('name', '=', 'x_name')])
+                [("model_id", "=", model_data.id), ("name", "=", "x_name")]
+            )
             field_x_name.name = "name"
             model_data.rec_name = "name"
             ##### End Field
 
         # Generate view
-        wizard_view = env['code.generator.generate.views.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'enable_generate_all': False,
-            # 'enable_generate_portal': True,
-        })
+        wizard_view = env["code.generator.generate.views.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "enable_generate_all": False,
+                # 'enable_generate_portal': True,
+            }
+        )
 
         wizard_view.button_generate_views()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
         new_module_path = os.path.join(path_module_generate, MODULE_NAME)

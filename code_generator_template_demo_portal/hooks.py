@@ -10,7 +10,7 @@ def post_init_hook(cr, e):
         env = api.Environment(cr, SUPERUSER_ID, {})
 
         # The path of the actual file
-        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -30,6 +30,7 @@ def post_init_hook(cr, e):
         value["enable_template_code_generator_demo"] = False
         value["template_model_name"] = "demo.model.portal;demo.model_2.portal"
         value["enable_template_wizard_view"] = True
+        value["enable_generate_portal"] = True
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = True
         value["post_init_hook_show"] = True
@@ -39,7 +40,7 @@ def post_init_hook(cr, e):
 
         new_module_name = MODULE_NAME
         if not value["enable_template_code_generator_demo"] and "code_generator_" in MODULE_NAME:
-            new_module_name = MODULE_NAME[len("code_generator_"):]
+            new_module_name = MODULE_NAME[len("code_generator_") :]
             value["template_module_name"] = new_module_name
         value["hook_constant_code"] = f'MODULE_NAME = "{new_module_name}"'
 
@@ -60,11 +61,20 @@ def post_init_hook(cr, e):
                 "name": depend.display_name,
             }
             env["code.generator.module.dependency"].create(value)
+        lst_depend = [
+            "portal",
+        ]
+        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        for depend in lst_dependencies:
+            value = {
+                "module_id": code_generator_id.id,
+                "depend_id": depend.id,
+                "name": depend.display_name,
+            }
+            env["code.generator.module.template.dependency"].create(value)
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
         new_module_path = os.path.join(path_module_generate, new_module_name)

@@ -40,11 +40,13 @@ def post_init_hook(cr, e):
         if MODULE_NAME != "code_generator_demo" and "code_generator_" in MODULE_NAME:
             if "code_generator_template" in MODULE_NAME:
                 if value["enable_template_code_generator_demo"]:
-                    new_module_name = f"code_generator_{MODULE_NAME[len('code_generator_template_'):]}"
+                    new_module_name = (
+                        f"code_generator_{MODULE_NAME[len('code_generator_template_'):]}"
+                    )
                 else:
-                    new_module_name = MODULE_NAME[len("code_generator_template_"):]
+                    new_module_name = MODULE_NAME[len("code_generator_template_") :]
             else:
-                new_module_name = MODULE_NAME[len("code_generator_"):]
+                new_module_name = MODULE_NAME[len("code_generator_") :]
             value["template_module_name"] = new_module_name
         value["hook_constant_code"] = f'MODULE_NAME = "{new_module_name}"'
 
@@ -66,9 +68,7 @@ def post_init_hook(cr, e):
             env["code.generator.module.dependency"].create(value)
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 

@@ -1,7 +1,7 @@
-odoo.define('demo_website_leaflet.animation', function (require) {
-    'use strict';
+odoo.define("demo_website_leaflet.animation", function (require) {
+    "use strict";
 
-    var sAnimation = require('website.content.snippets.animation');
+    var sAnimation = require("website.content.snippets.animation");
 
     var lat = 55.505,
         lng = 38.6611378,
@@ -9,17 +9,19 @@ odoo.define('demo_website_leaflet.animation', function (require) {
         size_width = 500,
         size_height = 300,
         zoom = 13,
-        provider = 'OpenStreetMap',
-        name = '',
-        features = '',
-        geojson = '';
+        provider = "OpenStreetMap",
+        name = "",
+        features = "",
+        geojson = "";
 
     sAnimation.registry.form_builder_send = sAnimation.Class.extend({
-        selector: '.demo_website_leaflet',
+        selector: ".demo_website_leaflet",
 
         start: function () {
             var self = this;
-            var def = this._rpc({route: '/demo_website_leaflet/map/config'}).then(function (data) {
+            var def = this._rpc({
+                route: "/demo_website_leaflet/map/config",
+            }).then(function (data) {
                 // $timeline.empty();
                 // $goal.empty();
                 // $progression.empty();
@@ -34,14 +36,14 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                 }
 
                 var data_json = data;
-                lat = data_json['lat'];
-                lng = data_json['lng'];
-                enable = data_json['enable'];
-                size_width = data_json['size_width'];
-                size_height = data_json['size_height'];
-                zoom = data_json['zoom'];
-                provider = data_json['provider'];
-                name = data_json['name'];
+                lat = data_json["lat"];
+                lng = data_json["lng"];
+                enable = data_json["enable"];
+                size_width = data_json["size_width"];
+                size_height = data_json["size_height"];
+                zoom = data_json["zoom"];
+                provider = data_json["provider"];
+                name = data_json["name"];
 
                 if (!enable) {
                     console.info("Map disabled");
@@ -49,15 +51,15 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                 }
 
                 try {
-                    geojson = JSON.parse(data_json['geojson']);
+                    geojson = JSON.parse(data_json["geojson"]);
                 } catch (error) {
                     console.error(error);
-                    console.debug(data_json['geojson']);
-                    geojson = ""
+                    console.debug(data_json["geojson"]);
+                    geojson = "";
                 }
-                features = data_json['features'];
+                features = data_json["features"];
 
-                var div_map = self.$('.map');
+                var div_map = self.$(".map");
                 if (!div_map.length) {
                     console.error("Cannot find map.");
                     return;
@@ -72,7 +74,11 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                 // hide google icon
                 // $('.img-fluid').hide();
 
-                var map_id = "map_id_" + [...Array(10)].map(_ => (Math.random() * 36 | 0).toString(36)).join``;
+                var map_id =
+                    "map_id_" +
+                    [...Array(10)].map((_) =>
+                        ((Math.random() * 36) | 0).toString(36)
+                    ).join``;
                 div_map.id = map_id;
                 div_map.attr("id", map_id);
 
@@ -87,7 +93,7 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                             if (feature.properties.popup) {
                                 layer.bindPopup(feature.properties.popup);
                             }
-                        }
+                        },
                     }).addTo(map);
                 }
                 if (features) {
@@ -98,7 +104,9 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                             // Implement category
                             var obj = L.marker(marker.coordinates).addTo(map);
                             if (marker.html_popup) {
-                                let obj_popup = obj.bindPopup(marker.html_popup);
+                                let obj_popup = obj.bindPopup(
+                                    marker.html_popup
+                                );
                                 if (marker.open_popup) {
                                     obj_popup.openPopup();
                                 }
@@ -137,16 +145,16 @@ odoo.define('demo_website_leaflet.animation', function (require) {
                 function onMapClick(e) {
                     popup
                         .setLatLng(e.latlng)
-                        .setContent("You clicked the map at " + e.latlng.toString())
+                        .setContent(
+                            "You clicked the map at " + e.latlng.toString()
+                        )
                         .openOn(map);
                 }
 
-                map.on('click', onMapClick);
+                map.on("click", onMapClick);
             });
 
             return $.when(this._super.apply(this, arguments), def);
-        }
-    })
-
+        },
+    });
 });
-        

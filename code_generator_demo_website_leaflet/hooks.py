@@ -21,7 +21,6 @@ def post_init_hook(cr, e):
             "summary": "Leaflet integration in website",
             "application": True,
             "category_id": env.ref("base.module_category_website").id,
-
             "enable_sync_code": True,
             # "path_sync_code": path_module_generate,
         }
@@ -34,7 +33,7 @@ def post_init_hook(cr, e):
         value_dependency_website = {
             "module_id": code_generator_id.id,
             "name": depend,
-            "depend_id": module_id.id
+            "depend_id": module_id.id,
         }
         env["code.generator.module.dependency"].create(value_dependency_website)
 
@@ -44,7 +43,7 @@ def post_init_hook(cr, e):
         value_dependency_website = {
             "module_id": code_generator_id.id,
             "name": depend,
-            "depend_id": module_id.id
+            "depend_id": module_id.id,
         }
         env["code.generator.module.dependency"].create(value_dependency_website)
 
@@ -125,7 +124,9 @@ def post_init_hook(cr, e):
         # Hack to solve field name when already has name
         # Ignore WARNING code_generator odoo.addons.base.models.ir_model: Two fields (name, x_name) of
         # demo.website_leaflet.category() have the same label: Name.
-        field_x_name = env["ir.model.fields"].search([('model_id', '=', model_category_id.id), ('name', '=', 'x_name')])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_category_id.id), ("name", "=", "x_name")]
+        )
         if field_x_name:
             field_x_name.unlink()
 
@@ -167,7 +168,7 @@ def post_init_hook(cr, e):
             "model": model_map_feature,
             "ttype": "html",
             "model_id": model_map_feature_id.id,
-            "field_description": "Popup text"
+            "field_description": "Popup text",
         }
         env["ir.model.fields"].create(value_field)
 
@@ -229,7 +230,8 @@ def post_init_hook(cr, e):
         # Ignore WARNING code_generator odoo.addons.base.models.ir_model: Two fields (name, x_name) of
         # demo.website_leaflet.category() have the same label: Name.
         field_x_name = env["ir.model.fields"].search(
-            [('model_id', '=', model_map_feature_id.id), ('name', '=', 'x_name')])
+            [("model_id", "=", model_map_feature_id.id), ("name", "=", "x_name")]
+        )
         if field_x_name:
             field_x_name.unlink()
 
@@ -306,14 +308,16 @@ def post_init_hook(cr, e):
             "relation": model_map_feature,
             "model": model_map,
             "ttype": "many2many",
-            "model_id": model_map_id.id
+            "model_id": model_map_id.id,
         }
         env["ir.model.fields"].create(value_field)
 
         # Hack to solve field name when already has name
         # Ignore WARNING code_generator odoo.addons.base.models.ir_model: Two fields (name, x_name) of
         # demo.website_leaflet.category() have the same label: Name.
-        field_x_name = env["ir.model.fields"].search([('model_id', '=', model_map_id.id), ('name', '=', 'x_name')])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_map_id.id), ("name", "=", "x_name")]
+        )
         if field_x_name:
             field_x_name.unlink()
 
@@ -321,22 +325,22 @@ def post_init_hook(cr, e):
         lst_view_form_model = [model_map_feature_id.id, model_category_id.id, model_map_id.id]
 
         # Generate view
-        wizard_view = env['code.generator.generate.views.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'enable_generate_all': False,
-            'all_model': False,
-            'enable_generate_website_leaflet': True,
-            'enable_generate_geoengine': True,
-            'selected_model_list_view_ids': [(6, 0, lst_view_list_model)],
-            'selected_model_form_view_ids': [(6, 0, lst_view_form_model)],
-        })
+        wizard_view = env["code.generator.generate.views.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "enable_generate_all": False,
+                "all_model": False,
+                "enable_generate_website_leaflet": True,
+                "enable_generate_geoengine": True,
+                "selected_model_list_view_ids": [(6, 0, lst_view_list_model)],
+                "selected_model_form_view_ids": [(6, 0, lst_view_form_model)],
+            }
+        )
 
         wizard_view.button_generate_views()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 
@@ -344,6 +348,6 @@ def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
 
-        code_generator_id = env["code.generator.module"].search([('name', '=', MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
         if code_generator_id:
             code_generator_id.unlink()

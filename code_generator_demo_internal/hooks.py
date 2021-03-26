@@ -20,7 +20,6 @@ def post_init_hook(cr, e):
             "author": "TechnoLibre",
             "website": "https://technolibre.ca",
             "application": True,
-
             "enable_sync_code": True,
             # "path_sync_code": path_module_generate,
         }
@@ -45,7 +44,9 @@ def post_init_hook(cr, e):
         model_demo_1_field_banana = env["ir.model.fields"].create(value_field_banana)
 
         # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search([('model_id', '=', model_demo_1.id), ('name', '=', 'x_name')])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_demo_1.id), ("name", "=", "x_name")]
+        )
         field_x_name.name = "name"
         model_demo_1.rec_name = "name"
 
@@ -71,22 +72,24 @@ def post_init_hook(cr, e):
         model_demo_1_field_name = env["ir.model.fields"].create(value_field_name)
 
         # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search([('model_id', '=', model_demo_2.id), ('name', '=', 'x_name')])
+        field_x_name = env["ir.model.fields"].search(
+            [("model_id", "=", model_demo_2.id), ("name", "=", "x_name")]
+        )
         field_x_name.name = "name"
         model_demo_2.rec_name = "name"
 
         # Generate view
-        wizard_view = env['code.generator.generate.views.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'enable_generate_all': False,
-        })
+        wizard_view = env["code.generator.generate.views.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "enable_generate_all": False,
+            }
+        )
 
         wizard_view.button_generate_views()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 
@@ -94,6 +97,6 @@ def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
 
-        code_generator_id = env["code.generator.module"].search([('name', '=', MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
         if code_generator_id:
             code_generator_id.unlink()

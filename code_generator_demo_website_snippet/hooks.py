@@ -53,9 +53,7 @@ def post_init_hook(cr, e):
             env["code.generator.module.dependency"].create(value)
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 

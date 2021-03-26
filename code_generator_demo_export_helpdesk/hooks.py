@@ -42,7 +42,7 @@ def post_init_hook(cr, e):
         code_generator_id = env["code.generator.module"].create(value)
 
         # Select models and blacklist some fields
-        models_id = env["ir.model"].search([('model', '=', model_name)])
+        models_id = env["ir.model"].search([("model", "=", model_name)])
         lst_ignored_field_name = [
             "message_follower_ids",
             "message_ids",
@@ -52,22 +52,23 @@ def post_init_hook(cr, e):
         ]
 
         lst_field = env["ir.model.fields"].search(
-            [("model_id", "=", models_id.id), ("name", "in", lst_ignored_field_name)])
+            [("model_id", "=", models_id.id), ("name", "in", lst_ignored_field_name)]
+        )
 
         # Generate view
-        wizard_view = env['code.generator.add.model.wizard'].create({
-            'code_generator_id': code_generator_id.id,
-            'model_ids': [(6, 0, [models_id.id])],
-            'field_ids': [(6, 0, [a.id for a in lst_field])],
-            'option_blacklist': 'blacklist',
-        })
+        wizard_view = env["code.generator.add.model.wizard"].create(
+            {
+                "code_generator_id": code_generator_id.id,
+                "model_ids": [(6, 0, [models_id.id])],
+                "field_ids": [(6, 0, [a.id for a in lst_field])],
+                "option_blacklist": "blacklist",
+            }
+        )
 
         wizard_view.button_generate_add_model()
 
         # Generate module
-        value = {
-            "code_generator_ids": code_generator_id.ids
-        }
+        value = {"code_generator_ids": code_generator_id.ids}
         code_generator_writer = env["code.generator.writer"].create(value)
 
 
@@ -76,10 +77,10 @@ def uninstall_hook(cr, e):
         env = api.Environment(cr, SUPERUSER_ID, {})
 
         # Disable association with existing model
-        model_id = env["ir.model"].search([('model', '=', 'helpdesk.ticket')])
+        model_id = env["ir.model"].search([("model", "=", "helpdesk.ticket")])
         model_id.m2o_module = None
         model_id.nomenclator = False
 
-        code_generator_id = env["code.generator.module"].search([('name', '=', MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
         if code_generator_id:
             code_generator_id.unlink()

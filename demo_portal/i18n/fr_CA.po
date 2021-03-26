@@ -141,7 +141,7 @@ msgstr ""
 #. module: demo_portal
 #: model:ir.model.fields,field_description:demo_portal.field_demo_model_portal__demo_html
 msgid "HTML demo"
-msgstr "Démo HTML"
+msgstr ""
 
 #. module: demo_portal
 #: model_terms:ir.ui.view,arch_db:demo_portal.portal_my_demo_model_portal
