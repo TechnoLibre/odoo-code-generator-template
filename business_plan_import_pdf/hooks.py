@@ -146,7 +146,10 @@ def parse_obj(objs, work, first_page):
                     work.add_data("")
                 last_fontname = ""
                 for c in o._objs:
-                    if isinstance(c, pdfminer.layout.LTChar) and c.fontname != last_fontname:
+                    if (
+                        isinstance(c, pdfminer.layout.LTChar)
+                        and c.fontname != last_fontname
+                    ):
                         last_fontname = c.fontname
                         tpl_info = (c.fontname, round(c.size, 2))
                         if tpl_info in LST_MODEL_FONT:
@@ -213,7 +216,9 @@ def post_init_hook(cr, e):
 
         # Search all needed model and fields
         ir_model_ids = (
-            env["ir.model"].search([]).filtered(lambda field: "business.plan." in field.model)
+            env["ir.model"]
+            .search([])
+            .filtered(lambda field: "business.plan." in field.model)
         )
         dct_result_model_ids = {}
         ir_model_field_ids = env["ir.model.fields"].search(

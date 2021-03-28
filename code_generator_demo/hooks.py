@@ -38,14 +38,17 @@ def post_init_hook(cr, e):
         value["uninstall_hook_feature_code_generator"] = True
 
         new_module_name = MODULE_NAME
-        if MODULE_NAME != "code_generator_demo" and "code_generator_" in MODULE_NAME:
+        if (
+            MODULE_NAME != "code_generator_demo"
+            and "code_generator_" in MODULE_NAME
+        ):
             if "code_generator_template" in MODULE_NAME:
                 if value["enable_template_code_generator_demo"]:
-                    new_module_name = (
-                        f"code_generator_{MODULE_NAME[len('code_generator_template_'):]}"
-                    )
+                    new_module_name = f"code_generator_{MODULE_NAME[len('code_generator_template_'):]}"
                 else:
-                    new_module_name = MODULE_NAME[len("code_generator_template_") :]
+                    new_module_name = MODULE_NAME[
+                        len("code_generator_template_") :
+                    ]
             else:
                 new_module_name = MODULE_NAME[len("code_generator_") :]
             value["template_module_name"] = new_module_name
@@ -59,7 +62,9 @@ def post_init_hook(cr, e):
             "code_generator",
             "code_generator_hook",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -72,7 +77,9 @@ def post_init_hook(cr, e):
             "code_generator",
             "code_generator_hook",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -89,6 +96,8 @@ def post_init_hook(cr, e):
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

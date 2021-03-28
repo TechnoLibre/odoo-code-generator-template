@@ -41,7 +41,9 @@ def post_init_hook(cr, e):
         lst_depend = [
             "portal",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -156,7 +158,10 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_demo_model_portal.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_demo_model_portal.id),
+                ("name", "=", "x_name"),
+            ]
         )
         field_x_name.name = "name"
         model_demo_model_portal.rec_name = "name"
@@ -186,7 +191,10 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_demo_model_2_portal.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_demo_model_2_portal.id),
+                ("name", "=", "x_name"),
+            ]
         )
         field_x_name.name = "name"
         model_demo_model_2_portal.rec_name = "name"
@@ -225,6 +233,8 @@ def post_init_hook(cr, e):
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

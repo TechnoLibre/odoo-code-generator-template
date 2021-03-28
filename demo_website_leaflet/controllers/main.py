@@ -30,7 +30,9 @@ class MapFeatureController(http.Controller):
         transformer = Transformer.from_crs("epsg:3857", "epsg:4326")
 
         map_feature_ids = (
-            request.env["demo.website_leaflet.map.feature"].sudo().search([("active", "=", True)])
+            request.env["demo.website_leaflet.map.feature"]
+            .sudo()
+            .search([("active", "=", True)])
         )
         for feature in map_feature_ids:
             value = {}

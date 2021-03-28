@@ -41,7 +41,9 @@ def post_init_hook(cr, e):
             "ttype": "boolean",
             "model_id": model_demo_1.id,
         }
-        model_demo_1_field_banana = env["ir.model.fields"].create(value_field_banana)
+        model_demo_1_field_banana = env["ir.model.fields"].create(
+            value_field_banana
+        )
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
@@ -69,7 +71,9 @@ def post_init_hook(cr, e):
             "relation": "demo.model.internal",
             "model_id": model_demo_2.id,
         }
-        model_demo_1_field_name = env["ir.model.fields"].create(value_field_name)
+        model_demo_1_field_name = env["ir.model.fields"].create(
+            value_field_name
+        )
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
@@ -97,6 +101,8 @@ def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
 
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()
