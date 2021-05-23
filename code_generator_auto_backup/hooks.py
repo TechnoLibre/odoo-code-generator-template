@@ -88,6 +88,14 @@ def post_init_hook(cr, e):
         inherit_model = env["ir.model"].search([("model", "=", "mail.thread")])
         model_db_backup.m2o_inherit_model = inherit_model.id
 
+        # External dependencies
+        value = {
+            "module_id": code_generator_id.id,
+            "depend": "pysftp",
+            "application_type": "python",
+        }
+        env["code.generator.module.external.dependency"].create(value)
+
         ##### Cron
         value = {
             "m2o_module": code_generator_id.id,
