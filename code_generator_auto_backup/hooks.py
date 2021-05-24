@@ -22,7 +22,7 @@ def post_init_hook(cr, e):
         categ_id = env["ir.module.category"].search([("name", "=", "Tools")])
         value = {
             "shortdesc": "Database Auto-Backup",
-            "name": "auto_backup",
+            "name": MODULE_NAME,
             "header_manifest": """
 # Copyright 2004-2009 Tiny SPRL (<http://tiny.be>).
 # Copyright 2015 Agile Business Group <http://www.agilebg.com>
@@ -1009,7 +1009,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "name": "action_server_backup",
                     "model": "ir.actions.server",
-                    "module": "auto_backup",
+                    "module": MODULE_NAME,
                     "res_id": act_server_id.id,
                     "noupdate": True,
                 }
@@ -1021,10 +1021,57 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 "code_generator_id": code_generator_id.id,
                 "enable_generate_all": False,
                 "code_generator_view_ids": [(6, 0, lst_view_id)],
+                "disable_generate_access": True,
             }
         )
 
         wizard_view.button_generate_views()
+
+        # Generate access
+        lang = "en_US"
+        group_id = env.ref("base.group_erp_manager").with_context(lang=lang)
+        access_id = env["ir.model.access"].create(
+            {
+                "name": "Read db.backup",
+                "model_id": model_db_backup.id,
+                "group_id": group_id.id,
+                "perm_read": True,
+                "perm_create": False,
+                "perm_write": False,
+                "perm_unlink": False,
+            }
+        )
+
+        env["ir.model.data"].create(
+            {
+                "name": "access_db_backup_read",
+                "model": "ir.model.access",
+                "module": MODULE_NAME,
+                "res_id": access_id.id,
+            }
+        )
+
+        group_id = env.ref("base.group_system").with_context(lang=lang)
+        access_id = env["ir.model.access"].create(
+            {
+                "name": "Write db.backup",
+                "model_id": model_db_backup.id,
+                "group_id": group_id.id,
+                "perm_read": True,
+                "perm_create": True,
+                "perm_write": True,
+                "perm_unlink": True,
+            }
+        )
+
+        env["ir.model.data"].create(
+            {
+                "name": "access_db_backup_write",
+                "model": "ir.model.access",
+                "module": MODULE_NAME,
+                "res_id": access_id.id,
+            }
+        )
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
