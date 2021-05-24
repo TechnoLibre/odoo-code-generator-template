@@ -104,7 +104,10 @@ def post_init_hook(cr, e):
             "interval_number": 1,
             "interval_type": "days",
             "numbercall": -1,
-            "nextcall_template": "(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 03:00:00')",
+            "nextcall_template": (
+                "(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d"
+                " 03:00:00')"
+            ),
             "model_id": model_db_backup.id,
             "state": "code",
             "code": "model.action_backup_all()",
@@ -118,7 +121,10 @@ def post_init_hook(cr, e):
             "field_description": "Backup Format",
             "code_generator_sequence": 14,
             "ttype": "selection",
-            "selection": "[('zip', 'zip (includes filestore)'), ('dump', 'pg_dump custom format (without filestore)')]",
+            "selection": (
+                "[('zip', 'zip (includes filestore)'), ('dump', 'pg_dump"
+                " custom format (without filestore)')]"
+            ),
             "model_id": model_db_backup.id,
             "default": "zip",
             "help": "Choose the format for this backup.",
@@ -133,7 +139,10 @@ def post_init_hook(cr, e):
             "ttype": "integer",
             "model_id": model_db_backup.id,
             "required": True,
-            "help": "Backups older than this will be deleted automatically. Set 0 to disable autodeletion.",
+            "help": (
+                "Backups older than this will be deleted automatically. Set 0"
+                " to disable autodeletion."
+            ),
         }
         env["ir.model.fields"].create(value_field_days_to_keep)
 
@@ -156,7 +165,9 @@ def post_init_hook(cr, e):
             "field_description": "Method",
             "code_generator_sequence": 7,
             "ttype": "selection",
-            "selection": "[('local', 'Local disk'), ('sftp', 'Remote SFTP server')]",
+            "selection": (
+                "[('local', 'Local disk'), ('sftp', 'Remote SFTP server')]"
+            ),
             "model_id": model_db_backup.id,
             "default": "local",
             "help": "Choose the storage method for this backup.",
@@ -183,7 +194,10 @@ def post_init_hook(cr, e):
             "code_generator_sequence": 8,
             "ttype": "char",
             "model_id": model_db_backup.id,
-            "help": "The host name or IP address from your remote server. For example 192.168.0.1",
+            "help": (
+                "The host name or IP address from your remote server. For"
+                " example 192.168.0.1"
+            ),
         }
         env["ir.model.fields"].create(value_field_sftp_host)
 
@@ -194,7 +208,10 @@ def post_init_hook(cr, e):
             "code_generator_sequence": 11,
             "ttype": "char",
             "model_id": model_db_backup.id,
-            "help": "The password for the SFTP connection. If you specify a private key file, then this is the password to decrypt it.",
+            "help": (
+                "The password for the SFTP connection. If you specify a"
+                " private key file, then this is the password to decrypt it."
+            ),
         }
         env["ir.model.fields"].create(value_field_sftp_password)
 
@@ -217,7 +234,10 @@ def post_init_hook(cr, e):
             "code_generator_sequence": 12,
             "ttype": "char",
             "model_id": model_db_backup.id,
-            "help": "Path to the private key file. Only the Odoo user should have read permissions for that file.",
+            "help": (
+                "Path to the private key file. Only the Odoo user should have"
+                " read permissions for that file."
+            ),
         }
         env["ir.model.fields"].create(value_field_sftp_private_key)
 
@@ -228,7 +248,13 @@ def post_init_hook(cr, e):
             "code_generator_sequence": 13,
             "ttype": "char",
             "model_id": model_db_backup.id,
-            "help": "Verify SFTP server's identity using its public rsa-key. The host key verification protects you from man-in-the-middle attacks. Can be generated with command 'ssh-keyscan -p PORT -H HOST/IP' and the right key is immediately after the words 'ssh-rsa'.",
+            "help": (
+                "Verify SFTP server's identity using its public rsa-key. The"
+                " host key verification protects you from man-in-the-middle"
+                " attacks. Can be generated with command 'ssh-keyscan -p PORT"
+                " -H HOST/IP' and the right key is immediately after the words"
+                " 'ssh-rsa'."
+            ),
         }
         env["ir.model.fields"].create(value_field_sftp_public_host_key)
 
@@ -239,7 +265,10 @@ def post_init_hook(cr, e):
             "code_generator_sequence": 10,
             "ttype": "char",
             "model_id": model_db_backup.id,
-            "help": "The username where the SFTP connection should be made with. This is the user on the external server.",
+            "help": (
+                "The username where the SFTP connection should be made with."
+                " This is the user on the external server."
+            ),
         }
         env["ir.model.fields"].create(value_field_sftp_user)
 
@@ -311,7 +340,10 @@ for rec in self:
             rec.folder,
         )''',
                     "name": "_compute_name",
-                    "decorator": '@api.multi;@api.depends("folder", "method", "sftp_host", "sftp_port", "sftp_user")',
+                    "decorator": (
+                        '@api.multi;@api.depends("folder", "method",'
+                        ' "sftp_host", "sftp_port", "sftp_user")'
+                    ),
                     "param": "self",
                     "sequence": 1,
                     "m2o_module": code_generator_id.id,
@@ -330,7 +362,9 @@ for record in self:
             )
         )''',
                     "name": "_check_folder",
-                    "decorator": '@api.multi;@api.constrains("folder", "method")',
+                    "decorator": (
+                        '@api.multi;@api.constrains("folder", "method")'
+                    ),
                     "param": "self",
                     "sequence": 2,
                     "m2o_module": code_generator_id.id,
@@ -585,7 +619,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "name": "db_backup_days_to_keep_positive",
                     "definition": "CHECK(days_to_keep >= 0)",
-                    "message": "I cannot remove backups from the future. Ask Doc for that.",
+                    "message": (
+                        "I cannot remove backups from the future. Ask Doc for"
+                        " that."
+                    ),
                     "type": "u",
                     "code_generator_id": code_generator_id.id,
                     "module": code_generator_id.id,
@@ -694,7 +731,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                     "section_type": "body",
                     "item_type": "html",
                     "background_type": "bg-warning",
-                    "label": "Use SFTP with caution! This writes files to external servers under the path you specify.",
+                    "label": (
+                        "Use SFTP with caution! This writes files to external"
+                        " servers under the path you specify."
+                    ),
                     "parent_id": view_item_body_2.id,
                     "sequence": 1,
                 }
