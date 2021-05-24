@@ -112,7 +112,16 @@ def post_init_hook(cr, e):
             "state": "code",
             "code": "model.action_backup_all()",
         }
-        env["ir.cron"].create(value)
+        cron_id = env["ir.cron"].create(value)
+
+        value = {
+            "name": "ir_cron_backup_scheduler_0",
+            "model": "ir.cron",
+            "module": MODULE_NAME,
+            "res_id": cron_id.id,
+            "noupdate": True,
+        }
+        env["ir.model.data"].create(value)
 
         ##### Begin Field
         value_field_backup_format = {
