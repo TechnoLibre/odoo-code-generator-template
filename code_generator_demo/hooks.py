@@ -29,6 +29,7 @@ def post_init_hook(cr, e):
         value["enable_template_code_generator_demo"] = True
         value["template_model_name"] = ""
         value["enable_template_wizard_view"] = False
+        value["force_generic_template_wizard_view"] = False
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = False
         value["ignore_fields"] = ""
@@ -90,7 +91,7 @@ def post_init_hook(cr, e):
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
-        code_generator_writer = env["code.generator.writer"].create(value)
+        env["code.generator.writer"].create(value)
 
 
 def uninstall_hook(cr, e):

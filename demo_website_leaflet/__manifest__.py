@@ -4,8 +4,8 @@
     "summary": "Leaflet integration in website",
     "version": "12.0.1.0",
     "author": "TechnoLibre",
-    "website": "https://technolibre.ca",
     "license": "AGPL-3",
+    "website": "https://technolibre.ca",
     "application": True,
     "depends": [
         "website",
@@ -16,10 +16,11 @@
     },
     "data": [
         "security/ir.model.access.csv",
+        "static/src/scss/leaflet.scss",
         "views/demo_website_leaflet_map.xml",
         "views/demo_website_leaflet_map_feature.xml",
         "views/demo_website_leaflet_category.xml",
-        "views/menus.xml",
+        "views/menu.xml",
         "views/geoengine.xml",
         "views/snippets.xml",
     ],

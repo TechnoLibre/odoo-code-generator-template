@@ -67,6 +67,7 @@ def post_init_hook(cr, e):
         # Add Db Backup
         value = {
             "name": "db_backup",
+            "description": "Database Backup",
             "model": "db.backup",
             "m2o_module": code_generator_id.id,
             "rec_name": None,

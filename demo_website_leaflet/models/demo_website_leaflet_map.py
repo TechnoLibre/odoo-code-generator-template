@@ -5,10 +5,7 @@ class DemoWebsiteLeafletMap(models.Model):
     _name = "demo.website_leaflet.map"
     _description = "Map"
 
-    active = fields.Boolean(
-        string="Active",
-        default=True,
-    )
+    active = fields.Boolean(default=True)
 
     category_id = fields.Many2one(
         string="Category",
@@ -21,14 +18,11 @@ class DemoWebsiteLeafletMap(models.Model):
         comodel_name="res.company",
     )
 
-    description = fields.Char(string="Description")
+    description = fields.Char()
 
     feature_id = fields.Many2many(
         string="Features",
         comodel_name="demo.website_leaflet.map.feature",
     )
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-    )
+    name = fields.Char(required=True)

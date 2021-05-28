@@ -7,4 +7,4 @@ class DemoModelInternal(models.Model):
 
     banana = fields.Boolean(string="Banana demo")
 
-    name = fields.Char(string="Name")
+    name = fields.Char()

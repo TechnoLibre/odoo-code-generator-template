@@ -169,8 +169,8 @@ def parse_obj(objs, work, first_page):
                             logger.warning("Cannot find this type of text.")
                         if DEBUG_LOGGER:
                             logger.info(
-                                f"type '{text_type}' text '{text}' fontname '{c.fontname}' "
-                                f"size '{round(c.size, 2)}'"
+                                f"type '{text_type}' text '{text}' fontname"
+                                f" '{c.fontname}' size '{round(c.size, 2)}'"
                             )
         # if it's a container, recurse
         elif isinstance(obj, pdfminer.layout.LTFigure):

@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Setup testing environment for export data from helpdesk code generator",
+    "name": (
+        "Setup testing environment for export data from helpdesk code"
+        " generator"
+    ),
     "author": "TechnoLibre",
     "license": "AGPL-3",
     "depends": ["code_generator", "helpdesk_mgmt"],

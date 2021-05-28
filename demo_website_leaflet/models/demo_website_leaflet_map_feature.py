@@ -5,10 +5,7 @@ class DemoWebsiteLeafletMapFeature(models.Model):
     _name = "demo.website_leaflet.map.feature"
     _description = "Map Feature"
 
-    active = fields.Boolean(
-        string="Active",
-        default=True,
-    )
+    active = fields.Boolean(default=True)
 
     category_id = fields.Many2one(
         string="Category",
@@ -16,18 +13,15 @@ class DemoWebsiteLeafletMapFeature(models.Model):
         ondelete="restrict",
     )
 
-    geo_line = fields.GeoLine(string="Geo Line")
+    geo_line = fields.GeoLine()
 
-    geo_point = fields.GeoPoint(string="Geo Point")
+    geo_point = fields.GeoPoint()
 
-    geo_polygon = fields.GeoPolygon(string="Geo Polygon")
+    geo_polygon = fields.GeoPolygon()
 
     html_text = fields.Html(string="Popup text")
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-    )
+    name = fields.Char(required=True)
 
     open_popup = fields.Boolean(string="Popup opened on map")
 
@@ -37,7 +31,6 @@ class DemoWebsiteLeafletMapFeature(models.Model):
             ("geo_line", "Geo Line"),
             ("geo_polygon", "Geo Polygon"),
         ],
-        string="Type",
         required=True,
         default="point",
     )
