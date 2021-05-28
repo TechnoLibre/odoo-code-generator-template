@@ -11,6 +11,9 @@ def post_init_hook(cr, e):
 
         # The path of the actual file
         # path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
+        template_dir = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), "..", MODULE_NAME)
+        )
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -95,6 +98,7 @@ MODULE_NAME = "{new_module_name}"'''
         code_generator_writer = env["code.generator.writer"].create(value)
 
         # Generate translation
+        # TODO move this code inside code.generator.writer
         path_module_generate = os.path.normpath(
             os.path.join(
                 os.path.dirname(__file__), "..", "..", "OCA_server-tools"
@@ -102,9 +106,21 @@ MODULE_NAME = "{new_module_name}"'''
         )
         new_module_path = os.path.join(path_module_generate, new_module_name)
         i18n_path = os.path.join(new_module_path, "i18n")
+        # TODO bug, some times i18n is already generated, but need to force update
         if not os.path.isdir(i18n_path):
             code_generator_writer.set_module_translator(
                 new_module_name, new_module_path
+            )
+        else:
+            code_generator_writer.copy_missing_file(
+                new_module_name,
+                new_module_path,
+                template_dir,
+                lst_file_extra=[
+                    os.path.join("data", "mail_message_subtype.xml"),
+                    os.path.join("static", "description", "icon.svg"),
+                    os.path.join("static", "description", "index.html"),
+                ],
             )
 
 
