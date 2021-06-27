@@ -175,8 +175,12 @@ def generate_model_from_js():
             KEY_GOOD_JS_FILE not in file_content
         ), f"js {URL_JS} not supported, need key {KEY_GOOD_JS_FILE}"
         if KEY_REMOVE_SECTION_JS_FILE in file_content:
-            file_content = file_content[: file_content.rfind(KEY_REMOVE_SECTION_JS_FILE)]
-        file_content = KEY_TO_ADD_BEGIN_FILE + file_content.replace(KEY_JS_VARIABLE, "content")
+            file_content = file_content[
+                : file_content.rfind(KEY_REMOVE_SECTION_JS_FILE)
+            ]
+        file_content = KEY_TO_ADD_BEGIN_FILE + file_content.replace(
+            KEY_JS_VARIABLE, "content"
+        )
     with open(filename_js, "w") as file:
         file.write(file_content)
     js2py.translate_file(filename_js, path_py)
@@ -188,17 +192,23 @@ def generate_model_from_js():
     lst_extract_info = file_to_convert.file_to_convert.content
     for dct_extract_info in lst_extract_info:
         data = {}
-        info = namedtuple("ObjectName", dct_extract_info.keys())(*dct_extract_info.values())
+        info = namedtuple("ObjectName", dct_extract_info.keys())(
+            *dct_extract_info.values()
+        )
         child_disabled_info = dct_extract_info.get(KEY_DISABLED_CHILD)
         if child_disabled_info:
             print(child_disabled_info)
             raise ValueError(f"Do not support {KEY_DISABLED_CHILD}.")
         new_fr_url = os.path.join(URL_HTML, "fr", info.Url[1:])
         data["url_fr"] = new_fr_url
-        data["data_fr"] = download_url_and_get_content(new_fr_url, temp_dir_path)
+        data["data_fr"] = download_url_and_get_content(
+            new_fr_url, temp_dir_path
+        )
         new_en_url = os.path.join(URL_HTML, "en", info.Url[1:])
         data["url_en"] = new_en_url
-        data["data_en"] = download_url_and_get_content(new_en_url, temp_dir_path)
+        data["data_en"] = download_url_and_get_content(
+            new_en_url, temp_dir_path
+        )
         data["title_fr"] = convert_html_to_text(info.FrTitle)
         data["title_en"] = info.EnTitle
         lst_translation.append((data["title_en"], data["title_fr"]))
@@ -206,24 +216,38 @@ def generate_model_from_js():
         if child_info:
             lst_child = []
             for dct_sub_link in child_info:
-                sub_link = namedtuple("ObjectName", dct_sub_link.keys())(*dct_sub_link.values())
+                sub_link = namedtuple("ObjectName", dct_sub_link.keys())(
+                    *dct_sub_link.values()
+                )
                 dct_child = {}
                 new_fr_url = os.path.join(URL_HTML, "fr", sub_link.Url[1:])
                 dct_child["url_fr"] = new_fr_url
-                dct_child["data_fr"] = download_url_and_get_content(new_fr_url, temp_dir_path)
+                dct_child["data_fr"] = download_url_and_get_content(
+                    new_fr_url, temp_dir_path
+                )
                 new_en_url = os.path.join(URL_HTML, "en", sub_link.Url[1:])
                 dct_child["url_en"] = new_en_url
-                dct_child["data_en"] = download_url_and_get_content(new_en_url, temp_dir_path)
+                dct_child["data_en"] = download_url_and_get_content(
+                    new_en_url, temp_dir_path
+                )
                 dct_child["title_fr"] = convert_html_to_text(sub_link.FrTitle)
                 dct_child["title_en"] = sub_link.EnTitle
-                lst_translation.append((dct_child["title_en"], dct_child["title_fr"]))
-                dct_child["fields"] = extract_field_from_html(dct_child["data_en"])
-                dct_child["fields_fr"] = extract_field_from_html(dct_child["data_fr"])
+                lst_translation.append(
+                    (dct_child["title_en"], dct_child["title_fr"])
+                )
+                dct_child["fields"] = extract_field_from_html(
+                    dct_child["data_en"]
+                )
+                dct_child["fields_fr"] = extract_field_from_html(
+                    dct_child["data_fr"]
+                )
                 sub_child_info = dct_sub_link.get(KEY_CHILD)
                 if sub_child_info:
                     print(sub_child_info)
                     raise ValueError(f"Do not support {KEY_CHILD}.")
-                child_obj = namedtuple("ObjectName", dct_child.keys())(*dct_child.values())
+                child_obj = namedtuple("ObjectName", dct_child.keys())(
+                    *dct_child.values()
+                )
                 lst_child.append(child_obj)
             data["child"] = lst_child
         data_obj = namedtuple("ObjectName", data.keys())(*data.values())
@@ -272,7 +296,9 @@ def post_init_hook(cr, e):
         lst_data, lst_translation = generate_model_from_js()
 
         # The path of the actual file
-        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+        path_module_generate = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), "..")
+        )
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -310,13 +336,18 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_business_plan.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_business_plan.id),
+                ("name", "=", "x_name"),
+            ]
         )
         field_x_name.name = "name"
         model_business_plan.rec_name = "name"
 
         for data in lst_data:
-            model = f"{PREFIX_MODEL}.{convert_text_to_model_name(data.title_en)}"
+            model = (
+                f"{PREFIX_MODEL}.{convert_text_to_model_name(data.title_en)}"
+            )
             data_name = convert_text_to_variable_name(data.title_en)
             value = {
                 "name": data.title_en,
@@ -345,7 +376,9 @@ def post_init_hook(cr, e):
 
                     try:
                         field_fr = child.fields_fr[i]
-                        lst_translation.append((field.description, field_fr.description))
+                        lst_translation.append(
+                            (field.description, field_fr.description)
+                        )
                         lst_translation.append((field.help, field_fr.help))
                     except Exception as e:
                         print(e)
@@ -407,6 +440,8 @@ def post_init_hook(cr, e):
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

@@ -1,5 +1,7 @@
 from odoo import _, api, models, fields, SUPERUSER_ID
 
+import os
+
 MODULE_NAME = "demo_portal"
 
 
@@ -13,15 +15,26 @@ def post_init_hook(cr, e):
         short_name = MODULE_NAME.replace("_", " ").title()
 
         # Add code generator
+        categ_id = env["ir.module.category"].search(
+            [("name", "=", "Uncategorized")]
+        )
         value = {
             "shortdesc": short_name,
             "name": MODULE_NAME,
             "license": "AGPL-3",
+            "category_id": categ_id.id,
+            "summary": "",
             "author": "TechnoLibre",
             "website": "https://technolibre.ca",
             "application": True,
             "enable_sync_code": True,
             # "path_sync_code": path_module_generate,
+            "icon": os.path.join(
+                os.path.dirname(__file__),
+                "static",
+                "description",
+                "code_generator_icon.png",
+            ),
         }
 
         # TODO HUMAN: enable your functionality to generate
@@ -41,7 +54,9 @@ def post_init_hook(cr, e):
         lst_depend = [
             "portal",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -60,7 +75,7 @@ def post_init_hook(cr, e):
         }
         model_demo_model_portal = env["ir.model"].create(value)
 
-        # Begin Field
+        ##### Begin Field
         value_field_demo_binary = {
             "name": "demo_binary",
             "model": "demo.model.portal",
@@ -156,11 +171,14 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_demo_model_portal.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_demo_model_portal.id),
+                ("name", "=", "x_name"),
+            ]
         )
         field_x_name.name = "name"
         model_demo_model_portal.rec_name = "name"
-        # End Field
+        ##### End Field
 
         # Add Demo Model 2 Portal
         value = {
@@ -172,7 +190,7 @@ def post_init_hook(cr, e):
         }
         model_demo_model_2_portal = env["ir.model"].create(value)
 
-        # Begin Field
+        ##### Begin Field
         value_field_demo_many2one = {
             "name": "demo_many2one",
             "model": "demo.model_2.portal",
@@ -186,7 +204,10 @@ def post_init_hook(cr, e):
 
         # Hack to solve field name
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_demo_model_2_portal.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_demo_model_2_portal.id),
+                ("name", "=", "x_name"),
+            ]
         )
         field_x_name.name = "name"
         model_demo_model_2_portal.rec_name = "name"
@@ -204,9 +225,10 @@ def post_init_hook(cr, e):
         }
         env["ir.model.fields"].create(value_field_demo_one2many)
 
-        # End Field
+        ##### End Field
 
         # Generate view
+        # Action generate view
         wizard_view = env["code.generator.generate.views.wizard"].create(
             {
                 "code_generator_id": code_generator_id.id,
@@ -219,12 +241,14 @@ def post_init_hook(cr, e):
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
-        code_generator_writer = env["code.generator.writer"].create(value)
+        env["code.generator.writer"].create(value)
 
 
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

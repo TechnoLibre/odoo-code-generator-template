@@ -28,7 +28,9 @@ def post_init_hook(cr, e):
         # TODO HUMAN: enable your functionality to generate
         value["enable_generate_website_snippet"] = True
         value["enable_generate_website_snippet_javascript"] = True
-        value["generate_website_snippet_type"] = "effect"  # content,effect,feature,structure
+        value[
+            "generate_website_snippet_type"
+        ] = "effect"  # content,effect,feature,structure
         value["enable_sync_template"] = False
         value["post_init_hook_show"] = False
         value["uninstall_hook_show"] = False
@@ -43,7 +45,9 @@ def post_init_hook(cr, e):
         lst_depend = [
             "website",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -60,6 +64,8 @@ def post_init_hook(cr, e):
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

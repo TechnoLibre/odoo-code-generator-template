@@ -35,7 +35,9 @@ def post_init_hook(cr, e):
             "name": depend,
             "depend_id": module_id.id,
         }
-        env["code.generator.module.dependency"].create(value_dependency_website)
+        env["code.generator.module.dependency"].create(
+            value_dependency_website
+        )
 
         depend = "base_geoengine"
         module_id = env["ir.module.module"].search([("name", "=", depend)])
@@ -45,7 +47,9 @@ def post_init_hook(cr, e):
             "name": depend,
             "depend_id": module_id.id,
         }
-        env["code.generator.module.dependency"].create(value_dependency_website)
+        env["code.generator.module.dependency"].create(
+            value_dependency_website
+        )
 
         # Add external dependency
         depend = "pyproj"
@@ -54,7 +58,9 @@ def post_init_hook(cr, e):
             "depend": depend,
             "application_type": "python",
         }
-        env["code.generator.module.external.dependency"].create(value_dependency_website)
+        env["code.generator.module.external.dependency"].create(
+            value_dependency_website
+        )
 
         # Model Category
         model_category = f"{MODEL_PREFIX}.category"
@@ -230,7 +236,10 @@ def post_init_hook(cr, e):
         # Ignore WARNING code_generator odoo.addons.base.models.ir_model: Two fields (name, x_name) of
         # demo.website_leaflet.category() have the same label: Name.
         field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_map_feature_id.id), ("name", "=", "x_name")]
+            [
+                ("model_id", "=", model_map_feature_id.id),
+                ("name", "=", "x_name"),
+            ]
         )
         if field_x_name:
             field_x_name.unlink()
@@ -321,8 +330,16 @@ def post_init_hook(cr, e):
         if field_x_name:
             field_x_name.unlink()
 
-        lst_view_list_model = [model_map_feature_id.id, model_category_id.id, model_map_id.id]
-        lst_view_form_model = [model_map_feature_id.id, model_category_id.id, model_map_id.id]
+        lst_view_list_model = [
+            model_map_feature_id.id,
+            model_category_id.id,
+            model_map_id.id,
+        ]
+        lst_view_form_model = [
+            model_map_feature_id.id,
+            model_category_id.id,
+            model_map_id.id,
+        ]
 
         # Generate view
         wizard_view = env["code.generator.generate.views.wizard"].create(
@@ -348,6 +365,8 @@ def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
 
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

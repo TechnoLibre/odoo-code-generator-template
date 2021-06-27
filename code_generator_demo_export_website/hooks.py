@@ -62,7 +62,9 @@ def post_init_hook(cr, e):
             "name": depend,
             "depend_id": module_id[0].id,
         }
-        env["code.generator.module.dependency"].create(value_dependency_website)
+        env["code.generator.module.dependency"].create(
+            value_dependency_website
+        )
 
         # Select models
         # lst_model_names = ['website.page', 'website.menu']
@@ -70,7 +72,9 @@ def post_init_hook(cr, e):
 
         # website
         if not REPLACE_DEFAULT_WEBSITE:
-            website_model_id = env["ir.model"].search([("model", "=", "website")])
+            website_model_id = env["ir.model"].search(
+                [("model", "=", "website")]
+            )
 
             lst_website_field_name = [
                 "name",
@@ -82,11 +86,16 @@ def post_init_hook(cr, e):
             ]
 
             lst_website_field = env["ir.model.fields"].search(
-                [("model_id", "=", website_model_id.id), ("name", "in", lst_website_field_name)]
+                [
+                    ("model_id", "=", website_model_id.id),
+                    ("name", "in", lst_website_field_name),
+                ]
             )
 
         # ir.ui.view
-        ir_ui_view_model_id = env["ir.model"].search([("model", "=", "ir.ui.view")])
+        ir_ui_view_model_id = env["ir.model"].search(
+            [("model", "=", "ir.ui.view")]
+        )
 
         lst_ir_ui_view_field_name = [
             "name",
@@ -96,11 +105,16 @@ def post_init_hook(cr, e):
         ]
 
         lst_ir_ui_view_field = env["ir.model.fields"].search(
-            [("model_id", "=", ir_ui_view_model_id.id), ("name", "in", lst_ir_ui_view_field_name)]
+            [
+                ("model_id", "=", ir_ui_view_model_id.id),
+                ("name", "in", lst_ir_ui_view_field_name),
+            ]
         )
 
         # website.page
-        website_page_model_id = env["ir.model"].search([("model", "=", "website.page")])
+        website_page_model_id = env["ir.model"].search(
+            [("model", "=", "website.page")]
+        )
 
         # apply whitelist
         lst_website_page_field_name = [
@@ -118,7 +132,9 @@ def post_init_hook(cr, e):
         )
 
         # website.menu
-        website_menu_model_id = env["ir.model"].search([("model", "=", "website.menu")])
+        website_menu_model_id = env["ir.model"].search(
+            [("model", "=", "website.menu")]
+        )
         lst_ir_ui_view_field_name = [
             "name",
             "url",
@@ -128,15 +144,24 @@ def post_init_hook(cr, e):
             "sequence",
         ]
         lst_website_menu_field = env["ir.model.fields"].search(
-            [("model_id", "=", website_menu_model_id.id), ("name", "in", lst_ir_ui_view_field_name)]
+            [
+                ("model_id", "=", website_menu_model_id.id),
+                ("name", "in", lst_ir_ui_view_field_name),
+            ]
         )
 
         # Generate view
-        model_ids = ir_ui_view_model_id + website_page_model_id + website_menu_model_id
+        model_ids = (
+            ir_ui_view_model_id + website_page_model_id + website_menu_model_id
+        )
         if not REPLACE_DEFAULT_WEBSITE:
             model_ids += website_model_id
 
-        lst_field = lst_ir_ui_view_field + lst_website_page_field + lst_website_menu_field
+        lst_field = (
+            lst_ir_ui_view_field
+            + lst_website_page_field
+            + lst_website_menu_field
+        )
         if not REPLACE_DEFAULT_WEBSITE:
             lst_field += lst_website_field
 
@@ -163,12 +188,20 @@ def post_init_hook(cr, e):
 
         lst_id_view = [
             b
-            for a in env["website.page"].search([("website_id", "in", lst_id_website)])
+            for a in env["website.page"].search(
+                [("website_id", "in", lst_id_website)]
+            )
             for b in a.view_id.ids
         ]
-        website_menu_model_id.expression_export_data = f"('website_id', 'in', {lst_id_website})"
-        website_page_model_id.expression_export_data = f"('website_id', 'in', {lst_id_website})"
-        ir_ui_view_model_id.expression_export_data = f"('id', 'in', {lst_id_view})"
+        website_menu_model_id.expression_export_data = (
+            f"('website_id', 'in', {lst_id_website})"
+        )
+        website_page_model_id.expression_export_data = (
+            f"('website_id', 'in', {lst_id_website})"
+        )
+        ir_ui_view_model_id.expression_export_data = (
+            f"('id', 'in', {lst_id_view})"
+        )
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
@@ -186,6 +219,8 @@ def uninstall_hook(cr, e):
             model_id.m2o_module = None
             model_id.nomenclator = False
 
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

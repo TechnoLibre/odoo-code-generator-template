@@ -52,7 +52,10 @@ def post_init_hook(cr, e):
         ]
 
         lst_field = env["ir.model.fields"].search(
-            [("model_id", "=", models_id.id), ("name", "in", lst_ignored_field_name)]
+            [
+                ("model_id", "=", models_id.id),
+                ("name", "in", lst_ignored_field_name),
+            ]
         )
 
         # Generate view
@@ -81,6 +84,8 @@ def uninstall_hook(cr, e):
         model_id.m2o_module = None
         model_id.nomenclator = False
 
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

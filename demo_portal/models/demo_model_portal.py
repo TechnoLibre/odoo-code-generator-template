@@ -2,8 +2,8 @@ from odoo import _, api, models, fields
 
 
 class DemoModelPortal(models.Model):
-    _inherit = "portal.mixin"
     _name = "demo.model.portal"
+    _inherit = "portal.mixin"
     _description = "demo_model_portal"
 
     demo_binary = fields.Binary(string="Binary demo")
@@ -38,4 +38,4 @@ class DemoModelPortal(models.Model):
         string="Selection demo",
     )
 
-    name = fields.Char(string="Name")
+    name = fields.Char()

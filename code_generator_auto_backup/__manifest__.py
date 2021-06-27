@@ -1,9 +1,9 @@
 {
     "name": "Code Generator Auto Backup",
-    "version": "12.0.1.0",
+    "version": "12.0.1.0.0",
     "author": "TechnoLibre",
-    "website": "https://technolibre.ca",
     "license": "AGPL-3",
+    "website": "https://technolibre.ca",
     "application": True,
     "depends": [
         "code_generator",

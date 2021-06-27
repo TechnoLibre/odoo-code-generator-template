@@ -10,7 +10,9 @@ def post_init_hook(cr, e):
         env = api.Environment(cr, SUPERUSER_ID, {})
 
         # The path of the actual file
-        path_module_generate = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+        path_module_generate = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), "..")
+        )
 
         short_name = MODULE_NAME.replace("_", " ").title()
 
@@ -30,6 +32,7 @@ def post_init_hook(cr, e):
         value["enable_template_code_generator_demo"] = False
         value["template_model_name"] = "demo.model.portal;demo.model_2.portal"
         value["enable_template_wizard_view"] = True
+        value["force_generic_template_wizard_view"] = True
         value["enable_generate_portal"] = True
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = True
@@ -39,7 +42,10 @@ def post_init_hook(cr, e):
         value["uninstall_hook_feature_code_generator"] = True
 
         new_module_name = MODULE_NAME
-        if not value["enable_template_code_generator_demo"] and "code_generator_" in MODULE_NAME:
+        if (
+            not value["enable_template_code_generator_demo"]
+            and "code_generator_" in MODULE_NAME
+        ):
             new_module_name = MODULE_NAME[len("code_generator_") :]
             value["template_module_name"] = new_module_name
         value["hook_constant_code"] = f'MODULE_NAME = "{new_module_name}"'
@@ -53,7 +59,9 @@ def post_init_hook(cr, e):
             "code_generator_hook",
             "code_generator_portal",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -64,7 +72,9 @@ def post_init_hook(cr, e):
         lst_depend = [
             "portal",
         ]
-        lst_dependencies = env["ir.module.module"].search([("name", "in", lst_depend)])
+        lst_dependencies = env["ir.module.module"].search(
+            [("name", "in", lst_depend)]
+        )
         for depend in lst_dependencies:
             value = {
                 "module_id": code_generator_id.id,
@@ -78,12 +88,16 @@ def post_init_hook(cr, e):
         code_generator_writer = env["code.generator.writer"].create(value)
 
         new_module_path = os.path.join(path_module_generate, new_module_name)
-        code_generator_writer.set_module_translator(new_module_name, new_module_path)
+        code_generator_writer.set_module_translator(
+            new_module_name, new_module_path
+        )
 
 
 def uninstall_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        code_generator_id = env["code.generator.module"].search([("name", "=", MODULE_NAME)])
+        code_generator_id = env["code.generator.module"].search(
+            [("name", "=", MODULE_NAME)]
+        )
         if code_generator_id:
             code_generator_id.unlink()

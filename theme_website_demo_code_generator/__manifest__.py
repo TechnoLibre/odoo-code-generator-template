@@ -3,9 +3,9 @@
     "category": "Theme",
     "version": "12.0.1.0",
     "author": "TechnoLibre",
+    "license": "AGPL-3",
     "sequence": 900,
     "website": "https://technolibre.ca",
-    "license": "AGPL-3",
     "depends": [
         "website",
         "website_theme_install",
