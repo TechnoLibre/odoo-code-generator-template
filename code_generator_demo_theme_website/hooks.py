@@ -19,8 +19,6 @@ def post_init_hook(cr, e):
             "website": "https://technolibre.ca",
             "application": False,
             "theme_website": True,
-            "category_id": env.ref("base.module_category_theme").id,
-            "sequence": 900,
             "enable_sync_code": True,
             # "path_sync_code": path_module_generate,
         }
