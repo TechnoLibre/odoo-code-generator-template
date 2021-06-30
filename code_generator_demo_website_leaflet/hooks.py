@@ -213,7 +213,7 @@ def post_init_hook(cr, e):
             "model_id": model_map_feature_id.id,
             "selection": str(list(dct_geo.items())),
             "required": True,
-            "default": "point",
+            "default": "geo_point",
             "translate": True,
         }
         a = env["ir.model.fields"].create(value_field)

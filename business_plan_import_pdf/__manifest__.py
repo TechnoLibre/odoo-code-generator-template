@@ -5,7 +5,7 @@
     "website": "https://technolibre.ca",
     "license": "AGPL-3",
     "application": True,
-    "depends": ["demo_converter_js"],
+    "depends": ["demo_business_plan"],
     "installable": True,
     "post_init_hook": "post_init_hook",
 }

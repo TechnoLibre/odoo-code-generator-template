@@ -32,5 +32,5 @@ class DemoWebsiteLeafletMapFeature(models.Model):
             ("geo_polygon", "Geo Polygon"),
         ],
         required=True,
-        default="point",
+        default="geo_point",
     )

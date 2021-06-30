@@ -16,7 +16,6 @@
     },
     "data": [
         "security/ir.model.access.csv",
-        "static/src/scss/leaflet.scss",
         "views/demo_website_leaflet_map.xml",
         "views/demo_website_leaflet_map_feature.xml",
         "views/demo_website_leaflet_category.xml",
