@@ -6,7 +6,7 @@
 
     <menuitem
         id="demo_model_2_internal"
-        action="demo_model_2_internal_demo_model_2_internal_action_v_action_window"
+        action="demo_model_2_internal_demo_model_2_internal_action_view_action_window"
         sequence="1"
         parent="models"
     />

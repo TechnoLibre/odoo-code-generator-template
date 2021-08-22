@@ -45,7 +45,7 @@
     </record>
 
     <act_window
-        id="demo_website_leaflet_map_demo_website_leaflet_map_ac_action_window"
+        id="demo_website_leaflet_map_demo_website_leaflet_map_action_view_action_window"
         name="demo_website_leaflet_map_action_view"
         res_model="demo.website_leaflet.map"
         view_mode="list,form"

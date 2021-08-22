@@ -41,7 +41,7 @@
     </record>
 
     <act_window
-        id="demo_website_leaflet_category_demo_website_leaflet_c_action_window"
+        id="demo_website_leaflet_category_demo_website_leaflet_category_action_view_action_window"
         name="demo_website_leaflet_category_action_view"
         res_model="demo.website_leaflet.category"
         view_mode="list,form"
