@@ -105,10 +105,10 @@
             <form string="Titre">
                 <sheet>
                     <group>
-                        <field name="demo_many2one" />
+                        <field name="name" />
                     </group>
                     <group>
-                        <field name="name" />
+                        <field name="demo_many2one" />
                     </group>
                 </sheet>
             </form>
@@ -120,8 +120,8 @@
         <field name="model">demo.model_2.portal</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="demo_many2one" />
                 <field name="name" />
+                <field name="demo_many2one" />
             </tree>
         </field>
     </record>
@@ -227,8 +227,8 @@
     </template>
 
     <act_window
-        id="demo_model_2_portal_demo_model_2_portal_action_view_action_window"
-        name="demo_model_2_portal_action_view"
+        id="demo_model_2_portal_demo_model_2_portal_action_window"
+        name="Demo model 2 portal"
         res_model="demo.model_2.portal"
         view_mode="list,form"
     />

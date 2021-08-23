@@ -71,6 +71,7 @@ def post_init_hook(cr, e):
             "model": "demo.model.portal",
             "m2o_module": code_generator_id.id,
             "rec_name": None,
+            "menu_name_keep_application": True,
             "nomenclator": True,
         }
         model_demo_model_portal = env["ir.model"].create(value)
@@ -186,6 +187,7 @@ def post_init_hook(cr, e):
             "model": "demo.model_2.portal",
             "m2o_module": code_generator_id.id,
             "rec_name": None,
+            "menu_name_keep_application": True,
             "nomenclator": True,
         }
         model_demo_model_2_portal = env["ir.model"].create(value)
