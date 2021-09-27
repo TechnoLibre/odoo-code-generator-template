@@ -7,10 +7,10 @@
             <form string="Titre">
                 <sheet>
                     <group>
-                        <field name="model_1" />
+                        <field name="name" />
                     </group>
                     <group>
-                        <field name="name" />
+                        <field name="model_1" />
                     </group>
                 </sheet>
             </form>
@@ -22,15 +22,15 @@
         <field name="model">demo.model_2.internal</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="model_1" />
                 <field name="name" />
+                <field name="model_1" />
             </tree>
         </field>
     </record>
 
     <act_window
-        id="demo_model_2_internal_demo_model_2_internal_action_v_action_window"
-        name="demo_model_2_internal_action_view"
+        id="demo_model_2_internal_demo_model_2_internal_action_window"
+        name="Demo model 2 internal"
         res_model="demo.model_2.internal"
         view_mode="list,form"
     />

@@ -68,6 +68,7 @@ def post_init_hook(cr, e):
             "name": "Map Feature Category",
             "model": model_category,
             "m2o_module": code_generator_id.id,
+            "menu_name_keep_application": True,
             "rec_name": None,
             "nomenclator": True,
         }
@@ -142,6 +143,7 @@ def post_init_hook(cr, e):
             "name": "Map Feature",
             "model": model_map_feature,
             "m2o_module": code_generator_id.id,
+            "menu_name_keep_application": True,
             "rec_name": None,
             "nomenclator": True,
         }
@@ -250,6 +252,7 @@ def post_init_hook(cr, e):
             "name": "Map",
             "model": model_map,
             "m2o_module": code_generator_id.id,
+            "menu_name_keep_application": True,
             "rec_name": None,
             "nomenclator": True,
         }

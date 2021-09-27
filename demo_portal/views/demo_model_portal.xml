@@ -7,6 +7,9 @@
             <form string="Titre">
                 <sheet>
                     <group>
+                        <field name="name" />
+                    </group>
+                    <group>
                         <field name="demo_binary" />
                     </group>
                     <group>
@@ -34,13 +37,10 @@
                         <field name="demo_many2many" />
                     </group>
                     <group>
-                        <field name="demo_one2many" />
-                    </group>
-                    <group>
                         <field name="demo_selection" />
                     </group>
                     <group>
-                        <field name="name" />
+                        <field name="demo_one2many" />
                     </group>
                 </sheet>
             </form>
@@ -52,6 +52,7 @@
         <field name="model">demo.model.portal</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="name" />
                 <field name="demo_binary" />
                 <field name="demo_boolean" />
                 <field name="demo_char" />
@@ -61,16 +62,15 @@
                 <field name="demo_html" />
                 <field name="demo_integer" />
                 <field name="demo_many2many" />
-                <field name="demo_one2many" />
                 <field name="demo_selection" />
-                <field name="name" />
+                <field name="demo_one2many" />
             </tree>
         </field>
     </record>
 
     <act_window
-        id="demo_model_portal_demo_model_portal_action_view_action_window"
-        name="demo_model_portal_action_view"
+        id="demo_model_portal_demo_model_portal_action_window"
+        name="Demo model portal"
         res_model="demo.model.portal"
         view_mode="list,form"
     />

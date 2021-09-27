@@ -29,6 +29,7 @@ def post_init_hook(cr, e):
         value = {
             "name": "demo_model_internal",
             "model": "demo.model.internal",
+            "menu_name_keep_application": True,
             "m2o_module": code_generator_id.id,
             "rec_name": None,
         }
@@ -56,6 +57,7 @@ def post_init_hook(cr, e):
         value = {
             "name": "demo_model_2_internal",
             "model": "demo.model_2.internal",
+            "menu_name_keep_application": True,
             "m2o_module": code_generator_id.id,
             "rec_name": None,
         }
