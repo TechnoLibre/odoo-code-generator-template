@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-  <record model="ir.ui.view" id="ir_ui_view_home">
-    <field name="arch" type="xml">
-      <t name="Homepage" t-name="website.homepage1">
-        <t t-call="website.layout">
-          <t t-set="pageName" t-value="'homepage'"/>
-          <div id="wrap" class="oe_structure oe_empty"/>
-        </t>
-      </t>
-    </field>
-    <field name="key">website.homepage</field>
-    <field name="name">Home</field>
-    <field name="type">qweb</field>
-  </record>
+    <data noupdate="1">
+        <record id="ir_ui_view_home" model="ir.ui.view">
+            <field name="arch" type="xml">
+                <t name="Homepage" t-name="website.homepage1">
+                    <t t-call="website.layout">
+                        <t t-set="pageName" t-value="'homepage'" />
+                        <div id="wrap" class="oe_structure oe_empty" />
+                    </t>
+                </t>
+            </field>
+            <field name="key">website.homepage</field>
+            <field name="name">Home</field>
+            <field name="type">qweb</field>
+        </record>
+    </data>
 </odoo>

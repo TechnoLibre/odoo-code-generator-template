@@ -1,4 +1,4 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 MODULE_NAME = "demo_website_snippet"
 
@@ -31,13 +31,6 @@ def post_init_hook(cr, e):
         value[
             "generate_website_snippet_type"
         ] = "effect"  # content,effect,feature,structure
-        value["enable_sync_template"] = False
-        value["post_init_hook_show"] = False
-        value["uninstall_hook_show"] = False
-        value["post_init_hook_feature_code_generator"] = False
-        value["uninstall_hook_feature_code_generator"] = False
-
-        value["hook_constant_code"] = f'MODULE_NAME = "{MODULE_NAME}"'
 
         code_generator_id = env["code.generator.module"].create(value)
 
@@ -45,16 +38,7 @@ def post_init_hook(cr, e):
         lst_depend = [
             "website",
         ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
+        code_generator_id.add_module_dependency(lst_depend)
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}

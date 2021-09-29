@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from odoo import _, api, models, fields, SUPERUSER_ID
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 MODULE_NAME = "demo_internal"
 
@@ -30,6 +29,7 @@ def post_init_hook(cr, e):
             "name": "demo_model_internal",
             "model": "demo.model.internal",
             "menu_name_keep_application": True,
+            "enable_activity": True,
             "m2o_module": code_generator_id.id,
             "rec_name": None,
         }
@@ -44,6 +44,30 @@ def post_init_hook(cr, e):
         }
         model_demo_1_field_banana = env["ir.model.fields"].create(
             value_field_banana
+        )
+
+        value_field_date_start = {
+            "name": "date_start",
+            "model": "demo.model.internal",
+            "field_description": "Date start",
+            "ttype": "datetime",
+            "is_date_start_view": True,
+            "model_id": model_demo_1.id,
+        }
+        model_demo_1_field = env["ir.model.fields"].create(
+            value_field_date_start
+        )
+
+        value_field_date_end = {
+            "name": "date_end",
+            "model": "demo.model.internal",
+            "field_description": "Date end",
+            "ttype": "datetime",
+            "is_date_end_view": True,
+            "model_id": model_demo_1.id,
+        }
+        model_demo_1_field = env["ir.model.fields"].create(
+            value_field_date_end
         )
 
         # Hack to solve field name
@@ -69,7 +93,6 @@ def post_init_hook(cr, e):
             "model": "demo.model_2.internal",
             "field_description": "Model 1",
             "ttype": "many2one",
-            "comodel_name": "demo.model.internal",
             "relation": "demo.model.internal",
             "model_id": model_demo_2.id,
         }

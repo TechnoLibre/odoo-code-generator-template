@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!--Root menu-->
+
     <menuitem
         id="demo_internal"
         name="Demo Internal"
@@ -7,7 +9,11 @@
         web_icon="demo_internal,static/description/icon.png"
     />
 
+    <!--Sub menu-->
+
     <menuitem id="menu" name="Menu" sequence="1" parent="demo_internal" />
+
+    <!--Child menu-->
 
     <menuitem
         id="demo_model_2_internal"

@@ -17,6 +17,70 @@
         </field>
     </record>
 
+    <record id="demo_model_2_internal_view_graph" model="ir.ui.view">
+        <field name="name">demo_model_2_internal_graph</field>
+        <field name="model">demo.model_2.internal</field>
+        <field name="arch" type="xml">
+            <graph string="Demo model 2 internal">
+                <field name="name" type="row" />
+                <field name="model_1" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="demo_model_2_internal_view_kanban" model="ir.ui.view">
+        <field name="name">demo_model_2_internal_kanban</field>
+        <field name="model">demo.model_2.internal</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name" />
+                <field name="model_1" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="model_1" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="demo_model_2_internal_view_pivot" model="ir.ui.view">
+        <field name="name">demo_model_2_internal_pivot</field>
+        <field name="model">demo.model_2.internal</field>
+        <field name="arch" type="xml">
+            <pivot string="Demo model 2 internal">
+                <field name="name" type="row" />
+                <field name="model_1" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="demo_model_2_internal_view_search" model="ir.ui.view">
+        <field name="name">demo_model_2_internal_search</field>
+        <field name="model">demo.model_2.internal</field>
+        <field name="arch" type="xml">
+            <search string="Demo model 2 internal">
+                <filter domain="[('name','!=',False)]" name="name" string="Name" />
+                <filter domain="[('model_1','!=',False)]" name="model_1" string="Model 1" />
+            </search>
+        </field>
+    </record>
+
     <record id="demo_model_2_internal_view_tree" model="ir.ui.view">
         <field name="name">demo_model_2_internal_tree</field>
         <field name="model">demo.model_2.internal</field>
@@ -32,6 +96,6 @@
         id="demo_model_2_internal_demo_model_2_internal_action_window"
         name="Demo model 2 internal"
         res_model="demo.model_2.internal"
-        view_mode="list,form"
+        view_mode="kanban,tree,pivot,graph,form"
     />
 </odoo>

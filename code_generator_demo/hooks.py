@@ -1,4 +1,6 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
+import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 # TODO HUMAN: change my module_name to create a specific demo functionality
 MODULE_NAME = "code_generator_demo"
@@ -28,8 +30,11 @@ def post_init_hook(cr, e):
         # TODO HUMAN: enable your functionality to generate
         value["enable_template_code_generator_demo"] = True
         value["template_model_name"] = ""
+        value["template_inherit_model_name"] = ""
+        # value["template_module_path_generated_extension"] = "."
         value["enable_template_wizard_view"] = False
         value["force_generic_template_wizard_view"] = False
+        value["disable_generate_access"] = False
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = False
         value["ignore_fields"] = ""
@@ -58,37 +63,9 @@ def post_init_hook(cr, e):
         code_generator_id = env["code.generator.module"].create(value)
 
         # Add dependencies
-        # TODO HUMAN: update your dependencies
-        lst_depend = [
-            "code_generator",
-            "code_generator_hook",
-        ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
-
-        lst_depend = [
-            "code_generator",
-            "code_generator_hook",
-        ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.template.dependency"].create(value)
-
+        lst_depend_module = ["code_generator", "code_generator_hook"]
+        code_generator_id.add_module_dependency(lst_depend_module)
+        code_generator_id.add_module_dependency_template(lst_depend_module)
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
         env["code.generator.writer"].create(value)

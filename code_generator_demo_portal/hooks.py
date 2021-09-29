@@ -1,6 +1,9 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
-
+import logging
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 MODULE_NAME = "demo_portal"
 
@@ -16,7 +19,7 @@ def post_init_hook(cr, e):
 
         # Add code generator
         categ_id = env["ir.module.category"].search(
-            [("name", "=", "Uncategorized")]
+            [("name", "=", "Uncategorized")], limit=1
         )
         value = {
             "shortdesc": short_name,
@@ -38,6 +41,12 @@ def post_init_hook(cr, e):
         }
 
         # TODO HUMAN: enable your functionality to generate
+        value["enable_generate_website_snippet"] = True
+        value["enable_generate_website_snippet_javascript"] = True
+        value["generate_website_snippet_generic_model"] = "demo.model.portal"
+        value[
+            "generate_website_snippet_type"
+        ] = "structure"  # content,effect,feature,structure
         value["enable_sync_template"] = True
         value["ignore_fields"] = ""
         value["post_init_hook_show"] = False
@@ -50,184 +59,289 @@ def post_init_hook(cr, e):
         code_generator_id = env["code.generator.module"].create(value)
 
         # Add dependencies
-        # TODO HUMAN: update your dependencies
-        lst_depend = [
-            "portal",
+        lst_depend_module = ["mail", "portal", "website"]
+        code_generator_id.add_module_dependency(lst_depend_module)
+
+        # Add/Update Demo Model Portal
+        model_model = "demo.model.portal"
+        model_name = "demo_model_portal"
+        lst_depend_model = [
+            "mail.thread",
+            "mail.activity.mixin",
+            "portal.mixin",
         ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
-
-        # Add Demo Model Portal
-        value = {
-            "name": "demo_model_portal",
-            "model": "demo.model.portal",
-            "m2o_module": code_generator_id.id,
-            "rec_name": None,
+        dct_model = {
+            "description": "demo_model_portal",
+            "enable_activity": True,
             "menu_name_keep_application": True,
-            "nomenclator": True,
         }
-        model_demo_model_portal = env["ir.model"].create(value)
-
-        ##### Begin Field
-        value_field_demo_binary = {
-            "name": "demo_binary",
-            "model": "demo.model.portal",
-            "field_description": "Binary demo",
-            "ttype": "binary",
-            "model_id": model_demo_model_portal.id,
+        dct_field = {
+            "demo_binary": {
+                "field_description": "Binary demo",
+                "ttype": "binary",
+            },
+            "demo_binary_image": {
+                "field_description": "Binary image demo",
+                "force_widget": "image",
+                "ttype": "binary",
+            },
+            "demo_boolean": {
+                "field_description": "Boolean demo",
+                "ttype": "boolean",
+            },
+            "demo_char": {
+                "field_description": "Char demo",
+                "track_visibility": "onchange",
+                "ttype": "char",
+            },
+            "demo_date": {
+                "field_description": "Date demo",
+                "is_date_end_view": True,
+                "ttype": "date",
+            },
+            "demo_date_time": {
+                "field_description": "Datetime demo",
+                "is_date_start_view": True,
+                "ttype": "datetime",
+            },
+            "demo_external_link": {
+                "field_description": "External link demo",
+                "force_widget": "link_button",
+                "ttype": "char",
+            },
+            "demo_float": {
+                "field_description": "Float demo",
+                "ttype": "float",
+            },
+            "demo_float_time": {
+                "field_description": "Float time demo",
+                "force_widget": "float_time",
+                "ttype": "float",
+            },
+            "demo_html": {
+                "field_description": "HTML demo",
+                "ttype": "html",
+            },
+            "demo_integer": {
+                "field_description": "Integer demo",
+                "ttype": "integer",
+            },
+            "demo_many2many": {
+                "field_description": "Many2many demo",
+                "relation": "demo.model_2.portal",
+                "ttype": "many2many",
+            },
+            "demo_selection": {
+                "field_description": "Selection demo",
+                "selection": (
+                    "[('test1', 'Test 1'), ('test2', 'Test 2'), ('test3',"
+                    " 'Test 3')]"
+                ),
+                "ttype": "selection",
+            },
+            "demo_text": {
+                "field_description": "Text demo",
+                "ttype": "text",
+            },
+            "diagram_id": {
+                "field_description": "Diagram",
+                "relation": "demo.model_3.portal.diagram",
+                "ttype": "many2one",
+            },
+            "name": {
+                "field_description": "Name",
+                "ttype": "char",
+            },
+            "xpos": {
+                "default": 50,
+                "field_description": "Diagram position x",
+                "ttype": "integer",
+            },
+            "ypos": {
+                "default": 50,
+                "field_description": "Diagram position y",
+                "ttype": "integer",
+            },
         }
-        env["ir.model.fields"].create(value_field_demo_binary)
-
-        value_field_demo_boolean = {
-            "name": "demo_boolean",
-            "model": "demo.model.portal",
-            "field_description": "Boolean demo",
-            "ttype": "boolean",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_boolean)
-
-        value_field_demo_char = {
-            "name": "demo_char",
-            "model": "demo.model.portal",
-            "field_description": "Char demo",
-            "ttype": "char",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_char)
-
-        value_field_demo_date = {
-            "name": "demo_date",
-            "model": "demo.model.portal",
-            "field_description": "Date demo",
-            "ttype": "date",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_date)
-
-        value_field_demo_date_time = {
-            "name": "demo_date_time",
-            "model": "demo.model.portal",
-            "field_description": "Datetime demo",
-            "ttype": "datetime",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_date_time)
-
-        value_field_demo_float = {
-            "name": "demo_float",
-            "model": "demo.model.portal",
-            "field_description": "Float demo",
-            "ttype": "float",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_float)
-
-        value_field_demo_html = {
-            "name": "demo_html",
-            "model": "demo.model.portal",
-            "field_description": "HTML demo",
-            "ttype": "html",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_html)
-
-        value_field_demo_integer = {
-            "name": "demo_integer",
-            "model": "demo.model.portal",
-            "field_description": "Integer demo",
-            "ttype": "integer",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_integer)
-
-        value_field_demo_many2many = {
-            "name": "demo_many2many",
-            "model": "demo.model.portal",
-            "field_description": "Many2many demo",
-            "ttype": "many2many",
-            "comodel_name": "demo.model_2.portal",
-            "relation": "demo.model_2.portal",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_many2many)
-
-        value_field_demo_selection = {
-            "name": "demo_selection",
-            "model": "demo.model.portal",
-            "field_description": "Selection demo",
-            "ttype": "selection",
-            "selection": "[]",
-            "model_id": model_demo_model_portal.id,
-        }
-        env["ir.model.fields"].create(value_field_demo_selection)
-
-        # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search(
-            [
-                ("model_id", "=", model_demo_model_portal.id),
-                ("name", "=", "x_name"),
-            ]
+        model_demo_model_portal = code_generator_id.add_update_model(
+            model_model,
+            model_name,
+            dct_field=dct_field,
+            dct_model=dct_model,
+            lst_depend_model=lst_depend_model,
         )
-        field_x_name.name = "name"
-        model_demo_model_portal.rec_name = "name"
-        ##### End Field
 
-        # Add Demo Model 2 Portal
-        value = {
-            "name": "demo_model_2_portal",
-            "model": "demo.model_2.portal",
-            "m2o_module": code_generator_id.id,
-            "rec_name": None,
+        # Generate code
+        if True:
+            # Generate code model
+            lst_value = [
+                {
+                    "code": """super(DemoModelPortal, self)._compute_access_url()
+for demo_model_portal in self:
+    demo_model_portal.access_url = (
+        "/my/demo_model_portal/%s" % demo_model_portal.id
+    )""",
+                    "name": "_compute_access_url",
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_demo_model_portal.id,
+                },
+            ]
+            env["code.generator.model.code"].create(lst_value)
+
+        # Add/Update Demo Model 2 Portal
+        model_model = "demo.model_2.portal"
+        model_name = "demo_model_2_portal"
+        lst_depend_model = [
+            "mail.thread",
+            "mail.activity.mixin",
+            "portal.mixin",
+        ]
+        dct_model = {
+            "description": "demo_model_2_portal",
+            "enable_activity": True,
             "menu_name_keep_application": True,
-            "nomenclator": True,
         }
-        model_demo_model_2_portal = env["ir.model"].create(value)
-
-        ##### Begin Field
-        value_field_demo_many2one = {
-            "name": "demo_many2one",
-            "model": "demo.model_2.portal",
-            "field_description": "Many2one",
-            "ttype": "many2one",
-            "comodel_name": "demo.model.portal",
-            "relation": "demo.model.portal",
-            "model_id": model_demo_model_2_portal.id,
+        dct_field = {
+            "demo_many2one_dst": {
+                "field_description": "Many2one dst",
+                "relation": "demo.model.portal",
+                "ttype": "many2one",
+            },
+            "demo_many2one_src": {
+                "field_description": "Many2one src",
+                "relation": "demo.model.portal",
+                "ttype": "many2one",
+            },
+            "diagram_id": {
+                "field_description": "Diagram",
+                "relation": "demo.model_3.portal.diagram",
+                "ttype": "many2one",
+            },
+            "name": {
+                "field_description": "Name",
+                "track_visibility": "onchange",
+                "ttype": "char",
+            },
         }
-        env["ir.model.fields"].create(value_field_demo_many2one)
-
-        # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search(
-            [
-                ("model_id", "=", model_demo_model_2_portal.id),
-                ("name", "=", "x_name"),
-            ]
+        model_demo_model_2_portal = code_generator_id.add_update_model(
+            model_model,
+            model_name,
+            dct_field=dct_field,
+            dct_model=dct_model,
+            lst_depend_model=lst_depend_model,
         )
-        field_x_name.name = "name"
-        model_demo_model_2_portal.rec_name = "name"
 
-        # Added one2many field, many2many need to be creat before add one2many
-        value_field_demo_one2many = {
-            "name": "demo_one2many",
-            "model": "demo.model.portal",
-            "field_description": "One2Many demo",
-            "ttype": "one2many",
-            "comodel_name": "demo.model_2.portal",
-            "relation": "demo.model_2.portal",
-            "relation_field": "demo_many2one",
-            "model_id": model_demo_model_portal.id,
+        # Generate code
+        if True:
+            # Generate code model
+            lst_value = [
+                {
+                    "code": """super(DemoModel2Portal, self)._compute_access_url()
+for demo_model_2_portal in self:
+    demo_model_2_portal.access_url = (
+        "/my/demo_model_2_portal/%s" % demo_model_2_portal.id
+    )""",
+                    "name": "_compute_access_url",
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_demo_model_2_portal.id,
+                },
+            ]
+            env["code.generator.model.code"].create(lst_value)
+
+        # Add/Update Demo Model 3 Portal Diagram
+        model_model = "demo.model_3.portal.diagram"
+        model_name = "demo_model_3_portal_diagram"
+        lst_depend_model = ["portal.mixin"]
+        dct_model = {
+            "description": "demo_model_3_portal_diagram",
+            "diagram_arrow_dst_field": "demo_many2one_dst",
+            "diagram_arrow_label": "['name']",
+            "diagram_arrow_object": "demo.model_2.portal",
+            "diagram_arrow_src_field": "demo_many2one_src",
+            "diagram_label_string": (
+                "Caution, all modification is live. Diagram model:"
+                " demo.model_3.portal.diagram, node model: demo.model.portal"
+                " and arrow model: demo.model_2.portal"
+            ),
+            "diagram_node_form_view_ref": "demo_model_portal_view_form",
+            "diagram_node_object": "demo.model.portal",
+            "diagram_node_shape_field": "rectangle:True",
+            "diagram_node_xpos_field": "xpos",
+            "diagram_node_ypos_field": "ypos",
+            "menu_name_keep_application": True,
         }
-        env["ir.model.fields"].create(value_field_demo_one2many)
+        dct_field = {
+            "name": {
+                "field_description": "Name",
+                "ttype": "char",
+            },
+        }
+        model_demo_model_3_portal_diagram = code_generator_id.add_update_model(
+            model_model,
+            model_name,
+            dct_field=dct_field,
+            dct_model=dct_model,
+            lst_depend_model=lst_depend_model,
+        )
 
-        ##### End Field
+        # Added one2many field, many2one need to be create before add one2many
+        model_model = "demo.model.portal"
+        dct_field = {
+            "demo_one2many_dst": {
+                "field_description": "One2Many demo dst",
+                "ttype": "one2many",
+                "relation": "demo.model_2.portal",
+                "relation_field": "demo_many2one_dst",
+            },
+            "demo_one2many_src": {
+                "field_description": "One2Many demo src",
+                "ttype": "one2many",
+                "relation": "demo.model_2.portal",
+                "relation_field": "demo_many2one_src",
+            },
+        }
+        code_generator_id.add_update_model_one2many(model_model, dct_field)
+
+        model_model = "demo.model_3.portal.diagram"
+        dct_field = {
+            "diagram_demo2_ids": {
+                "field_description": "One2Many demo 2",
+                "ttype": "one2many",
+                "relation": "demo.model_2.portal",
+                "relation_field": "diagram_id",
+            },
+            "diagram_demo_ids": {
+                "field_description": "One2Many demo",
+                "ttype": "one2many",
+                "relation": "demo.model.portal",
+                "relation_field": "diagram_id",
+            },
+        }
+        code_generator_id.add_update_model_one2many(model_model, dct_field)
+
+        # Generate code
+        if True:
+            # Generate code model
+            lst_value = [
+                {
+                    "code": """super(DemoModel3PortalDiagram, self)._compute_access_url()
+for demo_model_3_portal_diagram in self:
+    demo_model_3_portal_diagram.access_url = (
+        "/my/demo_model_3_portal_diagram/%s"
+        % demo_model_3_portal_diagram.id
+    )""",
+                    "name": "_compute_access_url",
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_demo_model_3_portal_diagram.id,
+                },
+            ]
+            env["code.generator.model.code"].create(lst_value)
 
         # Generate view
         # Action generate view
@@ -236,6 +350,7 @@ def post_init_hook(cr, e):
                 "code_generator_id": code_generator_id.id,
                 "enable_generate_all": False,
                 "enable_generate_portal": True,
+                "portal_enable_create": True,
             }
         )
 

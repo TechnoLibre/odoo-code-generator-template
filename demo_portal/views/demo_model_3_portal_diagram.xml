@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="demo_model_3_portal_diagram_view_diagram" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_diagram</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <diagram>
+                <node
+                    form_view_ref="demo_model_portal_view_form"
+                    object="demo.model.portal"
+                    shape="rectangle:True"
+                    xpos="xpos"
+                    ypos="ypos"
+                >
+                    <field name="name" />
+                </node>
+                <arrow
+                    destination="demo_many2one_dst"
+                    form_view_ref="demo_model_2_portal_view_form"
+                    label="['name']"
+                    object="demo.model_2.portal"
+                    source="demo_many2one_src"
+                >
+                    <field name="demo_many2one_src" />
+                    <field name="demo_many2one_dst" />
+                    <field name="name" />
+                </arrow>
+                <label
+                    for=""
+                    string="Caution, all modification is live. Diagram model: demo.model_3.portal.diagram, node model: demo.model.portal and arrow model: demo.model_2.portal"
+                />
+            </diagram>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_form" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_form</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <group>
+                        <field name="diagram_demo2_ids" />
+                    </group>
+                    <group>
+                        <field name="diagram_demo_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_graph" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_graph</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <graph string="Demo model 3 portal diagram">
+                <field name="name" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_kanban" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_kanban</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name" />
+                <field name="diagram_demo2_ids" />
+                <field name="diagram_demo_ids" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="diagram_demo2_ids" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="diagram_demo_ids" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_pivot" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_pivot</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <pivot string="Demo model 3 portal diagram">
+                <field name="name" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_search" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_search</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <search string="Demo model 3 portal diagram">
+                <filter domain="[('name','!=',False)]" name="name" string="Name" />
+                <filter domain="[('diagram_demo2_ids','!=',False)]" name="diagram_demo2_ids" string="One2Many demo 2" />
+                <filter domain="[('diagram_demo_ids','!=',False)]" name="diagram_demo_ids" string="One2Many demo" />
+            </search>
+        </field>
+    </record>
+
+    <record id="demo_model_3_portal_diagram_view_tree" model="ir.ui.view">
+        <field name="name">demo_model_3_portal_diagram_tree</field>
+        <field name="model">demo.model_3.portal.diagram</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="diagram_demo2_ids" />
+                <field name="diagram_demo_ids" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="demo_model_3_portal_diagram_demo_model_3_portal_diagram_action_window"
+        name="Demo model 3 portal diagram"
+        res_model="demo.model_3.portal.diagram"
+        view_mode="kanban,tree,pivot,graph,form,diagram"
+    />
+</odoo>

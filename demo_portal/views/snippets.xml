@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Snippets -->
+    <template id="s_demo_portal" name="Demo Portal">
+        <section class="o_demo_portal oe_snippet_body">
+            <div class="container">
+                <div class="row mt16 mb16">
+                    demo_binary :
+                    <div class="text-center demo_binary_value" />
+                    <h3 class="o_h3 text-center demo_binary_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_binary_image :
+                    <div class="text-center demo_binary_image_value" />
+                    <h3 class="o_h3 text-center demo_binary_image_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_boolean :
+                    <div class="text-center demo_boolean_value" />
+                    <h3 class="o_h3 text-center demo_boolean_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_char :
+                    <div class="text-center demo_char_value" />
+                    <h3 class="o_h3 text-center demo_char_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_date :
+                    <div class="text-center demo_date_value" />
+                    <h3 class="o_h3 text-center demo_date_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_date_time :
+                    <div class="text-center demo_date_time_value" />
+                    <h3 class="o_h3 text-center demo_date_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_external_link :
+                    <div class="text-center demo_external_link_value" />
+                    <h3 class="o_h3 text-center demo_external_link_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_float :
+                    <div class="text-center demo_float_value" />
+                    <h3 class="o_h3 text-center demo_float_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_float_time :
+                    <div class="text-center demo_float_time_value" />
+                    <h3 class="o_h3 text-center demo_float_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_html :
+                    <div class="text-center demo_html_value" />
+                    <h3 class="o_h3 text-center demo_html_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_integer :
+                    <div class="text-center demo_integer_value" />
+                    <h3 class="o_h3 text-center demo_integer_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_many2many :
+                    <div class="text-center demo_many2many_value" />
+                    <h3 class="o_h3 text-center demo_many2many_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_one2many_dst :
+                    <div class="text-center demo_one2many_dst_value" />
+                    <h3 class="o_h3 text-center demo_one2many_dst_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_one2many_src :
+                    <div class="text-center demo_one2many_src_value" />
+                    <h3 class="o_h3 text-center demo_one2many_src_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_selection :
+                    <div class="text-center demo_selection_value" />
+                    <h3 class="o_h3 text-center demo_selection_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    demo_text :
+                    <div class="text-center demo_text_value" />
+                    <h3 class="o_h3 text-center demo_text_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    diagram_id :
+                    <div class="text-center diagram_id_value" />
+                    <h3 class="o_h3 text-center diagram_id_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    name :
+                    <div class="text-center name_value" />
+                    <h3 class="o_h3 text-center name_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    xpos :
+                    <div class="text-center xpos_value" />
+                    <h3 class="o_h3 text-center xpos_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    ypos :
+                    <div class="text-center ypos_value" />
+                    <h3 class="o_h3 text-center ypos_value" />
+                </div>
+            </div>
+        </section>
+    </template>
+    <!-- Add snippets to menu -->
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+            <t t-snippet="demo_portal.s_demo_portal" t-thumbnail="/demo_portal/static/description/icon.png" />
+        </xpath>
+    </template>
+    <!-- Add stylesheet and Javascript -->
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/demo_portal/static/src/scss/demo_portal.scss" />
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/demo_portal/static/src/js/website.demo_portal.animation.js" />
+        </xpath>
+    </template>
+</odoo>

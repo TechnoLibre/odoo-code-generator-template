@@ -1,18 +1,19 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
-from logging import getLogger
 import re
+from logging import getLogger
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 logger = getLogger(__name__)
 
 try:
-    from pdfminer.pdfparser import PDFParser  # pylint: disable=W0404
-    from pdfminer.pdfdocument import PDFDocument  # pylint: disable=W0404
-    from pdfminer.pdfpage import PDFPage  # pylint: disable=W0404
-    from pdfminer.pdfinterp import PDFResourceManager  # pylint: disable=W0404
-    from pdfminer.pdfinterp import PDFPageInterpreter  # pylint: disable=W0404
-    from pdfminer.layout import LAParams  # pylint: disable=W0404
-    from pdfminer.converter import PDFPageAggregator  # pylint: disable=W0404
     import pdfminer  # pylint: disable=W0404
+    from pdfminer.converter import PDFPageAggregator  # pylint: disable=W0404
+    from pdfminer.layout import LAParams  # pylint: disable=W0404
+    from pdfminer.pdfdocument import PDFDocument  # pylint: disable=W0404
+    from pdfminer.pdfinterp import PDFPageInterpreter  # pylint: disable=W0404
+    from pdfminer.pdfinterp import PDFResourceManager  # pylint: disable=W0404
+    from pdfminer.pdfpage import PDFPage  # pylint: disable=W0404
+    from pdfminer.pdfparser import PDFParser  # pylint: disable=W0404
 except ImportError:
     logger.debug("Can not import pdfminer")
 
