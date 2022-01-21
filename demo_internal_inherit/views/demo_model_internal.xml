@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="demo_model_internal_view_calendar" model="ir.ui.view">
+        <field name="name">demo_model_internal_calendar</field>
+        <field name="model">demo.model.internal</field>
+        <field name="inherit_id" ref="demo_internal.demo_model_internal_view_calendar" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='banana']" position="after">
+                <field name="feature_text" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_form" model="ir.ui.view">
+        <field name="name">demo_model_internal_form</field>
+        <field name="model">demo.model.internal</field>
+        <field name="inherit_id" ref="demo_internal.demo_model_internal_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='banana']" position="after">
+                <field name="feature_text" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_kanban" model="ir.ui.view">
+        <field name="name">demo_model_internal_kanban</field>
+        <field name="model">demo.model.internal</field>
+        <field name="inherit_id" ref="demo_internal.demo_model_internal_view_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='banana']" position="after">
+                <field name="feature_text" />
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_details')]/ul" position="inside">
+                <li class="mb4">
+                    <strong>
+                        <field name="feature_text" />
+                    </strong>
+                </li>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_pivot" model="ir.ui.view">
+        <field name="name">demo_model_internal_pivot</field>
+        <field name="model">demo.model.internal</field>
+        <field name="inherit_id" ref="demo_internal.demo_model_internal_view_pivot" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='banana']" position="after">
+                <field name="feature_text" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_tree" model="ir.ui.view">
+        <field name="name">demo_model_internal_tree</field>
+        <field name="model">demo.model.internal</field>
+        <field name="inherit_id" ref="demo_internal.demo_model_internal_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='banana']" position="after">
+                <field name="feature_text" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
