@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_type_service_sous_categorie_view_form" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_form</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
+                            <field name="active" widget="boolean_button" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="approuver" />
+                    </group>
+                    <group>
+                        <field name="categorie" />
+                    </group>
+                    <group>
+                        <field name="sous_categorie_service" />
+                    </group>
+                    <group>
+                        <field name="type_service" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_type_service_sous_categorie_view_graph" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_graph</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <graph string="Organization type service sous categorie">
+                <field name="nom" type="row" />
+                <field name="approuver" type="row" />
+                <field name="categorie" type="row" />
+                <field name="sous_categorie_service" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_type_service_sous_categorie_view_kanban" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_kanban</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="approuver" />
+                <field name="categorie" />
+                <field name="sous_categorie_service" />
+                <field name="type_service" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.approuver.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.approuver.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="categorie" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="sous_categorie_service" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="type_service" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_type_service_sous_categorie_view_pivot" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_pivot</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization type service sous categorie">
+                <field name="nom" type="row" />
+                <field name="approuver" type="row" />
+                <field name="categorie" type="row" />
+                <field name="sous_categorie_service" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_type_service_sous_categorie_view_search" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_search</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <search string="Organization type service sous categorie">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter
+                    domain="[('active','=',False)]"
+                    name="Inactive"
+                    string="Inactive Organization type service sous categorie"
+                />
+                <filter domain="[('approuver','=',True)]" name="approuver" string="Approuv&#233;" />
+                <filter domain="[('categorie','!=',False)]" name="categorie" string="Cat&#233;gorie" />
+                <filter
+                    domain="[('sous_categorie_service','!=',False)]"
+                    name="sous_categorie_service"
+                    string="Sous-cat&#233;gorie"
+                />
+                <filter domain="[('type_service','!=',False)]" name="type_service" string="Type Service" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_type_service_sous_categorie_view_tree" model="ir.ui.view">
+        <field name="name">organization_type_service_sous_categorie_tree</field>
+        <field name="model">organization.type.service.sous.categorie</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="approuver" />
+                <field name="categorie" />
+                <field name="sous_categorie_service" />
+                <field name="type_service" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_type_service_sous_categorie_sous_categorie_de_services_action_window"
+        name="Sous-cat&#233;gorie de services"
+        res_model="organization.type.service.sous.categorie"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

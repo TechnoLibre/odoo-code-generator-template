@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--Root menu-->
+
+    <menuitem
+        id="demo_mariadb_sql_example_1"
+        name="Demo Mariadb Sql Example 1"
+        sequence="20"
+        web_icon="demo_mariadb_sql_example_1,static/description/icon.png"
+    />
+
+    <!--Sub menu-->
+
+    <menuitem id="parent_configuration" name="Configuration" sequence="99" parent="demo_mariadb_sql_example_1" />
+
+    <menuitem id="parent_organization" name="Organization" sequence="2" parent="demo_mariadb_sql_example_1" />
+
+    <menuitem id="parent_service" name="Service" sequence="3" parent="demo_mariadb_sql_example_1" />
+
+    <menuitem id="group_categoriedeservices" name="Cat&#233;gorie de services" sequence="0" parent="parent_service" />
+
+    <menuitem id="group_configuration" name="Configuration" sequence="1" parent="parent_configuration" />
+
+    <menuitem id="group_document" name="Document" sequence="2" parent="parent_organization" />
+
+    <menuitem id="group_location" name="Location" sequence="3" parent="parent_configuration" />
+
+    <menuitem id="group_membre" name="Membre" sequence="4" parent="parent_organization" />
+
+    <menuitem id="group_organization" name="Organization" sequence="5" parent="parent_organization" />
+
+    <menuitem id="group_service" name="Service" sequence="6" parent="parent_service" />
+
+    <menuitem id="group_statistique" name="Statistique" sequence="7" parent="parent_organization" />
+
+    <!--Child menu-->
+
+    <menuitem
+        id="arrondissement"
+        name="Arrondissement"
+        action="organization_arrondissement_arrondissement_action_window"
+        sequence="1"
+        parent="group_location"
+    />
+
+    <menuitem
+        id="categorie_de_services"
+        name="Cat&#233;gorie de services"
+        action="organization_type_service_categorie_categorie_de_services_action_window"
+        sequence="23"
+        parent="group_categoriedeservices"
+    />
+
+    <menuitem
+        id="commentaire"
+        name="Commentaire"
+        action="organization_commentaire_commentaire_action_window"
+        sequence="2"
+        parent="group_service"
+    />
+
+    <menuitem
+        id="demande_d_adhesion"
+        name="Demande d'adh&#233;sion"
+        action="organization_demande_adhesion_demande_d_adhesion_action_window"
+        sequence="3"
+        parent="group_membre"
+    />
+
+    <menuitem
+        id="demande_de_services"
+        name="Demande de services"
+        action="organization_demande_service_demande_de_services_action_window"
+        sequence="4"
+        parent="group_service"
+    />
+
+    <menuitem
+        id="droits_administratifs"
+        name="Droits administratifs"
+        action="organization_droits_admin_droits_administratifs_action_window"
+        sequence="5"
+        parent="group_configuration"
+    />
+
+    <menuitem
+        id="echange_de_services"
+        name="&#201;change de services"
+        action="organization_echange_service_echange_de_services_action_window"
+        sequence="6"
+        parent="group_service"
+    />
+
+    <menuitem
+        id="fichier"
+        name="Fichier"
+        action="organization_fichier_fichier_action_window"
+        sequence="7"
+        parent="group_document"
+    />
+
+    <menuitem
+        id="membre"
+        name="Membre"
+        action="organization_membre_membre_action_window"
+        sequence="8"
+        parent="group_membre"
+    />
+
+    <menuitem id="menu" name="Menu" sequence="1" parent="demo_mariadb_sql_example_1" />
+
+    <menuitem
+        id="occupation"
+        name="Occupation"
+        action="organization_occupation_occupation_action_window"
+        sequence="9"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="offre_de_services"
+        name="Offre de services"
+        action="organization_offre_service_offre_de_services_action_window"
+        sequence="0"
+        parent="group_service"
+    />
+
+    <menuitem
+        id="organization"
+        name="Organization"
+        action="organization_organization_organization_action_window"
+        sequence="11"
+        parent="group_organization"
+    />
+
+    <menuitem
+        id="origine"
+        name="Origine"
+        action="organization_origine_origine_action_window"
+        sequence="12"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="point_de_services"
+        name="Point de services"
+        action="organization_point_service_point_de_services_action_window"
+        sequence="13"
+        parent="group_organization"
+    />
+
+    <menuitem
+        id="provenance"
+        name="Provenance"
+        action="organization_provenance_provenance_action_window"
+        sequence="14"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="quartier"
+        name="Quartier"
+        action="organization_quartier_quartier_action_window"
+        sequence="15"
+        parent="group_location"
+    />
+
+    <menuitem
+        id="region"
+        name="R&#233;gion"
+        action="organization_region_region_action_window"
+        sequence="16"
+        parent="group_location"
+    />
+
+    <menuitem
+        id="revenu_familial"
+        name="Revenu familial"
+        action="organization_revenu_familial_revenu_familial_action_window"
+        sequence="17"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="situation_maison"
+        name="Situation maison"
+        action="organization_situation_maison_situation_maison_action_window"
+        sequence="18"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="sous_categorie_de_services"
+        name="Sous-cat&#233;gorie de services"
+        action="organization_type_service_sous_categorie_sous_categorie_de_services_action_window"
+        sequence="24"
+        parent="group_categoriedeservices"
+    />
+
+    <menuitem
+        id="type_de_communications"
+        name="Type de communications"
+        action="organization_type_communication_type_de_communications_action_window"
+        sequence="19"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="type_de_comptes_membre"
+        name="Type de comptes membre"
+        action="organization_type_compte_type_de_comptes_membre_action_window"
+        sequence="20"
+        parent="group_configuration"
+    />
+
+    <menuitem
+        id="type_de_fichiers"
+        name="Type de fichiers"
+        action="organization_type_fichier_type_de_fichiers_action_window"
+        sequence="21"
+        parent="group_document"
+    />
+
+    <menuitem
+        id="type_de_services"
+        name="Type de services"
+        action="organization_type_service_type_de_services_action_window"
+        sequence="22"
+        parent="group_categoriedeservices"
+    />
+
+    <menuitem
+        id="type_de_telephones"
+        name="Type de t&#233;l&#233;phones"
+        action="organization_type_telephone_type_de_telephones_action_window"
+        sequence="25"
+        parent="group_statistique"
+    />
+
+    <menuitem
+        id="ville"
+        name="Ville"
+        action="organization_ville_ville_action_window"
+        sequence="26"
+        parent="group_location"
+    />
+</odoo>

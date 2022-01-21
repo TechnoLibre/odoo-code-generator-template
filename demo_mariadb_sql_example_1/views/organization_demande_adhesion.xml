@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_demande_adhesion_view_form" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_form</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
+                            <field name="active" widget="boolean_button" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="nom_complet" />
+                    </group>
+                    <group>
+                        <field name="courriel" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="en_attente" />
+                    </group>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="poste" />
+                    </group>
+                    <group>
+                        <field name="prenom" />
+                    </group>
+                    <group>
+                        <field name="telephone" />
+                    </group>
+                    <group>
+                        <field name="transferer" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_demande_adhesion_view_graph" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_graph</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <graph string="Organization demande adhesion">
+                <field name="nom_complet" type="row" />
+                <field name="courriel" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="en_attente" type="row" />
+                <field name="nom" type="row" />
+                <field name="organization" type="row" />
+                <field name="poste" type="row" />
+                <field name="prenom" type="row" />
+                <field name="telephone" type="row" />
+                <field name="transferer" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_demande_adhesion_view_kanban" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_kanban</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom_complet" />
+                <field name="courriel" />
+                <field name="date_mise_a_jour" />
+                <field name="en_attente" />
+                <field name="nom" />
+                <field name="organization" />
+                <field name="poste" />
+                <field name="prenom" />
+                <field name="telephone" />
+                <field name="transferer" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_complet" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="courriel" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.en_attente.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.en_attente.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="poste" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="prenom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="telephone" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.transferer.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.transferer.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_demande_adhesion_view_pivot" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_pivot</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization demande adhesion">
+                <field name="nom_complet" type="row" />
+                <field name="courriel" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="en_attente" type="row" />
+                <field name="nom" type="row" />
+                <field name="organization" type="row" />
+                <field name="poste" type="row" />
+                <field name="prenom" type="row" />
+                <field name="telephone" type="row" />
+                <field name="transferer" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_demande_adhesion_view_search" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_search</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <search string="Organization demande adhesion">
+                <filter domain="[('nom_complet','!=',False)]" name="nom_complet" string="Nom complet" />
+                <filter
+                    domain="[('active','=',False)]"
+                    name="Inactive"
+                    string="Inactive Organization demande adhesion"
+                />
+                <filter domain="[('courriel','!=',False)]" name="courriel" string="Courriel" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter domain="[('en_attente','=',True)]" name="en_attente" string="En attente" />
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('poste','!=',False)]" name="poste" string="Poste" />
+                <filter domain="[('prenom','!=',False)]" name="prenom" string="Pr&#233;nom" />
+                <filter domain="[('telephone','!=',False)]" name="telephone" string="T&#233;l&#233;phone" />
+                <filter domain="[('transferer','=',True)]" name="transferer" string="Transf&#233;r&#233;" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_demande_adhesion_view_tree" model="ir.ui.view">
+        <field name="name">organization_demande_adhesion_tree</field>
+        <field name="model">organization.demande.adhesion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_complet" />
+                <field name="courriel" />
+                <field name="date_mise_a_jour" />
+                <field name="en_attente" />
+                <field name="organization" />
+                <field name="poste" />
+                <field name="telephone" />
+                <field name="transferer" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_demande_adhesion_demande_d_adhesion_action_window"
+        name="Demande d'adh&#233;sion"
+        res_model="organization.demande.adhesion"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

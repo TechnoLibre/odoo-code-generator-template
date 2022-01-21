@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_point_service_view_form" model="ir.ui.view">
+        <field name="name">organization_point_service_form</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="sequence" />
+                    </group>
+                    <group>
+                        <field name="commentaire" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_point_service_view_graph" model="ir.ui.view">
+        <field name="name">organization_point_service_graph</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <graph string="Organization point service">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="organization" type="row" />
+                <field name="sequence" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_point_service_view_kanban" model="ir.ui.view">
+        <field name="name">organization_point_service_kanban</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="organization" />
+                <field name="sequence" />
+                <field name="commentaire" />
+                <field name="membre" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="sequence" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="commentaire" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_point_service_view_pivot" model="ir.ui.view">
+        <field name="name">organization_point_service_pivot</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization point service">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="organization" type="row" />
+                <field name="sequence" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_point_service_view_search" model="ir.ui.view">
+        <field name="name">organization_point_service_search</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <search string="Organization point service">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('sequence','!=',False)]" name="sequence" string="S&#233;quence" />
+                <filter domain="[('commentaire','!=',False)]" name="commentaire" string="Commentaire" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_point_service_view_tree" model="ir.ui.view">
+        <field name="name">organization_point_service_tree</field>
+        <field name="model">organization.point.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="organization" />
+                <field name="commentaire" />
+                <field name="membre" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_point_service_point_de_services_action_window"
+        name="Point de services"
+        res_model="organization.point.service"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

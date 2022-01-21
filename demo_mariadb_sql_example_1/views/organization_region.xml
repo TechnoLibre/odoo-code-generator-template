@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_region_view_form" model="ir.ui.view">
+        <field name="name">organization_region_form</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="code" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="ville" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_region_view_graph" model="ir.ui.view">
+        <field name="name">organization_region_graph</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <graph string="Organization region">
+                <field name="nom" type="row" />
+                <field name="code" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_region_view_kanban" model="ir.ui.view">
+        <field name="name">organization_region_kanban</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="code" />
+                <field name="membre" />
+                <field name="organization" />
+                <field name="ville" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="code" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="ville" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_region_view_pivot" model="ir.ui.view">
+        <field name="name">organization_region_pivot</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization region">
+                <field name="nom" type="row" />
+                <field name="code" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_region_view_search" model="ir.ui.view">
+        <field name="name">organization_region_search</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <search string="Organization region">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter domain="[('code','!=',False)]" name="code" string="Code de r&#233;gion" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('ville','!=',False)]" name="ville" string="Ville" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_region_view_tree" model="ir.ui.view">
+        <field name="name">organization_region_tree</field>
+        <field name="model">organization.region</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="code" />
+                <field name="membre" />
+                <field name="organization" />
+                <field name="ville" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_region_region_action_window"
+        name="R&#233;gion"
+        res_model="organization.region"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>
