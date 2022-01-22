@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!--Root menu-->
+
     <menuitem id="demo_portal" name="Demo Portal" sequence="20" web_icon="demo_portal,static/description/icon.png" />
 
+    <!--Sub menu-->
+
     <menuitem id="menu" name="Menu" sequence="1" parent="demo_portal" />
+
+    <!--Child menu-->
 
     <menuitem
         id="demo_model_2_portal"
@@ -13,10 +19,18 @@
     />
 
     <menuitem
+        id="demo_model_3_portal_diagram"
+        name="Demo model 3 portal diagram"
+        action="demo_model_3_portal_diagram_demo_model_3_portal_diagram_action_window"
+        sequence="2"
+        parent="menu"
+    />
+
+    <menuitem
         id="demo_model_portal"
         name="Demo model portal"
         action="demo_model_portal_demo_model_portal_action_window"
-        sequence="2"
+        sequence="3"
         parent="menu"
     />
 </odoo>

@@ -7,7 +7,7 @@
             <form string="Titre">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
                             <field name="active" widget="boolean_button" />
                         </button>
                     </div>
@@ -70,6 +70,5 @@
         id="demo_website_leaflet_map_feature_demo_website_leaflet_map_feature_action_window"
         name="Demo website leaflet map feature"
         res_model="demo.website_leaflet.map.feature"
-        view_mode="list,form"
     />
 </odoo>

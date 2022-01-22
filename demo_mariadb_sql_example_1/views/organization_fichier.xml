@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_fichier_view_form" model="ir.ui.view">
+        <field name="name">organization_fichier_form</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="fichier" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="si_admin" />
+                    </group>
+                    <group>
+                        <field name="si_disponible" />
+                    </group>
+                    <group>
+                        <field name="si_organization_local_seulement" />
+                    </group>
+                    <group>
+                        <field name="type_fichier" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_fichier_view_graph" model="ir.ui.view">
+        <field name="name">organization_fichier_graph</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <graph string="Organization fichier">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="fichier" type="row" />
+                <field name="organization" type="row" />
+                <field name="si_admin" type="row" />
+                <field name="si_disponible" type="row" />
+                <field name="si_organization_local_seulement" type="row" />
+                <field name="type_fichier" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_fichier_view_kanban" model="ir.ui.view">
+        <field name="name">organization_fichier_kanban</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="fichier" />
+                <field name="organization" />
+                <field name="si_admin" />
+                <field name="si_disponible" />
+                <field name="si_organization_local_seulement" />
+                <field name="type_fichier" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="fichier" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.si_admin.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.si_admin.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.si_disponible.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.si_disponible.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.si_organization_local_seulement.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.si_organization_local_seulement.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="type_fichier" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_fichier_view_pivot" model="ir.ui.view">
+        <field name="name">organization_fichier_pivot</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization fichier">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="organization" type="row" />
+                <field name="si_admin" type="row" />
+                <field name="si_disponible" type="row" />
+                <field name="si_organization_local_seulement" type="row" />
+                <field name="type_fichier" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_fichier_view_search" model="ir.ui.view">
+        <field name="name">organization_fichier_search</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <search string="Organization fichier">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter domain="[('fichier','!=',False)]" name="fichier" string="Fichier" />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('si_admin','=',True)]" name="si_admin" string="Admin" />
+                <filter domain="[('si_disponible','=',True)]" name="si_disponible" string="Disponible" />
+                <filter
+                    domain="[('si_organization_local_seulement','=',True)]"
+                    name="si_organization_local_seulement"
+                    string="Organization local seulement"
+                />
+                <filter domain="[('type_fichier','!=',False)]" name="type_fichier" string="Type fichier" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_fichier_view_tree" model="ir.ui.view">
+        <field name="name">organization_fichier_tree</field>
+        <field name="model">organization.fichier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="fichier" />
+                <field name="organization" />
+                <field name="si_admin" />
+                <field name="si_disponible" />
+                <field name="si_organization_local_seulement" />
+                <field name="type_fichier" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_fichier_fichier_action_window"
+        name="Fichier"
+        res_model="organization.fichier"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

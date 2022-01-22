@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_echange_service_view_form" model="ir.ui.view">
+        <field name="name">organization_echange_service_form</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom_complet" />
+                    </group>
+                    <group>
+                        <field name="commentaire" />
+                    </group>
+                    <group>
+                        <field name="date_echange" />
+                    </group>
+                    <group>
+                        <field name="demande_service" />
+                    </group>
+                    <group>
+                        <field name="membre_acheteur" />
+                    </group>
+                    <group>
+                        <field name="membre_vendeur" />
+                    </group>
+                    <group>
+                        <field name="nb_heure" widget="float_time" />
+                    </group>
+                    <group>
+                        <field name="offre_service" />
+                    </group>
+                    <group>
+                        <field name="point_service" />
+                    </group>
+                    <group>
+                        <field name="remarque" />
+                    </group>
+                    <group>
+                        <field name="type_echange" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_echange_service_view_graph" model="ir.ui.view">
+        <field name="name">organization_echange_service_graph</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <graph string="Organization echange service">
+                <field name="nom_complet" type="row" />
+                <field name="commentaire" type="row" />
+                <field name="date_echange" type="row" />
+                <field name="demande_service" type="row" />
+                <field name="membre_acheteur" type="row" />
+                <field name="membre_vendeur" type="row" />
+                <field name="nb_heure" type="measure" />
+                <field name="offre_service" type="row" />
+                <field name="point_service" type="row" />
+                <field name="remarque" type="row" />
+                <field name="type_echange" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_echange_service_view_kanban" model="ir.ui.view">
+        <field name="name">organization_echange_service_kanban</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom_complet" />
+                <field name="commentaire" />
+                <field name="date_echange" />
+                <field name="demande_service" />
+                <field name="membre_acheteur" />
+                <field name="membre_vendeur" />
+                <field name="nb_heure" widget="float_time" />
+                <field name="offre_service" />
+                <field name="point_service" />
+                <field name="remarque" />
+                <field name="type_echange" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_complet" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="commentaire" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_echange" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="demande_service" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_acheteur" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_vendeur" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nb_heure" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="offre_service" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="point_service" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="remarque" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="type_echange" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_echange_service_view_pivot" model="ir.ui.view">
+        <field name="name">organization_echange_service_pivot</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization echange service">
+                <field name="nom_complet" type="row" />
+                <field name="commentaire" type="row" />
+                <field name="date_echange" type="row" />
+                <field name="demande_service" type="row" />
+                <field name="membre_acheteur" type="row" />
+                <field name="membre_vendeur" type="row" />
+                <field name="nb_heure" type="measure" />
+                <field name="offre_service" type="row" />
+                <field name="point_service" type="row" />
+                <field name="remarque" type="row" />
+                <field name="type_echange" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_echange_service_view_search" model="ir.ui.view">
+        <field name="name">organization_echange_service_search</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <search string="Organization echange service">
+                <filter domain="[('nom_complet','!=',False)]" name="nom_complet" string="Nom complet" />
+                <filter domain="[('commentaire','!=',False)]" name="commentaire" string="Commentaire" />
+                <filter domain="[('date_echange','!=',False)]" name="date_echange" string="Date de l'&#233;change" />
+                <filter domain="[('demande_service','!=',False)]" name="demande_service" string="Demande de services" />
+                <filter domain="[('membre_acheteur','!=',False)]" name="membre_acheteur" string="Membre acheteur" />
+                <filter domain="[('membre_vendeur','!=',False)]" name="membre_vendeur" string="Membre vendeur" />
+                <filter domain="[('nb_heure','!=',False)]" name="nb_heure" string="Nombre d'heure" />
+                <filter domain="[('offre_service','!=',False)]" name="offre_service" string="Offre de services" />
+                <filter domain="[('point_service','!=',False)]" name="point_service" string="Point de services" />
+                <filter domain="[('remarque','!=',False)]" name="remarque" string="Remarque" />
+                <filter domain="[('type_echange','!=',False)]" name="type_echange" string="Type d'&#233;change" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_echange_service_view_tree" model="ir.ui.view">
+        <field name="name">organization_echange_service_tree</field>
+        <field name="model">organization.echange.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_complet" />
+                <field name="commentaire" />
+                <field name="date_echange" />
+                <field name="demande_service" />
+                <field name="membre_acheteur" />
+                <field name="membre_vendeur" />
+                <field name="nb_heure" widget="float_time" />
+                <field name="offre_service" />
+                <field name="point_service" />
+                <field name="remarque" />
+                <field name="type_echange" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_echange_service_echange_de_services_action_window"
+        name="&#201;change de services"
+        res_model="organization.echange.service"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

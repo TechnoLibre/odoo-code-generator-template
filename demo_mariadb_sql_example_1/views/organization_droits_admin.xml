@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_droits_admin_view_form" model="ir.ui.view">
+        <field name="name">organization_droits_admin_form</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom_complet" />
+                    </group>
+                    <group>
+                        <field name="consulter_etat_compte" />
+                    </group>
+                    <group>
+                        <field name="consulter_profil" />
+                    </group>
+                    <group>
+                        <field name="gestion_dmd" />
+                    </group>
+                    <group>
+                        <field name="gestion_fichier" />
+                    </group>
+                    <group>
+                        <field name="gestion_offre" />
+                    </group>
+                    <group>
+                        <field name="gestion_offre_service" />
+                    </group>
+                    <group>
+                        <field name="gestion_profil" />
+                    </group>
+                    <group>
+                        <field name="gestion_type_service" />
+                    </group>
+                    <group>
+                        <field name="groupe_achat" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="saisie_echange" />
+                    </group>
+                    <group>
+                        <field name="validation" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_droits_admin_view_graph" model="ir.ui.view">
+        <field name="name">organization_droits_admin_graph</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <graph string="Organization droits admin">
+                <field name="nom_complet" type="row" />
+                <field name="consulter_etat_compte" type="row" />
+                <field name="consulter_profil" type="row" />
+                <field name="gestion_dmd" type="row" />
+                <field name="gestion_fichier" type="row" />
+                <field name="gestion_offre" type="row" />
+                <field name="gestion_offre_service" type="row" />
+                <field name="gestion_profil" type="row" />
+                <field name="gestion_type_service" type="row" />
+                <field name="groupe_achat" type="row" />
+                <field name="membre" type="row" />
+                <field name="saisie_echange" type="row" />
+                <field name="validation" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_droits_admin_view_kanban" model="ir.ui.view">
+        <field name="name">organization_droits_admin_kanban</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom_complet" />
+                <field name="consulter_etat_compte" />
+                <field name="consulter_profil" />
+                <field name="gestion_dmd" />
+                <field name="gestion_fichier" />
+                <field name="gestion_offre" />
+                <field name="gestion_offre_service" />
+                <field name="gestion_profil" />
+                <field name="gestion_type_service" />
+                <field name="groupe_achat" />
+                <field name="membre" />
+                <field name="saisie_echange" />
+                <field name="validation" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_complet" />
+                                        </strong>
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.consulter_etat_compte.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.consulter_etat_compte.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.consulter_profil.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.consulter_profil.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.gestion_dmd.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.gestion_dmd.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.gestion_fichier.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.gestion_fichier.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.gestion_offre.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.gestion_offre.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.gestion_offre_service.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.gestion_offre_service.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.gestion_profil.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.gestion_profil.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.gestion_type_service.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.gestion_type_service.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.groupe_achat.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.groupe_achat.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.saisie_echange.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.saisie_echange.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.validation.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.validation.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_droits_admin_view_pivot" model="ir.ui.view">
+        <field name="name">organization_droits_admin_pivot</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization droits admin">
+                <field name="nom_complet" type="row" />
+                <field name="consulter_etat_compte" type="row" />
+                <field name="consulter_profil" type="row" />
+                <field name="gestion_dmd" type="row" />
+                <field name="gestion_fichier" type="row" />
+                <field name="gestion_offre" type="row" />
+                <field name="gestion_offre_service" type="row" />
+                <field name="gestion_profil" type="row" />
+                <field name="gestion_type_service" type="row" />
+                <field name="groupe_achat" type="row" />
+                <field name="membre" type="row" />
+                <field name="saisie_echange" type="row" />
+                <field name="validation" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_droits_admin_view_search" model="ir.ui.view">
+        <field name="name">organization_droits_admin_search</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <search string="Organization droits admin">
+                <filter domain="[('nom_complet','!=',False)]" name="nom_complet" string="Nom complet" />
+                <filter
+                    domain="[('consulter_etat_compte','=',True)]"
+                    name="consulter_etat_compte"
+                    string="Consulter &#233;tat de compte"
+                />
+                <filter domain="[('consulter_profil','=',True)]" name="consulter_profil" string="Consulter profil" />
+                <filter domain="[('gestion_dmd','=',True)]" name="gestion_dmd" string="Gestion demande de services" />
+                <filter domain="[('gestion_fichier','=',True)]" name="gestion_fichier" string="Gestion fichier" />
+                <filter domain="[('gestion_offre','=',True)]" name="gestion_offre" string="Gestion offre" />
+                <filter
+                    domain="[('gestion_offre_service','=',True)]"
+                    name="gestion_offre_service"
+                    string="Gestion offre de services"
+                />
+                <filter domain="[('gestion_profil','=',True)]" name="gestion_profil" string="Gestion profil" />
+                <filter
+                    domain="[('gestion_type_service','=',True)]"
+                    name="gestion_type_service"
+                    string="Gestion type de services"
+                />
+                <filter domain="[('groupe_achat','=',True)]" name="groupe_achat" string="Groupe d'achat" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+                <filter domain="[('saisie_echange','=',True)]" name="saisie_echange" string="Saisie &#233;change" />
+                <filter domain="[('validation','=',True)]" name="validation" string="Validation" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_droits_admin_view_tree" model="ir.ui.view">
+        <field name="name">organization_droits_admin_tree</field>
+        <field name="model">organization.droits.admin</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_complet" />
+                <field name="consulter_etat_compte" />
+                <field name="consulter_profil" />
+                <field name="gestion_dmd" />
+                <field name="gestion_fichier" />
+                <field name="gestion_offre" />
+                <field name="gestion_offre_service" />
+                <field name="gestion_profil" />
+                <field name="gestion_type_service" />
+                <field name="groupe_achat" />
+                <field name="membre" />
+                <field name="saisie_echange" />
+                <field name="validation" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_droits_admin_droits_administratifs_action_window"
+        name="Droits administratifs"
+        res_model="organization.droits.admin"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

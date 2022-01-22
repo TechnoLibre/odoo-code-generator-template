@@ -1,10 +1,15 @@
-from odoo import _, api, models, fields
+from odoo import _, api, fields, models
 
 
 class DemoModelInternal(models.Model):
     _name = "demo.model.internal"
+    _inherit = ["mail.activity.mixin", "mail.thread"]
     _description = "demo_model_internal"
+
+    name = fields.Char()
 
     banana = fields.Boolean(string="Banana demo")
 
-    name = fields.Char()
+    date_end = fields.Datetime(string="Date end")
+
+    date_start = fields.Datetime(string="Date start")

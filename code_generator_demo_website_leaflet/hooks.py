@@ -1,5 +1,6 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 MODULE_NAME = "demo_website_leaflet"
 MODEL_PREFIX = "demo.website_leaflet"
@@ -107,7 +108,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "company_id",
             "field_description": "Company",
-            "comodel_name": "res.company",
             "relation": "res.company",
             "model": model_category,
             "ttype": "many2one",
@@ -119,7 +119,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "parent",
             "field_description": "Parent",
-            "comodel_name": model_category,
             "relation": model_category,
             "model": model_category,
             "ttype": "many2one",
@@ -225,7 +224,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "category_id",
             "field_description": "Category",
-            "comodel_name": model_category,
             "relation": model_category,
             "model": model_map_feature,
             "ttype": "many2one",
@@ -291,7 +289,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "company_id",
             "field_description": "Company",
-            "comodel_name": "res.company",
             "relation": "res.company",
             "model": model_map,
             "ttype": "many2one",
@@ -303,7 +300,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "category_id",
             "field_description": "Category",
-            "comodel_name": model_category,
             "relation": model_category,
             "model": model_map,
             "ttype": "many2one",
@@ -316,7 +312,6 @@ def post_init_hook(cr, e):
         value_field = {
             "name": "feature_id",
             "field_description": "Features",
-            "comodel_name": model_map_feature,
             "relation": model_map_feature,
             "model": model_map,
             "ttype": "many2many",
@@ -333,7 +328,7 @@ def post_init_hook(cr, e):
         if field_x_name:
             field_x_name.unlink()
 
-        lst_view_list_model = [
+        lst_view_tree_model = [
             model_map_feature_id.id,
             model_category_id.id,
             model_map_id.id,
@@ -352,7 +347,7 @@ def post_init_hook(cr, e):
                 "all_model": False,
                 "enable_generate_website_leaflet": True,
                 "enable_generate_geoengine": True,
-                "selected_model_list_view_ids": [(6, 0, lst_view_list_model)],
+                "selected_model_tree_view_ids": [(6, 0, lst_view_tree_model)],
                 "selected_model_form_view_ids": [(6, 0, lst_view_form_model)],
             }
         )

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_situation_maison_view_form" model="ir.ui.view">
+        <field name="name">organization_situation_maison_form</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_situation_maison_view_graph" model="ir.ui.view">
+        <field name="name">organization_situation_maison_graph</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <graph string="Organization situation maison">
+                <field name="nom" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_situation_maison_view_kanban" model="ir.ui.view">
+        <field name="name">organization_situation_maison_kanban</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="membre" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_situation_maison_view_pivot" model="ir.ui.view">
+        <field name="name">organization_situation_maison_pivot</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization situation maison">
+                <field name="nom" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_situation_maison_view_search" model="ir.ui.view">
+        <field name="name">organization_situation_maison_search</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <search string="Organization situation maison">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Situation" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_situation_maison_view_tree" model="ir.ui.view">
+        <field name="name">organization_situation_maison_tree</field>
+        <field name="model">organization.situation.maison</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="membre" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_situation_maison_situation_maison_action_window"
+        name="Situation maison"
+        res_model="organization.situation.maison"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

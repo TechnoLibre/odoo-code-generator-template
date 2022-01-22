@@ -1,28 +1,28 @@
-from odoo import _, api, models, fields
+from odoo import _, api, fields, models
 
 
 class DemoWebsiteLeafletMap(models.Model):
     _name = "demo.website_leaflet.map"
     _description = "Map"
 
+    name = fields.Char(required=True)
+
     active = fields.Boolean(default=True)
 
     category_id = fields.Many2one(
-        string="Category",
         comodel_name="demo.website_leaflet.category",
+        string="Category",
         ondelete="restrict",
     )
 
     company_id = fields.Many2one(
-        string="Company",
         comodel_name="res.company",
+        string="Company",
     )
 
     description = fields.Char()
 
     feature_id = fields.Many2many(
-        string="Features",
         comodel_name="demo.website_leaflet.map.feature",
+        string="Features",
     )
-
-    name = fields.Char(required=True)

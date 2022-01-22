@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_organization_view_form" model="ir.ui.view">
+        <field name="name">organization_organization_form</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
+                            <field name="active" widget="boolean_button" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="adresse" />
+                    </group>
+                    <group>
+                        <field name="arrondissement" />
+                    </group>
+                    <group>
+                        <field name="code_postal" />
+                    </group>
+                    <group>
+                        <field name="courriel" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="grp_achat_administrateur" />
+                    </group>
+                    <group>
+                        <field name="grp_achat_membre" />
+                    </group>
+                    <group>
+                        <field name="logo" widget="image" />
+                    </group>
+                    <group>
+                        <field name="message_accueil" />
+                    </group>
+                    <group>
+                        <field name="message_grp_achat" />
+                    </group>
+                    <group>
+                        <field name="region" />
+                    </group>
+                    <group>
+                        <field name="telecopieur" />
+                    </group>
+                    <group>
+                        <field name="telephone" />
+                    </group>
+                    <group>
+                        <field name="url_public" />
+                    </group>
+                    <group>
+                        <field name="url_transactionnel" />
+                    </group>
+                    <group>
+                        <field name="ville" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_organization_view_graph" model="ir.ui.view">
+        <field name="name">organization_organization_graph</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <graph string="Organization organization">
+                <field name="nom" type="row" />
+                <field name="adresse" type="row" />
+                <field name="arrondissement" type="row" />
+                <field name="code_postal" type="row" />
+                <field name="courriel" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="grp_achat_administrateur" type="row" />
+                <field name="grp_achat_membre" type="row" />
+                <field name="logo" type="row" />
+                <field name="message_accueil" type="row" />
+                <field name="message_grp_achat" type="row" />
+                <field name="region" type="row" />
+                <field name="telecopieur" type="row" />
+                <field name="telephone" type="row" />
+                <field name="url_public" type="row" />
+                <field name="url_transactionnel" type="row" />
+                <field name="ville" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_organization_view_kanban" model="ir.ui.view">
+        <field name="name">organization_organization_kanban</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="adresse" />
+                <field name="arrondissement" />
+                <field name="code_postal" />
+                <field name="courriel" />
+                <field name="date_mise_a_jour" />
+                <field name="grp_achat_administrateur" />
+                <field name="grp_achat_membre" />
+                <field name="logo" widget="image" />
+                <field name="message_accueil" />
+                <field name="message_grp_achat" />
+                <field name="region" />
+                <field name="telecopieur" />
+                <field name="telephone" />
+                <field name="url_public" widget="link_button" />
+                <field name="url_transactionnel" widget="link_button" />
+                <field name="ville" />
+                <field name="membre" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="adresse" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="arrondissement" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="code_postal" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="courriel" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.grp_achat_administrateur.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.grp_achat_administrateur.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.grp_achat_membre.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.grp_achat_membre.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="logo" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="message_accueil" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="message_grp_achat" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="region" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="telecopieur" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="telephone" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="url_public" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="url_transactionnel" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="ville" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_organization_view_pivot" model="ir.ui.view">
+        <field name="name">organization_organization_pivot</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization organization">
+                <field name="nom" type="row" />
+                <field name="adresse" type="row" />
+                <field name="arrondissement" type="row" />
+                <field name="code_postal" type="row" />
+                <field name="courriel" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="grp_achat_administrateur" type="row" />
+                <field name="grp_achat_membre" type="row" />
+                <field name="message_accueil" type="row" />
+                <field name="message_grp_achat" type="row" />
+                <field name="region" type="row" />
+                <field name="telecopieur" type="row" />
+                <field name="telephone" type="row" />
+                <field name="url_public" type="row" />
+                <field name="url_transactionnel" type="row" />
+                <field name="ville" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_organization_view_search" model="ir.ui.view">
+        <field name="name">organization_organization_search</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <search string="Organization organization">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter domain="[('active','=',False)]" name="Inactive" string="Inactive Organization organization" />
+                <filter domain="[('adresse','!=',False)]" name="adresse" string="Adresse" />
+                <filter domain="[('arrondissement','!=',False)]" name="arrondissement" string="Arrondissement" />
+                <filter domain="[('code_postal','!=',False)]" name="code_postal" string="Code postal" />
+                <filter domain="[('courriel','!=',False)]" name="courriel" string="Adresse courriel" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter
+                    domain="[('grp_achat_administrateur','=',True)]"
+                    name="grp_achat_administrateur"
+                    string="Groupe d'achats des administrateurs"
+                />
+                <filter
+                    domain="[('grp_achat_membre','=',True)]"
+                    name="grp_achat_membre"
+                    string="Groupe d'achats membre"
+                />
+                <filter domain="[('logo','!=',False)]" name="logo" string="Logo" />
+                <filter domain="[('message_accueil','!=',False)]" name="message_accueil" string="Message d'accueil" />
+                <filter
+                    domain="[('message_grp_achat','!=',False)]"
+                    name="message_grp_achat"
+                    string="Message groupe d'achats"
+                />
+                <filter domain="[('region','!=',False)]" name="region" string="R&#233;gion administrative" />
+                <filter domain="[('telecopieur','!=',False)]" name="telecopieur" string="T&#233;l&#233;copieur" />
+                <filter domain="[('telephone','!=',False)]" name="telephone" string="T&#233;l&#233;phone" />
+                <filter domain="[('url_public','!=',False)]" name="url_public" string="Lien du site web publique" />
+                <filter
+                    domain="[('url_transactionnel','!=',False)]"
+                    name="url_transactionnel"
+                    string="Lien du site web transactionnel"
+                />
+                <filter domain="[('ville','!=',False)]" name="ville" string="Ville" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_organization_view_tree" model="ir.ui.view">
+        <field name="name">organization_organization_tree</field>
+        <field name="model">organization.organization</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="adresse" />
+                <field name="arrondissement" />
+                <field name="code_postal" />
+                <field name="courriel" />
+                <field name="date_mise_a_jour" />
+                <field name="grp_achat_administrateur" />
+                <field name="grp_achat_membre" />
+                <field name="logo" widget="image" />
+                <field name="region" />
+                <field name="telecopieur" />
+                <field name="telephone" />
+                <field name="url_public" widget="link_button" />
+                <field name="url_transactionnel" widget="link_button" />
+                <field name="ville" />
+                <field name="membre" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_organization_organization_action_window"
+        name="Organization"
+        res_model="organization.organization"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

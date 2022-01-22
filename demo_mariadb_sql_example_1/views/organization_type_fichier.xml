@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_type_fichier_view_form" model="ir.ui.view">
+        <field name="name">organization_type_fichier_form</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="fichier" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_type_fichier_view_graph" model="ir.ui.view">
+        <field name="name">organization_type_fichier_graph</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <graph string="Organization type fichier">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_type_fichier_view_kanban" model="ir.ui.view">
+        <field name="name">organization_type_fichier_kanban</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="fichier" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="fichier" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_type_fichier_view_pivot" model="ir.ui.view">
+        <field name="name">organization_type_fichier_pivot</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization type fichier">
+                <field name="nom" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_type_fichier_view_search" model="ir.ui.view">
+        <field name="name">organization_type_fichier_search</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <search string="Organization type fichier">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter domain="[('fichier','!=',False)]" name="fichier" string="Fichier" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_type_fichier_view_tree" model="ir.ui.view">
+        <field name="name">organization_type_fichier_tree</field>
+        <field name="model">organization.type.fichier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="date_mise_a_jour" />
+                <field name="fichier" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_type_fichier_type_de_fichiers_action_window"
+        name="Type de fichiers"
+        res_model="organization.type.fichier"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

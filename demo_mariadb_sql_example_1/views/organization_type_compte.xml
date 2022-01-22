@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_type_compte_view_form" model="ir.ui.view">
+        <field name="name">organization_type_compte_form</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom_complet" />
+                    </group>
+                    <group>
+                        <field name="admin" />
+                    </group>
+                    <group>
+                        <field name="admin_chef" />
+                    </group>
+                    <group>
+                        <field name="admin_ord_point_service" />
+                    </group>
+                    <group>
+                        <field name="admin_point_service" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="organizateur_simple" />
+                    </group>
+                    <group>
+                        <field name="reseau" />
+                    </group>
+                    <group>
+                        <field name="spip" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_type_compte_view_graph" model="ir.ui.view">
+        <field name="name">organization_type_compte_graph</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <graph string="Organization type compte">
+                <field name="nom_complet" type="row" />
+                <field name="admin" type="row" />
+                <field name="admin_chef" type="row" />
+                <field name="admin_ord_point_service" type="row" />
+                <field name="admin_point_service" type="row" />
+                <field name="membre" type="row" />
+                <field name="organizateur_simple" type="row" />
+                <field name="reseau" type="row" />
+                <field name="spip" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_type_compte_view_kanban" model="ir.ui.view">
+        <field name="name">organization_type_compte_kanban</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom_complet" />
+                <field name="admin" />
+                <field name="admin_chef" />
+                <field name="admin_ord_point_service" />
+                <field name="admin_point_service" />
+                <field name="membre" />
+                <field name="organizateur_simple" />
+                <field name="reseau" />
+                <field name="spip" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_complet" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.admin.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.admin.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.admin_chef.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.admin_chef.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.admin_ord_point_service.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.admin_ord_point_service.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.admin_point_service.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.admin_point_service.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.organizateur_simple.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.organizateur_simple.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.reseau.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.reseau.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.spip.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.spip.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_type_compte_view_pivot" model="ir.ui.view">
+        <field name="name">organization_type_compte_pivot</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization type compte">
+                <field name="nom_complet" type="row" />
+                <field name="admin" type="row" />
+                <field name="admin_chef" type="row" />
+                <field name="admin_ord_point_service" type="row" />
+                <field name="admin_point_service" type="row" />
+                <field name="membre" type="row" />
+                <field name="organizateur_simple" type="row" />
+                <field name="reseau" type="row" />
+                <field name="spip" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_type_compte_view_search" model="ir.ui.view">
+        <field name="name">organization_type_compte_search</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <search string="Organization type compte">
+                <filter domain="[('nom_complet','!=',False)]" name="nom_complet" string="Nom complet" />
+                <filter domain="[('admin','=',True)]" name="admin" string="Admin" />
+                <filter domain="[('admin_chef','=',True)]" name="admin_chef" string="Admin chef" />
+                <filter
+                    domain="[('admin_ord_point_service','=',True)]"
+                    name="admin_ord_point_service"
+                    string="Administrateur ordinaire point service"
+                />
+                <filter
+                    domain="[('admin_point_service','=',True)]"
+                    name="admin_point_service"
+                    string="Administrateur point service"
+                />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+                <filter
+                    domain="[('organizateur_simple','=',True)]"
+                    name="organizateur_simple"
+                    string="Organizateur simple"
+                />
+                <filter domain="[('reseau','=',True)]" name="reseau" string="R&#233;seau" />
+                <filter domain="[('spip','=',True)]" name="spip" string="Spip" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_type_compte_view_tree" model="ir.ui.view">
+        <field name="name">organization_type_compte_tree</field>
+        <field name="model">organization.type.compte</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_complet" />
+                <field name="admin" />
+                <field name="admin_chef" />
+                <field name="admin_ord_point_service" />
+                <field name="admin_point_service" />
+                <field name="membre" />
+                <field name="organizateur_simple" />
+                <field name="reseau" />
+                <field name="spip" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_type_compte_type_de_comptes_membre_action_window"
+        name="Type de comptes membre"
+        res_model="organization.type.compte"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

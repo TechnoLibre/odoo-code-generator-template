@@ -1,0 +1,53 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+organization_arrondissement_access_user_types_/_internal_user,organization_arrondissement Access User types / Internal User,model_organization_arrondissement,base.group_user,1,1,1,1
+organization_arrondissement_access_user_types_/_portal,organization_arrondissement Access User types / Portal,model_organization_arrondissement,base.group_portal,1,1,1,1
+organization_commentaire_access_user_types_/_internal_user,organization_commentaire Access User types / Internal User,model_organization_commentaire,base.group_user,1,1,1,1
+organization_commentaire_access_user_types_/_portal,organization_commentaire Access User types / Portal,model_organization_commentaire,base.group_portal,1,1,1,1
+organization_demande_adhesion_access_user_types_/_internal_user,organization_demande_adhesion Access User types / Internal User,model_organization_demande_adhesion,base.group_user,1,1,1,1
+organization_demande_adhesion_access_user_types_/_portal,organization_demande_adhesion Access User types / Portal,model_organization_demande_adhesion,base.group_portal,1,1,1,1
+organization_demande_service_access_user_types_/_internal_user,organization_demande_service Access User types / Internal User,model_organization_demande_service,base.group_user,1,1,1,1
+organization_demande_service_access_user_types_/_portal,organization_demande_service Access User types / Portal,model_organization_demande_service,base.group_portal,1,1,1,1
+organization_droits_admin_access_user_types_/_internal_user,organization_droits_admin Access User types / Internal User,model_organization_droits_admin,base.group_user,1,1,1,1
+organization_droits_admin_access_user_types_/_portal,organization_droits_admin Access User types / Portal,model_organization_droits_admin,base.group_portal,1,1,1,1
+organization_echange_service_access_user_types_/_internal_user,organization_echange_service Access User types / Internal User,model_organization_echange_service,base.group_user,1,1,1,1
+organization_echange_service_access_user_types_/_portal,organization_echange_service Access User types / Portal,model_organization_echange_service,base.group_portal,1,1,1,1
+organization_fichier_access_user_types_/_internal_user,organization_fichier Access User types / Internal User,model_organization_fichier,base.group_user,1,1,1,1
+organization_fichier_access_user_types_/_portal,organization_fichier Access User types / Portal,model_organization_fichier,base.group_portal,1,1,1,1
+organization_membre_access_user_types_/_internal_user,organization_membre Access User types / Internal User,model_organization_membre,base.group_user,1,1,1,1
+organization_membre_access_user_types_/_portal,organization_membre Access User types / Portal,model_organization_membre,base.group_portal,1,1,1,1
+organization_occupation_access_user_types_/_internal_user,organization_occupation Access User types / Internal User,model_organization_occupation,base.group_user,1,1,1,1
+organization_occupation_access_user_types_/_portal,organization_occupation Access User types / Portal,model_organization_occupation,base.group_portal,1,1,1,1
+organization_offre_service_access_user_types_/_internal_user,organization_offre_service Access User types / Internal User,model_organization_offre_service,base.group_user,1,1,1,1
+organization_offre_service_access_user_types_/_portal,organization_offre_service Access User types / Portal,model_organization_offre_service,base.group_portal,1,1,1,1
+organization_organization_access_user_types_/_internal_user,organization_organization Access User types / Internal User,model_organization_organization,base.group_user,1,1,1,1
+organization_organization_access_user_types_/_portal,organization_organization Access User types / Portal,model_organization_organization,base.group_portal,1,1,1,1
+organization_origine_access_user_types_/_internal_user,organization_origine Access User types / Internal User,model_organization_origine,base.group_user,1,1,1,1
+organization_origine_access_user_types_/_portal,organization_origine Access User types / Portal,model_organization_origine,base.group_portal,1,1,1,1
+organization_point_service_access_user_types_/_internal_user,organization_point_service Access User types / Internal User,model_organization_point_service,base.group_user,1,1,1,1
+organization_point_service_access_user_types_/_portal,organization_point_service Access User types / Portal,model_organization_point_service,base.group_portal,1,1,1,1
+organization_provenance_access_user_types_/_internal_user,organization_provenance Access User types / Internal User,model_organization_provenance,base.group_user,1,1,1,1
+organization_provenance_access_user_types_/_portal,organization_provenance Access User types / Portal,model_organization_provenance,base.group_portal,1,1,1,1
+organization_quartier_access_user_types_/_internal_user,organization_quartier Access User types / Internal User,model_organization_quartier,base.group_user,1,1,1,1
+organization_quartier_access_user_types_/_portal,organization_quartier Access User types / Portal,model_organization_quartier,base.group_portal,1,1,1,1
+organization_region_access_user_types_/_internal_user,organization_region Access User types / Internal User,model_organization_region,base.group_user,1,1,1,1
+organization_region_access_user_types_/_portal,organization_region Access User types / Portal,model_organization_region,base.group_portal,1,1,1,1
+organization_revenu_familial_access_user_types_/_internal_user,organization_revenu_familial Access User types / Internal User,model_organization_revenu_familial,base.group_user,1,1,1,1
+organization_revenu_familial_access_user_types_/_portal,organization_revenu_familial Access User types / Portal,model_organization_revenu_familial,base.group_portal,1,1,1,1
+organization_situation_maison_access_user_types_/_internal_user,organization_situation_maison Access User types / Internal User,model_organization_situation_maison,base.group_user,1,1,1,1
+organization_situation_maison_access_user_types_/_portal,organization_situation_maison Access User types / Portal,model_organization_situation_maison,base.group_portal,1,1,1,1
+organization_type_communication_access_user_types_/_internal_user,organization_type_communication Access User types / Internal User,model_organization_type_communication,base.group_user,1,1,1,1
+organization_type_communication_access_user_types_/_portal,organization_type_communication Access User types / Portal,model_organization_type_communication,base.group_portal,1,1,1,1
+organization_type_compte_access_user_types_/_internal_user,organization_type_compte Access User types / Internal User,model_organization_type_compte,base.group_user,1,1,1,1
+organization_type_compte_access_user_types_/_portal,organization_type_compte Access User types / Portal,model_organization_type_compte,base.group_portal,1,1,1,1
+organization_type_fichier_access_user_types_/_internal_user,organization_type_fichier Access User types / Internal User,model_organization_type_fichier,base.group_user,1,1,1,1
+organization_type_fichier_access_user_types_/_portal,organization_type_fichier Access User types / Portal,model_organization_type_fichier,base.group_portal,1,1,1,1
+organization_type_service_access_user_types_/_internal_user,organization_type_service Access User types / Internal User,model_organization_type_service,base.group_user,1,1,1,1
+organization_type_service_access_user_types_/_portal,organization_type_service Access User types / Portal,model_organization_type_service,base.group_portal,1,1,1,1
+organization_type_service_categorie_access_user_types_/_internal_user,organization_type_service_categorie Access User types / Internal User,model_organization_type_service_categorie,base.group_user,1,1,1,1
+organization_type_service_categorie_access_user_types_/_portal,organization_type_service_categorie Access User types / Portal,model_organization_type_service_categorie,base.group_portal,1,1,1,1
+organization_type_service_sous_categorie_access_user_types_/_internal_user,organization_type_service_sous_categorie Access User types / Internal User,model_organization_type_service_sous_categorie,base.group_user,1,1,1,1
+organization_type_service_sous_categorie_access_user_types_/_portal,organization_type_service_sous_categorie Access User types / Portal,model_organization_type_service_sous_categorie,base.group_portal,1,1,1,1
+organization_type_telephone_access_user_types_/_internal_user,organization_type_telephone Access User types / Internal User,model_organization_type_telephone,base.group_user,1,1,1,1
+organization_type_telephone_access_user_types_/_portal,organization_type_telephone Access User types / Portal,model_organization_type_telephone,base.group_portal,1,1,1,1
+organization_ville_access_user_types_/_internal_user,organization_ville Access User types / Internal User,model_organization_ville,base.group_user,1,1,1,1
+organization_ville_access_user_types_/_portal,organization_ville Access User types / Portal,model_organization_ville,base.group_portal,1,1,1,1

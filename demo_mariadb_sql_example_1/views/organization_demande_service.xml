@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_demande_service_view_form" model="ir.ui.view">
+        <field name="name">organization_demande_service_form</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
+                            <field name="active" widget="boolean_button" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="titre" />
+                    </group>
+                    <group>
+                        <field name="approuver" />
+                    </group>
+                    <group>
+                        <field name="date_debut" />
+                    </group>
+                    <group>
+                        <field name="date_fin" />
+                    </group>
+                    <group>
+                        <field name="description" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="commentaire" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_demande_service_view_graph" model="ir.ui.view">
+        <field name="name">organization_demande_service_graph</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <graph string="Organization demande service">
+                <field name="titre" type="row" />
+                <field name="approuver" type="row" />
+                <field name="date_debut" type="row" />
+                <field name="date_fin" type="row" />
+                <field name="description" type="row" />
+                <field name="membre" type="row" />
+                <field name="organization" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_demande_service_view_kanban" model="ir.ui.view">
+        <field name="name">organization_demande_service_kanban</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="titre" />
+                <field name="approuver" />
+                <field name="date_debut" />
+                <field name="date_fin" />
+                <field name="description" />
+                <field name="membre" />
+                <field name="organization" />
+                <field name="commentaire" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="titre" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.approuver.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.approuver.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_debut" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_fin" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="description" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="commentaire" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_demande_service_view_pivot" model="ir.ui.view">
+        <field name="name">organization_demande_service_pivot</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization demande service">
+                <field name="titre" type="row" />
+                <field name="approuver" type="row" />
+                <field name="date_debut" type="row" />
+                <field name="date_fin" type="row" />
+                <field name="description" type="row" />
+                <field name="membre" type="row" />
+                <field name="organization" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_demande_service_view_search" model="ir.ui.view">
+        <field name="name">organization_demande_service_search</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <search string="Organization demande service">
+                <filter domain="[('titre','!=',False)]" name="titre" string="Titre" />
+                <filter
+                    domain="[('active','=',False)]"
+                    name="Inactive"
+                    string="Inactive Organization demande service"
+                />
+                <filter domain="[('approuver','=',True)]" name="approuver" string="Approuv&#233;" />
+                <filter domain="[('date_debut','!=',False)]" name="date_debut" string="Date d&#233;but" />
+                <filter domain="[('date_fin','!=',False)]" name="date_fin" string="Date fin" />
+                <filter domain="[('description','!=',False)]" name="description" string="Description" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('commentaire','!=',False)]" name="commentaire" string="Commentaire" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_demande_service_view_tree" model="ir.ui.view">
+        <field name="name">organization_demande_service_tree</field>
+        <field name="model">organization.demande.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="titre" />
+                <field name="approuver" />
+                <field name="date_debut" />
+                <field name="date_fin" />
+                <field name="description" />
+                <field name="membre" />
+                <field name="organization" />
+                <field name="commentaire" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_demande_service_demande_de_services_action_window"
+        name="Demande de services"
+        res_model="organization.demande.service"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

@@ -1,13 +1,15 @@
-import wget
-import requests
-import js2py
-import tempfile
+import html
 import os
 import sys
+import tempfile
 from collections import namedtuple
-import html
+
+import js2py
+import requests
+import wget
 from bs4 import BeautifulSoup
-from odoo import _, api, models, fields, SUPERUSER_ID
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 MODULE_NAME = "demo_business_plan"
 

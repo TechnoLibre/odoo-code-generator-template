@@ -5,6 +5,7 @@
     "license": "AGPL-3",
     "website": "https://technolibre.ca",
     "application": True,
+    "depends": ["mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/demo_model_2_internal.xml",

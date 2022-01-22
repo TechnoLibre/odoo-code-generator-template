@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-21 20:54+0000\n"
+"PO-Revision-Date: 2021-06-21 20:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +18,11 @@ msgstr ""
 #. module: auto_backup
 #: model_terms:ir.ui.view,arch_db:auto_backup.view_backup_conf_form
 msgid "/home/odoo/.ssh/id_rsa"
+msgstr ""
+
+#. module: auto_backup
+#: model_terms:ir.ui.view,arch_db:auto_backup.view_backup_conf_form
+msgid "AAAA..."
 msgstr ""
 
 #. module: auto_backup
@@ -92,19 +99,19 @@ msgid "Choose the storage method for this backup."
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:265
+#: code:addons/auto_backup/models/db_backup.py:301
 #, python-format
 msgid "Cleanup of old database backups failed."
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:137
+#: code:addons/auto_backup/models/db_backup.py:174
 #, python-format
 msgid "Connection Test Failed!"
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:132
+#: code:addons/auto_backup/models/db_backup.py:167
 #, python-format
 msgid "Connection Test Succeeded!"
 msgstr ""
@@ -125,14 +132,14 @@ msgid "Database Backup"
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:219
+#: code:addons/auto_backup/models/db_backup.py:255
 #: model:mail.message.subtype,description:auto_backup.mail_message_subtype_failure
 #, python-format
 msgid "Database backup failed."
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:227
+#: code:addons/auto_backup/models/db_backup.py:262
 #: model:mail.message.subtype,description:auto_backup.mail_message_subtype_success
 #, python-format
 msgid "Database backup succeeded."
@@ -149,7 +156,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: auto_backup
-#: code:addons/auto_backup/models/db_backup.py:123
+#: code:addons/auto_backup/models/db_backup.py:155
 #, python-format
 msgid "Do not save backups on your filestore, or you will backup your backups too!"
 msgstr ""
@@ -305,6 +312,11 @@ msgid "Private key location"
 msgstr ""
 
 #. module: auto_backup
+#: model:ir.model.fields,field_description:auto_backup.field_db_backup__sftp_public_host_key
+msgid "Public host key"
+msgstr ""
+
+#. module: auto_backup
 #: selection:db.backup,method:0
 msgid "Remote SFTP server"
 msgstr ""
@@ -387,6 +399,11 @@ msgstr ""
 #. module: auto_backup
 #: model:ir.model.fields,field_description:auto_backup.field_db_backup__sftp_user
 msgid "Username in the SFTP Server"
+msgstr ""
+
+#. module: auto_backup
+#: model:ir.model.fields,help:auto_backup.field_db_backup__sftp_public_host_key
+msgid "Verify SFTP server's identity using its public rsa-key. The host key verification protects you from man-in-the-middle attacks. Can be generated with command 'ssh-keyscan -p PORT -H HOST/IP' and the right key is immediately after the words 'ssh-rsa'."
 msgstr ""
 
 #. module: auto_backup

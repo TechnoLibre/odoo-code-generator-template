@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_offre_service_view_form" model="ir.ui.view">
+        <field name="name">organization_offre_service_form</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-archive" name="toggle_active" type="object">
+                            <field name="active" widget="boolean_button" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="description" />
+                    </group>
+                    <group>
+                        <field name="accompli" />
+                    </group>
+                    <group>
+                        <field name="approuve" />
+                    </group>
+                    <group>
+                        <field name="condition" />
+                    </group>
+                    <group>
+                        <field name="condition_autre" />
+                    </group>
+                    <group>
+                        <field name="date_affichage" />
+                    </group>
+                    <group>
+                        <field name="date_debut" />
+                    </group>
+                    <group>
+                        <field name="date_fin" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="disponibilite" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="nb_consultation" />
+                    </group>
+                    <group>
+                        <field name="nom_offre_special" />
+                    </group>
+                    <group>
+                        <field name="offre_special" />
+                    </group>
+                    <group>
+                        <field name="organization" />
+                    </group>
+                    <group>
+                        <field name="tarif" />
+                    </group>
+                    <group>
+                        <field name="type_service_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_offre_service_view_graph" model="ir.ui.view">
+        <field name="name">organization_offre_service_graph</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <graph string="Organization offre service">
+                <field name="description" type="row" />
+                <field name="accompli" type="row" />
+                <field name="approuve" type="row" />
+                <field name="condition" type="row" />
+                <field name="condition_autre" type="row" />
+                <field name="date_affichage" type="row" />
+                <field name="date_debut" type="row" />
+                <field name="date_fin" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="disponibilite" type="row" />
+                <field name="membre" type="row" />
+                <field name="nb_consultation" type="measure" />
+                <field name="nom_offre_special" type="row" />
+                <field name="offre_special" type="row" />
+                <field name="organization" type="row" />
+                <field name="tarif" type="row" />
+                <field name="type_service_id" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_offre_service_view_kanban" model="ir.ui.view">
+        <field name="name">organization_offre_service_kanban</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="description" />
+                <field name="accompli" />
+                <field name="approuve" />
+                <field name="condition" />
+                <field name="condition_autre" />
+                <field name="date_affichage" />
+                <field name="date_debut" />
+                <field name="date_fin" />
+                <field name="date_mise_a_jour" />
+                <field name="disponibilite" />
+                <field name="membre" />
+                <field name="nb_consultation" />
+                <field name="nom_offre_special" />
+                <field name="offre_special" />
+                <field name="organization" />
+                <field name="tarif" />
+                <field name="type_service_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="description" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.accompli.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.accompli.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.approuve.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.approuve.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="condition" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="condition_autre" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_affichage" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_debut" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_fin" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="disponibilite" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nb_consultation" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_offre_special" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.offre_special.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.offre_special.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="organization" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="tarif" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="type_service_id" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_offre_service_view_pivot" model="ir.ui.view">
+        <field name="name">organization_offre_service_pivot</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization offre service">
+                <field name="description" type="row" />
+                <field name="accompli" type="row" />
+                <field name="approuve" type="row" />
+                <field name="condition" type="row" />
+                <field name="condition_autre" type="row" />
+                <field name="date_affichage" type="row" />
+                <field name="date_debut" type="row" />
+                <field name="date_fin" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="disponibilite" type="row" />
+                <field name="membre" type="row" />
+                <field name="nb_consultation" type="measure" />
+                <field name="nom_offre_special" type="row" />
+                <field name="offre_special" type="row" />
+                <field name="organization" type="row" />
+                <field name="tarif" type="row" />
+                <field name="type_service_id" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_offre_service_view_search" model="ir.ui.view">
+        <field name="name">organization_offre_service_search</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <search string="Organization offre service">
+                <filter domain="[('description','!=',False)]" name="description" string="Description" />
+                <filter domain="[('accompli','=',True)]" name="accompli" string="Accomplie" />
+                <filter domain="[('active','=',False)]" name="Inactive" string="Inactive Organization offre service" />
+                <filter domain="[('approuve','=',True)]" name="approuve" string="Approuv&#233;" />
+                <filter domain="[('condition','!=',False)]" name="condition" string="Conditions" />
+                <filter domain="[('condition_autre','!=',False)]" name="condition_autre" string="Condition autres" />
+                <filter domain="[('date_affichage','!=',False)]" name="date_affichage" string="Date d'affichage" />
+                <filter domain="[('date_debut','!=',False)]" name="date_debut" string="Date de d&#233;but" />
+                <filter domain="[('date_fin','!=',False)]" name="date_fin" string="Date de fin" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter domain="[('disponibilite','!=',False)]" name="disponibilite" string="Disponibilit&#233;" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+                <filter
+                    domain="[('nb_consultation','!=',False)]"
+                    name="nb_consultation"
+                    string="Nombre de consultations"
+                />
+                <filter
+                    domain="[('nom_offre_special','!=',False)]"
+                    name="nom_offre_special"
+                    string="Nom de l'offre sp&#233;ciale"
+                />
+                <filter domain="[('offre_special','=',True)]" name="offre_special" string="Offre sp&#233;ciale" />
+                <filter domain="[('organization','!=',False)]" name="organization" string="Organization" />
+                <filter domain="[('tarif','!=',False)]" name="tarif" string="Tarif" />
+                <filter domain="[('type_service_id','!=',False)]" name="type_service_id" string="Type de services" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_offre_service_view_tree" model="ir.ui.view">
+        <field name="name">organization_offre_service_tree</field>
+        <field name="model">organization.offre.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="description" />
+                <field name="accompli" />
+                <field name="approuve" />
+                <field name="condition" />
+                <field name="condition_autre" />
+                <field name="date_affichage" />
+                <field name="date_debut" />
+                <field name="date_fin" />
+                <field name="date_mise_a_jour" />
+                <field name="disponibilite" />
+                <field name="membre" />
+                <field name="nb_consultation" />
+                <field name="nom_offre_special" />
+                <field name="offre_special" />
+                <field name="organization" />
+                <field name="tarif" />
+                <field name="type_service_id" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_offre_service_offre_de_services_action_window"
+        name="Offre de services"
+        res_model="organization.offre.service"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

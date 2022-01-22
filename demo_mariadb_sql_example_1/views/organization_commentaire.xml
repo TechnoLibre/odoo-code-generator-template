@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_commentaire_view_form" model="ir.ui.view">
+        <field name="name">organization_commentaire_form</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom_complet" />
+                    </group>
+                    <group>
+                        <field name="autre_commentaire" />
+                    </group>
+                    <group>
+                        <field name="autre_situation" />
+                    </group>
+                    <group>
+                        <field name="confidentiel" />
+                    </group>
+                    <group>
+                        <field name="consulter_organization" />
+                    </group>
+                    <group>
+                        <field name="consulter_reseau" />
+                    </group>
+                    <group>
+                        <field name="date_incident" />
+                    </group>
+                    <group>
+                        <field name="date_mise_a_jour" />
+                    </group>
+                    <group>
+                        <field name="datetime_creation" />
+                    </group>
+                    <group>
+                        <field name="degre_satisfaction" />
+                    </group>
+                    <group>
+                        <field name="demande_service_id" />
+                    </group>
+                    <group>
+                        <field name="demarche" />
+                    </group>
+                    <group>
+                        <field name="membre_source" />
+                    </group>
+                    <group>
+                        <field name="membre_viser" />
+                    </group>
+                    <group>
+                        <field name="nom_comite" />
+                    </group>
+                    <group>
+                        <field name="note_administrative" />
+                    </group>
+                    <group>
+                        <field name="number" />
+                    </group>
+                    <group>
+                        <field name="offre_service_id" />
+                    </group>
+                    <group>
+                        <field name="point_service" />
+                    </group>
+                    <group>
+                        <field name="resumer_situation" />
+                    </group>
+                    <group>
+                        <field name="situation_impliquant" />
+                    </group>
+                    <group>
+                        <field name="solution_pour_regler" />
+                    </group>
+                    <group>
+                        <field name="type_offre" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_commentaire_view_graph" model="ir.ui.view">
+        <field name="name">organization_commentaire_graph</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <graph string="Organization commentaire">
+                <field name="nom_complet" type="row" />
+                <field name="autre_commentaire" type="row" />
+                <field name="autre_situation" type="row" />
+                <field name="confidentiel" type="row" />
+                <field name="consulter_organization" type="row" />
+                <field name="consulter_reseau" type="row" />
+                <field name="date_incident" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="datetime_creation" type="row" />
+                <field name="degre_satisfaction" type="row" />
+                <field name="demande_service_id" type="row" />
+                <field name="demarche" type="row" />
+                <field name="membre_source" type="row" />
+                <field name="membre_viser" type="row" />
+                <field name="nom_comite" type="row" />
+                <field name="note_administrative" type="row" />
+                <field name="number" type="measure" />
+                <field name="offre_service_id" type="row" />
+                <field name="point_service" type="row" />
+                <field name="resumer_situation" type="row" />
+                <field name="situation_impliquant" type="row" />
+                <field name="solution_pour_regler" type="row" />
+                <field name="type_offre" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_commentaire_view_kanban" model="ir.ui.view">
+        <field name="name">organization_commentaire_kanban</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom_complet" />
+                <field name="autre_commentaire" />
+                <field name="autre_situation" />
+                <field name="confidentiel" />
+                <field name="consulter_organization" />
+                <field name="consulter_reseau" />
+                <field name="date_incident" />
+                <field name="date_mise_a_jour" />
+                <field name="datetime_creation" />
+                <field name="degre_satisfaction" />
+                <field name="demande_service_id" />
+                <field name="demarche" />
+                <field name="membre_source" />
+                <field name="membre_viser" />
+                <field name="nom_comite" />
+                <field name="note_administrative" />
+                <field name="number" />
+                <field name="offre_service_id" />
+                <field name="point_service" />
+                <field name="resumer_situation" />
+                <field name="situation_impliquant" />
+                <field name="solution_pour_regler" />
+                <field name="type_offre" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_complet" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="autre_commentaire" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="autre_situation" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="confidentiel" />
+                                        </strong>
+                                    </li>
+                                    <li
+                                        class="text-success float-right mb4"
+                                        t-if="record.consulter_organization.raw_value"
+                                    >
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li
+                                        class="text-danger float-right mb4"
+                                        t-if="!record.consulter_organization.raw_value"
+                                    >
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.consulter_reseau.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.consulter_reseau.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_incident" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_mise_a_jour" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="datetime_creation" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="degre_satisfaction" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="demande_service_id" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="demarche" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_source" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_viser" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom_comite" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="note_administrative" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="number" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="offre_service_id" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="point_service" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="resumer_situation" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="situation_impliquant" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="solution_pour_regler" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="type_offre" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_commentaire_view_pivot" model="ir.ui.view">
+        <field name="name">organization_commentaire_pivot</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization commentaire">
+                <field name="nom_complet" type="row" />
+                <field name="autre_commentaire" type="row" />
+                <field name="autre_situation" type="row" />
+                <field name="confidentiel" type="row" />
+                <field name="consulter_organization" type="row" />
+                <field name="consulter_reseau" type="row" />
+                <field name="date_incident" type="row" />
+                <field name="date_mise_a_jour" type="row" />
+                <field name="datetime_creation" type="row" />
+                <field name="degre_satisfaction" type="row" />
+                <field name="demande_service_id" type="row" />
+                <field name="demarche" type="row" />
+                <field name="membre_source" type="row" />
+                <field name="membre_viser" type="row" />
+                <field name="nom_comite" type="row" />
+                <field name="note_administrative" type="row" />
+                <field name="number" type="measure" />
+                <field name="offre_service_id" type="row" />
+                <field name="point_service" type="row" />
+                <field name="resumer_situation" type="row" />
+                <field name="situation_impliquant" type="row" />
+                <field name="solution_pour_regler" type="row" />
+                <field name="type_offre" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_commentaire_view_search" model="ir.ui.view">
+        <field name="name">organization_commentaire_search</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <search string="Organization commentaire">
+                <filter domain="[('nom_complet','!=',False)]" name="nom_complet" string="Nom complet" />
+                <filter
+                    domain="[('autre_commentaire','!=',False)]"
+                    name="autre_commentaire"
+                    string="Autres commentaires"
+                />
+                <filter domain="[('autre_situation','!=',False)]" name="autre_situation" string="Autre situation" />
+                <filter domain="[('confidentiel','!=',False)]" name="confidentiel" string="Confidentialit&#233;" />
+                <filter
+                    domain="[('consulter_organization','=',True)]"
+                    name="consulter_organization"
+                    string="Consult&#233; par une Organization"
+                />
+                <filter
+                    domain="[('consulter_reseau','=',True)]"
+                    name="consulter_reseau"
+                    string="Consult&#233; par le R&#233;seau"
+                />
+                <filter domain="[('date_incident','!=',False)]" name="date_incident" string="Date de l'indicent" />
+                <filter
+                    domain="[('date_mise_a_jour','!=',False)]"
+                    name="date_mise_a_jour"
+                    string="Derni&#232;re mise &#224; jour"
+                />
+                <filter
+                    domain="[('datetime_creation','!=',False)]"
+                    name="datetime_creation"
+                    string="Date et heure de cr&#233;ation"
+                />
+                <filter
+                    domain="[('degre_satisfaction','!=',False)]"
+                    name="degre_satisfaction"
+                    string="Degr&#233; de satisfaction"
+                />
+                <filter
+                    domain="[('demande_service_id','!=',False)]"
+                    name="demande_service_id"
+                    string="Demande de services"
+                />
+                <filter domain="[('demarche','!=',False)]" name="demarche" string="D&#233;marche" />
+                <filter domain="[('membre_source','!=',False)]" name="membre_source" string="Membre source" />
+                <filter domain="[('membre_viser','!=',False)]" name="membre_viser" string="Membre vis&#233;" />
+                <filter domain="[('nom_comite','!=',False)]" name="nom_comite" string="Nom du comit&#233;" />
+                <filter
+                    domain="[('note_administrative','!=',False)]"
+                    name="note_administrative"
+                    string="Note administrative"
+                />
+                <filter domain="[('number','!=',False)]" name="number" string="# de commentaire" />
+                <filter domain="[('offre_service_id','!=',False)]" name="offre_service_id" string="Offre de services" />
+                <filter domain="[('point_service','!=',False)]" name="point_service" string="Point de services" />
+                <filter
+                    domain="[('resumer_situation','!=',False)]"
+                    name="resumer_situation"
+                    string="R&#233;sum&#233; de la situation"
+                />
+                <filter
+                    domain="[('situation_impliquant','!=',False)]"
+                    name="situation_impliquant"
+                    string="Situation impliquant"
+                />
+                <filter
+                    domain="[('solution_pour_regler','!=',False)]"
+                    name="solution_pour_regler"
+                    string="Solution pour r&#233;gler la situation"
+                />
+                <filter domain="[('type_offre','!=',False)]" name="type_offre" string="Type de l'offre" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_commentaire_view_tree" model="ir.ui.view">
+        <field name="name">organization_commentaire_tree</field>
+        <field name="model">organization.commentaire</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_complet" />
+                <field name="autre_commentaire" />
+                <field name="autre_situation" />
+                <field name="confidentiel" />
+                <field name="consulter_organization" />
+                <field name="consulter_reseau" />
+                <field name="date_incident" />
+                <field name="date_mise_a_jour" />
+                <field name="datetime_creation" />
+                <field name="degre_satisfaction" />
+                <field name="demande_service_id" />
+                <field name="demarche" />
+                <field name="membre_source" />
+                <field name="membre_viser" />
+                <field name="nom_comite" />
+                <field name="note_administrative" />
+                <field name="number" />
+                <field name="offre_service_id" />
+                <field name="point_service" />
+                <field name="resumer_situation" />
+                <field name="situation_impliquant" />
+                <field name="solution_pour_regler" />
+                <field name="type_offre" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_commentaire_commentaire_action_window"
+        name="Commentaire"
+        res_model="organization.commentaire"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

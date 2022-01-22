@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_create_demo_model_portal" name="Create Demo Model Portal">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Send a new demo model portal</h1>
+                    </div>
+                </div>
+            </div>
+            <form
+                action="/submitted/demo_model_portal"
+                method="POST"
+                class="form-horizontal mt32"
+                enctype="multipart/form-data"
+            >
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_binary">Demo_binary</label>
+                    <div class="col-md-7 col-sm-8">
+                        <div class="btn btn-default btn-file col-md-12">
+                            <input
+                                class="form-control o_website_form_input"
+                                id="demo_binary"
+                                name="demo_binary"
+                                type="file"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_binary_image">Demo_binary_image</label>
+                    <div class="col-md-7 col-sm-8">
+                        <div class="btn btn-default btn-file col-md-12">
+                            <input
+                                class="form-control o_website_form_input"
+                                id="demo_binary_image"
+                                name="demo_binary_image"
+                                type="file"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_boolean">Demo_boolean</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input
+                            type="checkbox"
+                            name="demo_boolean"
+                            t-att-id="demo_boolean"
+                            t-att-value="True"
+                            t-att-checked="default_demo_boolean"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_char">Demo_char</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="demo_char" t-att-value="default_demo_char" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_date">Demo_date</label>
+                    <div class="col-md-7 col-sm-8">
+                        <div class="input-group date" data-target-input="nearest" t-att-id="demo_date_datepicker">
+                            <input
+                                type="text"
+                                class="form-control datetimepicker-input"
+                                t-att-data-target="demo_date_datepicker"
+                                t-att-name="prefix"
+                                t-att-value="default_demo_date"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-att-data-target="demo_date_datepicker"
+                                data-toggle="datetimepicker"
+                            >
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_date_time">Demo_date_time</label>
+                    <div class="col-md-7 col-sm-8">
+                        <div class="input-group date" data-target-input="nearest" t-att-id="demo_date_time_datepicker">
+                            <input
+                                type="text"
+                                class="form-control datetimepicker-input"
+                                t-att-data-target="demo_date_time_datepicker"
+                                t-att-name="prefix"
+                                t-att-value="default_demo_date_time"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-att-data-target="demo_date_time_datepicker"
+                                data-toggle="datetimepicker"
+                            >
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_external_link">Demo_external_link</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="demo_external_link"
+                            t-att-value="default_demo_external_link"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_float">Demo_float</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="demo_float" t-att-value="default_demo_float" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_float_time">Demo_float_time</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="demo_float_time"
+                            placeholder="hh:mm"
+                            t-att-value="default_demo_float_time"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_html">Demo_html</label>
+                    <div class="col-md-7 col-sm-8">
+        <!-- prettier-ignore-start --><textarea class="form-control" name="demo_html" style="min-height: 120px"><t t-esc="default_demo_html"/></textarea><!-- prettier-ignore-end -->
+        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_integer">Demo_integer</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="demo_integer"
+                            t-att-value="default_demo_integer"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_many2many">Demo_many2many</label>
+                    <div class="col-md-7 col-sm-8">
+                        <t t-foreach="demo_many2many" t-as="dem">
+                            <input
+                                type="checkbox"
+                                name="demo_many2many"
+                                t-att-id="'demo_many2many_' + dem.name + '_' + str(dem_index)"
+                                t-att-value="dem.id"
+                                t-att-checked="dem.id in default_demo_many2many"
+                            />
+                            <label
+                                t-att-for="'demo_many2many_' + dem.name + '_' + str(dem_index)"
+                                t-att-string="dem.name"
+                            >
+                                <t t-esc="dem.name" />
+                            </label>
+                        </t>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_selection">Demo_selection</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" id="demo_selection" name="demo_selection">
+                            <t t-foreach="demo_selection" t-as="dem" t-att-selected="default_demo_selection == dem[0]">
+                                <option t-attf-value="#{dem[0]}">
+                                    <t t-esc="dem[1]" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_text">Demo_text</label>
+                    <div class="col-md-7 col-sm-8">
+        <!-- prettier-ignore-start --><textarea class="form-control" name="demo_text" style="min-height: 120px"><t t-esc="default_demo_text"/></textarea><!-- prettier-ignore-end -->
+        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="diagram_id">Diagram_id</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" id="diagram_id" name="diagram_id">
+                            <t t-foreach="diagram_id" t-as="dia">
+                                <option t-attf-value="#{dia.id}" t-att-selected="default_diagram_id == dia.id">
+                                    <t t-esc="dia.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="xpos">Xpos</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="xpos" t-att-value="default_xpos" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="ypos">Ypos</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="ypos" t-att-value="default_ypos" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                        <button class="btn btn-primary btn-lg">Submit Demo Model Portal</button>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <template id="portal_create_demo_model_2_portal" name="Create Demo Model_2 Portal">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Send a new demo model 2 portal</h1>
+                    </div>
+                </div>
+            </div>
+            <form
+                action="/submitted/demo_model_2_portal"
+                method="POST"
+                class="form-horizontal mt32"
+                enctype="multipart/form-data"
+            >
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_many2one_dst">Demo_many2one_dst</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" id="demo_many2one_dst" name="demo_many2one_dst">
+                            <t t-foreach="demo_many2one_dst" t-as="dem">
+                                <option t-attf-value="#{dem.id}" t-att-selected="default_demo_many2one_dst == dem.id">
+                                    <t t-esc="dem.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="demo_many2one_src">Demo_many2one_src</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" id="demo_many2one_src" name="demo_many2one_src">
+                            <t t-foreach="demo_many2one_src" t-as="dem">
+                                <option t-attf-value="#{dem.id}" t-att-selected="default_demo_many2one_src == dem.id">
+                                    <t t-esc="dem.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="diagram_id">Diagram_id</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" id="diagram_id" name="diagram_id">
+                            <t t-foreach="diagram_id" t-as="dia">
+                                <option t-attf-value="#{dia.id}" t-att-selected="default_diagram_id == dia.id">
+                                    <t t-esc="dia.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                        <button class="btn btn-primary btn-lg">Submit Demo Model_2 Portal</button>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <template id="portal_create_demo_model_3_portal_diagram" name="Create Demo Model_3 Portal Diagram">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Send a new demo model 3 portal diagram</h1>
+                    </div>
+                </div>
+            </div>
+            <form
+                action="/submitted/demo_model_3_portal_diagram"
+                method="POST"
+                class="form-horizontal mt32"
+                enctype="multipart/form-data"
+            >
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                        <button class="btn btn-primary btn-lg">Submit Demo Model_3 Portal Diagram</button>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_portal" name="My Demo Model Portal">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#return_label=Website&amp;model=demo.model.portal&amp;id=%s&amp;view_type=form' % (demo_model_portal.id)"
+                    />
+                </t>
+            </t>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <small class="text-muted">Demo Model Portal -</small>
+                        <span t-field="demo_model_portal.name" />
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Binary demo:</b>
+                            <span t-field="demo_model_portal.demo_binary" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Binary image demo:</b>
+                            <img
+                                t-if="demo_model_portal.demo_binary_image"
+                                t-att-src="image_data_uri(demo_model_portal.demo_binary_image)"
+                                alt="demo_binary_image"
+                                class="img img-fluid d-block mx-auto"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Boolean demo:</b>
+                            <span t-field="demo_model_portal.demo_boolean" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Char demo:</b>
+                            <span t-field="demo_model_portal.demo_char" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Date demo:</b>
+                            <span t-field="demo_model_portal.demo_date" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Datetime demo:</b>
+                            <span t-field="demo_model_portal.demo_date_time" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>External link demo:</b>
+                            <a
+                                target="_blank"
+                                t-attf-href="{{demo_model_portal.demo_external_link}}"
+                                t-field="demo_model_portal.demo_external_link"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Float demo:</b>
+                            <span t-field="demo_model_portal.demo_float" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Float time demo:</b>
+                            <span
+                                t-field="demo_model_portal.demo_float_time"
+                                t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>HTML demo:</b>
+                            <span t-raw="demo_model_portal.demo_html" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Integer demo:</b>
+                            <span t-field="demo_model_portal.demo_integer" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Many2many demo:</b>
+                            <t t-foreach="demo_model_portal.demo_many2many" t-as="dem">
+                                <a t-attf-href="/my/demo_model_2_portal/#{dem.id}" t-field="dem.name" />
+                                <t t-if="not dem_last">,</t>
+                            </t>
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Selection demo:</b>
+                            <span t-field="demo_model_portal.demo_selection" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Text demo:</b>
+                            <span t-field="demo_model_portal.demo_text" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Diagram:</b>
+                            <a
+                                t-attf-href="/my/demo_model_3_portal_diagram/#{demo_model_portal.diagram_id.id}"
+                                t-field="demo_model_portal.diagram_id.name"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Diagram position x:</b>
+                            <span t-field="demo_model_portal.xpos" />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Diagram position y:</b>
+                            <span t-field="demo_model_portal.ypos" />
+                        </div>
+                        <div class="container" t-if="demo_model_portal.demo_one2many_dst">
+                            <hr class="mt-4 mb-1" />
+                            <h5 class="mt-2 mb-2">One2Many demo dst</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Many2one dst</th>
+                                        <th>Many2one src</th>
+                                        <th>Diagram</th>
+                                    </tr>
+                                </thead>
+                                <tr t-foreach="demo_model_portal.demo_one2many_dst" t-as="demo_one2many_dst">
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_2_portal/#{demo_one2many_dst.id}"
+                                            t-field="demo_one2many_dst.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{demo_one2many_dst.demo_many2one_dst.id}"
+                                            t-field="demo_one2many_dst.demo_many2one_dst.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{demo_one2many_dst.demo_many2one_src.id}"
+                                            t-field="demo_one2many_dst.demo_many2one_src.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_3_portal_diagram/#{demo_one2many_dst.diagram_id.id}"
+                                            t-field="demo_one2many_dst.diagram_id.name"
+                                        />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="container" t-if="demo_model_portal.demo_one2many_src">
+                            <hr class="mt-4 mb-1" />
+                            <h5 class="mt-2 mb-2">One2Many demo src</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Many2one dst</th>
+                                        <th>Many2one src</th>
+                                        <th>Diagram</th>
+                                    </tr>
+                                </thead>
+                                <tr t-foreach="demo_model_portal.demo_one2many_src" t-as="demo_one2many_src">
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_2_portal/#{demo_one2many_src.id}"
+                                            t-field="demo_one2many_src.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{demo_one2many_src.demo_many2one_dst.id}"
+                                            t-field="demo_one2many_src.demo_many2one_dst.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{demo_one2many_src.demo_many2one_src.id}"
+                                            t-field="demo_one2many_src.demo_many2one_src.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_3_portal_diagram/#{demo_one2many_src.diagram_id.id}"
+                                            t-field="demo_one2many_src.diagram_id.name"
+                                        />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+            <div class="mt32">
+                <h4>
+                    <strong>Message and communication history</strong>
+                </h4>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="demo_model_portal" />
+                    <t t-set="token" t-value="demo_model_portal.access_token" />
+                    <t t-set="pid" t-value="pid" />
+                    <t t-set="hask" t-value="hash" />
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_2_portal" name="My Demo Model_2 Portal">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#return_label=Website&amp;model=demo.model_2.portal&amp;id=%s&amp;view_type=form' % (demo_model_2_portal.id)"
+                    />
+                </t>
+            </t>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <small class="text-muted">Demo Model_2 Portal -</small>
+                        <span t-field="demo_model_2_portal.name" />
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Many2one dst:</b>
+                            <a
+                                t-attf-href="/my/demo_model_portal/#{demo_model_2_portal.demo_many2one_dst.id}"
+                                t-field="demo_model_2_portal.demo_many2one_dst.name"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Many2one src:</b>
+                            <a
+                                t-attf-href="/my/demo_model_portal/#{demo_model_2_portal.demo_many2one_src.id}"
+                                t-field="demo_model_2_portal.demo_many2one_src.name"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <b>Diagram:</b>
+                            <a
+                                t-attf-href="/my/demo_model_3_portal_diagram/#{demo_model_2_portal.diagram_id.id}"
+                                t-field="demo_model_2_portal.diagram_id.name"
+                            />
+                        </div>
+                    </div>
+                </t>
+            </t>
+            <div class="mt32">
+                <h4>
+                    <strong>Message and communication history</strong>
+                </h4>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="demo_model_2_portal" />
+                    <t t-set="token" t-value="demo_model_2_portal.access_token" />
+                    <t t-set="pid" t-value="pid" />
+                    <t t-set="hask" t-value="hash" />
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_3_portal_diagram" name="My Demo Model_3 Portal Diagram">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#return_label=Website&amp;model=demo.model_3.portal.diagram&amp;id=%s&amp;view_type=form' % (demo_model_3_portal_diagram.id)"
+                    />
+                </t>
+            </t>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <small class="text-muted">Demo Model_3 Portal Diagram -</small>
+                        <span t-field="demo_model_3_portal_diagram.name" />
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <div class="row">
+                        <div class="container" t-if="demo_model_3_portal_diagram.diagram_demo2_ids">
+                            <hr class="mt-4 mb-1" />
+                            <h5 class="mt-2 mb-2">One2Many demo 2</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Many2one dst</th>
+                                        <th>Many2one src</th>
+                                        <th>Diagram</th>
+                                    </tr>
+                                </thead>
+                                <tr t-foreach="demo_model_3_portal_diagram.diagram_demo2_ids" t-as="diagram_demo2_ids">
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_2_portal/#{diagram_demo2_ids.id}"
+                                            t-field="diagram_demo2_ids.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{diagram_demo2_ids.demo_many2one_dst.id}"
+                                            t-field="diagram_demo2_ids.demo_many2one_dst.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{diagram_demo2_ids.demo_many2one_src.id}"
+                                            t-field="diagram_demo2_ids.demo_many2one_src.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_3_portal_diagram/#{diagram_demo2_ids.diagram_id.id}"
+                                            t-field="diagram_demo2_ids.diagram_id.name"
+                                        />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="container" t-if="demo_model_3_portal_diagram.diagram_demo_ids">
+                            <hr class="mt-4 mb-1" />
+                            <h5 class="mt-2 mb-2">One2Many demo</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Binary demo</th>
+                                        <th>Binary image demo</th>
+                                        <th>Boolean demo</th>
+                                        <th>Char demo</th>
+                                        <th>Date demo</th>
+                                        <th>Datetime demo</th>
+                                        <th>External link demo</th>
+                                        <th>Float demo</th>
+                                        <th>Float time demo</th>
+                                        <th>HTML demo</th>
+                                        <th>Integer demo</th>
+                                        <th>Many2many demo</th>
+                                        <th>One2Many demo dst</th>
+                                        <th>One2Many demo src</th>
+                                        <th>Selection demo</th>
+                                        <th>Text demo</th>
+                                        <th>Diagram</th>
+                                        <th>Diagram position x</th>
+                                        <th>Diagram position y</th>
+                                    </tr>
+                                </thead>
+                                <tr t-foreach="demo_model_3_portal_diagram.diagram_demo_ids" t-as="diagram_demo_ids">
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_portal/#{diagram_demo_ids.id}"
+                                            t-field="diagram_demo_ids.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_binary" />
+                                    </td>
+                                    <td>
+                                        <img
+                                            t-if="diagram_demo_ids.demo_binary_image"
+                                            t-att-src="image_data_uri(diagram_demo_ids.demo_binary_image)"
+                                            alt="demo_binary_image"
+                                            class="img img-fluid d-block mx-auto"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_boolean" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_char" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_date" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_date_time" />
+                                    </td>
+                                    <td>
+                                        <a
+                                            target="_blank"
+                                            t-attf-href="{{diagram_demo_ids.demo_external_link}}"
+                                            t-field="diagram_demo_ids.demo_external_link"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_float" />
+                                    </td>
+                                    <td>
+                                        <span
+                                            t-field="diagram_demo_ids.demo_float_time"
+                                            t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-raw="diagram_demo_ids.demo_html" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_integer" />
+                                    </td>
+                                    <td>
+                                        <t t-foreach="diagram_demo_ids.demo_many2many" t-as="dem">
+                                            <a t-attf-href="/my/demo_model_2_portal/#{dem.id}" t-field="dem.name" />
+                                            <br t-if="not dem_last" />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="diagram_demo_ids.demo_one2many_dst" t-as="dem">
+                                            <a t-attf-href="/my/demo_model_2_portal/#{dem.id}" t-field="dem.name" />
+                                            <br t-if="not dem_last" />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="diagram_demo_ids.demo_one2many_src" t-as="dem">
+                                            <a t-attf-href="/my/demo_model_2_portal/#{dem.id}" t-field="dem.name" />
+                                            <br t-if="not dem_last" />
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_selection" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.demo_text" />
+                                    </td>
+                                    <td>
+                                        <a
+                                            t-attf-href="/my/demo_model_3_portal_diagram/#{diagram_demo_ids.diagram_id.id}"
+                                            t-field="diagram_demo_ids.diagram_id.name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.xpos" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="diagram_demo_ids.ypos" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_portals" name="My Demo Model Portals">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Demo Model Portals</t>
+            </t>
+            <form method="POST" t-attf-action="/new/demo_model_portal">
+                <button
+                    name="create_new_demo_model_portal"
+                    type="action"
+                    class="btn btn-primary"
+                    style="float: right; margin-right: 5px;"
+                >
+                    New Demo Model Portal
+                </button>
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            </form>
+            <t t-if="not demo_model_portals">
+                <div class="alert alert-warning mt8" role="alert">There are no demo_model_portals.</div>
+            </t>
+            <t t-if="demo_model_portals" t-call="portal.portal_table">
+                <tbody>
+                    <tr t-foreach="demo_model_portals" t-as="demo_model_portal">
+                        <td>
+                            <a t-attf-href="/my/demo_model_portal/#{demo_model_portal.id}?{{ keep_query() }}">
+                                <span t-field="demo_model_portal.name" />
+                            </a>
+                        </td>
+                        <td class="text-right" />
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_2_portals" name="My Demo Model_2 Portals">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Demo Model_2 Portals</t>
+            </t>
+            <form method="POST" t-attf-action="/new/demo_model_2_portal">
+                <button
+                    name="create_new_demo_model_2_portal"
+                    type="action"
+                    class="btn btn-primary"
+                    style="float: right; margin-right: 5px;"
+                >
+                    New Demo Model_2 Portal
+                </button>
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            </form>
+            <t t-if="not demo_model_2_portals">
+                <div class="alert alert-warning mt8" role="alert">There are no demo_model_2_portals.</div>
+            </t>
+            <t t-if="demo_model_2_portals" t-call="portal.portal_table">
+                <tbody>
+                    <tr t-foreach="demo_model_2_portals" t-as="demo_model_2_portal">
+                        <td>
+                            <a t-attf-href="/my/demo_model_2_portal/#{demo_model_2_portal.id}?{{ keep_query() }}">
+                                <span t-field="demo_model_2_portal.name" />
+                            </a>
+                        </td>
+                        <td class="text-right" />
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template id="demo_portal.portal_my_demo_model_3_portal_diagrams" name="My Demo Model_3 Portal Diagrams">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Demo Model_3 Portal Diagrams</t>
+            </t>
+            <form method="POST" t-attf-action="/new/demo_model_3_portal_diagram">
+                <button
+                    name="create_new_demo_model_3_portal_diagram"
+                    type="action"
+                    class="btn btn-primary"
+                    style="float: right; margin-right: 5px;"
+                >
+                    New Demo Model_3 Portal Diagram
+                </button>
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            </form>
+            <t t-if="not demo_model_3_portal_diagrams">
+                <div class="alert alert-warning mt8" role="alert">There are no demo_model_3_portal_diagrams.</div>
+            </t>
+            <t t-if="demo_model_3_portal_diagrams" t-call="portal.portal_table">
+                <tbody>
+                    <tr t-foreach="demo_model_3_portal_diagrams" t-as="demo_model_3_portal_diagram">
+                        <td>
+                            <a
+                                t-attf-href="/my/demo_model_3_portal_diagram/#{demo_model_3_portal_diagram.id}?{{ keep_query() }}"
+                            >
+                                <span t-field="demo_model_3_portal_diagram.name" />
+                            </a>
+                        </td>
+                        <td class="text-right" />
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+    <template
+        id="demo_portal.portal_my_home"
+        name="Portal My Home: Demo_Portal entries"
+        inherit_id="portal.portal_my_home"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="demo_model_2_portal_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Demo Model_2 Portals</t>
+                <t t-set="url" t-value="'/my/demo_model_2_portals'" />
+                <t t-set="count" t-value="demo_model_2_portal_count" />
+            </t>
+            <a
+                t-if="not demo_model_2_portal_count"
+                role="button"
+                class="btn btn-primary btn-block mb8"
+                href="/new/demo_model_2_portal"
+            >
+                <i class="fa fa-plus-circle" />
+                Demo Model_2 Portal
+            </a>
+            <t t-if="demo_model_3_portal_diagram_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Demo Model_3 Portal Diagrams</t>
+                <t t-set="url" t-value="'/my/demo_model_3_portal_diagrams'" />
+                <t t-set="count" t-value="demo_model_3_portal_diagram_count" />
+            </t>
+            <a
+                t-if="not demo_model_3_portal_diagram_count"
+                role="button"
+                class="btn btn-primary btn-block mb8"
+                href="/new/demo_model_3_portal_diagram"
+            >
+                <i class="fa fa-plus-circle" />
+                Demo Model_3 Portal Diagram
+            </a>
+            <t t-if="demo_model_portal_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Demo Model Portals</t>
+                <t t-set="url" t-value="'/my/demo_model_portals'" />
+                <t t-set="count" t-value="demo_model_portal_count" />
+            </t>
+            <a
+                t-if="not demo_model_portal_count"
+                role="button"
+                class="btn btn-primary btn-block mb8"
+                href="/new/demo_model_portal"
+            >
+                <i class="fa fa-plus-circle" />
+                Demo Model Portal
+            </a>
+        </xpath>
+    </template>
+
+    <template
+        id="demo_portal.portal_layout"
+        name="Portal layout: Demo_Portal menu entry"
+        inherit_id="portal.portal_breadcrumbs"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name in ('demo_model_2_portal', 'create_demo_model_2_portal') or demo_model_2_portal"
+                t-attf-class="breadcrumb-item #{'active ' if not demo_model_2_portal else ''}"
+            >
+                <a
+                    t-if="demo_model_2_portal or page_name == 'create_demo_model_2_portal'"
+                    t-attf-href="/my/demo_model_2_portals?{{ keep_query() }}"
+                >
+                    Demo Model_2 Portals
+                </a>
+                <t t-else="">Demo Model_2 Portals</t>
+            </li>
+            <li t-if="demo_model_2_portal" class="breadcrumb-item active">
+                <t t-esc="demo_model_2_portal.name" />
+            </li>
+            <li
+                t-if="page_name in ('demo_model_3_portal_diagram', 'create_demo_model_3_portal_diagram') or demo_model_3_portal_diagram"
+                t-attf-class="breadcrumb-item #{'active ' if not demo_model_3_portal_diagram else ''}"
+            >
+                <a
+                    t-if="demo_model_3_portal_diagram or page_name == 'create_demo_model_3_portal_diagram'"
+                    t-attf-href="/my/demo_model_3_portal_diagrams?{{ keep_query() }}"
+                >
+                    Demo Model_3 Portal Diagrams
+                </a>
+                <t t-else="">Demo Model_3 Portal Diagrams</t>
+            </li>
+            <li t-if="demo_model_3_portal_diagram" class="breadcrumb-item active">
+                <t t-esc="demo_model_3_portal_diagram.name" />
+            </li>
+            <li
+                t-if="page_name in ('demo_model_portal', 'create_demo_model_portal') or demo_model_portal"
+                t-attf-class="breadcrumb-item #{'active ' if not demo_model_portal else ''}"
+            >
+                <a
+                    t-if="demo_model_portal or page_name == 'create_demo_model_portal'"
+                    t-attf-href="/my/demo_model_portals?{{ keep_query() }}"
+                >
+                    Demo Model Portals
+                </a>
+                <t t-else="">Demo Model Portals</t>
+            </li>
+            <li t-if="demo_model_portal" class="breadcrumb-item active">
+                <t t-esc="demo_model_portal.name" />
+            </li>
+        </xpath>
+    </template>
+</odoo>

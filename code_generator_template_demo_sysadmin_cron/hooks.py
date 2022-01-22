@@ -1,5 +1,6 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 # TODO HUMAN: change my module_name to create a specific demo functionality
 MODULE_NAME = "code_generator_auto_backup"
@@ -32,6 +33,7 @@ def post_init_hook(cr, e):
         # TODO HUMAN: enable your functionality to generate
         value["enable_template_code_generator_demo"] = False
         value["template_model_name"] = "db.backup"
+        value["template_inherit_model_name"] = ""
         value["enable_template_wizard_view"] = True
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = True
@@ -68,11 +70,7 @@ def post_init_hook(cr, e):
             value[
                 "template_module_path_generated_extension"
             ] = "'..', 'OCA_server-tools'"
-        value[
-            "hook_constant_code"
-        ] = f'''import os
-
-MODULE_NAME = "{new_module_name}"'''
+        value["hook_constant_code"] = f'''MODULE_NAME = "{new_module_name}"'''
 
         code_generator_id = env["code.generator.module"].create(value)
 
@@ -84,14 +82,15 @@ MODULE_NAME = "{new_module_name}"'''
         )
         new_module_path = os.path.join(path_module_generate, new_module_name)
         i18n_path = os.path.join(new_module_path, "i18n")
-        not_supported_files_dir = os.path.join(
-            template_dir, "not_supported_files"
-        )
-        if os.path.isdir(not_supported_files_dir):
-            env["code.generator.writer"].set_module_translator(
-                new_module_name, new_module_path
-            )
-            return
+        # not_supported_files_dir = os.path.join(
+        #     template_dir, "not_supported_files"
+        #
+        # TODO why this? This block the normal usage to generate code_generator_auto_backup
+        # if os.path.isdir(not_supported_files_dir):
+        #     env["code.generator.writer"].set_module_translator(
+        #         new_module_name, new_module_path
+        #     )
+        #     return
 
         # Add dependencies
         # TODO HUMAN: update your dependencies
@@ -99,16 +98,7 @@ MODULE_NAME = "{new_module_name}"'''
             "code_generator",
             "code_generator_cron",
         ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
+        code_generator_id.add_module_dependency(lst_depend)
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}

@@ -1,4 +1,4 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 # TODO HUMAN: change my module_name to create a specific demo functionality
 MODULE_NAME = "code_generator_demo_website_snippet"
@@ -28,6 +28,7 @@ def post_init_hook(cr, e):
         # TODO HUMAN: enable your functionality to generate
         value["enable_template_code_generator_demo"] = False
         value["template_model_name"] = ""
+        value["template_inherit_model_name"] = ""
         value["enable_template_wizard_view"] = False
         value["enable_template_website_snippet_view"] = True
         value["enable_sync_template"] = False
@@ -61,16 +62,7 @@ def post_init_hook(cr, e):
             "code_generator",
             "code_generator_website_snippet",
         ]
-        lst_dependencies = env["ir.module.module"].search(
-            [("name", "in", lst_depend)]
-        )
-        for depend in lst_dependencies:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": depend.id,
-                "name": depend.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
+        code_generator_id.add_module_dependency(lst_depend)
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}

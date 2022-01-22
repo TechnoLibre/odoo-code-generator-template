@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="demo_model_internal_view_calendar" model="ir.ui.view">
+        <field name="name">demo_model_internal_calendar</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <calendar color="name" date_start="date_start" string="Demo model internal">
+                <field name="name" />
+                <field name="banana" />
+                <field name="date_end" />
+                <field name="date_start" />
+            </calendar>
+        </field>
+    </record>
+
     <record id="demo_model_internal_view_form" model="ir.ui.view">
         <field name="name">demo_model_internal_form</field>
         <field name="model">demo.model.internal</field>
@@ -12,8 +25,116 @@
                     <group>
                         <field name="banana" />
                     </group>
+                    <group>
+                        <field name="date_end" />
+                    </group>
+                    <group>
+                        <field name="date_start" />
+                    </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}" widget="mail_thread" />
+                </div>
             </form>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_graph" model="ir.ui.view">
+        <field name="name">demo_model_internal_graph</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <graph string="Demo model internal">
+                <field name="name" type="row" />
+                <field name="banana" type="row" />
+                <field name="date_end" type="row" />
+                <field name="date_start" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_kanban" model="ir.ui.view">
+        <field name="name">demo_model_internal_kanban</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name" />
+                <field name="banana" />
+                <field name="date_end" />
+                <field name="date_start" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </li>
+                                    <li class="text-success float-right mb4" t-if="record.banana.raw_value">
+                                        <i aria-label="Ok" class="fa fa-circle" role="img" title="Ok" />
+                                    </li>
+                                    <li class="text-danger float-right mb4" t-if="!record.banana.raw_value">
+                                        <i aria-label="Invalid" class="fa fa-circle" role="img" title="Invalid" />
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_end" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="date_start" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_pivot" model="ir.ui.view">
+        <field name="name">demo_model_internal_pivot</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <pivot string="Demo model internal">
+                <field name="name" type="row" />
+                <field name="banana" type="row" />
+                <field name="date_end" type="row" />
+                <field name="date_start" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_search" model="ir.ui.view">
+        <field name="name">demo_model_internal_search</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <search string="Demo model internal">
+                <filter domain="[('name','!=',False)]" name="name" string="Name" />
+                <filter domain="[('banana','=',True)]" name="banana" string="Banana demo" />
+                <filter domain="[('date_end','!=',False)]" name="date_end" string="Date end" />
+                <filter domain="[('date_start','!=',False)]" name="date_start" string="Date start" />
+            </search>
+        </field>
+    </record>
+
+    <record id="demo_model_internal_view_timeline" model="ir.ui.view">
+        <field name="name">demo_model_internal_timeline</field>
+        <field name="model">demo.model.internal</field>
+        <field name="arch" type="xml">
+            <timeline
+                date_start="date_start"
+                date_stop="date_end"
+                default_group_by="name"
+                event_open_popup="True"
+                string="Demo model internal"
+            />
         </field>
     </record>
 
@@ -24,6 +145,8 @@
             <tree>
                 <field name="name" />
                 <field name="banana" />
+                <field name="date_end" />
+                <field name="date_start" />
             </tree>
         </field>
     </record>
@@ -32,6 +155,6 @@
         id="demo_model_internal_demo_model_internal_action_window"
         name="Demo model internal"
         res_model="demo.model.internal"
-        view_mode="list,form"
+        view_mode="kanban,tree,timeline,pivot,graph,form,calendar,activity"
     />
 </odoo>

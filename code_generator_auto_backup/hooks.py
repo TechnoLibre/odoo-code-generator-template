@@ -1,6 +1,9 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
-
+import logging
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 MODULE_NAME = "auto_backup"
 
@@ -19,7 +22,9 @@ def post_init_hook(cr, e):
         short_name = MODULE_NAME.replace("_", " ").title()
 
         # Add code generator
-        categ_id = env["ir.module.category"].search([("name", "=", "Tools")])
+        categ_id = env["ir.module.category"].search(
+            [("name", "=", "Tools")], limit=1
+        )
         value = {
             "shortdesc": "Database Auto-Backup",
             "name": MODULE_NAME,
@@ -64,31 +69,8 @@ def post_init_hook(cr, e):
 
         code_generator_id = env["code.generator.module"].create(value)
 
-        # Add Db Backup
-        value = {
-            "name": "db_backup",
-            "description": "Database Backup",
-            "model": "db.backup",
-            "m2o_module": code_generator_id.id,
-            "rec_name": None,
-            "nomenclator": True,
-        }
-        model_db_backup = env["ir.model"].create(value)
-
-        # Model Inherit
-        dependency_ids = env["ir.module.module"].search(
-            [("name", "=", "mail")]
-        )
-        for dependency in dependency_ids:
-            value = {
-                "module_id": code_generator_id.id,
-                "depend_id": dependency.id,
-                "name": code_generator_id.display_name,
-            }
-            env["code.generator.module.dependency"].create(value)
-        inherit_model = env["ir.model"].search([("model", "=", "mail.thread")])
-        model_db_backup.m2o_inherit_model = inherit_model.id
-
+        # Add dependencies
+        code_generator_id.add_module_dependency("mail")
         # External dependencies
         value = {
             "module_id": code_generator_id.id,
@@ -97,6 +79,141 @@ def post_init_hook(cr, e):
         }
         env["code.generator.module.external.dependency"].create(value)
 
+        # Add/Update Db Backup
+        model_model = "db.backup"
+        model_name = "db_backup"
+        lst_depend_model = ["mail.thread"]
+        dct_model = {
+            "description": "Database Backup",
+        }
+        dct_field = {
+            "backup_format": {
+                "code_generator_form_simple_view_sequence": 14,
+                "code_generator_sequence": 14,
+                "default": "zip",
+                "field_description": "Backup Format",
+                "help": "Choose the format for this backup.",
+                "selection": (
+                    "[('zip', 'zip (includes filestore)'), ('dump', 'pg_dump"
+                    " custom format (without filestore)')]"
+                ),
+                "ttype": "selection",
+            },
+            "days_to_keep": {
+                "code_generator_form_simple_view_sequence": 12,
+                "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 12,
+                "field_description": "Days To Keep",
+                "help": (
+                    "Backups older than this will be deleted automatically."
+                    " Set 0 to disable autodeletion."
+                ),
+                "required": True,
+                "ttype": "integer",
+            },
+            "folder": {
+                "code_generator_form_simple_view_sequence": 11,
+                "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 11,
+                "default": "lambda self: self._default_folder()",
+                "field_description": "Folder",
+                "help": "Absolute path for storing the backups",
+                "required": True,
+                "ttype": "char",
+            },
+            "method": {
+                "code_generator_form_simple_view_sequence": 13,
+                "code_generator_sequence": 7,
+                "default": "local",
+                "field_description": "Method",
+                "help": "Choose the storage method for this backup.",
+                "selection": (
+                    "[('local', 'Local disk'), ('sftp', 'Remote SFTP server')]"
+                ),
+                "ttype": "selection",
+            },
+            "name": {
+                "code_generator_compute": "_compute_name",
+                "code_generator_form_simple_view_sequence": 10,
+                "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 10,
+                "field_description": "Name",
+                "help": "Summary of this backup process",
+                "store": True,
+                "ttype": "char",
+            },
+            "sftp_host": {
+                "code_generator_form_simple_view_sequence": 15,
+                "code_generator_sequence": 8,
+                "field_description": "SFTP Server",
+                "help": (
+                    "The host name or IP address from your remote server. For"
+                    " example 192.168.0.1"
+                ),
+                "ttype": "char",
+            },
+            "sftp_password": {
+                "code_generator_form_simple_view_sequence": 18,
+                "code_generator_sequence": 11,
+                "field_description": "SFTP Password",
+                "help": (
+                    "The password for the SFTP connection. If you specify a"
+                    " private key file, then this is the password to"
+                    " decrypt it."
+                ),
+                "ttype": "char",
+            },
+            "sftp_port": {
+                "code_generator_form_simple_view_sequence": 16,
+                "code_generator_sequence": 9,
+                "default": 22,
+                "field_description": "SFTP Port",
+                "help": (
+                    "The port on the FTP server that accepts SSH/SFTP calls."
+                ),
+                "ttype": "integer",
+            },
+            "sftp_private_key": {
+                "code_generator_form_simple_view_sequence": 19,
+                "code_generator_sequence": 12,
+                "field_description": "Private key location",
+                "help": (
+                    "Path to the private key file. Only the Odoo user should"
+                    " have read permissions for that file."
+                ),
+                "ttype": "char",
+            },
+            "sftp_public_host_key": {
+                "code_generator_form_simple_view_sequence": 20,
+                "code_generator_sequence": 13,
+                "field_description": "Public host key",
+                "help": (
+                    "Verify SFTP server's identity using its public rsa-key."
+                    " The host key verification protects you from"
+                    " man-in-the-middle attacks. Can be generated with command"
+                    " 'ssh-keyscan -p PORT -H HOST/IP' and the right key is"
+                    " immediately after the words 'ssh-rsa'."
+                ),
+                "ttype": "char",
+            },
+            "sftp_user": {
+                "code_generator_form_simple_view_sequence": 17,
+                "code_generator_sequence": 10,
+                "field_description": "Username in the SFTP Server",
+                "help": (
+                    "The username where the SFTP connection should be made"
+                    " with. This is the user on the external server."
+                ),
+                "ttype": "char",
+            },
+        }
+        model_db_backup = code_generator_id.add_update_model(
+            model_model,
+            model_name,
+            dct_field=dct_field,
+            dct_model=dct_model,
+            lst_depend_model=lst_depend_model,
+        )
         ##### Cron
         value = {
             "m2o_module": code_generator_id.id,
@@ -124,172 +241,6 @@ def post_init_hook(cr, e):
         }
         env["ir.model.data"].create(value)
 
-        ##### Begin Field
-        value_field_backup_format = {
-            "name": "backup_format",
-            "model": "db.backup",
-            "field_description": "Backup Format",
-            "code_generator_sequence": 14,
-            "ttype": "selection",
-            "selection": (
-                "[('zip', 'zip (includes filestore)'), ('dump', 'pg_dump"
-                " custom format (without filestore)')]"
-            ),
-            "model_id": model_db_backup.id,
-            "default": "zip",
-            "help": "Choose the format for this backup.",
-        }
-        env["ir.model.fields"].create(value_field_backup_format)
-
-        value_field_days_to_keep = {
-            "name": "days_to_keep",
-            "model": "db.backup",
-            "field_description": "Days To Keep",
-            "code_generator_sequence": 6,
-            "ttype": "integer",
-            "model_id": model_db_backup.id,
-            "required": True,
-            "help": (
-                "Backups older than this will be deleted automatically. Set 0"
-                " to disable autodeletion."
-            ),
-        }
-        env["ir.model.fields"].create(value_field_days_to_keep)
-
-        value_field_folder = {
-            "name": "folder",
-            "model": "db.backup",
-            "field_description": "Folder",
-            "code_generator_sequence": 5,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "default": "lambda self: self._default_folder()",
-            "required": True,
-            "help": "Absolute path for storing the backups",
-        }
-        env["ir.model.fields"].create(value_field_folder)
-
-        value_field_method = {
-            "name": "method",
-            "model": "db.backup",
-            "field_description": "Method",
-            "code_generator_sequence": 7,
-            "ttype": "selection",
-            "selection": (
-                "[('local', 'Local disk'), ('sftp', 'Remote SFTP server')]"
-            ),
-            "model_id": model_db_backup.id,
-            "default": "local",
-            "help": "Choose the storage method for this backup.",
-        }
-        env["ir.model.fields"].create(value_field_method)
-
-        value_field_name = {
-            "name": "name",
-            "model": "db.backup",
-            "field_description": "Name",
-            "code_generator_sequence": 4,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "store": True,
-            "code_generator_compute": "_compute_name",
-            "help": "Summary of this backup process",
-        }
-        env["ir.model.fields"].create(value_field_name)
-
-        value_field_sftp_host = {
-            "name": "sftp_host",
-            "model": "db.backup",
-            "field_description": "SFTP Server",
-            "code_generator_sequence": 8,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "help": (
-                "The host name or IP address from your remote server. For"
-                " example 192.168.0.1"
-            ),
-        }
-        env["ir.model.fields"].create(value_field_sftp_host)
-
-        value_field_sftp_password = {
-            "name": "sftp_password",
-            "model": "db.backup",
-            "field_description": "SFTP Password",
-            "code_generator_sequence": 11,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "help": (
-                "The password for the SFTP connection. If you specify a"
-                " private key file, then this is the password to decrypt it."
-            ),
-        }
-        env["ir.model.fields"].create(value_field_sftp_password)
-
-        value_field_sftp_port = {
-            "name": "sftp_port",
-            "model": "db.backup",
-            "field_description": "SFTP Port",
-            "code_generator_sequence": 9,
-            "ttype": "integer",
-            "model_id": model_db_backup.id,
-            "default": 22,
-            "help": "The port on the FTP server that accepts SSH/SFTP calls.",
-        }
-        env["ir.model.fields"].create(value_field_sftp_port)
-
-        value_field_sftp_private_key = {
-            "name": "sftp_private_key",
-            "model": "db.backup",
-            "field_description": "Private key location",
-            "code_generator_sequence": 12,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "help": (
-                "Path to the private key file. Only the Odoo user should have"
-                " read permissions for that file."
-            ),
-        }
-        env["ir.model.fields"].create(value_field_sftp_private_key)
-
-        value_field_sftp_public_host_key = {
-            "name": "sftp_public_host_key",
-            "model": "db.backup",
-            "field_description": "Public host key",
-            "code_generator_sequence": 13,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "help": (
-                "Verify SFTP server's identity using its public rsa-key. The"
-                " host key verification protects you from man-in-the-middle"
-                " attacks. Can be generated with command 'ssh-keyscan -p PORT"
-                " -H HOST/IP' and the right key is immediately after the words"
-                " 'ssh-rsa'."
-            ),
-        }
-        env["ir.model.fields"].create(value_field_sftp_public_host_key)
-
-        value_field_sftp_user = {
-            "name": "sftp_user",
-            "model": "db.backup",
-            "field_description": "Username in the SFTP Server",
-            "code_generator_sequence": 10,
-            "ttype": "char",
-            "model_id": model_db_backup.id,
-            "help": (
-                "The username where the SFTP connection should be made with."
-                " This is the user on the external server."
-            ),
-        }
-        env["ir.model.fields"].create(value_field_sftp_user)
-
-        # Hack to solve field name
-        field_x_name = env["ir.model.fields"].search(
-            [("model_id", "=", model_db_backup.id), ("name", "=", "x_name")]
-        )
-        field_x_name.unlink()
-        model_db_backup.rec_name = "name"
-        ##### End Field
-
         # Generate code
         if True:
             # Generate code header
@@ -299,6 +250,7 @@ def post_init_hook(cr, e):
 # Copyright 2016 Grupo ESOC Ingenieria de Servicios, S.L.U. - Jairo Llopis
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import base64
 import logging
 import os
 import shutil
@@ -306,7 +258,7 @@ import traceback
 from contextlib import contextmanager
 from datetime import datetime, timedelta
 from glob import iglob
-import base64
+
 import paramiko
 
 from odoo import _, api, exceptions, fields, models, tools
@@ -614,6 +566,37 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
             ]
             env["code.generator.model.code"].create(lst_value)
 
+        # Generate server action
+        # action_server view
+        act_server_id = env["ir.actions.server"].search(
+            [
+                ("name", "=", "Execute backup(s)"),
+                ("model_id", "=", model_db_backup.id),
+            ]
+        )
+        if not act_server_id:
+            act_server_id = env["ir.actions.server"].create(
+                {
+                    "name": "Execute backup(s)",
+                    "model_id": model_db_backup.id,
+                    "binding_model_id": model_db_backup.id,
+                    "state": "code",
+                    "code": "records.action_backup()",
+                    "comment": 'Execute backup from "More" menu',
+                }
+            )
+
+            # Add record id name
+            env["ir.model.data"].create(
+                {
+                    "name": "action_server_backup",
+                    "model": "ir.actions.server",
+                    "module": MODULE_NAME,
+                    "res_id": act_server_id.id,
+                    "noupdate": True,
+                }
+            )
+
         # Add constraint
         if True:
             lst_value = [
@@ -642,7 +625,6 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
             env["ir.model.constraint"].create(lst_value)
 
         # Generate view
-        ##### Begin Views
         lst_view_id = []
         # form view
         if True:
@@ -652,6 +634,8 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "header",
                     "item_type": "button",
+                    "name": "action_backup",
+                    "class_attr": "oe_highlight",
                     "action_name": "action_backup",
                     "button_type": "oe_highlight",
                     "label": "Execute backup",
@@ -672,7 +656,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
             lst_item_view.append(view_item.id)
 
             # BODY
-            view_item_body_1 = env["code.generator.view.item"].create(
+            view_item_body_group_1 = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "group",
@@ -680,14 +664,15 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                     "sequence": 1,
                 }
             )
-            lst_item_view.append(view_item_body_1.id)
+            lst_item_view.append(view_item_body_group_1.id)
 
             view_item = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "folder",
                     "action_name": "folder",
-                    "parent_id": view_item_body_1.id,
+                    "parent_id": view_item_body_group_1.id,
                     "sequence": 1,
                 }
             )
@@ -697,8 +682,9 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "days_to_keep",
                     "action_name": "days_to_keep",
-                    "parent_id": view_item_body_1.id,
+                    "parent_id": view_item_body_group_1.id,
                     "sequence": 2,
                 }
             )
@@ -708,8 +694,9 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "method",
                     "action_name": "method",
-                    "parent_id": view_item_body_1.id,
+                    "parent_id": view_item_body_group_1.id,
                     "sequence": 3,
                 }
             )
@@ -719,14 +706,15 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "backup_format",
                     "action_name": "backup_format",
-                    "parent_id": view_item_body_1.id,
+                    "parent_id": view_item_body_group_1.id,
                     "sequence": 4,
                 }
             )
             lst_item_view.append(view_item.id)
 
-            view_item_body_2 = env["code.generator.view.item"].create(
+            view_item_body_div_2 = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "div",
@@ -734,41 +722,43 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                     "sequence": 2,
                 }
             )
-            lst_item_view.append(view_item_body_2.id)
+            lst_item_view.append(view_item_body_div_2.id)
 
             view_item = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "html",
+                    "class_attr": "bg-warning",
                     "background_type": "bg-warning",
                     "label": (
                         "Use SFTP with caution! This writes files to external"
                         " servers under the path you specify."
                     ),
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_div_2.id,
                     "sequence": 1,
                 }
             )
             lst_item_view.append(view_item.id)
 
-            view_item_body_2 = env["code.generator.view.item"].create(
+            view_item_body_group_2 = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "group",
                     "label": "SFTP Settings",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_div_2.id,
                     "sequence": 2,
                 }
             )
-            lst_item_view.append(view_item_body_2.id)
+            lst_item_view.append(view_item_body_group_2.id)
 
             view_item = env["code.generator.view.item"].create(
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_host",
                     "action_name": "sftp_host",
                     "placeholder": "sftp.example.com",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 1,
                 }
             )
@@ -778,8 +768,9 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_port",
                     "action_name": "sftp_port",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 2,
                 }
             )
@@ -789,9 +780,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_user",
                     "action_name": "sftp_user",
                     "placeholder": "john",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 3,
                 }
             )
@@ -801,9 +793,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_password",
                     "action_name": "sftp_password",
                     "password": True,
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 4,
                 }
             )
@@ -813,9 +806,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_private_key",
                     "action_name": "sftp_private_key",
                     "placeholder": "/home/odoo/.ssh/id_rsa",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 5,
                 }
             )
@@ -825,9 +819,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_public_host_key",
                     "action_name": "sftp_public_host_key",
                     "placeholder": "AAAA...",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 6,
                 }
             )
@@ -837,10 +832,11 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "button",
+                    "name": "action_sftp_test_connection",
                     "action_name": "action_sftp_test_connection",
                     "icon": "fa-television",
                     "label": "Test SFTP Connection",
-                    "parent_id": view_item_body_2.id,
+                    "parent_id": view_item_body_group_2.id,
                     "sequence": 7,
                 }
             )
@@ -869,56 +865,10 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "code_generator_id": code_generator_id.id,
                     "view_type": "form",
-                    # "view_name": "view_backup_conf_form",
+                    "view_name": "db.backup form",
                     "m2o_model": model_db_backup.id,
                     "view_item_ids": [(6, 0, lst_item_view)],
                     "id_name": "view_backup_conf_form",
-                }
-            )
-            lst_view_id.append(view_code_generator.id)
-
-        # tree view
-        if True:
-            lst_item_view = []
-            # BODY
-            view_item = env["code.generator.view.item"].create(
-                {
-                    "section_type": "body",
-                    "item_type": "field",
-                    "action_name": "name",
-                    "sequence": 1,
-                }
-            )
-            lst_item_view.append(view_item.id)
-
-            view_item = env["code.generator.view.item"].create(
-                {
-                    "section_type": "body",
-                    "item_type": "field",
-                    "action_name": "folder",
-                    "sequence": 2,
-                }
-            )
-            lst_item_view.append(view_item.id)
-
-            view_item = env["code.generator.view.item"].create(
-                {
-                    "section_type": "body",
-                    "item_type": "field",
-                    "action_name": "days_to_keep",
-                    "sequence": 3,
-                }
-            )
-            lst_item_view.append(view_item.id)
-
-            view_code_generator = env["code.generator.view"].create(
-                {
-                    "code_generator_id": code_generator_id.id,
-                    "view_type": "tree",
-                    # "view_name": "view_backup_conf_form",
-                    "m2o_model": model_db_backup.id,
-                    "view_item_ids": [(6, 0, lst_item_view)],
-                    "id_name": "view_backup_conf_tree",
                 }
             )
             lst_view_id.append(view_code_generator.id)
@@ -931,6 +881,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "name",
                     "action_name": "name",
                     "sequence": 1,
                 }
@@ -941,6 +892,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "folder",
                     "action_name": "folder",
                     "sequence": 2,
                 }
@@ -951,6 +903,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "section_type": "body",
                     "item_type": "field",
+                    "name": "sftp_host",
                     "action_name": "sftp_host",
                     "sequence": 3,
                 }
@@ -961,10 +914,59 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                 {
                     "code_generator_id": code_generator_id.id,
                     "view_type": "search",
-                    # "view_name": "view_backup_conf_form",
+                    "view_name": "db.backup search",
                     "m2o_model": model_db_backup.id,
                     "view_item_ids": [(6, 0, lst_item_view)],
                     "id_name": "view_backup_conf_search",
+                }
+            )
+            lst_view_id.append(view_code_generator.id)
+
+        # tree view
+        if True:
+            lst_item_view = []
+            # BODY
+            view_item = env["code.generator.view.item"].create(
+                {
+                    "section_type": "body",
+                    "item_type": "field",
+                    "name": "name",
+                    "action_name": "name",
+                    "sequence": 1,
+                }
+            )
+            lst_item_view.append(view_item.id)
+
+            view_item = env["code.generator.view.item"].create(
+                {
+                    "section_type": "body",
+                    "item_type": "field",
+                    "name": "folder",
+                    "action_name": "folder",
+                    "sequence": 2,
+                }
+            )
+            lst_item_view.append(view_item.id)
+
+            view_item = env["code.generator.view.item"].create(
+                {
+                    "section_type": "body",
+                    "item_type": "field",
+                    "name": "days_to_keep",
+                    "action_name": "days_to_keep",
+                    "sequence": 3,
+                }
+            )
+            lst_item_view.append(view_item.id)
+
+            view_code_generator = env["code.generator.view"].create(
+                {
+                    "code_generator_id": code_generator_id.id,
+                    "view_type": "tree",
+                    "view_name": "db.backup tree",
+                    "m2o_model": model_db_backup.id,
+                    "view_item_ids": [(6, 0, lst_item_view)],
+                    "id_name": "view_backup_conf_tree",
                 }
             )
             lst_view_id.append(view_code_generator.id)
@@ -976,6 +978,7 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                     "code_generator_id": code_generator_id.id,
                     "name": "Automated Backups",
                     "id_name": "action_backup_conf_form",
+                    "model_name": "db.backup",
                 }
             )
 
@@ -984,35 +987,11 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
             env["code.generator.menu"].create(
                 {
                     "code_generator_id": code_generator_id.id,
+                    "name": "Automated Backups",
                     "id_name": "backup_conf_menu",
+                    "sequence": 0,
                     "parent_id_name": "base.next_id_9",
                     "m2o_act_window": action_backup_conf_form.id,
-                }
-            )
-        ##### End Views
-
-        # Generate server action
-        # action_server view
-        if True:
-            act_server_id = env["ir.actions.server"].create(
-                {
-                    "name": "Execute backup(s)",
-                    "model_id": model_db_backup.id,
-                    "binding_model_id": model_db_backup.id,
-                    "state": "code",
-                    "code": "records.action_backup()",
-                    "comment": 'Execute backup from "More" menu',
-                }
-            )
-
-            # Add record id name
-            env["ir.model.data"].create(
-                {
-                    "name": "action_server_backup",
-                    "model": "ir.actions.server",
-                    "module": MODULE_NAME,
-                    "res_id": act_server_id.id,
-                    "noupdate": True,
                 }
             )
 
@@ -1021,8 +1000,8 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
             {
                 "code_generator_id": code_generator_id.id,
                 "enable_generate_all": False,
-                "code_generator_view_ids": [(6, 0, lst_view_id)],
                 "disable_generate_access": True,
+                "code_generator_view_ids": [(6, 0, lst_view_id)],
             }
         )
 

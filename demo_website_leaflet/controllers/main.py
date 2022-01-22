@@ -1,13 +1,15 @@
-from odoo import http
-from operator import attrgetter
 import json
+from collections import defaultdict
+from operator import attrgetter
+
 import numpy
 from pyproj import Transformer
+
+from odoo import http
 from odoo.http import request
-from collections import defaultdict
 
 
-class MapFeatureController(http.Controller):
+class DemoWebsiteLeafletController(http.Controller):
     @http.route(
         ["/demo_website_leaflet/map/config"],
         type="json",

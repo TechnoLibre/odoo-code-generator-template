@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_occupation_view_form" model="ir.ui.view">
+        <field name="name">organization_occupation_form</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_occupation_view_graph" model="ir.ui.view">
+        <field name="name">organization_occupation_graph</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <graph string="Organization occupation">
+                <field name="nom" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_occupation_view_kanban" model="ir.ui.view">
+        <field name="name">organization_occupation_kanban</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="membre" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_occupation_view_pivot" model="ir.ui.view">
+        <field name="name">organization_occupation_pivot</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization occupation">
+                <field name="nom" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_occupation_view_search" model="ir.ui.view">
+        <field name="name">organization_occupation_search</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <search string="Organization occupation">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Occupation" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_occupation_view_tree" model="ir.ui.view">
+        <field name="name">organization_occupation_tree</field>
+        <field name="model">organization.occupation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="membre" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_occupation_occupation_action_window"
+        name="Occupation"
+        res_model="organization.occupation"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>

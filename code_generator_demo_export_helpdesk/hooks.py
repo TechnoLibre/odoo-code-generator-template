@@ -1,5 +1,6 @@
-from odoo import _, api, models, fields, SUPERUSER_ID
 import os
+
+from odoo import SUPERUSER_ID, _, api, fields, models
 
 MODULE_NAME = "demo_helpdesk_data"
 

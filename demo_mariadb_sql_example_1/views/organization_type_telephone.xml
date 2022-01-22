@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="organization_type_telephone_view_form" model="ir.ui.view">
+        <field name="name">organization_type_telephone_form</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <form string="Titre">
+                <sheet>
+                    <group>
+                        <field name="nom" />
+                    </group>
+                    <group>
+                        <field name="membre" />
+                    </group>
+                    <group>
+                        <field name="membre_2_ids" />
+                    </group>
+                    <group>
+                        <field name="membre_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="organization_type_telephone_view_graph" model="ir.ui.view">
+        <field name="name">organization_type_telephone_graph</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <graph string="Organization type telephone">
+                <field name="nom" type="row" />
+            </graph>
+        </field>
+    </record>
+
+    <record id="organization_type_telephone_view_kanban" model="ir.ui.view">
+        <field name="name">organization_type_telephone_kanban</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nom" />
+                <field name="membre" />
+                <field name="membre_2_ids" />
+                <field name="membre_ids" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="nom" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_2_ids" />
+                                        </strong>
+                                    </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="membre_ids" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="organization_type_telephone_view_pivot" model="ir.ui.view">
+        <field name="name">organization_type_telephone_pivot</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <pivot string="Organization type telephone">
+                <field name="nom" type="row" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="organization_type_telephone_view_search" model="ir.ui.view">
+        <field name="name">organization_type_telephone_search</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <search string="Organization type telephone">
+                <filter domain="[('nom','!=',False)]" name="nom" string="Nom" />
+                <filter domain="[('membre','!=',False)]" name="membre" string="Membre 1" />
+                <filter domain="[('membre_2_ids','!=',False)]" name="membre_2_ids" string="Membre 3" />
+                <filter domain="[('membre_ids','!=',False)]" name="membre_ids" string="Membre 2" />
+            </search>
+        </field>
+    </record>
+
+    <record id="organization_type_telephone_view_tree" model="ir.ui.view">
+        <field name="name">organization_type_telephone_tree</field>
+        <field name="model">organization.type.telephone</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom" />
+                <field name="membre" />
+                <field name="membre_2_ids" />
+                <field name="membre_ids" />
+            </tree>
+        </field>
+    </record>
+
+    <act_window
+        id="organization_type_telephone_type_de_telephones_action_window"
+        name="Type de t&#233;l&#233;phones"
+        res_model="organization.type.telephone"
+        view_mode="kanban,tree,pivot,graph,form"
+    />
+</odoo>
