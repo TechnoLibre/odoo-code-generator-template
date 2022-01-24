@@ -4239,7 +4239,7 @@ for organization_ville in self:
                     "code_generator_id": code_generator_id.id,
                     "name": "Offre de services",
                     "id_name": "offre_de_services",
-                    "sequence": 0,
+                    "sequence": 10,
                     "parent_id_name": (
                         "demo_mariadb_sql_example_1.group_service"
                     ),

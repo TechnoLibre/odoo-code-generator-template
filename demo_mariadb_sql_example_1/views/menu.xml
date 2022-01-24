@@ -121,7 +121,7 @@
         id="offre_de_services"
         name="Offre de services"
         action="organization_offre_service_offre_de_services_action_window"
-        sequence="0"
+        sequence="10"
         parent="group_service"
     />
 
