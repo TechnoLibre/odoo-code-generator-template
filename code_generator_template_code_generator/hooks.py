@@ -36,41 +36,27 @@ def post_init_hook(cr, e):
 
         # TODO HUMAN: enable your functionality to generate
         value["enable_template_code_generator_demo"] = False
-        value[
-            "template_model_name"
-        ] = """code.generator.act_window;
- code.generator.add.controller.wizard;
- code.generator.add.model.wizard;
- code.generator.generate.views.wizard;
- code.generator.ir.model.dependency;
- code.generator.ir.model.fields;
- code.generator.menu;
- code.generator.model.code;
- code.generator.model.code.import;
- code.generator.module;
- code.generator.module.dependency;
- code.generator.module.external.dependency;
- code.generator.module.template.dependency;
- code.generator.pyclass;
- code.generator.view;
- code.generator.view.item;
- code.generator.writer;
- ir.actions.act_url;
- ir.actions.act_window;
- ir.actions.report;
- ir.actions.server;
- ir.actions.todo;
- ir.model;
- ir.model.constraint;
- ir.model.fields;
- ir.model.server_constrain;
- ir.module.module;
- ir.module.module.dependency;
- ir.ui.menu;
- ir.ui.view;
- res.config.settings;
- res.groups"""
-        value["template_inherit_model_name"] = ""
+        value["template_model_name"] = (
+            "code.generator.act_window; code.generator.add.controller.wizard;"
+            " code.generator.add.model.wizard;"
+            " code.generator.generate.views.wizard;"
+            " code.generator.ir.model.dependency;"
+            " code.generator.ir.model.fields; code.generator.menu;"
+            " code.generator.model.code; code.generator.model.code.import;"
+            " code.generator.module; code.generator.module.dependency;"
+            " code.generator.module.external.dependency;"
+            " code.generator.module.template.dependency;"
+            " code.generator.pyclass; code.generator.view;"
+            " code.generator.view.item; code.generator.writer;"
+            " ir.model.server_constrain"
+        )
+        value["template_inherit_model_name"] = (
+            "ir.actions.act_url; ir.actions.act_window; ir.actions.report;"
+            " ir.actions.server; ir.actions.todo; ir.model;"
+            " ir.model.constraint; ir.model.fields; ir.module.module;"
+            " ir.module.module.dependency; ir.ui.menu; ir.ui.view;"
+            " res.config.settings; res.groups"
+        )
         value["enable_template_wizard_view"] = True
         value["force_generic_template_wizard_view"] = True
         value["enable_template_website_snippet_view"] = False

@@ -141,7 +141,7 @@ def post_init_hook(cr, e):
             "user_id": {
                 "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 5,
-                "default": lambda s: s.env.user.id,
+                "default_lambda": "lambda s: s.env.user.id",
                 "field_description": "User",
                 "relation": "res.users",
                 "required": True,
@@ -255,7 +255,7 @@ When blacklist, all selected fields will be ignored.""",
             "user_id": {
                 "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 8,
-                "default": lambda s: s.env.user.id,
+                "default_lambda": "lambda s: s.env.user.id",
                 "field_description": "User",
                 "relation": "res.users",
                 "required": True,
@@ -433,7 +433,7 @@ for model_id in self.model_ids:
             },
             "date": {
                 "code_generator_sequence": 10,
-                "default": fields.Date.context_today,
+                "default_lambda": "fields.Date.context_today",
                 "field_description": "Date",
                 "required": True,
                 "ttype": "date",
@@ -495,26 +495,26 @@ for model_id in self.model_ids:
                 "ttype": "many2many",
             },
             "selected_model_pivot_view_ids": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 19,
                 "field_description": "Selected Model Pivot View",
                 "relation": "ir.model",
                 "ttype": "many2many",
             },
             "selected_model_search_view_ids": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 20,
                 "field_description": "Selected Model Search View",
                 "relation": "ir.model",
                 "ttype": "many2many",
             },
             "selected_model_timeline_view_ids": {
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 21,
                 "field_description": "Selected Model Timeline View",
                 "relation": "ir.model",
                 "ttype": "many2many",
             },
             "selected_model_tree_view_ids": {
                 "code_generator_form_simple_view_sequence": 18,
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 22,
                 "field_description": "Selected Model Tree View",
                 "relation": "ir.model",
                 "ttype": "many2many",
@@ -522,7 +522,7 @@ for model_id in self.model_ids:
             "user_id": {
                 "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 23,
-                "default": lambda s: s.env.user.id,
+                "default_lambda": "lambda s: s.env.user.id",
                 "field_description": "User",
                 "relation": "res.users",
                 "required": True,
@@ -617,12 +617,13 @@ else:
     lst_model_id = list(set(lst_model_id))
     for model_id in lst_model_id:
         self._generate_model_access(model_id)
-    self._generate_menu(
-        model_id,
-        model_id.m2o_module,
-        lst_view_generated,
-        self.code_generator_id.o2m_models,
-    )
+    if model_id:
+        self._generate_menu(
+            model_id,
+            model_id.m2o_module,
+            lst_view_generated,
+            self.code_generator_id.o2m_models,
+        )
     status = True
 # Accelerate creation in batch
 for model_name, lst_value in dct_value_to_create.items():
@@ -1165,15 +1166,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_tree",
-        "type": "tree",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_tree"),
+        ("type", "=", "tree"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_tree",
+            "type": "tree",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_list_views_models",
@@ -1341,26 +1352,35 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_form",
-        "type": "form",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_form"),
+        ("type", "=", "form"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_form",
+            "type": "form",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
-model_data_value = self.env["ir.model.data"].create(
-    {
-        "name": f"{model_name_str}_view_form",
-        "model": "ir.ui.view",
-        "module": module.name,
-        "res_id": view_value.id,
-        "noupdate": True,  # If it's False, target record (res_id) will be removed while module update
-    }
-)
+    model_data_value = self.env["ir.model.data"].create(
+        {
+            "name": f"{model_name_str}_view_form",
+            "model": "ir.ui.view",
+            "module": module.name,
+            "res_id": view_value.id,
+            "noupdate": True,  # If it's False, target record (res_id) will be removed while module update
+        }
+    )
 
 return view_value""",
                     "name": "_generate_form_views_models",
@@ -1526,15 +1546,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_kanban",
-        "type": "kanban",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_kanban"),
+        ("type", "=", "kanban"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_kanban",
+            "type": "kanban",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_kanban_views_models",
@@ -1672,15 +1702,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_search",
-        "type": "search",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_search"),
+        ("type", "=", "search"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_search",
+            "type": "search",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_search_views_models",
@@ -1806,15 +1846,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_pivot",
-        "type": "pivot",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_pivot"),
+        ("type", "=", "pivot"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_pivot",
+            "type": "pivot",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_pivot_views_models",
@@ -1945,15 +1995,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_calendar",
-        "type": "calendar",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_calendar"),
+        ("type", "=", "calendar"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_calendar",
+            "type": "calendar",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_calendar_views_models",
@@ -2079,15 +2139,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_graph",
-        "type": "graph",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_graph"),
+        ("type", "=", "graph"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_graph",
+            "type": "graph",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_graph_views_models",
@@ -2141,15 +2211,25 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 #     "m2o_model": model_created.id,
 # }
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_timeline",
-        "type": "timeline",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_timeline"),
+        ("type", "=", "timeline"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_timeline",
+            "type": "timeline",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_timeline_views_models",
@@ -2267,15 +2347,25 @@ arch_xml = E.diagram(
 str_arch = ET.tostring(arch_xml, pretty_print=True)
 str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
-view_value = self.env["ir.ui.view"].create(
-    {
-        "name": f"{model_name_str}_diagram",
-        "type": "diagram",
-        "model": model_name,
-        "arch": str_arch,
-        "m2o_model": model_created.id,
-    }
+view_value = self.env["ir.ui.view"].search(
+    [
+        ("name", "=", f"{model_name_str}_diagram"),
+        ("type", "=", "diagram"),
+        ("model", "=", model_name),
+        # ("arch", "=", str_arch),
+        ("m2o_model", "=", model_created.id),
+    ]
 )
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(
+        {
+            "name": f"{model_name_str}_diagram",
+            "type": "diagram",
+            "model": model_name,
+            "arch": str_arch,
+            "m2o_model": model_created.id,
+        }
+    )
 
 return view_value""",
                     "name": "_generate_diagram_views_models",
@@ -2765,19 +2855,42 @@ if code_generator_view_id.inherit_view_name:
         code_generator_view_id.inherit_view_name
     ).id
     dct_view_value["is_show_whitelist_write_view"] = True
-view_value = self.env["ir.ui.view"].create(dct_view_value)
-# dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
+lst_search = [
+    (a, "=", b)
+    for a, b in dct_view_value.items()
+    if a not in ("m2o_model", "arch")
+]
+view_value = self.env["ir.ui.view"].search(lst_search)
+if not view_value:
+    view_value = self.env["ir.ui.view"].create(dct_view_value)
+else:
+    view_value.m2o_model = code_generator_view_id.m2o_model.id
+    # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 
 if code_generator_view_id.id_name:
-    self.env["ir.model.data"].create(
-        {
-            "name": code_generator_view_id.id_name,
-            "model": "ir.ui.view",
-            "module": code_generator_view_id.code_generator_id.name,
-            "res_id": view_value.id,
-            "noupdate": True,  # If it's False, target record (res_id) will be removed while module update
-        }
+    ir_model_data_id = self.env["ir.model.data"].search(
+        [
+            ("name", "=", code_generator_view_id.id_name),
+            ("model", "=", "ir.ui.view"),
+            (
+                "module",
+                "=",
+                code_generator_view_id.code_generator_id.name,
+            ),
+        ]
     )
+    if ir_model_data_id:
+        ir_model_data_id.res_id = view_value.id
+    else:
+        self.env["ir.model.data"].create(
+            {
+                "name": code_generator_view_id.id_name,
+                "model": "ir.ui.view",
+                "module": code_generator_view_id.code_generator_id.name,
+                "res_id": view_value.id,
+                "noupdate": True,  # If it's False, target record (res_id) will be removed while module update
+            }
+        )
 
 return view_value""",
                     "name": "_generate_specific_form_views_models",
@@ -3140,19 +3253,45 @@ elif not is_generic_menu:
                     f" model name '{model_name}'"
                 )
                 v["res_model"] = model_name
-            action_id = self.env["ir.actions.act_window"].create(v)
+
+            lst_action = [
+                (a, "=", b)
+                for a, b in v.items()
+                if a != "m2o_res_model"
+            ]
+            action_id = self.env["ir.actions.act_window"].search(
+                lst_action
+            )
+            if not action_id:
+                action_id = self.env["ir.actions.act_window"].create(v)
+            else:
+                action_id.m2o_res_model = model_created.id
             if menu_id.m2o_act_window.id_name:
-                # Write id name
-                self.env["ir.model.data"].create(
-                    {
-                        "name": menu_id.m2o_act_window.id_name,
-                        "model": "ir.actions.act_window",
-                        "module": module.name,
-                        "res_id": action_id.id,
-                        "noupdate": True,
-                        # If it's False, target record (res_id) will be removed while module update
-                    }
+                ir_model_data_id = self.env["ir.model.data"].search(
+                    [
+                        ("name", "=", menu_id.m2o_act_window.id_name),
+                        ("model", "=", "ir.actions.act_window"),
+                        (
+                            "module",
+                            "=",
+                            module.name,
+                        ),
+                    ]
                 )
+                if ir_model_data_id:
+                    ir_model_data_id.res_id = action_id.id
+                else:
+                    # Write id name
+                    self.env["ir.model.data"].create(
+                        {
+                            "name": menu_id.m2o_act_window.id_name,
+                            "model": "ir.actions.act_window",
+                            "module": module.name,
+                            "res_id": action_id.id,
+                            "noupdate": True,
+                            # If it's False, target record (res_id) will be removed while module update
+                        }
+                    )
         elif not menu_id.ignore_act_window:
             # Create action
             v = {
@@ -3178,8 +3317,7 @@ elif not is_generic_menu:
         else:
             v["action"] = "ir.actions.act_window,%s" % action_id.id
 
-        if menu_id.sequence != 10:
-            v["sequence"] = menu_id.sequence
+        v["sequence"] = menu_id.sequence
 
         if menu_id.web_icon:
             v["web_icon"] = menu_id.web_icon
@@ -3198,14 +3336,28 @@ elif not is_generic_menu:
 
         new_menu_id = self.env["ir.ui.menu"].create(v)
 
-        v_ir_model_data = {
-            "name": menu_id.id_name,
-            "model": "ir.ui.menu",
-            "module": module.name,
-            "res_id": new_menu_id.id,
-            "noupdate": True,
-        }
-        self.env["ir.model.data"].create(v_ir_model_data)''',
+        ir_model_data_id = self.env["ir.model.data"].search(
+            [
+                ("name", "=", menu_id.id_name),
+                ("model", "=", "ir.ui.menu"),
+                (
+                    "module",
+                    "=",
+                    module.name,
+                ),
+            ]
+        )
+        if ir_model_data_id:
+            ir_model_data_id.res_id = new_menu_id.id
+        else:
+            v_ir_model_data = {
+                "name": menu_id.id_name,
+                "model": "ir.ui.menu",
+                "module": module.name,
+                "res_id": new_menu_id.id,
+                "noupdate": True,
+            }
+            self.env["ir.model.data"].create(v_ir_model_data)''',
                     "name": "_generate_menu",
                     "param": (
                         "self, model_created, module, lst_view_generated,"
@@ -3287,8 +3439,18 @@ elif not is_generic_menu:
                 "help": "Compute method to code_generator_writer.",
                 "ttype": "char",
             },
-            "filter_field_attribute": {
+            "default_lambda": {
+                "code_generator_sequence": 4,
+                "field_description": "Default lambda value",
+                "ttype": "char",
+            },
+            "field_context": {
                 "code_generator_sequence": 5,
+                "field_description": "Field Context",
+                "ttype": "char",
+            },
+            "filter_field_attribute": {
+                "code_generator_sequence": 6,
                 "field_description": "Filter Field Attribute",
                 "help": (
                     "Separate by ; to enumerate your attribute to filter, like"
@@ -3297,7 +3459,7 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "is_show_whitelist_model_inherit": {
-                "code_generator_sequence": 4,
+                "code_generator_sequence": 7,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -3306,13 +3468,13 @@ elif not is_generic_menu:
                 "ttype": "boolean",
             },
             "m2o_fields": {
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 8,
                 "field_description": "Fields",
                 "relation": "ir.model.fields",
                 "ttype": "many2one",
             },
             "m2o_module": {
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 9,
                 "field_description": "Module",
                 "help": "Module",
                 "relation": "code.generator.module",
@@ -3326,17 +3488,17 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "nomenclature_blacklist": {
-                "code_generator_sequence": 9,
+                "code_generator_sequence": 10,
                 "field_description": "Ignore from nomenclature.",
                 "ttype": "boolean",
             },
             "nomenclature_whitelist": {
-                "code_generator_sequence": 10,
+                "code_generator_sequence": 11,
                 "field_description": "Force to nomenclature.",
                 "ttype": "boolean",
             },
             "selection": {
-                "code_generator_sequence": 6,
+                "code_generator_sequence": 12,
                 "field_description": "Selection Options",
                 "help": (
                     "List of options for a selection field, specified as a"
@@ -3392,51 +3554,50 @@ elif not is_generic_menu:
         }
         dct_field = {
             "code_generator_id": {
-                "code_generator_sequence": 2,
+                "code_generator_sequence": 3,
                 "field_description": "Code Generator",
                 "relation": "code.generator.module",
                 "required": True,
                 "ttype": "many2one",
             },
             "id_name": {
-                "code_generator_sequence": 3,
+                "code_generator_sequence": 4,
                 "field_description": "Menu id",
                 "help": "Specify id name of this menu.",
                 "ttype": "char",
             },
             "ignore_act_window": {
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 5,
                 "field_description": "Ignore Act Window",
                 "help": "Set True to force no act_window, like a parent menu.",
                 "ttype": "boolean",
             },
             "m2o_act_window": {
-                "code_generator_sequence": 4,
+                "code_generator_sequence": 6,
                 "field_description": "Action Windows",
                 "help": "Act window to open when click on this menu.",
                 "relation": "code.generator.act_window",
                 "ttype": "many2one",
             },
             "name": {
-                "code_generator_sequence": 6,
+                "code_generator_sequence": 2,
                 "field_description": "Name",
                 "help": "Menu name",
                 "ttype": "char",
             },
             "parent_id_name": {
-                "code_generator_sequence": 5,
+                "code_generator_sequence": 7,
                 "field_description": "Menu parent id",
                 "help": "Specify id name of parent menu, optional.",
                 "ttype": "char",
             },
             "sequence": {
-                "code_generator_sequence": 9,
-                "default": 10,
+                "code_generator_sequence": 8,
                 "field_description": "Sequence",
                 "ttype": "integer",
             },
             "web_icon": {
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 9,
                 "field_description": "Web Icon",
                 "help": "Icon menu",
                 "ttype": "char",
@@ -3662,14 +3823,14 @@ return""",
                 "ttype": "text",
             },
             "enable_pylint_check": {
-                "code_generator_sequence": 16,
+                "code_generator_sequence": 15,
                 "field_description": "Enable Pylint check",
                 "help": "Show pylint result at the end of generation.",
                 "ttype": "boolean",
             },
             "enable_sync_code": {
                 "code_generator_form_simple_view_sequence": 20,
-                "code_generator_sequence": 15,
+                "code_generator_sequence": 16,
                 "code_generator_tree_view_sequence": 20,
                 "field_description": "Enable Sync Code",
                 "help": "Will sync with code on drive when generate.",
@@ -3742,7 +3903,7 @@ return""",
             },
             "path_sync_code": {
                 "code_generator_form_simple_view_sequence": 21,
-                "code_generator_sequence": 51,
+                "code_generator_sequence": 52,
                 "code_generator_tree_view_sequence": 21,
                 "default": "_default_path_sync_code",
                 "field_description": "Directory",
@@ -3786,8 +3947,17 @@ return""",
                 "field_description": "Summary",
                 "ttype": "char",
             },
-            "template_model_name": {
+            "template_inherit_model_name": {
                 "code_generator_sequence": 45,
+                "field_description": "Functions models inherit",
+                "help": (
+                    "Add model from list, separate by ';' and generate"
+                    " template."
+                ),
+                "ttype": "char",
+            },
+            "template_model_name": {
+                "code_generator_sequence": 46,
                 "field_description": "Functions models",
                 "help": (
                     "Add model from list, separate by ';' and generate"
@@ -3797,14 +3967,14 @@ return""",
             },
             "template_module_id": {
                 "code_generator_compute": "_fill_template_module_id",
-                "code_generator_sequence": 46,
+                "code_generator_sequence": 47,
                 "field_description": "Template module id",
                 "help": "Child module to generate.",
                 "relation": "ir.module.module",
                 "ttype": "many2one",
             },
             "template_module_name": {
-                "code_generator_sequence": 47,
+                "code_generator_sequence": 48,
                 "field_description": "Generated module name",
                 "help": (
                     "Can be empty in case of code_generator_demo, else it's"
@@ -3813,12 +3983,12 @@ return""",
                 "ttype": "char",
             },
             "url": {
-                "code_generator_sequence": 48,
+                "code_generator_sequence": 49,
                 "field_description": "URL",
                 "ttype": "char",
             },
             "website": {
-                "code_generator_sequence": 49,
+                "code_generator_sequence": 50,
                 "code_generator_tree_view_sequence": 10,
                 "field_description": "Website",
                 "ttype": "char",
@@ -4049,13 +4219,23 @@ for cg in self:
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """model_id = self.env["ir.model"].search([("model", "=", model_model)])
+                    "code": """for field_name, field_info in dct_field.items():
+    if (
+        field_info.get("is_show_whitelist_model_inherit") is None
+        and field_info.get("is_hide_blacklist_model_inherit") is None
+    ):
+        field_info["is_show_whitelist_model_inherit"] = True
+model_id = self.env["ir.model"].search([("model", "=", model_model)])
+if model_name is None:
+    model_name = model_model.replace(".", "_")
 # Check if exist or create it
 if model_id:
     model_id.m2o_module = self.id
 
     if dct_field:
         for field_name, field_info in dct_field.items():
+            if field_info.get("ttype") == "many2many":
+                self._check_relation_many2many(model_model, field_info)
             field_id = self.env["ir.model.fields"].search(
                 [
                     ("model", "=", model_model),
@@ -4092,6 +4272,11 @@ if model_id:
                     field_info,
                     value_ir_model_fields,
                 )
+                self._update_dict(
+                    "default_lambda",
+                    field_info,
+                    value_ir_model_fields,
+                )
 
                 self.env["code.generator.ir.model.fields"].create(
                     value_ir_model_fields
@@ -4111,12 +4296,21 @@ else:
                 dct_model,
                 value,
             )
+    rec_name = dct_model.get("rec_name")
+    has_already_rec_name = False
+    if not rec_name:
+        rec_name = "name"
+    else:
+        has_already_rec_name = True
 
     # Update fields values
     lst_field_value = []
     if dct_field:
         for field_name, field_info in dct_field.items():
-            if field_name == "name":
+            if field_info.get("ttype") == "many2many":
+                self._check_relation_many2many(model_model, field_info)
+
+            if field_name == rec_name:
                 has_field_name = True
 
             field_id = self.env["ir.model.fields"].search(
@@ -4143,7 +4337,7 @@ else:
     if lst_field_value:
         value["field_id"] = lst_field_value
 
-    if "rec_name" not in value.keys():
+    if not has_already_rec_name:
         if has_field_name:
             value["rec_name"] = "name"
         else:
@@ -4161,7 +4355,7 @@ return model_id""",
                     "name": "add_update_model",
                     "decorator": "@api.model",
                     "param": (
-                        "self, model_model, model_name, dct_field=None,"
+                        "self, model_model, model_name=None, dct_field=None,"
                         " dct_model=None, lst_depend_model=None"
                     ),
                     "sequence": 7,
@@ -4169,7 +4363,38 @@ return model_id""",
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """model_id = self.env["ir.model"].search([("model", "=", model_model)])
+                    "code": """relation_name = field_value.get("relation")
+comodel_name = relation_name.replace(".", "_")
+str_model_model = model_model.replace(".", "_")
+if not comodel_name:
+    _logger.warning(f"Missing relation for field_value {field_value}")
+else:
+    # Source, file odoo/odoo/addons/base/models/ir_model.py function _custom_many2many_names
+    # relation = self.env["ir.model.fields"]._custom_many2many_names(model_name, comodel_name)
+    # Execution error will come from file odoo/odoo/fields.py, function check_pg_name
+    relation = f"x_{comodel_name}_{str_model_model}_rel"
+    if len(relation) > 63:
+        _logger.warning(
+            "The size is too high, please reduce size of model name"
+            f" of '{model_model}' ({len(model_model)}) or"
+            f" '{field_value.get('relation')}' ({len(relation_name)}),"
+            " automatic relation will be broke, max 63 chars. Result"
+            f" ({len(relation)}) '{relation}'"
+        )""",
+                    "name": "_check_relation_many2many",
+                    "param": "self, model_model, field_value",
+                    "sequence": 8,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_module.id,
+                },
+                {
+                    "code": """for field_name, field_info in dct_field.items():
+    if (
+        field_info.get("is_show_whitelist_model_inherit") is None
+        and field_info.get("is_hide_blacklist_model_inherit") is None
+    ):
+        field_info["is_show_whitelist_model_inherit"] = True
+model_id = self.env["ir.model"].search([("model", "=", model_model)])
 # Check if exist or create it
 if model_id:
     model_id.m2o_module = self.id
@@ -4196,7 +4421,20 @@ if model_id:
 
             self.env["ir.model.fields"].create(value_field_one2many)
         else:
-            _logger.error("What to do to update a one2many?")
+            if "field_context" in field_info.keys():
+                value_ir_model_fields = {
+                    "m2o_fields": field_id.id,
+                }
+                # TODO find missing attribute
+                self._update_dict(
+                    "field_context",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self.env["code.generator.ir.model.fields"].create(
+                    value_ir_model_fields
+                )
+            # _logger.error("What to do to update a one2many?")
 else:
     _logger.error(
         f"The model '{model_model}' is not existing, need to be create"
@@ -4206,7 +4444,7 @@ else:
                     "name": "add_update_model_one2many",
                     "decorator": "@api.model",
                     "param": "self, model_model, dct_field",
-                    "sequence": 8,
+                    "sequence": 9,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_module.id,
                 },
@@ -4217,7 +4455,7 @@ if filter_field_attribute:
                     "name": "_update_dict",
                     "decorator": "@api.model",
                     "param": "self, key_name, field_info, value_field_id",
-                    "sequence": 9,
+                    "sequence": 10,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_module.id,
                 },
@@ -4232,7 +4470,7 @@ return super(models.Model, self).create(vals)""",
                     "name": "create",
                     "decorator": "@api.model",
                     "param": "self, vals",
-                    "sequence": 10,
+                    "sequence": 11,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_module.id,
                 },
@@ -4245,7 +4483,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                     "name": "unlink",
                     "decorator": "@api.multi",
                     "param": "self",
-                    "sequence": 11,
+                    "sequence": 12,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_module.id,
                 },
@@ -4505,29 +4743,29 @@ if records:
                 "ttype": "many2one",
             },
             "view_attr_class": {
-                "code_generator_sequence": 11,
+                "code_generator_sequence": 7,
                 "field_description": "Class attribute",
                 "ttype": "char",
             },
             "view_attr_string": {
-                "code_generator_sequence": 10,
+                "code_generator_sequence": 8,
                 "field_description": "String attribute",
                 "ttype": "char",
             },
             "view_item_ids": {
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 9,
                 "field_description": "View item",
                 "help": "Item view to add in this view.",
                 "relation": "code.generator.view.item",
                 "ttype": "many2many",
             },
             "view_name": {
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 10,
                 "field_description": "View name",
                 "ttype": "char",
             },
             "view_type": {
-                "code_generator_sequence": 9,
+                "code_generator_sequence": 11,
                 "default": "form",
                 "field_description": "View Type",
                 "help": "Choose view type to generate.",
@@ -4567,18 +4805,18 @@ if records:
         }
         dct_field = {
             "action_name": {
-                "code_generator_sequence": 2,
+                "code_generator_sequence": 3,
                 "field_description": "Action name",
                 "ttype": "char",
             },
             "aria_label": {
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 4,
                 "field_description": "Aria Label",
                 "help": "aria-label attribute",
                 "ttype": "char",
             },
             "attrs": {
-                "code_generator_sequence": 3,
+                "code_generator_sequence": 5,
                 "field_description": "Attributes",
                 "help": (
                     "Specific condition, search attrs for more information."
@@ -4586,7 +4824,7 @@ if records:
                 "ttype": "char",
             },
             "background_type": {
-                "code_generator_sequence": 4,
+                "code_generator_sequence": 6,
                 "field_description": "Background Type",
                 "help": "Choose background color of HTML.",
                 "selection": (
@@ -4600,7 +4838,7 @@ if records:
                 "ttype": "selection",
             },
             "button_type": {
-                "code_generator_sequence": 5,
+                "code_generator_sequence": 7,
                 "field_description": "Button Type",
                 "help": "Choose item type to generate.",
                 "selection": (
@@ -4613,75 +4851,75 @@ if records:
                 "ttype": "selection",
             },
             "class_attr": {
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 9,
                 "field_description": "Class Attr",
                 "help": "Update class attribute",
                 "ttype": "char",
             },
             "colspan": {
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 10,
                 "default": 1,
                 "field_description": "Colspan",
                 "help": "Use this to fill more column, check HTML table.",
                 "ttype": "integer",
             },
             "context": {
-                "code_generator_sequence": 35,
+                "code_generator_sequence": 11,
                 "field_description": "Context",
                 "help": "context attribute",
                 "ttype": "char",
             },
             "domain": {
-                "code_generator_sequence": 34,
+                "code_generator_sequence": 12,
                 "field_description": "Domain",
                 "help": "domain attribute",
                 "ttype": "char",
             },
             "edit_only": {
-                "code_generator_sequence": 9,
+                "code_generator_sequence": 13,
                 "field_description": "Edit only",
                 "ttype": "boolean",
             },
             "expr": {
-                "code_generator_sequence": 10,
+                "code_generator_sequence": 14,
                 "field_description": "Expr",
                 "help": "Example: //field[@name='name']",
                 "ttype": "char",
             },
             "has_label": {
-                "code_generator_sequence": 11,
+                "code_generator_sequence": 15,
                 "field_description": "Labeled",
                 "help": "Label for title.",
                 "ttype": "boolean",
             },
             "icon": {
-                "code_generator_sequence": 12,
+                "code_generator_sequence": 16,
                 "field_description": "Icon",
                 "help": "Example fa-television. Only supported with button.",
                 "ttype": "char",
             },
             "is_help": {
-                "code_generator_sequence": 13,
+                "code_generator_sequence": 17,
                 "field_description": "Help",
                 "ttype": "boolean",
             },
             "is_invisible": {
-                "code_generator_sequence": 14,
+                "code_generator_sequence": 18,
                 "field_description": "Invisible",
                 "ttype": "boolean",
             },
             "is_readonly": {
-                "code_generator_sequence": 15,
+                "code_generator_sequence": 19,
                 "field_description": "Readonly",
                 "ttype": "boolean",
             },
             "is_required": {
-                "code_generator_sequence": 16,
+                "code_generator_sequence": 20,
                 "field_description": "Required",
                 "ttype": "boolean",
             },
             "item_type": {
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 21,
                 "default": "field",
                 "field_description": "Item Type",
                 "help": "Choose item type to generate.",
@@ -4695,35 +4933,35 @@ if records:
                 "ttype": "selection",
             },
             "label": {
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 22,
                 "field_description": "Label",
                 "ttype": "char",
             },
             "name": {
-                "code_generator_sequence": 32,
+                "code_generator_sequence": 2,
                 "field_description": "Name",
                 "help": "name attribute",
                 "ttype": "char",
             },
             "parent_id": {
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 23,
                 "field_description": "Parent",
                 "relation": "code.generator.view.item",
                 "ttype": "many2one",
             },
             "password": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 24,
                 "field_description": "Password",
                 "help": "Hide character.",
                 "ttype": "boolean",
             },
             "placeholder": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 25,
                 "field_description": "Placeholder",
                 "ttype": "char",
             },
             "position": {
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 26,
                 "field_description": "Position",
                 "selection": (
                     "[('inside', 'Inside'), ('replace', 'Replace'), ('after',"
@@ -4733,13 +4971,13 @@ if records:
                 "ttype": "selection",
             },
             "role": {
-                "code_generator_sequence": 31,
+                "code_generator_sequence": 27,
                 "field_description": "Role",
                 "help": "role attribute",
                 "ttype": "char",
             },
             "section_type": {
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 28,
                 "default": "body",
                 "field_description": "Section Type",
                 "help": "Choose item type to generate.",
@@ -4750,37 +4988,37 @@ if records:
                 "ttype": "selection",
             },
             "sequence": {
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 29,
                 "default": 1,
                 "field_description": "Sequence",
                 "ttype": "integer",
             },
             "t_attf_class": {
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 30,
                 "field_description": "T Attf Class",
                 "help": "t-attf-class attribute",
                 "ttype": "char",
             },
             "t_if": {
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 31,
                 "field_description": "T If",
                 "help": "t-if attribute",
                 "ttype": "char",
             },
             "t_name": {
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 32,
                 "field_description": "T Name",
                 "help": "t_name attribute",
                 "ttype": "char",
             },
             "title": {
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 33,
                 "field_description": "Title",
                 "help": "title attribute",
                 "ttype": "char",
             },
             "type": {
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 34,
                 "field_description": "Type",
                 "help": "Statistique type.",
                 "selection": (
@@ -4789,7 +5027,7 @@ if records:
                 "ttype": "selection",
             },
             "widget": {
-                "code_generator_sequence": 33,
+                "code_generator_sequence": 35,
                 "field_description": "Widget",
                 "help": "widget attribute",
                 "ttype": "char",
@@ -4876,8 +5114,10 @@ from odoo.models import MAGIC_COLUMNS
 from odoo.tools.misc import mute_logger
 
 from ..code_generator_data import CodeGeneratorData
+from ..extractor_controller import ExtractorController
 from ..extractor_module import ExtractorModule
 from ..extractor_view import ExtractorView
+from ..python_controller_writer import PythonControllerWriter
 
 _logger = logging.getLogger(__name__)
 
@@ -5237,6 +5477,7 @@ else:
     if module.icon and os.path.isfile(module.icon):
         with open(module.icon, "rb") as file:
             content = file.read()
+        icon_path = module.icon
     else:
         if application_icon:
             icon_path = application_icon[
@@ -5732,6 +5973,19 @@ elif give_a_default:
 else:
     result = False
 
+# Need to limit to 128 char, else can crash like when loading i18n po and id is too long
+if type(result) is str:
+    # Remove strange char
+    # TODO find another way to remove not alpha numeric char, but accept '_'
+    result = (
+        result.replace(",", "")
+        .replace("'", "")
+        .replace('"', "")
+        .replace("(", "")
+        .replace(")", "")
+    )
+    # TODO maybe check duplicate
+    return result[:120]
 return result''',
                     "name": "_get_ir_model_data",
                     "param": (
@@ -5767,12 +6021,12 @@ Function to obtain the res_id-like model name (code.generator.module -> code_gen
 """
 
 return (
-    self._get_ir_model_data(model)
-    if self._get_ir_model_data(model)
+    self._get_ir_model_data(model, module_name=module_name)
+    if self._get_ir_model_data(model, module_name=module_name)
     else "model_%s" % self._get_model_model(model.model)
 )''',
                     "name": "_get_model_data_name",
-                    "param": "self, model",
+                    "param": "self, model, module_name=''",
                     "sequence": 23,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
@@ -5804,8 +6058,12 @@ Function to obtain the res_id-like action name
 :return:
 """
 
-if not creating and self._get_ir_model_data(action):
-    action_name = self._get_ir_model_data(action)
+if not creating and self._get_ir_model_data(
+    action, module_name=module.name
+):
+    action_name = self._get_ir_model_data(
+        action, module_name=module.name
+    )
     if not module or "." not in action_name:
         return action_name
     lst_action = action_name.split(".")
@@ -5869,7 +6127,7 @@ Function to obtain the res_id-like menu name
 :return:
 """
 
-menu_name = self._get_ir_model_data(menu)
+menu_name = self._get_ir_model_data(menu, module_name=module.name)
 if menu_name:
     if "." in menu_name:
         module_name, menu_name_short = menu_name.split(".")
@@ -5882,7 +6140,7 @@ return self._lower_replace(menu.name)''',
                     "name": "_get_menu_data_name",
                     "param": (
                         "self, menu, ignore_module=False,"
-                        " ignore_module_name=None"
+                        " ignore_module_name=None, module=None"
                     ),
                     "sequence": 27,
                     "m2o_module": code_generator_id.id,
@@ -5974,7 +6232,7 @@ for record in nomenclador_data:
                 #     record_value.mapped(
                 #         lambda rvalue: "(4, ref('%s'))"
                 #         % self._get_ir_model_data(
-                #             rvalue, give_a_default=True
+                #             rvalue, give_a_default=True, module_name=module.name
                 #         )
                 #     )
                 # )
@@ -5988,7 +6246,9 @@ for record in nomenclador_data:
                     record_value.mapped(
                         lambda rvalue: "ref(%s)"
                         % self._get_ir_model_data(
-                            rvalue, give_a_default=True
+                            rvalue,
+                            give_a_default=True,
+                            module_name=module.name,
                         )
                     )
                 )
@@ -6087,11 +6347,15 @@ if not menus:
 
 # Group by parent_id
 lst_menu_root = menus.filtered(lambda x: not x.parent_id).sorted(
-    key=lambda x: self._get_menu_data_name(x).split(".")[-1]
+    key=lambda x: self._get_menu_data_name(x, module=module).split(
+        "."
+    )[-1]
 )
 lst_menu_item = menus.filtered(lambda x: x.parent_id and x.child_id)
 lst_menu_last_child = menus.filtered(lambda x: not x.child_id).sorted(
-    key=lambda x: self._get_menu_data_name(x).split(".")[-1]
+    key=lambda x: self._get_menu_data_name(x, module=module).split(
+        "."
+    )[-1]
 )
 nb_root = len(lst_menu_root)
 nb_item = len(lst_menu_item)
@@ -6118,7 +6382,9 @@ while lst_menu_item:
     if lst_menu_to_order:
         lst_menu_ordered = sorted(
             lst_menu_to_order,
-            key=lambda x: self._get_menu_data_name(x).split(".")[-1],
+            key=lambda x: self._get_menu_data_name(
+                x, module=module
+            ).split(".")[-1],
         )
         for menu_ordered in lst_menu_ordered:
             lst_menu.append(menu_ordered)
@@ -6137,7 +6403,9 @@ lst_menu_xml = []
 
 for i, menu in enumerate(lst_menu):
 
-    menu_id = self._get_menu_data_name(menu, ignore_module=True)
+    menu_id = self._get_menu_data_name(
+        menu, ignore_module=True, module=module
+    )
     dct_menu_item = {"id": menu_id}
     if menu.name != menu_id:
         dct_menu_item["name"] = menu.name
@@ -6160,12 +6428,14 @@ for i, menu in enumerate(lst_menu):
     if not menu.active:
         dct_menu_item["active"] = "False"
 
-    if menu.sequence != 10:
+    if len(lst_menu) == 1 and menu.sequence != 10 or len(lst_menu) > 1:
         dct_menu_item["sequence"] = str(menu.sequence)
 
     if menu.parent_id:
         dct_menu_item["parent"] = self._get_menu_data_name(
-            menu.parent_id, ignore_module_name=module.name
+            menu.parent_id,
+            ignore_module_name=module.name,
+            module=module,
         )
 
     if menu.groups_id:
@@ -6262,9 +6532,9 @@ return new_content""",
                 {
                     "code": '''"""
 Function to set the model xml files
+:param module:
 :param model:
 :param model_model:
-:param module:
 :return:
 """
 
@@ -6461,7 +6731,7 @@ for act_window in act_window_ids:
 
         if act_window.binding_model_id:
             binding_model = self._get_model_data_name(
-                act_window.binding_model_id
+                act_window.binding_model_id, module_name=module.name
             )
             lst_field.append(
                 E.field(
@@ -6654,14 +6924,16 @@ for server_action in server_action_ids:
             {
                 "name": "model_id",
                 "ref": self._get_model_data_name(
-                    server_action.model_id
+                    server_action.model_id, module_name=module.name
                 ),
             }
         ),
         E.field(
             {
                 "name": "binding_model_id",
-                "ref": self._get_model_data_name(model),
+                "ref": self._get_model_data_name(
+                    model, module_name=module.name
+                ),
             }
         ),
     ]
@@ -6757,7 +7029,7 @@ if dct_replace_template:
         xml_file_path, str_content_template, data_file=True
     )''',
                     "name": "_set_model_xmlview_file",
-                    "param": "self, model, model_model, module",
+                    "param": "self, module, model, model_model",
                     "sequence": 32,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
@@ -6765,6 +7037,7 @@ if dct_replace_template:
                 {
                     "code": '''"""
 
+:param module:
 :param model:
 :param model_model:
 :return:
@@ -6842,7 +7115,9 @@ for report in model.o2m_reports:
     if report.binding_model_id:
         l_model_report_file.append(
             '<field name="binding_model_id" ref="%s" />'
-            % self._get_model_data_name(report.binding_model_id)
+            % self._get_model_data_name(
+                report.binding_model_id, module_name=module.name
+            )
         )
 
     if report.groups_id:
@@ -6861,8 +7136,61 @@ self.code_generator_data.write_file_lst_content(
     xmlreport_file_path, l_model_report_file, data_file=True
 )''',
                     "name": "_set_model_xmlreport_file",
-                    "param": "self, model, model_model",
+                    "param": "self, module, model, model_model",
                     "sequence": 33,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": '''lst_model = []
+
+def recursive_get_inherit_model(actual_model_id):
+    """
+    actual_model_id is code.generator.ir.model.dependency
+    """
+    lst_model_id = [a.id for a in lst_model] + model_id.ids
+    if actual_model_id.depend_id.id not in lst_model_id:
+        new_model_id = actual_model_id.depend_id
+        lst_model.append(new_model_id)
+        if new_model_id.inherit_model_ids:
+            for new_inherit_model_id in new_model_id.inherit_model_ids:
+                recursive_get_inherit_model(new_inherit_model_id)
+
+if model_id.inherit_model_ids:
+    for inherit_model_id in model_id.inherit_model_ids:
+        recursive_get_inherit_model(inherit_model_id)
+
+return lst_model''',
+                    "name": "_get_lst_inherit_model",
+                    "decorator": "@staticmethod",
+                    "param": "model_id",
+                    "sequence": 34,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """lst_rec_name_inherit = []
+for inherit_model in model.inherit_model_ids:
+    model_inherit_id = inherit_model.depend_id
+    if model_inherit_id.id != model.id:
+        # TODO can remove recursive and use _get_lst_inherit_model to get all rec_name model
+        lst_rec_name_inherit.append(
+            self._get_rec_name_inherit_model(model_inherit_id)
+        )
+result_rec_name = None
+new_rec_name = self.env[model.model]._rec_name
+if new_rec_name and new_rec_name != "name":
+    result_rec_name = new_rec_name
+elif model.rec_name and model.rec_name != "name":
+    result_rec_name = model.rec_name
+# Ignore rec_name if same of inherit parent
+if lst_rec_name_inherit and result_rec_name:
+    if result_rec_name in lst_rec_name_inherit:
+        return None
+return result_rec_name""",
+                    "name": "_get_rec_name_inherit_model",
+                    "param": "self, model",
+                    "sequence": 35,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -6955,15 +7283,16 @@ with cw.indent():
         cw.emit(f"_description = '{new_description}'")
     elif not lst_inherit or add_name:
         cw.emit(f"_description = '{model.name}'")
-    if model.rec_name and model.rec_name != "name":
-        cw.emit(f"_rec_name = '{model.rec_name}'")
+    rec_name = self._get_rec_name_inherit_model(model)
+    if rec_name:
+        cw.emit(f"_rec_name = '{rec_name}'")
 
     # TODO _order, _local_fields, _period_number, _inherits, _log_access, _auto, _parent_store
     # TODO _parent_name
 
     self._get_model_constrains(cw, model, module)
 
-    self._get_model_fields(cw, model)
+    self._get_model_fields(cw, model, module)
 
     # code_ids = self.env["code.generator.model.code"].search(
     #     [("m2o_module", "=", module.id)]
@@ -7004,7 +7333,7 @@ self.code_generator_data.write_file_str(model_file_path, cw.render())
 return model_file_path''',
                     "name": "_set_model_py_file",
                     "param": "self, module, model, model_model",
-                    "sequence": 34,
+                    "sequence": 36,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7079,7 +7408,7 @@ if len(l_model_csv_access) > 1:
     )''',
                     "name": "_set_module_security",
                     "param": "self, module, l_model_rules, l_model_csv_access",
-                    "sequence": 35,
+                    "sequence": 37,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7141,7 +7470,7 @@ for access in model.access_ids:
 return l_model_csv_access''',
                     "name": "_get_model_access",
                     "param": "self, module, model",
-                    "sequence": 36,
+                    "sequence": 38,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7168,12 +7497,19 @@ for rule in model.rule_ids:
     else:
         l_model_rules.append(
             '<record model="ir.rule" id="%s_rrule_%s">'
-            % (self._get_model_data_name(rule.model_id), rule.id)
+            % (
+                self._get_model_data_name(
+                    rule.model_id, module_name=module.name
+                ),
+                rule.id,
+            )
         )
 
     l_model_rules.append(
         '<field name="model_id" ref="%s"/>'
-        % self._get_model_data_name(rule.model_id)
+        % self._get_model_data_name(
+            rule.model_id, module_name=module.name
+        )
     )
 
     if rule.domain_force:
@@ -7209,8 +7545,8 @@ for rule in model.rule_ids:
 
 return l_model_rules''',
                     "name": "_get_model_rules",
-                    "param": "self, model",
-                    "sequence": 37,
+                    "param": "self, module, model",
+                    "sequence": 39,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7228,7 +7564,7 @@ return '<field name="groups_id" eval="[(6,0, [%s])]" />' % ", ".join(
 )''',
                     "name": "_get_m2m_groups",
                     "param": "self, m2m_groups",
-                    "sequence": 38,
+                    "sequence": 40,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7247,78 +7583,118 @@ var = ", ".join(
 return E.field({"name": "groups_id", "eval": f"[(6,0, [{var}])]"})''',
                     "name": "_get_m2m_groups_etree",
                     "param": "self, m2m_groups",
-                    "sequence": 39,
+                    "sequence": 41,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": '''"""
-Function to obtain the model fields
-:param model:
-:return:
-"""
-
-# TODO detect if contain code_generator_sequence, else order by name
-f2exports = model.field_id.filtered(
-    lambda field: field.name not in MAGIC_FIELDS
-).sorted(key=lambda r: r.code_generator_sequence)
-
-if model.inherit_model_ids:
-    is_whitelist = any(
-        [a.is_show_whitelist_model_inherit_call() for a in f2exports]
-    )
-    if is_whitelist:
-        f2exports = f2exports.filtered(
-            lambda field: field.name not in MAGIC_FIELDS
-            and not field.is_hide_blacklist_model_inherit
-            and (
-                not is_whitelist
-                or (
-                    is_whitelist
-                    and field.is_show_whitelist_model_inherit_call()
-                )
-            )
-        )
-    else:
-        father_ids = self.env["ir.model"].browse(
-            [a.depend_id.id for a in model.inherit_model_ids]
-        )
-        set_unique_field = set()
-        for father_id in father_ids:
-            fatherfieldnames = father_id.field_id.filtered(
-                lambda field: field.name not in MAGIC_FIELDS
-            ).mapped("name")
-            set_unique_field.update(fatherfieldnames)
-        f2exports = f2exports.filtered(
-            lambda field: field.name not in list(set_unique_field)
-        )
-
-# Force field name first
-field_rec_name = model.rec_name if model.rec_name else model._rec_name
-if not field_rec_name:
-    field_rec_name = "name"
-lst_field_rec_name = f2exports.filtered(
-    lambda field: field.name == field_rec_name
+                    "code": """if lst_field_inherit and not dct_field_attr_diff:
+    return [], False, None, False
+has_endline = False
+lst_attribute_to_filter = []
+lst_first_field_attribute = []
+lst_field_attribute = []
+compute = None
+lst_last_field_attribute = []
+extra_info = (
+    self.env[f2export.model]
+    .fields_get(f2export.name)
+    .get(f2export.name)
 )
-if lst_field_rec_name:
-    lst_field_not_name = f2exports.filtered(
-        lambda field: field.name != field_rec_name
-    )
-    lst_id = lst_field_rec_name.ids + lst_field_not_name.ids
-    f2exports = self.env["ir.model.fields"].browse(lst_id)
+dct_field_attribute = {}
 
-for f2export in f2exports:
-    cw.emit()
-    dct_field_attribute = {}
+code_generator_compute = f2export.get_code_generator_compute()
+if not code_generator_compute and not f2export.related:
+    code_generator_compute = self._get_compute_fct(f2export)
 
+# TODO not optimal to remove attributes, but more easy ;-)
+if dct_field_attr_diff:
+    for attr_key, lst_value in dct_field_attr_diff.items():
+        if attr_key == "default":
+            dct_field_attribute[attr_key] = self._get_default(f2export)
+        else:
+            dct_field_attribute[attr_key] = getattr(f2export, attr_key)
+    # Exception for compute
+    if "compute" in dct_field_attr_diff.keys():
+        new_value_compute = self._get_compute_fct(f2export)
+        if not new_value_compute:
+            dct_field_attribute["compute"] = None
+            if dct_field_attribute.get("store"):
+                # no need to store when no compute
+                del dct_field_attribute["store"]
+            if dct_field_attribute.get("readonly") is False:
+                del dct_field_attribute["readonly"]
+        else:
+            dct_field_attribute["compute"] = new_value_compute
+    # Rename attribute
+    if "relation" in dct_field_attribute.keys():
+        dct_field_attribute["comodel_name"] = dct_field_attribute[
+            "relation"
+        ]
+        del dct_field_attribute["relation"]
+    if "field_description" in dct_field_attribute.keys():
+        dct_field_attribute["string"] = dct_field_attribute[
+            "field_description"
+        ]
+        del dct_field_attribute["field_description"]
+    if "relation_field" in dct_field_attribute.keys():
+        dct_field_attribute["inverse_name"] = dct_field_attribute[
+            "relation_field"
+        ]
+        del dct_field_attribute["relation_field"]
+    if "relation_table" in dct_field_attribute.keys():
+        dct_field_attribute["relation"] = dct_field_attribute[
+            "relation_table"
+        ]
+        del dct_field_attribute["relation_table"]
+    if "copied" in dct_field_attribute.keys():
+        dct_field_attribute["copy"] = dct_field_attribute["copied"]
+        del dct_field_attribute["copied"]
+else:
     # TODO use if cannot find information
     # field_selection = self.env[f2export.model].fields_get(f2export.name).get(f2export.name)
 
-    # Respect sequence in list, order listed by human preference
+    related_field_id = None
+    if f2export.related:
+        dct_field_attribute["related"] = f2export.related
+        # Get related field if, it works like inherit
+        (
+            related_inside_field,
+            related_outside_field,
+        ) = f2export.related.split(".")
+        # This need to be a many2many
+        related_model_name = f2export.model_id.field_id.filtered(
+            lambda field: field.name == related_inside_field
+        ).relation
+        related_outside_field_id = self.env["ir.model.fields"].search(
+            [
+                ("model", "=", related_model_name),
+                ("name", "=", related_inside_field),
+            ],
+            limit=1,
+        )
+        if not related_outside_field_id:
+            _logger.error(
+                "Cannot find related field from field"
+                f" '{f2export.name}' and model '{f2export.model}'"
+            )
+        else:
+            # Get is model and search outside field
+            related_field_id = (
+                related_outside_field_id.model_id.field_id.filtered(
+                    lambda field: field.name == related_outside_field
+                )
+            )
 
-    str_selection = f2export.get_selection()
-    if f2export.ttype in ("selection", "reference"):
-        dct_field_attribute["selection"] = str_selection
+    # Respect sequence in list, order listed by human preference
+    if (
+        f2export.ttype in ("selection", "reference")
+        and not f2export.related
+    ):
+        # cannot support selection item with related attributes
+        str_selection = f2export.get_selection()
+        if str_selection:
+            dct_field_attribute["selection"] = str_selection
 
     if f2export.ttype in ["many2one", "one2many", "many2many"]:
         if f2export.relation:
@@ -7348,9 +7724,46 @@ for f2export in f2exports:
                 ] = f2export.relation_table
                 dct_field_attribute["column1"] = f2export.column1
                 dct_field_attribute["column2"] = f2export.column2
-
+            elif (
+                dct_field_attribute.get("relation") is None
+                and f2export.relation_table
+                and f2export.relation
+                and len(f2export.relation_table) > 63
+            ):
+                # TODO need to validate it's not exist, the new relation table
+                # relation can be empty, the system will generate it, but crash if highter then 63
+                new_relation_table = (
+                    f"{f2export.name}_{f2export.model.replace('.', '_')}_rel"
+                )
+                if len(new_relation_table) > 63:
+                    # again!
+                    lst_split_relation_t = f2export.relation_table[
+                        :-4
+                    ].split("_")
+                    if lst_split_relation_t[0] == "x":
+                        lst_split_relation_t = lst_split_relation_t[1:]
+                    # Take only first later of each word
+                    new_relation_table = (
+                        "_".join(
+                            [
+                                a[0]
+                                for a in lst_split_relation_t.split(
+                                    "_"
+                                )
+                            ]
+                        )
+                        + "_rel"
+                    )
+                    if len(new_relation_table) > 63:
+                        new_relation_table = new_relation_table[
+                            :63
+                        ].trim("_")
+                dct_field_attribute["relation"] = new_relation_table
+        domain_info = extra_info.get("domain")
         if f2export.domain and f2export.domain != "[]":
             dct_field_attribute["domain"] = f2export.domain
+        elif domain_info and domain_info != "[]":
+            dct_field_attribute["domain"] = domain_info
 
         if (
             f2export.ttype == "many2one"
@@ -7364,7 +7777,12 @@ for f2export in f2exports:
         and f2export.name.replace("_", " ").title()
         != f2export.field_description
     ):
-        dct_field_attribute["string"] = f2export.field_description
+        if not (
+            related_field_id
+            and related_field_id.field_description
+            == f2export.field_description
+        ):
+            dct_field_attribute["string"] = f2export.field_description
 
     if (
         f2export.ttype == "char" or f2export.ttype == "reference"
@@ -7374,15 +7792,32 @@ for f2export in f2exports:
     if f2export.related:
         dct_field_attribute["related"] = f2export.related
 
-    if f2export.readonly:
-        # TODO force readonly at false when inherit and origin is True
-        dct_field_attribute["readonly"] = True
+    if f2export.readonly and not code_generator_compute:
+        # Note that a computed field without an inverse method is readonly by default.
+        if not (
+            related_field_id
+            and related_field_id.readonly == f2export.readonly
+        ):
+            dct_field_attribute["readonly"] = True
 
     if f2export.required:
         dct_field_attribute["required"] = True
 
     if f2export.index:
         dct_field_attribute["index"] = True
+
+    field_context = f2export.get_field_context()
+    if field_context:
+        # Extract content from string
+        try:
+            dct_field_context = ast.literal_eval(field_context)
+            dct_field_attribute["context"] = dct_field_context
+        except Exception as e:
+            _logger.error(
+                f"Cannot extract dict from context '{field_context}'"
+                f" for field '{f2export.name}' in model"
+                f" '{f2export.model}'"
+            )
 
     if f2export.track_visibility:
         if f2export.track_visibility in ("onchange", "always"):
@@ -7402,25 +7837,52 @@ for f2export in f2exports:
                 " 'onchange' and 'always'."
             )
 
-    if f2export.default:
-        # TODO support default = None
-        # TODO validate with type for boolean
-        if f2export.default == "True":
-            dct_field_attribute["default"] = True
-        elif f2export.default == "False":
-            dct_field_attribute["default"] = False
-        elif f2export.ttype == "integer":
-            dct_field_attribute["default"] = int(f2export.default)
-        elif f2export.ttype in ("char", "selection"):
-            dct_field_attribute["default"] = f2export.default
+    # Get default value
+    default_lambda = f2export.get_default_lambda()
+    if default_lambda:
+        dct_field_attribute["default"] = default_lambda.replace(
+            "'", '"'
+        )
+    else:
+        default_value = None
+        if f2export.default:
+            default_value = f2export.default
         else:
-            _logger.warning(
-                f"Not supported default type {f2export.ttype}"
+            dct_default_value = self.env[model_name].default_get(
+                [f2export.name]
             )
-            dct_field_attribute["default"] = f2export.default
+            if dct_default_value:
+                default_value = dct_default_value.get(f2export.name)
+        if default_value:
+            # TODO support default = None
+            if f2export.ttype == "boolean" and (
+                default_value == "True" or default_value is True
+            ):
+                dct_field_attribute["default"] = True
+            elif f2export.ttype == "boolean" and (
+                default_value == "False" or default_value is False
+            ):
+                # TODO Only if the field inherit, else None it
+                dct_field_attribute["default"] = False
+            elif f2export.ttype == "integer":
+                dct_field_attribute["default"] = int(default_value)
+            elif f2export.ttype in (
+                "char",
+                "selection",
+                "text",
+                "html",
+            ):
+                dct_field_attribute["default"] = default_value
+            else:
+                _logger.warning(
+                    f"Not supported default type '{f2export.ttype}',"
+                    f" field name '{f2export.name}', model"
+                    f" '{f2export.model_id.model}', value"
+                    f" '{default_value}'"
+                )
+                dct_field_attribute["default"] = default_value
 
     # TODO support states
-
     if f2export.groups:
         dct_field_attribute["groups"] = f2export.groups.mapped(
             lambda g: self._get_group_data_name(g)
@@ -7428,7 +7890,6 @@ for f2export in f2exports:
 
     compute = f2export.compute and f2export.depends
 
-    code_generator_compute = f2export.get_code_generator_compute()
     if code_generator_compute:
         dct_field_attribute["compute"] = code_generator_compute
     elif compute:
@@ -7448,9 +7909,14 @@ for f2export in f2exports:
     # TODO support search
 
     # TODO support store
-    if f2export.store and f2export.code_generator_compute:
+    if f2export.store and code_generator_compute:
         dct_field_attribute["store"] = True
-    elif not f2export.store:
+    elif (
+        not f2export.store
+        and not code_generator_compute
+        and not related_field_id
+    ):
+        # By default, a computed field is not stored to the database, and is computed on-the-fly.
         dct_field_attribute["store"] = False
 
     # TODO support compute_sudo
@@ -7458,8 +7924,11 @@ for f2export in f2exports:
     if f2export.translate:
         dct_field_attribute["translate"] = True
 
-    if not f2export.selectable:
-        dct_field_attribute["selectable"] = False
+    # TODO not working, but no module need it
+    # if not f2export.selectable and f2export.ttype == "one2many":
+    #     # Default is True
+    #     # Check _reflect_field_params in file odoo/odoo/addons/base/models/ir_model.py
+    #     dct_field_attribute["selectable"] = False
 
     # TODO support digits, check dp.get_precision('Account')
 
@@ -7470,7 +7939,6 @@ for f2export in f2exports:
     # elif f2export.ttype != 'one2many' and not f2export.related and not compute and not f2export.copied:
     #     dct_field_attribute["copy"] = False
 
-    lst_attribute_to_filter = []
     if (
         f2export.code_generator_ir_model_fields_ids
         and f2export.code_generator_ir_model_fields_ids.filter_field_attribute
@@ -7483,49 +7951,208 @@ for f2export in f2exports:
             a.strip() for a in lst_attribute_to_filter if a.strip()
         ]
 
-    lst_first_field_attribute = []
-    lst_field_attribute = []
-    lst_last_field_attribute = []
-    for key, value in dct_field_attribute.items():
-        if (
-            lst_attribute_to_filter
-            and key not in lst_attribute_to_filter
-        ):
-            continue
-        if type(value) is str:
-            # TODO find another solution than removing \\n, this cause error with cw.CodeWriter
-            value = value.replace("\\n", " ").replace("'", "\\'")
-            if key == "comodel_name":
-                lst_first_field_attribute.append(f"{key}='{value}'")
-            elif key == "ondelete":
-                lst_last_field_attribute.append(f"{key}='{value}'")
-            else:
-                if key == "default" and value.startswith("lambda"):
-                    # Exception for lambda
-                    lst_field_attribute.append(f"{key}={value}")
-                else:
-                    lst_field_attribute.append(f"{key}='{value}'")
-        elif type(value) is list:
-            # TODO find another solution than removing \\n, this cause error with cw.CodeWriter
-            new_value = str(value).replace("\\n", " ")
-            lst_field_attribute.append(f"{key}={new_value}")
+for key, value in dct_field_attribute.items():
+    if lst_attribute_to_filter and key not in lst_attribute_to_filter:
+        continue
+    if type(value) is str:
+        # TODO find another solution than removing \\n, this cause error with cw.CodeWriter
+        copy_value = value.replace("'", "\\'")
+        value = value.replace("\\n", " ").replace("'", "\\'")
+        if key == "comodel_name":
+            lst_first_field_attribute.append(f"{key}='{value}'")
+        elif key == "ondelete":
+            lst_last_field_attribute.append(f"{key}='{value}'")
         else:
-            lst_field_attribute.append(f"{key}={value}")
+            if (
+                value.startswith("lambda")
+                or value.startswith("date")
+                or value.startswith("datetime")
+            ):
+                # Exception for lambda
+                lst_field_attribute.append(f"{key}={value}")
+            else:
+                if "\\n" in copy_value:
+                    has_endline = True
+                    lst_field_attribute.append(
+                        f"{key}='''{copy_value}'''"
+                    )
+                else:
+                    lst_field_attribute.append(f"{key}='{copy_value}'")
+    elif type(value) is list:
+        # TODO find another solution than removing \\n, this cause error with cw.CodeWriter
+        new_value = str(value).replace("\\n", " ")
+        lst_field_attribute.append(f"{key}={new_value}")
+    else:
+        lst_field_attribute.append(f"{key}={value}")
 
-    lst_field_attribute = (
-        lst_first_field_attribute
-        + lst_field_attribute
-        + lst_last_field_attribute
+lst_field_attribute = (
+    lst_first_field_attribute
+    + lst_field_attribute
+    + lst_last_field_attribute
+)
+
+return lst_field_attribute, has_endline, compute, True""",
+                    "name": "_generate_field_from_model",
+                    "param": (
+                        "self, f2export, model_name, lst_field_inherit,"
+                        " dct_field_attr_diff"
+                    ),
+                    "sequence": 42,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": '''"""
+Function to obtain the model fields
+:param model:
+:return:
+"""
+# TODO detect if contain code_generator_sequence, else order by name
+# TODO some field.modules containts space, this is why it strip each element
+# the field.modules is full when the module is installed, check file odoo/odoo/addons/base/models/ir_model.py fct _in_modules
+f2exports = model.field_id.filtered(
+    lambda field: field.name not in MAGIC_FIELDS
+    and (
+        module.name in [a.strip() for a in field.modules.split(",")]
+        or not field.modules
     )
+).sorted(key=lambda r: r.code_generator_sequence)
 
-    cw.emit_list(
+lst_inherit_model = self._get_lst_inherit_model(model)
+
+if model.inherit_model_ids:
+    is_whitelist = any(
+        [a.is_show_whitelist_model_inherit_call() for a in f2exports]
+    )
+    if is_whitelist:
+        f2exports = f2exports.filtered(
+            lambda field: field.name not in MAGIC_FIELDS
+            and not field.is_hide_blacklist_model_inherit
+            and (
+                not is_whitelist
+                or (
+                    is_whitelist
+                    and field.is_show_whitelist_model_inherit_call()
+                )
+            )
+        )
+    # else:
+    #     father_ids = self.env["ir.model"].browse(
+    #         [a.depend_id.id for a in model.inherit_model_ids]
+    #     )
+    #     set_unique_field = set()
+    #     for father_id in father_ids:
+    #         fatherfieldnames = father_id.field_id.filtered(
+    #             lambda field: field.name not in MAGIC_FIELDS
+    #         ).mapped("name")
+    #         set_unique_field.update(fatherfieldnames)
+    #     f2exports = f2exports.filtered(
+    #         lambda field: field.name not in list(set_unique_field)
+    #     )
+
+# Force field name first
+field_rec_name = model.rec_name if model.rec_name else model._rec_name
+if not field_rec_name:
+    field_rec_name = "name"
+lst_field_rec_name = f2exports.filtered(
+    lambda field: field.name == field_rec_name
+)
+if lst_field_rec_name:
+    lst_field_not_name = f2exports.filtered(
+        lambda field: field.name != field_rec_name
+    )
+    lst_id = lst_field_rec_name.ids + lst_field_not_name.ids
+    f2exports = self.env["ir.model.fields"].browse(lst_id)
+
+lst_field_to_write = []
+for f2export in f2exports:
+    lst_field_inherit = [
+        b
+        for a in lst_inherit_model
+        for b in a.field_id
+        if b.name == f2export.name
+    ]
+    # TODO update this list
+    # Documentation to understand how attributes work, check file odoo/odoo/addons/base/models/ir_model.py function _instanciate_attrs
+    lst_attribute_check_diff = [
+        "readonly",
+        "required",
+        "field_description",  # String
+        "relation_field",  # inverse_name
+        "relation",  # comodel_name
+        "relation_table",  # relation
+        # "default",
+        "help",
+        # "context",
+        "compute",
+        "domain",
+        "store",
+    ]
+    dct_field_attr_diff = defaultdict(list)
+    # TODO éviter d'écraser une valeur pour le multi héritage
+    for field_inherit in lst_field_inherit:
+        for attr_name in lst_attribute_check_diff:
+            try:
+                actual_value = getattr(f2export, attr_name)
+            except Exception as e:
+                print(e)
+            inherit_value = getattr(field_inherit, attr_name)
+            if actual_value != inherit_value:
+                dct_field_attr_diff[attr_name].append(inherit_value)
+        self._find_field_computed(
+            dct_field_attr_diff, f2export, field_inherit
+        )
+        self._find_field_default(
+            dct_field_attr_diff, f2export, field_inherit
+        )
+    (
         lst_field_attribute,
-        ("(", ")"),
-        before=(
-            f"{f2export.name} ="
-            f" {self._get_odoo_ttype_class(f2export.ttype)}"
-        ),
+        has_endline,
+        compute,
+        do_generate,
+    ) = self._generate_field_from_model(
+        f2export, model.model, lst_field_inherit, dct_field_attr_diff
     )
+    if do_generate:
+        lst_field_to_write.append(
+            (lst_field_attribute, f2export, has_endline, compute)
+        )
+
+for (
+    lst_field_attribute,
+    f2export,
+    has_endline,
+    compute,
+) in lst_field_to_write:
+    cw.emit()
+    if not has_endline:
+        cw.emit_list(
+            lst_field_attribute,
+            ("(", ")"),
+            before=(
+                f"{f2export.name} ="
+                f" {self._get_odoo_ttype_class(f2export.ttype)}"
+            ),
+        )
+    else:
+        cw.emit(
+            f"{f2export.name} ="
+            f" {self._get_odoo_ttype_class(f2export.ttype)}("
+        )
+        with cw.indent():
+            for item in lst_field_attribute:
+                if "\\n" in item:
+                    lst_item = item.split("\\n")
+                    cw.emit(f"{lst_item[0]}")
+                    i_last = len(lst_item) - 2
+                    for i, inter_item in enumerate(lst_item[1:]):
+                        if i == i_last:
+                            cw.emit_raw(f"{inter_item},\\n")
+                        else:
+                            cw.emit_raw(f"{inter_item}\\n")
+                else:
+                    cw.emit(f"{item},")
+        cw.emit(")")
 
     if compute:
         cw.emit()
@@ -7548,8 +8175,68 @@ for f2export in f2exports:
             with cw.indent():
                 cw.emit(line.rstrip())''',
                     "name": "_get_model_fields",
-                    "param": "self, cw, model",
-                    "sequence": 40,
+                    "param": "self, cw, model, module",
+                    "sequence": 43,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """model_name = field_id.model
+lst_field = [
+    a
+    for a in self.env[model_name]._field_computed.keys()
+    if a.name == field_id.name
+]
+if lst_field:
+    field_relation = lst_field[0]
+    return field_relation.compute
+return False""",
+                    "name": "_get_compute_fct",
+                    "param": "self, field_id",
+                    "sequence": 44,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """default_value = field_id.get_default_lambda()
+if not default_value:
+    default_value = self.env[field_id.model].default_get(
+        [field_id.name]
+    )
+    if default_value:
+        default_value = default_value.get(field_id.name)
+if not default_value:
+    default_value = False
+return default_value""",
+                    "name": "_get_default",
+                    "param": "self, field_id",
+                    "sequence": 45,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """inherit_compute = self._get_compute_fct(field_inherit)
+actual_compute = self._get_compute_fct(f2export)
+if inherit_compute and not actual_compute:
+    dct_field_attr_diff["compute"] = inherit_compute""",
+                    "name": "_find_field_computed",
+                    "param": (
+                        "self, dct_field_attr_diff, f2export, field_inherit"
+                    ),
+                    "sequence": 46,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """inherit_default = self._get_default(field_inherit)
+actual_default = self._get_default(f2export)
+if inherit_default != actual_default:
+    dct_field_attr_diff["default"] = inherit_default""",
+                    "name": "_find_field_default",
+                    "param": (
+                        "self, dct_field_attr_diff, f2export, field_inherit"
+                    ),
+                    "sequence": 47,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7566,7 +8253,7 @@ return super(CodeGeneratorWriter, self).create(new_list)''',
                     "name": "create",
                     "decorator": "@api.model_create_multi",
                     "param": "self, vals_list",
-                    "sequence": 41,
+                    "sequence": 48,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7577,9 +8264,11 @@ l_model_rules = []
 module.view_file_sync = {}
 module.module_file_sync = {}
 
-if module.template_model_name:
+if module.template_model_name or module.template_inherit_model_name:
     i = -1
-    lst_model = module.template_model_name.split(";")
+    lst_model = f"{module.template_model_name};{module.template_inherit_model_name}".split(
+        ";"
+    )
     for model in lst_model:
         i += 1
         model = model.strip()
@@ -7590,6 +8279,10 @@ if module.template_model_name:
             module.module_file_sync[model] = ExtractorModule(
                 module, model, module.view_file_sync[model]
             )
+            # TODO no need to keep memory
+            ExtractorController(
+                module, model, module.module_file_sync[model]
+            )
 
 for model in module.o2m_models:
 
@@ -7598,10 +8291,10 @@ for model in module.o2m_models:
     if not module.nomenclator_only:
         # Wizard
         self._set_model_py_file(module, model, model_model)
-        self._set_model_xmlview_file(model, model_model, module)
+        self._set_model_xmlview_file(module, model, model_model)
 
         # Report
-        self._set_model_xmlreport_file(model, model_model)
+        self._set_model_xmlreport_file(module, model, model_model)
 
     parameters = self.env["ir.config_parameter"].sudo()
     s_data2export = parameters.get_param(
@@ -7615,7 +8308,7 @@ for model in module.o2m_models:
     if not module.nomenclator_only:
         l_model_csv_access += self._get_model_access(module, model)
 
-        l_model_rules += self._get_model_rules(model)
+        l_model_rules += self._get_model_rules(module, model)
 
 l_model_csv_access = sorted(
     list(set(l_model_csv_access)),
@@ -7642,6 +8335,8 @@ if not module.nomenclator_only:
     # TODO info Moved in template module
     # self.set_module_translator(module)
 
+python_controller_writer.generate()
+
 self.set_extra_get_lst_file_generate(module)
 
 self.code_generator_data.reorder_manifest_data_files()
@@ -7657,8 +8352,8 @@ if module.enable_pylint_check:
     # self.code_generator_data.flake8_check()
     self.code_generator_data.pylint_check()""",
                     "name": "get_lst_file_generate",
-                    "param": "self, module",
-                    "sequence": 42,
+                    "param": "self, module, python_controller_writer",
+                    "sequence": 49,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7666,7 +8361,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_xml_data_file",
                     "param": "self, module",
-                    "sequence": 43,
+                    "sequence": 50,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7674,7 +8369,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_xml_views_file",
                     "param": "self, module",
-                    "sequence": 44,
+                    "sequence": 51,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7682,7 +8377,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_module_css_file",
                     "param": "self, module",
-                    "sequence": 45,
+                    "sequence": 52,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7690,7 +8385,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_module_python_file",
                     "param": "self, module",
-                    "sequence": 46,
+                    "sequence": 53,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7698,7 +8393,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_extra_get_lst_file_generate",
                     "param": "self, module",
-                    "sequence": 47,
+                    "sequence": 54,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7734,7 +8429,10 @@ for module in modules:
     # TODO refactor this to share variable in another class,
     #  like that, self.code_generator_data will be associate to a class of generation of module
     self.code_generator_data = CodeGeneratorData(module, path)
-    self.get_lst_file_generate(module)
+    python_controller_writer = PythonControllerWriter(
+        module, self.code_generator_data
+    )
+    self.get_lst_file_generate(module, python_controller_writer)
 
     if module.enable_sync_code:
         self.code_generator_data.sync_code(
@@ -7749,7 +8447,7 @@ return vals""",
                     "name": "generate_writer",
                     "decorator": "@api.multi",
                     "param": "self, vals",
-                    "sequence": 48,
+                    "sequence": 55,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7757,9 +8455,144 @@ return vals""",
                     "code": """return self.list_path_file.split(";")""",
                     "name": "get_list_path_file",
                     "param": "self",
-                    "sequence": 49,
+                    "sequence": 56,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
+                },
+            ]
+            env["code.generator.model.code"].create(lst_value)
+
+        # Add/Update Ir Model Server Constrain
+        model_model = "ir.model.server_constrain"
+        model_name = "ir_model_server_constrain"
+        dct_model = {
+            "description": "Code Generator Model Server Constrains",
+            "rec_name": "constrained",
+        }
+        dct_field = {
+            "constrained": {
+                "code_generator_sequence": 3,
+                "field_description": "Constrained",
+                "help": "Constrained fields, ej: name, age",
+                "required": True,
+                "ttype": "char",
+            },
+            "m2o_ir_model": {
+                "code_generator_sequence": 4,
+                "domain": [("transient", "=", False)],
+                "field_description": "Code generator Model",
+                "help": "Model that will hold this server constrain",
+                "relation": "ir.model",
+                "required": True,
+                "ttype": "many2one",
+            },
+            "txt_code": {
+                "code_generator_sequence": 5,
+                "field_description": "Code",
+                "help": "Code to execute",
+                "required": True,
+                "ttype": "text",
+            },
+        }
+        model_ir_model_server_constrain = code_generator_id.add_update_model(
+            model_model,
+            model_name,
+            dct_field=dct_field,
+            dct_model=dct_model,
+        )
+
+        # Generate code
+        if True:
+            # Generate code header
+            value = {
+                "code": '''import re
+
+from odoo import _, api, fields, models, modules, tools
+from odoo.addons.base.models.ir_model import SAFE_EVAL_BASE
+from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
+
+CONSTRAINEDLS = _(
+    "The field Constrained lists the fields that the server constrain will"
+    " check. It is a comma-separated list of field names, like name, size."
+)
+SERVERCONSTRAIN = _("%s Server constrain ")
+SYNTAXERRORMSG = _("There is a syntax error in your %scode definition.")
+
+SAFE_EVAL_BASE["re"] = re
+SAFE_EVAL_BASE["ValidationError"] = ValidationError
+
+SAFE_EVAL_4FUNCTION = SAFE_EVAL_BASE
+SAFE_EVAL_4FUNCTION["api"] = api
+SAFE_EVAL_4FUNCTION["models"] = models
+SAFE_EVAL_4FUNCTION["fields"] = fields
+SAFE_EVAL_4FUNCTION["_"] = _
+PREDEFINEDVARS = _(
+    "You specified a non predefined variable. The predefined variables are"
+    " self, datetime, dateutil, time, re, ValidationError and the ones"
+    " accessible through self, like self.env."
+)
+
+
+def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
+    """
+
+    :param el_self:
+    :param code:
+    :param message:
+    :return:
+    """
+
+    try:
+        safe_eval(code, SAFE_EVAL_4FUNCTION, {"self": el_self}, mode="exec")
+
+    except ValueError:
+        raise ValidationError(PREDEFINEDVARS)
+
+    except SyntaxError:
+        raise ValidationError(message)''',
+                "name": "header",
+                "m2o_module": code_generator_id.id,
+                "m2o_model": model_ir_model_server_constrain.id,
+            }
+            env["code.generator.model.code.import"].create(value)
+
+            # Generate code model
+            lst_value = [
+                {
+                    "code": """if self.constrained:
+    splitted = self.constrained.split(",")
+    if list(
+        filter(
+            lambda e: e.strip()
+            not in self.env[self.m2o_ir_model.model]._fields.keys(),
+            splitted,
+        )
+    ):
+        raise ValidationError(CONSTRAINEDLS)""",
+                    "name": "_check_constrained",
+                    "decorator": '@api.onchange("constrained");@api.constrains("constrained")',
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_server_constrain.id,
+                },
+                {
+                    "code": """if self.txt_code:
+    constrain_detail = SERVERCONSTRAIN % self.constrained
+    common_4constrains(
+        self.env[self.m2o_ir_model.model],
+        self.txt_code,
+        SYNTAXERRORMSG % constrain_detail,
+    )""",
+                    "name": "_check_txt_code",
+                    "decorator": (
+                        '@api.onchange("txt_code");@api.constrains("txt_code")'
+                    ),
+                    "param": "self",
+                    "sequence": 1,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_server_constrain.id,
                 },
             ]
             env["code.generator.model.code"].create(lst_value)
@@ -8545,9 +9378,11 @@ return custommodelclass""",
             },
             "module": {
                 "code_generator_sequence": 4,
-                "default": lambda self: self.env["ir.module.module"]
-                .search([("name", "=", "base")])[0]
-                .id,
+                "default_lambda": (
+                    "lambda self:"
+                    " self.env['ir.module.module'].search([('name', '=',"
+                    " 'base')])[    0].id"
+                ),
                 "field_description": "Module",
                 "is_show_whitelist_model_inherit": True,
                 "relation": "ir.module.module",
@@ -8852,8 +9687,20 @@ return super(IrModelConstraint, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
-            "force_widget": {
+            "default_lambda": {
                 "code_generator_sequence": 13,
+                "field_description": "Default lambda value",
+                "is_show_whitelist_model_inherit": True,
+                "ttype": "char",
+            },
+            "field_context": {
+                "code_generator_sequence": 14,
+                "field_description": "Field Context",
+                "is_show_whitelist_model_inherit": True,
+                "ttype": "char",
+            },
+            "force_widget": {
+                "code_generator_sequence": 15,
                 "field_description": "Force widget",
                 "help": "Use this widget for this field when create views.",
                 "is_show_whitelist_model_inherit": True,
@@ -8926,28 +9773,28 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "selection",
             },
             "ignore_on_code_generator_writer": {
-                "code_generator_sequence": 14,
+                "code_generator_sequence": 16,
                 "field_description": "Ignore On Code Generator Writer",
                 "help": "Enable this to ignore it when write code.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_date_end_view": {
-                "code_generator_sequence": 15,
+                "code_generator_sequence": 17,
                 "field_description": "Show end date view",
                 "help": "View timeline only, end field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_date_start_view": {
-                "code_generator_sequence": 16,
+                "code_generator_sequence": 18,
                 "field_description": "Show start date view",
                 "help": "View timeline only, start field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_calendar_view": {
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 19,
                 "field_description": "Hide in blacklist calendar view",
                 "help": (
                     "Hide from view when field is blacklisted. View calendar"
@@ -8957,7 +9804,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_form_view": {
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 20,
                 "field_description": "Hide in blacklist form view",
                 "help": (
                     "Hide from view when field is blacklisted. View form only."
@@ -8966,7 +9813,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_graph_view": {
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 21,
                 "field_description": "Hide in blacklist graph view",
                 "help": (
                     "Hide from view when field is blacklisted. View graph"
@@ -8976,7 +9823,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_kanban_view": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 22,
                 "field_description": "Hide in blacklist kanban view",
                 "help": (
                     "Hide from view when field is blacklisted. View kanban"
@@ -8986,7 +9833,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_list_view": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 23,
                 "field_description": "Hide in blacklist list view",
                 "help": (
                     "Hide from view when field is blacklisted. View list only."
@@ -8995,14 +9842,14 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_model_inherit": {
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 24,
                 "field_description": "Hide in blacklist model inherit",
                 "help": "Hide from model inherit when field is blacklisted.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_pivot_view": {
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 25,
                 "field_description": "Hide in blacklist pivot view",
                 "help": (
                     "Hide from view when field is blacklisted. View pivot"
@@ -9012,7 +9859,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_search_view": {
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 26,
                 "field_description": "Hide in blacklist search view",
                 "help": (
                     "Hide from view when field is blacklisted. View search"
@@ -9022,7 +9869,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_calendar_view": {
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 27,
                 "field_description": "Show in whitelist calendar view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9032,7 +9879,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_form_view": {
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 28,
                 "field_description": "Show in whitelist form view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9042,7 +9889,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_graph_view": {
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 29,
                 "field_description": "Show in whitelist graph view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9052,7 +9899,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_kanban_view": {
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 30,
                 "field_description": "Show in whitelist kanban view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9062,7 +9909,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_list_view": {
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 31,
                 "field_description": "Show in whitelist list view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9072,7 +9919,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_model_inherit": {
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 32,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -9082,7 +9929,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_pivot_view": {
-                "code_generator_sequence": 31,
+                "code_generator_sequence": 33,
                 "field_description": "Show in whitelist pivot view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9092,7 +9939,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_search_view": {
-                "code_generator_sequence": 32,
+                "code_generator_sequence": 34,
                 "field_description": "Show in whitelist search view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -9114,7 +9961,11 @@ return super(IrModelConstraint, self).unlink()""",
             # Generate code header
             value = {
                 "code": """import ast
+import inspect
 import logging
+import types
+
+import astor
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError
@@ -9269,11 +10120,9 @@ return self.is_show_whitelist_model_inherit""",
                 },
                 {
                     "code": """if self.code_generator_ir_model_fields_ids:
-    return (
-        self.code_generator_ir_model_fields_ids.code_generator_compute
-    )
-return self.code_generator_compute""",
-                    "name": "get_code_generator_compute",
+    return self.code_generator_ir_model_fields_ids.default_lambda
+return self.default_lambda""",
+                    "name": "get_default_lambda",
                     "decorator": "@api.model",
                     "param": "self",
                     "sequence": 2,
@@ -9281,41 +10130,126 @@ return self.code_generator_compute""",
                     "m2o_model": model_ir_model_fields.id,
                 },
                 {
+                    "code": """if self.code_generator_ir_model_fields_ids:
+    return self.code_generator_ir_model_fields_ids.field_context
+return self.field_context""",
+                    "name": "get_field_context",
+                    "decorator": "@api.model",
+                    "param": "self",
+                    "sequence": 3,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
+                    "code": """if self.code_generator_ir_model_fields_ids:
+    if len(self.code_generator_ir_model_fields_ids) > 1:
+        # Check if multiple field before crash without message
+        lst_model = set(
+            [
+                a.m2o_fields.model
+                for a in self.code_generator_ir_model_fields_ids
+            ]
+        )
+        lst_field = [
+            a.name for a in self.code_generator_ir_model_fields_ids
+        ]
+        raise Exception(
+            f"Cannot compute multiple field. In model {lst_model},"
+            f" List of field: {lst_field}"
+        )
+    else:
+        return (
+            self.code_generator_ir_model_fields_ids.code_generator_compute
+        )
+return self.code_generator_compute""",
+                    "name": "get_code_generator_compute",
+                    "decorator": "@api.model",
+                    "param": "self",
+                    "sequence": 4,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
                     "code": """return_value = []
 
-if self.ttype == "reference" or self.ttype == "selection":
-    if self.selection and self.selection != "[]":
-        try:
-            # Transform string in list
-            lst_selection = ast.literal_eval(self.selection)
-            # lst_selection = [f"'{a}'" for a in lst_selection]
-            return_value = lst_selection
-        except Exception as e:
-            _logger.error(
-                f"The selection of field {self.name} is not a"
-                f" list: '{self.selection}'."
+if self.ttype not in ("reference", "selection"):
+    return
+
+if self.selection and self.selection != "[]":
+    try:
+        # Transform string in list
+        lst_selection = ast.literal_eval(self.selection)
+        # lst_selection = [f"'{a}'" for a in lst_selection]
+        return_value = lst_selection
+    except Exception as e:
+        _logger.error(
+            f"The selection of field {self.name} is not a"
+            f" list: '{self.selection}'."
+        )
+elif (
+    self.code_generator_ir_model_fields_ids
+    and self.code_generator_ir_model_fields_ids.selection
+    and self.code_generator_ir_model_fields_ids.selection != "[()]"
+):
+    try:
+        # Transform string in list
+        lst_selection = ast.literal_eval(
+            self.code_generator_ir_model_fields_ids.selection
+        )
+        return_value = lst_selection
+    except Exception as e:
+        _logger.error(
+            f"The selection of field {self.name} is not a"
+            f" list: '{self.selection}'."
+        )
+if not return_value:
+    return_value = self.env[self.model]._fields[self.name].selection
+    if isinstance(return_value, types.FunctionType):
+        source_code = (
+            inspect.getsource(return_value).strip().strip(",")
+        )
+        selection_equal_str = "selection="
+        # Clean variable assignment if exist
+        pos = source_code.find(" = fields.Selection(")
+        if pos > 0:
+            source_code = source_code[pos + 3 :].strip()
+            return_value = self._extract_lambda_in_selection(
+                source_code
             )
-    elif (
-        self.code_generator_ir_model_fields_ids
-        and self.code_generator_ir_model_fields_ids.selection
-        and self.code_generator_ir_model_fields_ids.selection != "[()]"
-    ):
-        try:
-            # Transform string in list
-            lst_selection = ast.literal_eval(
-                self.code_generator_ir_model_fields_ids.selection
-            )
-            return_value = lst_selection
-        except Exception as e:
-            _logger.error(
-                f"The selection of field {self.name} is not a"
-                f" list: '{self.selection}'."
-            )
+        elif selection_equal_str in source_code:
+            return_value = source_code[
+                source_code.find(selection_equal_str)
+                + len(selection_equal_str) :
+            ]
 return return_value""",
                     "name": "get_selection",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 3,
+                    "sequence": 5,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
+                    "code": """tree = ast.parse(source_code)
+
+class LambdaVisitor(ast.NodeVisitor):
+    def __init__(self):
+        _new_source = None
+
+    def visit_Lambda(self, node):
+        self._new_source = astor.to_source(node).strip()
+        if self._new_source[0] == "(" and self._new_source[-1] == ")":
+            self._new_source = self._new_source[1:-1]
+
+    def get_result(self):
+        return self._new_source
+
+visitor = LambdaVisitor()
+visitor.visit(tree)
+return visitor.get_result()""",
+                    "name": "_extract_lambda_in_selection",
+                    "param": "self, source_code",
+                    "sequence": 6,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -9387,143 +10321,9 @@ return res""",
                     "name": "create",
                     "decorator": "@api.model",
                     "param": "self, vals",
-                    "sequence": 4,
+                    "sequence": 7,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
-                },
-            ]
-            env["code.generator.model.code"].create(lst_value)
-
-        # Add/Update Ir Model Server Constrain
-        model_model = "ir.model.server_constrain"
-        model_name = "ir_model_server_constrain"
-        dct_model = {
-            "description": "Code Generator Model Server Constrains",
-            "rec_name": "constrained",
-        }
-        dct_field = {
-            "constrained": {
-                "code_generator_sequence": 3,
-                "field_description": "Constrained",
-                "help": "Constrained fields, ej: name, age",
-                "required": True,
-                "ttype": "char",
-            },
-            "m2o_ir_model": {
-                "code_generator_sequence": 4,
-                "field_description": "Code generator Model",
-                "help": "Model that will hold this server constrain",
-                "relation": "ir.model",
-                "required": True,
-                "ttype": "many2one",
-            },
-            "txt_code": {
-                "code_generator_sequence": 5,
-                "field_description": "Code",
-                "help": "Code to execute",
-                "required": True,
-                "ttype": "text",
-            },
-        }
-        model_ir_model_server_constrain = code_generator_id.add_update_model(
-            model_model,
-            model_name,
-            dct_field=dct_field,
-            dct_model=dct_model,
-        )
-
-        # Generate code
-        if True:
-            # Generate code header
-            value = {
-                "code": '''import re
-
-from odoo import _, api, fields, models, modules, tools
-from odoo.addons.base.models.ir_model import SAFE_EVAL_BASE
-from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import safe_eval
-
-CONSTRAINEDLS = _(
-    "The field Constrained lists the fields that the server constrain will"
-    " check. It is a comma-separated list of field names, like name, size."
-)
-SERVERCONSTRAIN = _("%s Server constrain ")
-SYNTAXERRORMSG = _("There is a syntax error in your %scode definition.")
-
-SAFE_EVAL_BASE["re"] = re
-SAFE_EVAL_BASE["ValidationError"] = ValidationError
-
-SAFE_EVAL_4FUNCTION = SAFE_EVAL_BASE
-SAFE_EVAL_4FUNCTION["api"] = api
-SAFE_EVAL_4FUNCTION["models"] = models
-SAFE_EVAL_4FUNCTION["fields"] = fields
-SAFE_EVAL_4FUNCTION["_"] = _
-PREDEFINEDVARS = _(
-    "You specified a non predefined variable. The predefined variables are"
-    " self, datetime, dateutil, time, re, ValidationError and the ones"
-    " accessible through self, like self.env."
-)
-
-
-def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
-    """
-
-    :param el_self:
-    :param code:
-    :param message:
-    :return:
-    """
-
-    try:
-        safe_eval(code, SAFE_EVAL_4FUNCTION, {"self": el_self}, mode="exec")
-
-    except ValueError:
-        raise ValidationError(PREDEFINEDVARS)
-
-    except SyntaxError:
-        raise ValidationError(message)''',
-                "name": "header",
-                "m2o_module": code_generator_id.id,
-                "m2o_model": model_ir_model_server_constrain.id,
-            }
-            env["code.generator.model.code.import"].create(value)
-
-            # Generate code model
-            lst_value = [
-                {
-                    "code": """if self.constrained:
-    splitted = self.constrained.split(",")
-    if list(
-        filter(
-            lambda e: e.strip()
-            not in self.env[self.m2o_ir_model.model]._fields.keys(),
-            splitted,
-        )
-    ):
-        raise ValidationError(CONSTRAINEDLS)""",
-                    "name": "_check_constrained",
-                    "decorator": '@api.onchange("constrained");@api.constrains("constrained")',
-                    "param": "self",
-                    "sequence": 0,
-                    "m2o_module": code_generator_id.id,
-                    "m2o_model": model_ir_model_server_constrain.id,
-                },
-                {
-                    "code": """if self.txt_code:
-    constrain_detail = SERVERCONSTRAIN % self.constrained
-    common_4constrains(
-        self.env[self.m2o_ir_model.model],
-        self.txt_code,
-        SYNTAXERRORMSG % constrain_detail,
-    )""",
-                    "name": "_check_txt_code",
-                    "decorator": (
-                        '@api.onchange("txt_code");@api.constrains("txt_code")'
-                    ),
-                    "param": "self",
-                    "sequence": 1,
-                    "m2o_module": code_generator_id.id,
-                    "m2o_model": model_ir_model_server_constrain.id,
                 },
             ]
             env["code.generator.model.code"].create(lst_value)
@@ -9777,13 +10577,23 @@ for cg in self:
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """model_id = self.env["ir.model"].search([("model", "=", model_model)])
+                    "code": """for field_name, field_info in dct_field.items():
+    if (
+        field_info.get("is_show_whitelist_model_inherit") is None
+        and field_info.get("is_hide_blacklist_model_inherit") is None
+    ):
+        field_info["is_show_whitelist_model_inherit"] = True
+model_id = self.env["ir.model"].search([("model", "=", model_model)])
+if model_name is None:
+    model_name = model_model.replace(".", "_")
 # Check if exist or create it
 if model_id:
     model_id.m2o_module = self.id
 
     if dct_field:
         for field_name, field_info in dct_field.items():
+            if field_info.get("ttype") == "many2many":
+                self._check_relation_many2many(model_model, field_info)
             field_id = self.env["ir.model.fields"].search(
                 [
                     ("model", "=", model_model),
@@ -9820,6 +10630,11 @@ if model_id:
                     field_info,
                     value_ir_model_fields,
                 )
+                self._update_dict(
+                    "default_lambda",
+                    field_info,
+                    value_ir_model_fields,
+                )
 
                 self.env["code.generator.ir.model.fields"].create(
                     value_ir_model_fields
@@ -9839,12 +10654,21 @@ else:
                 dct_model,
                 value,
             )
+    rec_name = dct_model.get("rec_name")
+    has_already_rec_name = False
+    if not rec_name:
+        rec_name = "name"
+    else:
+        has_already_rec_name = True
 
     # Update fields values
     lst_field_value = []
     if dct_field:
         for field_name, field_info in dct_field.items():
-            if field_name == "name":
+            if field_info.get("ttype") == "many2many":
+                self._check_relation_many2many(model_model, field_info)
+
+            if field_name == rec_name:
                 has_field_name = True
 
             field_id = self.env["ir.model.fields"].search(
@@ -9871,7 +10695,7 @@ else:
     if lst_field_value:
         value["field_id"] = lst_field_value
 
-    if "rec_name" not in value.keys():
+    if not has_already_rec_name:
         if has_field_name:
             value["rec_name"] = "name"
         else:
@@ -9889,7 +10713,7 @@ return model_id""",
                     "name": "add_update_model",
                     "decorator": "@api.model",
                     "param": (
-                        "self, model_model, model_name, dct_field=None,"
+                        "self, model_model, model_name=None, dct_field=None,"
                         " dct_model=None, lst_depend_model=None"
                     ),
                     "sequence": 7,
@@ -9897,7 +10721,38 @@ return model_id""",
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """model_id = self.env["ir.model"].search([("model", "=", model_model)])
+                    "code": """relation_name = field_value.get("relation")
+comodel_name = relation_name.replace(".", "_")
+str_model_model = model_model.replace(".", "_")
+if not comodel_name:
+    _logger.warning(f"Missing relation for field_value {field_value}")
+else:
+    # Source, file odoo/odoo/addons/base/models/ir_model.py function _custom_many2many_names
+    # relation = self.env["ir.model.fields"]._custom_many2many_names(model_name, comodel_name)
+    # Execution error will come from file odoo/odoo/fields.py, function check_pg_name
+    relation = f"x_{comodel_name}_{str_model_model}_rel"
+    if len(relation) > 63:
+        _logger.warning(
+            "The size is too high, please reduce size of model name"
+            f" of '{model_model}' ({len(model_model)}) or"
+            f" '{field_value.get('relation')}' ({len(relation_name)}),"
+            " automatic relation will be broke, max 63 chars. Result"
+            f" ({len(relation)}) '{relation}'"
+        )""",
+                    "name": "_check_relation_many2many",
+                    "param": "self, model_model, field_value",
+                    "sequence": 8,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_module_module.id,
+                },
+                {
+                    "code": """for field_name, field_info in dct_field.items():
+    if (
+        field_info.get("is_show_whitelist_model_inherit") is None
+        and field_info.get("is_hide_blacklist_model_inherit") is None
+    ):
+        field_info["is_show_whitelist_model_inherit"] = True
+model_id = self.env["ir.model"].search([("model", "=", model_model)])
 # Check if exist or create it
 if model_id:
     model_id.m2o_module = self.id
@@ -9924,7 +10779,20 @@ if model_id:
 
             self.env["ir.model.fields"].create(value_field_one2many)
         else:
-            _logger.error("What to do to update a one2many?")
+            if "field_context" in field_info.keys():
+                value_ir_model_fields = {
+                    "m2o_fields": field_id.id,
+                }
+                # TODO find missing attribute
+                self._update_dict(
+                    "field_context",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self.env["code.generator.ir.model.fields"].create(
+                    value_ir_model_fields
+                )
+            # _logger.error("What to do to update a one2many?")
 else:
     _logger.error(
         f"The model '{model_model}' is not existing, need to be create"
@@ -9934,7 +10802,7 @@ else:
                     "name": "add_update_model_one2many",
                     "decorator": "@api.model",
                     "param": "self, model_model, dct_field",
-                    "sequence": 8,
+                    "sequence": 9,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_module_module.id,
                 },
@@ -9945,7 +10813,7 @@ if filter_field_attribute:
                     "name": "_update_dict",
                     "decorator": "@api.model",
                     "param": "self, key_name, field_info, value_field_id",
-                    "sequence": 9,
+                    "sequence": 10,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_module_module.id,
                 },
@@ -9960,7 +10828,7 @@ return super(models.Model, self).create(vals)""",
                     "name": "create",
                     "decorator": "@api.model",
                     "param": "self, vals",
-                    "sequence": 10,
+                    "sequence": 11,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_module_module.id,
                 },
@@ -9973,7 +10841,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                     "name": "unlink",
                     "decorator": "@api.multi",
                     "param": "self",
-                    "sequence": 11,
+                    "sequence": 12,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_module_module.id,
                 },
@@ -10050,14 +10918,14 @@ return super(CodeGeneratorModule, self).unlink()""",
         lst_depend_model = ["ir.ui.menu"]
         dct_field = {
             "ignore_act_window": {
-                "code_generator_sequence": 2,
+                "code_generator_sequence": 1,
                 "field_description": "Ignore Act Window",
                 "help": "Set True to force no act_window, like a parent menu.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "m2o_module": {
-                "code_generator_sequence": 1,
+                "code_generator_sequence": 2,
                 "field_description": "Module",
                 "help": "Module",
                 "is_show_whitelist_model_inherit": True,
@@ -10276,6 +11144,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "code_generator_sequence": 27,
                 "code_generator_form_simple_view_sequence": 42,
                 "code_generator_tree_view_sequence": 42,
+                "field_context": "{'ir.ui.menu.full_list': True}",
                 "relation": "ir.ui.menu",
                 "relation_field": "m2o_module",
             },
@@ -10377,6 +11246,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_nomenclator_blacklist_fields": {
                 "field_description": "O2M Nomenclator Blacklist Fields",
                 "ttype": "one2many",
+                "domain": [("nomenclature_blacklist", "=", True)],
                 "code_generator_sequence": 39,
                 "code_generator_form_simple_view_sequence": 30,
                 "code_generator_tree_view_sequence": 30,
@@ -10386,6 +11256,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_nomenclator_whitelist_fields": {
                 "field_description": "O2M Nomenclator Whitelist Fields",
                 "ttype": "one2many",
+                "domain": [("nomenclature_whitelist", "=", True)],
                 "code_generator_sequence": 40,
                 "code_generator_form_simple_view_sequence": 29,
                 "code_generator_tree_view_sequence": 29,
@@ -10400,7 +11271,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "child_id": {
                 "field_description": "Child",
                 "ttype": "one2many",
-                "code_generator_sequence": 6,
+                "code_generator_sequence": 8,
                 "relation": "code.generator.view.item",
                 "relation_field": "parent_id",
             },
@@ -10437,6 +11308,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "field_description": "Constraints",
                 "ttype": "one2many",
+                "domain": [("type", "=", "u"), ("message", "!=", None)],
                 "code_generator_sequence": 26,
                 "relation": "ir.model.constraint",
                 "relation_field": "model",
@@ -10454,6 +11326,13 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "field_description": "Server action",
                 "ttype": "one2many",
+                "domain": [
+                    ("binding_type", "=", "action"),
+                    "|",
+                    ("state", "=", "code"),
+                    ("state", "=", "multi"),
+                    ("usage", "=", "ir_actions_server"),
+                ],
                 "code_generator_sequence": 28,
                 "relation": "ir.actions.server",
                 "relation_field": "model_id",
