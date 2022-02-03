@@ -89,7 +89,7 @@ def post_init_hook(cr, e):
         dct_field = {
             "backup_format": {
                 "code_generator_form_simple_view_sequence": 14,
-                "code_generator_sequence": 14,
+                "code_generator_sequence": 5,
                 "default": "zip",
                 "field_description": "Backup Format",
                 "help": "Choose the format for this backup.",
@@ -113,9 +113,9 @@ def post_init_hook(cr, e):
             },
             "folder": {
                 "code_generator_form_simple_view_sequence": 11,
-                "code_generator_sequence": 5,
+                "code_generator_sequence": 7,
                 "code_generator_tree_view_sequence": 11,
-                "default": "lambda self: self._default_folder()",
+                "default_lambda": "lambda self: self._default_folder()",
                 "field_description": "Folder",
                 "help": "Absolute path for storing the backups",
                 "required": True,
@@ -123,7 +123,7 @@ def post_init_hook(cr, e):
             },
             "method": {
                 "code_generator_form_simple_view_sequence": 13,
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 8,
                 "default": "local",
                 "field_description": "Method",
                 "help": "Choose the storage method for this backup.",
@@ -144,7 +144,7 @@ def post_init_hook(cr, e):
             },
             "sftp_host": {
                 "code_generator_form_simple_view_sequence": 15,
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 9,
                 "field_description": "SFTP Server",
                 "help": (
                     "The host name or IP address from your remote server. For"
@@ -154,7 +154,7 @@ def post_init_hook(cr, e):
             },
             "sftp_password": {
                 "code_generator_form_simple_view_sequence": 18,
-                "code_generator_sequence": 11,
+                "code_generator_sequence": 10,
                 "field_description": "SFTP Password",
                 "help": (
                     "The password for the SFTP connection. If you specify a"
@@ -165,7 +165,7 @@ def post_init_hook(cr, e):
             },
             "sftp_port": {
                 "code_generator_form_simple_view_sequence": 16,
-                "code_generator_sequence": 9,
+                "code_generator_sequence": 11,
                 "default": 22,
                 "field_description": "SFTP Port",
                 "help": (
@@ -198,7 +198,7 @@ def post_init_hook(cr, e):
             },
             "sftp_user": {
                 "code_generator_form_simple_view_sequence": 17,
-                "code_generator_sequence": 10,
+                "code_generator_sequence": 14,
                 "field_description": "Username in the SFTP Server",
                 "help": (
                     "The username where the SFTP connection should be made"
@@ -215,31 +215,72 @@ def post_init_hook(cr, e):
             lst_depend_model=lst_depend_model,
         )
         ##### Cron
-        value = {
-            "m2o_module": code_generator_id.id,
-            "name": "Backup Scheduler",
-            "user_id": env.ref("base.user_root").id,
-            "interval_number": 1,
-            "interval_type": "days",
-            "numbercall": -1,
-            "nextcall_template": (
-                "(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d"
-                " 03:00:00')"
-            ),
-            "model_id": model_db_backup.id,
-            "state": "code",
-            "code": "model.action_backup_all()",
-        }
-        cron_id = env["ir.cron"].create(value)
+        cron_id = env["ir.cron"].search(
+            [
+                ("name", "=", "Backup Scheduler"),
+                ("user_id", "=", env.ref("base.user_root").id),
+                ("interval_number", "=", 1),
+                ("interval_type", "=", "days"),
+                ("numbercall", "=", -1),
+                (
+                    "nextcall_template",
+                    "=",
+                    "(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d"
+                    " 03:00:00')",
+                ),
+                ("model_id", "=", model_db_backup.id),
+                ("state", "=", "code"),
+                ("code", "=", "model.action_backup_all()"),
+            ]
+        )
+        if not cron_id:
+            value = {
+                "m2o_module": code_generator_id.id,
+                "name": "Backup Scheduler",
+                "user_id": env.ref("base.user_root").id,
+                "interval_number": 1,
+                "interval_type": "days",
+                "numbercall": -1,
+                "nextcall_template": (
+                    "(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d"
+                    " 03:00:00')"
+                ),
+                "model_id": model_db_backup.id,
+                "state": "code",
+                "code": "model.action_backup_all()",
+            }
+            cron_id = env["ir.cron"].create(value)
 
-        value = {
-            "name": "ir_cron_backup_scheduler_0",
-            "model": "ir.cron",
-            "module": MODULE_NAME,
-            "res_id": cron_id.id,
-            "noupdate": True,
-        }
-        env["ir.model.data"].create(value)
+        cron_id_name_id = env["ir.model.data"].search(
+            [
+                ("name", "=", "ir_cron_backup_scheduler_0"),
+                ("model", "=", "ir.cron"),
+                ("module", "=", MODULE_NAME),
+                ("res_id", "=", cron_id.id),
+                ("noupdate", "=", True),
+            ]
+        )
+        if not cron_id_name_id:
+            cron_id_name_id = env["ir.model.data"].search(
+                [
+                    ("name", "=", "ir_cron_backup_scheduler_0"),
+                    ("model", "=", "ir.cron"),
+                    ("module", "=", MODULE_NAME),
+                    ("noupdate", "=", True),
+                ]
+            )
+            if cron_id_name_id:
+                # cron exist but his id is not associate
+                cron_id_name_id.res_id = cron_id.id
+            else:
+                value = {
+                    "name": "ir_cron_backup_scheduler_0",
+                    "model": "ir.cron",
+                    "module": MODULE_NAME,
+                    "res_id": cron_id.id,
+                    "noupdate": True,
+                }
+                env["ir.model.data"].create(value)
 
         # Generate code
         if True:
@@ -596,6 +637,8 @@ return pysftp.Connection(**params, cnopts=cnopts)''',
                     "noupdate": True,
                 }
             )
+        else:
+            act_server_id.comment = 'Execute backup from "More" menu'
 
         # Add constraint
         if True:
