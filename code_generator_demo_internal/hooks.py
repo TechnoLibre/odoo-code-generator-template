@@ -88,6 +88,13 @@ def post_init_hook(cr, e):
                 "is_date_start_view": True,
                 "ttype": "datetime",
             },
+            "empty": {
+                "code_generator_form_simple_view_sequence": 14,
+                "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 14,
+                "field_description": "Empty",
+                "ttype": "text",
+            },
             "name": {
                 "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
