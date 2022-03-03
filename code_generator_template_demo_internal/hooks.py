@@ -1,7 +1,12 @@
+import logging
+import os
+
 from odoo import SUPERUSER_ID, _, api, fields, models
 
+_logger = logging.getLogger(__name__)
+
 # TODO HUMAN: change my module_name to create a specific demo functionality
-MODULE_NAME = "code_generator_demo_internal_inherit"
+MODULE_NAME = "code_generator_demo_internal"
 
 
 def post_init_hook(cr, e):
@@ -14,24 +19,40 @@ def post_init_hook(cr, e):
         short_name = MODULE_NAME.replace("_", " ").title()
 
         # Add code generator
+        categ_id = env["ir.module.category"].search(
+            [("name", "=", "Uncategorized")], limit=1
+        )
         value = {
-            "shortdesc": short_name,
+            "shortdesc": (
+                "Setup testing environment for internal view code generator"
+            ),
             "name": MODULE_NAME,
             "license": "AGPL-3",
+            "category_id": categ_id.id,
+            "summary": "",
             "author": "TechnoLibre",
-            "website": "https://technolibre.ca",
-            "application": True,
+            "website": "",
+            "application": False,
             "enable_sync_code": True,
             # "path_sync_code": path_module_generate,
+            "icon": os.path.join(
+                os.path.dirname(__file__),
+                "static",
+                "description",
+                "code_generator_icon.png",
+            ),
         }
 
         # TODO HUMAN: enable your functionality to generate
         value["enable_template_code_generator_demo"] = False
-        value["template_model_name"] = ""
-        value["template_inherit_model_name"] = "demo.model.internal"
+        value[
+            "template_model_name"
+        ] = "demo.model.internal; demo.model_2.internal"
+        value["template_inherit_model_name"] = ""
+        # value["template_module_path_generated_extension"] = "."
         value["enable_template_wizard_view"] = True
-        value["force_generic_template_wizard_view"] = False
-        value["disable_generate_access"] = True
+        value["force_generic_template_wizard_view"] = True
+        value["disable_generate_access"] = False
         value["enable_template_website_snippet_view"] = False
         value["enable_sync_template"] = True
         value["ignore_fields"] = ""
@@ -60,13 +81,7 @@ def post_init_hook(cr, e):
         code_generator_id = env["code.generator.module"].create(value)
 
         # Add dependencies
-        # TODO HUMAN: update your dependencies
-        lst_depend = [
-            "code_generator",
-            "code_generator_hook",
-        ]
-        code_generator_id.add_module_dependency(lst_depend)
-
+        code_generator_id.add_module_dependency("code_generator")
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
         env["code.generator.writer"].create(value)

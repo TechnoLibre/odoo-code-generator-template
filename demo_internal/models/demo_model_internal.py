@@ -13,3 +13,5 @@ class DemoModelInternal(models.Model):
     date_end = fields.Datetime(string="Date end")
 
     date_start = fields.Datetime(string="Date start")
+
+    empty = fields.Text()

@@ -9,6 +9,7 @@
                 <field name="banana" />
                 <field name="date_end" />
                 <field name="date_start" />
+                <field name="empty" />
             </calendar>
         </field>
     </record>
@@ -31,6 +32,9 @@
                     <group>
                         <field name="date_start" />
                     </group>
+                    <group>
+                        <field name="empty" />
+                    </group>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />
@@ -50,6 +54,7 @@
                 <field name="banana" type="row" />
                 <field name="date_end" type="row" />
                 <field name="date_start" type="row" />
+                <field name="empty" type="row" />
             </graph>
         </field>
     </record>
@@ -63,6 +68,7 @@
                 <field name="banana" />
                 <field name="date_end" />
                 <field name="date_start" />
+                <field name="empty" />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
@@ -89,6 +95,11 @@
                                             <field name="date_start" />
                                         </strong>
                                     </li>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="empty" />
+                                        </strong>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -107,6 +118,7 @@
                 <field name="banana" type="row" />
                 <field name="date_end" type="row" />
                 <field name="date_start" type="row" />
+                <field name="empty" type="row" />
             </pivot>
         </field>
     </record>
@@ -120,6 +132,7 @@
                 <filter domain="[('banana','=',True)]" name="banana" string="Banana demo" />
                 <filter domain="[('date_end','!=',False)]" name="date_end" string="Date end" />
                 <filter domain="[('date_start','!=',False)]" name="date_start" string="Date start" />
+                <filter domain="[('empty','!=',False)]" name="empty" string="Empty" />
             </search>
         </field>
     </record>
@@ -147,6 +160,7 @@
                 <field name="banana" />
                 <field name="date_end" />
                 <field name="date_start" />
+                <field name="empty" />
             </tree>
         </field>
     </record>
