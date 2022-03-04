@@ -26,12 +26,6 @@ def post_init_hook(cr, e):
         }
 
         # TODO HUMAN: enable your functionality to generate
-        value["enable_generate_website_snippet"] = True
-        value["enable_generate_website_snippet_javascript"] = True
-        value[
-            "generate_website_snippet_type"
-        ] = "effect"  # content,effect,feature,structure
-
         code_generator_id = env["code.generator.module"].create(value)
 
         # Add dependencies
@@ -40,9 +34,18 @@ def post_init_hook(cr, e):
         ]
         code_generator_id.add_module_dependency(lst_depend)
 
+        # Generate snippet
+        value_snippet = {
+            "code_generator_id": code_generator_id.id,
+            "controller_feature": "helloworld",
+            "enable_javascript": True,
+            "snippet_type": "effect",
+        }
+        env["code.generator.snippet"].create(value_snippet)
+
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}
-        code_generator_writer = env["code.generator.writer"].create(value)
+        env["code.generator.writer"].create(value)
 
 
 def uninstall_hook(cr, e):

@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Snippets -->
+    <template
+        id="s_demo_website_multiple_snippet_helloworld_static_structure"
+        name="Demo Website Multiple Snippet Helloworld Static Structure"
+    >
+        <section class="o_demo_website_multiple_snippet_helloworld_static_structure oe_snippet_body">
+            <div class="container">
+                <div class="row mt16 mb16">
+                    <img
+                        class="img img-fluid"
+                        src="/demo_website_multiple_snippet/static/description/icon.png"
+                        alt="Demo_Website_Multiple_Snippet_Helloworld_Static_Structure"
+                    />
+                </div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_helloworld_structure"
+        name="Demo Website Multiple Snippet Helloworld Structure"
+    >
+        <section class="o_demo_website_multiple_snippet_helloworld_structure oe_snippet_body">
+            <div class="container">
+                <div class="row mt16 mb16">
+                    <div class="text-center demo_website_multiple_snippet_helloworld_structure_value">Hello</div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_Individual_item_structure"
+        name="Demo Website Multiple Snippet Individual Item Structure"
+    >
+        <section class="o_demo_website_multiple_snippet_Individual_item_structure oe_snippet_body">
+            <div class="container">
+                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_structure">LOADING...</h3>
+                <div class="row mt16 mb16">
+                    <b>demo_binary:</b>
+                    <div class="text-center demo_binary_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_binary_image:</b>
+                    <div class="text-center demo_binary_image_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_boolean:</b>
+                    <div class="text-center demo_boolean_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_char:</b>
+                    <div class="text-center demo_char_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date:</b>
+                    <div class="text-center demo_date_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date_time:</b>
+                    <div class="text-center demo_date_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_external_link:</b>
+                    <div class="text-center demo_external_link_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float:</b>
+                    <div class="text-center demo_float_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float_time:</b>
+                    <div class="text-center demo_float_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_html:</b>
+                    <div class="text-center demo_html_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_integer:</b>
+                    <div class="text-center demo_integer_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_many2many:</b>
+                    <div class="text-center demo_many2many_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_dst:</b>
+                    <div class="text-center demo_one2many_dst_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_src:</b>
+                    <div class="text-center demo_one2many_src_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_selection:</b>
+                    <div class="text-center demo_selection_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_text:</b>
+                    <div class="text-center demo_text_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>diagram_id:</b>
+                    <div class="text-center diagram_id_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>name:</b>
+                    <div class="text-center name_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>xpos:</b>
+                    <div class="text-center xpos_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>ypos:</b>
+                    <div class="text-center ypos_value" />
+                </div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_List_show_time_item_structure"
+        name="Demo Website Multiple Snippet List Show Time Item Structure"
+    >
+        <section class="o_demo_website_multiple_snippet_List_show_time_item_structure oe_snippet_body">
+            <div class="container" />
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_List_item_structure"
+        name="Demo Website Multiple Snippet List Item Structure"
+    >
+        <section class="o_demo_website_multiple_snippet_List_item_structure oe_snippet_body">
+            <div class="container" />
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_helloworld_effect"
+        name="Demo Website Multiple Snippet Helloworld Effect"
+    >
+        <section class="o_demo_website_multiple_snippet_helloworld_effect">
+            <div class="container">
+                <div class="text-center demo_website_multiple_snippet_helloworld_effect_value">Hello</div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_Individual_item_effect"
+        name="Demo Website Multiple Snippet Individual Item Effect"
+    >
+        <section class="o_demo_website_multiple_snippet_Individual_item_effect">
+            <div class="container">
+                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_effect">LOADING...</h3>
+                <div class="row mt16 mb16">
+                    <b>demo_binary:</b>
+                    <div class="text-center demo_binary_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_binary_image:</b>
+                    <div class="text-center demo_binary_image_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_boolean:</b>
+                    <div class="text-center demo_boolean_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_char:</b>
+                    <div class="text-center demo_char_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date:</b>
+                    <div class="text-center demo_date_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date_time:</b>
+                    <div class="text-center demo_date_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_external_link:</b>
+                    <div class="text-center demo_external_link_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float:</b>
+                    <div class="text-center demo_float_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float_time:</b>
+                    <div class="text-center demo_float_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_html:</b>
+                    <div class="text-center demo_html_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_integer:</b>
+                    <div class="text-center demo_integer_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_many2many:</b>
+                    <div class="text-center demo_many2many_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_dst:</b>
+                    <div class="text-center demo_one2many_dst_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_src:</b>
+                    <div class="text-center demo_one2many_src_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_selection:</b>
+                    <div class="text-center demo_selection_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_text:</b>
+                    <div class="text-center demo_text_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>diagram_id:</b>
+                    <div class="text-center diagram_id_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>name:</b>
+                    <div class="text-center name_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>xpos:</b>
+                    <div class="text-center xpos_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>ypos:</b>
+                    <div class="text-center ypos_value" />
+                </div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_helloworld_feature"
+        name="Demo Website Multiple Snippet Helloworld Feature"
+    >
+        <section class="o_demo_website_multiple_snippet_helloworld_feature">
+            <div class="container">
+                <div class="text-center demo_website_multiple_snippet_helloworld_feature_value">Hello</div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_Individual_item_feature"
+        name="Demo Website Multiple Snippet Individual Item Feature"
+    >
+        <section class="o_demo_website_multiple_snippet_Individual_item_feature">
+            <div class="container">
+                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_feature">LOADING...</h3>
+                <div class="row mt16 mb16">
+                    <b>demo_binary:</b>
+                    <div class="text-center demo_binary_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_binary_image:</b>
+                    <div class="text-center demo_binary_image_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_boolean:</b>
+                    <div class="text-center demo_boolean_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_char:</b>
+                    <div class="text-center demo_char_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date:</b>
+                    <div class="text-center demo_date_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date_time:</b>
+                    <div class="text-center demo_date_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_external_link:</b>
+                    <div class="text-center demo_external_link_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float:</b>
+                    <div class="text-center demo_float_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float_time:</b>
+                    <div class="text-center demo_float_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_html:</b>
+                    <div class="text-center demo_html_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_integer:</b>
+                    <div class="text-center demo_integer_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_many2many:</b>
+                    <div class="text-center demo_many2many_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_dst:</b>
+                    <div class="text-center demo_one2many_dst_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_src:</b>
+                    <div class="text-center demo_one2many_src_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_selection:</b>
+                    <div class="text-center demo_selection_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_text:</b>
+                    <div class="text-center demo_text_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>diagram_id:</b>
+                    <div class="text-center diagram_id_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>name:</b>
+                    <div class="text-center name_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>xpos:</b>
+                    <div class="text-center xpos_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>ypos:</b>
+                    <div class="text-center ypos_value" />
+                </div>
+            </div>
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_helloworld_content"
+        name="Demo Website Multiple Snippet Helloworld Content"
+    >
+        <div class="o_demo_website_multiple_snippet_helloworld_content">
+            <div class="container">
+                <div class="demo_website_multiple_snippet_helloworld_content_value">Hello</div>
+            </div>
+        </div>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_Individual_item_content"
+        name="Demo Website Multiple Snippet Individual Item Content"
+    >
+        <div class="o_demo_website_multiple_snippet_Individual_item_content">
+            <div class="container">
+                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_content">LOADING...</h3>
+                <div class="row mt16 mb16">
+                    <b>demo_binary:</b>
+                    <div class="demo_binary_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_binary_image:</b>
+                    <div class="demo_binary_image_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_boolean:</b>
+                    <div class="demo_boolean_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_char:</b>
+                    <div class="demo_char_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date:</b>
+                    <div class="demo_date_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_date_time:</b>
+                    <div class="demo_date_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_external_link:</b>
+                    <div class="demo_external_link_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float:</b>
+                    <div class="demo_float_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_float_time:</b>
+                    <div class="demo_float_time_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_html:</b>
+                    <div class="demo_html_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_integer:</b>
+                    <div class="demo_integer_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_many2many:</b>
+                    <div class="demo_many2many_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_dst:</b>
+                    <div class="demo_one2many_dst_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_one2many_src:</b>
+                    <div class="demo_one2many_src_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_selection:</b>
+                    <div class="demo_selection_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>demo_text:</b>
+                    <div class="demo_text_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>diagram_id:</b>
+                    <div class="diagram_id_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>name:</b>
+                    <div class="name_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>xpos:</b>
+                    <div class="xpos_value" />
+                </div>
+                <div class="row mt16 mb16">
+                    <b>ypos:</b>
+                    <div class="ypos_value" />
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- Add snippets options -->
+    <template id="snippet_options" inherit_id="website.snippet_options">
+        <xpath expr=".">
+            <div data-selector=".o_demo_website_multiple_snippet_helloworld_content" data-drop-in=".row > div" />
+            <div data-selector=".o_demo_website_multiple_snippet_Individual_item_content" data-drop-in=".row > div" />
+        </xpath>
+    </template>
+    <!-- Add snippets to menu -->
+    <template id="snippet_structure" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_helloworld_static_structure"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_helloworld_structure"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_structure"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_List_show_time_item_structure"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_List_item_structure"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+        </xpath>
+    </template>
+    <template id="snippet_content" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_content']/div[hasclass('o_panel_body')]" position="inside">
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_helloworld_content"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_content"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+        </xpath>
+    </template>
+    <template id="snippet_feature" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_feature']/div[hasclass('o_panel_body')]" position="inside">
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_helloworld_feature"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_feature"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+        </xpath>
+    </template>
+    <template id="snippet_effect" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_effect']/div[hasclass('o_panel_body')]" position="inside">
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_helloworld_effect"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_effect"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+        </xpath>
+    </template>
+    <!-- Add stylesheet and Javascript -->
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="//link[last()]" position="after">
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_static_structure.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_structure.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_structure.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_List_show_time_item_structure.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_List_item_structure.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_effect.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_effect.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_feature.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_feature.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_content.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_content.scss"
+            />
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_helloworld_structure.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_structure.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_List_show_time_item_structure.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_List_item_structure.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_helloworld_effect.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_effect.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_helloworld_feature.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_feature.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_helloworld_content.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_content.animation.js"
+            />
+        </xpath>
+    </template>
+</odoo>

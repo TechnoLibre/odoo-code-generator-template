@@ -10,7 +10,7 @@
         </section>
     </template>
     <!-- Add snippets to menu -->
-    <template id="snippets" inherit_id="website.snippets">
+    <template id="snippet_effect" inherit_id="website.snippets">
         <xpath expr="//div[@id='snippet_effect']/div[hasclass('o_panel_body')]" position="inside">
             <t
                 t-snippet="demo_website_snippet.s_demo_website_snippet"
