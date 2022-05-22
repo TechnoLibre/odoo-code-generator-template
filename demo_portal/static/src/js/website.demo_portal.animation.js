@@ -1,20 +1,25 @@
 odoo.define("demo_portal.animation", function (require) {
     "use strict";
 
-    var sAnimation = require("website.content.snippets.animation");
+    let sAnimation = require("website.content.snippets.animation");
 
     sAnimation.registry.demo_portal = sAnimation.Class.extend({
         selector: ".o_demo_portal",
 
         start: function () {
-            var self = this;
-            var def = this._rpc({ route: "/demo_portal/helloworld" }).then(
+            let self = this;
+            this._eventList = this.$(".container");
+            this._originalContent = this._eventList[0].outerHTML;
+            let def = this._rpc({ route: "/demo_portal/get_last_item" }).then(
                 function (data) {
                     if (data.error) {
                         return;
                     }
 
+                    self._$loadedContent = $(data);
+
                     if (_.isEmpty(data)) {
+                        self.$(".o_loading_demo_portal").text("NO DATA");
                         return;
                     }
 
@@ -98,10 +103,17 @@ odoo.define("demo_portal.animation", function (require) {
                     if (data["ypos"]) {
                         self.$(".ypos_value").text(data["ypos"]);
                     }
+                    self.$(".o_loading_demo_portal").remove();
                 }
             );
 
             return $.when(this._super.apply(this, arguments), def);
+        },
+        destroy: function () {
+            this._super.apply(this, arguments);
+            if (this._$loadedContent) {
+                this._eventList.replaceWith(this._originalContent);
+            }
         },
     });
 });

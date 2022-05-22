@@ -41,12 +41,6 @@ def post_init_hook(cr, e):
         }
 
         # TODO HUMAN: enable your functionality to generate
-        value["enable_generate_website_snippet"] = True
-        value["enable_generate_website_snippet_javascript"] = True
-        value["generate_website_snippet_generic_model"] = "demo.model.portal"
-        value[
-            "generate_website_snippet_type"
-        ] = "structure"  # content,effect,feature,structure
         value["enable_sync_template"] = True
         value["ignore_fields"] = ""
         value["post_init_hook_show"] = False
@@ -61,6 +55,18 @@ def post_init_hook(cr, e):
         # Add dependencies
         lst_depend_module = ["mail", "portal", "website"]
         code_generator_id.add_module_dependency(lst_depend_module)
+
+        # Generate snippet
+        value_snippet = {
+            "code_generator_id": code_generator_id.id,
+            "template_generate_website_snippet_controller_feature": (
+                "model_show_item_individual"
+            ),
+            "enable_javascript": True,
+            "model_name": "demo.model.portal",
+            "snippet_type": "structure",
+        }
+        env["code.generator.snippet"].create(value_snippet)
 
         # Add/Update Demo Model Portal
         model_model = "demo.model.portal"

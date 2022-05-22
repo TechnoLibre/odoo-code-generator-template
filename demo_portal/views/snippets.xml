@@ -5,111 +5,92 @@
     <template id="s_demo_portal" name="Demo Portal">
         <section class="o_demo_portal oe_snippet_body">
             <div class="container">
+                <h3 class="o_loading_demo_portal">LOADING...</h3>
                 <div class="row mt16 mb16">
-                    demo_binary :
+                    <b>demo_binary:</b>
                     <div class="text-center demo_binary_value" />
-                    <h3 class="o_h3 text-center demo_binary_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_binary_image :
+                    <b>demo_binary_image:</b>
                     <div class="text-center demo_binary_image_value" />
-                    <h3 class="o_h3 text-center demo_binary_image_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_boolean :
+                    <b>demo_boolean:</b>
                     <div class="text-center demo_boolean_value" />
-                    <h3 class="o_h3 text-center demo_boolean_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_char :
+                    <b>demo_char:</b>
                     <div class="text-center demo_char_value" />
-                    <h3 class="o_h3 text-center demo_char_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_date :
+                    <b>demo_date:</b>
                     <div class="text-center demo_date_value" />
-                    <h3 class="o_h3 text-center demo_date_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_date_time :
+                    <b>demo_date_time:</b>
                     <div class="text-center demo_date_time_value" />
-                    <h3 class="o_h3 text-center demo_date_time_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_external_link :
+                    <b>demo_external_link:</b>
                     <div class="text-center demo_external_link_value" />
-                    <h3 class="o_h3 text-center demo_external_link_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_float :
+                    <b>demo_float:</b>
                     <div class="text-center demo_float_value" />
-                    <h3 class="o_h3 text-center demo_float_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_float_time :
+                    <b>demo_float_time:</b>
                     <div class="text-center demo_float_time_value" />
-                    <h3 class="o_h3 text-center demo_float_time_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_html :
+                    <b>demo_html:</b>
                     <div class="text-center demo_html_value" />
-                    <h3 class="o_h3 text-center demo_html_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_integer :
+                    <b>demo_integer:</b>
                     <div class="text-center demo_integer_value" />
-                    <h3 class="o_h3 text-center demo_integer_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_many2many :
+                    <b>demo_many2many:</b>
                     <div class="text-center demo_many2many_value" />
-                    <h3 class="o_h3 text-center demo_many2many_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_one2many_dst :
+                    <b>demo_one2many_dst:</b>
                     <div class="text-center demo_one2many_dst_value" />
-                    <h3 class="o_h3 text-center demo_one2many_dst_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_one2many_src :
+                    <b>demo_one2many_src:</b>
                     <div class="text-center demo_one2many_src_value" />
-                    <h3 class="o_h3 text-center demo_one2many_src_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_selection :
+                    <b>demo_selection:</b>
                     <div class="text-center demo_selection_value" />
-                    <h3 class="o_h3 text-center demo_selection_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    demo_text :
+                    <b>demo_text:</b>
                     <div class="text-center demo_text_value" />
-                    <h3 class="o_h3 text-center demo_text_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    diagram_id :
+                    <b>diagram_id:</b>
                     <div class="text-center diagram_id_value" />
-                    <h3 class="o_h3 text-center diagram_id_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    name :
+                    <b>name:</b>
                     <div class="text-center name_value" />
-                    <h3 class="o_h3 text-center name_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    xpos :
+                    <b>xpos:</b>
                     <div class="text-center xpos_value" />
-                    <h3 class="o_h3 text-center xpos_value" />
                 </div>
                 <div class="row mt16 mb16">
-                    ypos :
+                    <b>ypos:</b>
                     <div class="text-center ypos_value" />
-                    <h3 class="o_h3 text-center ypos_value" />
                 </div>
             </div>
         </section>
     </template>
     <!-- Add snippets to menu -->
-    <template id="snippets" inherit_id="website.snippets">
+    <template id="snippet_structure" inherit_id="website.snippets">
         <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
             <t t-snippet="demo_portal.s_demo_portal" t-thumbnail="/demo_portal/static/description/icon.png" />
         </xpath>

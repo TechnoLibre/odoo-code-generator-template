@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_ui_view_/web/static/src/scss/bootstrap_overridden_frontend_custom_web_assets_frontend_scss" model="ir.ui.view">
+            <field name="arch" type="xml">
+                <data inherit_id="web._assets_frontend_helpers" name="/web/static/src/scss/bootstrap_overridden_frontend.custom.web.assets_frontend.scss">
+                    <xpath expr="//link[@href='/web/static/src/scss/bootstrap_overridden_frontend.scss']" position="attributes">
+                        <attribute name="href">/demo_website_attachments_data/static/src/scss/bootstrap_overridden_frontend.custom.web.assets_frontend.scss</attribute>
+                    </xpath>
+                </data>
+            </field>
+            <field name="inherit_id" ref="web._assets_frontend_helpers" />
+            <field name="key">web_editor.scss_7602c2</field>
+            <field name="name">/web/static/src/scss/bootstrap_overridden_frontend.custom.web.assets_frontend.scss</field>
+            <field name="type">qweb</field>
+        </record>
+        <record id="ir_ui_view_/website/static/src/scss/options/colors/user_color_palette_custom_web_assets_common_scss" model="ir.ui.view">
+            <field name="arch" type="xml">
+                <data inherit_id="website._assets_primary_variables" name="/website/static/src/scss/options/colors/user_color_palette.custom.web.assets_common.scss">
+                    <xpath expr="//link[@href='/website/static/src/scss/options/colors/user_color_palette.scss']" position="attributes">
+                        <attribute name="href">/demo_website_attachments_data/static/src/scss/user_color_palette.custom.web.assets_common.scss</attribute>
+                    </xpath>
+                </data>
+            </field>
+            <field name="inherit_id" ref="website._assets_primary_variables" />
+            <field name="key">web_editor.scss_acc75d</field>
+            <field name="name">/website/static/src/scss/options/colors/user_color_palette.custom.web.assets_common.scss</field>
+            <field name="type">qweb</field>
+        </record>
+        <record id="ir_ui_view_/website/static/src/scss/options/colors/user_theme_color_palette_custom_web_assets_common_scss" model="ir.ui.view">
+            <field name="arch" type="xml">
+                <data inherit_id="website._assets_primary_variables" name="/website/static/src/scss/options/colors/user_theme_color_palette.custom.web.assets_common.scss">
+                    <xpath expr="//link[@href='/website/static/src/scss/options/colors/user_theme_color_palette.scss']" position="attributes">
+                        <attribute name="href">/demo_website_attachments_data/static/src/scss/user_theme_color_palette.custom.web.assets_common.scss</attribute>
+                    </xpath>
+                </data>
+            </field>
+            <field name="inherit_id" ref="website._assets_primary_variables" />
+            <field name="key">web_editor.scss_650e77</field>
+            <field name="name">/website/static/src/scss/options/colors/user_theme_color_palette.custom.web.assets_common.scss</field>
+            <field name="type">qweb</field>
+        </record>
+        <record id="ir_ui_view_home" model="ir.ui.view">
+            <field name="arch" type="xml">
+                <t name="Homepage" t-name="website.homepage1">
+                    <t t-call="website.layout">
+                        <t t-set="pageName" t-value="'homepage'" />
+                        <div id="wrap" class="oe_structure oe_empty">
+                            <section class="s_three_columns bg-200 pt32 pb32">
+                                <div class="container oe_img_bg oe_custom_bg" style="background-image: url(&quot;/web/image/demo_website_attachments_data.ir_attachment_nearly_1000_mysterious_jpg_1/nearly-1000-mysterious.jpg&quot;)">
+                                    <div class="row d-flex align-items-stretch">
+                                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                            <div class="card bg-white">
+                                                <img class="card-img-top" src="/web/image/demo_website_attachments_data.ir_attachment_nearly_1000_mysterious_jpg_1/nearly-1000-mysterious.jpg" alt="ERPLibre - Echantillon n&#176;1 pour trois colonnes " />
+                                                <div class="card-body">
+                                                    <h3 class="card-title o_default_snippet_text">Fonctionnalit&#233; 1</h3>
+                                                    <p class="card-text o_default_snippet_text">Adaptez ces trois colonnes &#224; vos besoin graphique. Pour dupliquer, supprimer ou bouger les colonnes, s&#233;lectionnez la colonne et utilisez les ic&#244;nes en haut &#224; droite de celle-ci pour effectuer votre action.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                            <div class="card bg-white">
+                                                <img class="card-img-top" src="/web/image/demo_website_attachments_data.ir_attachment_nearly_1000_mysterious_jpg_1/nearly-1000-mysterious.jpg" alt="ERPLibre- Echantillon n&#176; 2 pour trois colonnes" data-original-title="" title="" aria-describedby="tooltip10705" />
+                                                <div class="card-body">
+                                                    <h3 class="card-title o_default_snippet_text">Fonctionnalit&#233; 2</h3>
+                                                    <p class="card-text o_default_snippet_text">Pour ajouter une quatri&#232;me colonne, r&#233;duisez la taille des trois colonnes en utilisant l'ic&#244;ne &#224; droite de chaque bloc. Ensuite, dupliquez une des colonnes pour cr&#233;er une nouvelle colonne. </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <i class="fa fa-info-circle mr-1" />
+                                                    <small class="o_default_snippet_text">Informations Additionnelles</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                            <div class="card bg-white">
+                                                <img class="card-img-top" src="/web/image/demo_website_attachments_data.ir_attachment_nearly_1000_mysterious_jpg/nearly-1000-mysterious.jpg" alt="ERPLibre- Echantillon n&#176; 3 pour trois colonnes" />
+                                                <div class="card-body">
+                                                    <h3 class="card-title o_default_snippet_text">Fonctionnalit&#233; 3</h3>
+                                                    <p class="card-text o_default_snippet_text">
+                                                        Supprimez l'image ci-dessus ou remplacez-la par une image qui illustre votre message. Cliquez sur l'image pour changer le style des
+                                                        <em class="o_default_snippet_text">coins arrondis</em>
+                                                        .
+                                                    </p>
+                                                    <div class="s_btn text-left pb0 pt16" data-name="Button">
+                                                        <a href="#" class="btn btn-primary btn-sm o_default_snippet_text">En savoir plus</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </t>
+                </t>
+            </field>
+            <field name="key">website.homepage</field>
+            <field name="name">Home</field>
+            <field name="type">qweb</field>
+        </record>
+    </data>
+</odoo>

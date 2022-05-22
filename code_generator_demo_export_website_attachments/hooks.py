@@ -2,7 +2,7 @@ from odoo import SUPERUSER_ID, _, api, fields, models
 
 # import os
 
-MODULE_NAME = "demo_website_data"
+MODULE_NAME = "demo_website_attachments_data"
 REPLACE_DEFAULT_WEBSITE = True  # This will only import default website
 HIDE_OLD_WEBSITE = True
 
@@ -18,12 +18,12 @@ def post_init_hook(cr, e):
 
         # Add code generator
         value = {
-            "shortdesc": "Demo website data",
+            "shortdesc": "Demo website attachments data",
             "name": MODULE_NAME,
             "license": "AGPL-3",
             "author": "TechnoLibre",
             "website": "https://technolibre.ca",
-            "summary": "Exported Data from website",
+            "summary": "Exported Data from website with attachments.",
             "application": False,
             "category_id": env.ref("base.module_category_website").id,
             "enable_sync_code": True,
@@ -228,6 +228,10 @@ def post_init_hook(cr, e):
             )
             for b in a.view_id.ids
         ]
+        # [(a, a.display_name.split("/")[-1].split(".custom.")[0], a.display_name) for a in lst_id_attachment_id if a.datas_fname and a.datas_fname.endswith(".scss") and not a.display_name.endswith(".scss.css") and a.website_id and ".custom." in a.url]
+        # lst_id_view_id = [a for a in env["ir.ui.view"].search([("website_id","=",1)]) if a.id not in lst_id_view_first]
+        # lst_id_attachment_id = [a for a in env["ir.attachment"].search([("website_id","=",1)])]
+        # lst_id_view = [a.id for a in lst_id_view_id]
         website_menu_model_id.expression_export_data = (
             f"('website_id', 'in', {lst_id_website})"
         )
@@ -238,10 +242,23 @@ def post_init_hook(cr, e):
             f"['|', ('id', 'in', {lst_id_view}), ('name', '=like',"
             " '%%.custom.%%.%%')]"
         )
-        ir_attachment_model_id.expression_export_data = (
-            f"['|', ('url', '=like', '%%.custom.%%.%%'), ('index_content',"
-            f" '=', 'image')]"
+        ir_ui_view_model_id.ignore_name_export_data = (
+            "/website/static/src/scss/website.custom.web.assets_frontend.scss"
         )
+
+        # ('url', '=like', '%%.custom.%%.%%') and
+        # ('mimetype', '=', 'application/octet-stream') or
+        # ('index_content', '=', 'image')
+        ir_attachment_model_id.expression_export_data = (
+            f"['|', '&', ('url', '=like', '%%.custom.%%.%%'), ('mimetype',"
+            f" '=', 'application/octet-stream'), ('index_content', '=',"
+            f" 'image')]"
+        )
+        # ir_attachment_model_id.expression_export_data = (
+        #     f"['|', ('url', '=like', '%%.custom.%%.%%'), ('index_content',"
+        #     f" '=', 'image')]"
+        # )
+        # ir_attachment_model_id.ignore_name_export_data = "portal.custom.web.assets_frontend.scss.css"
 
         # Generate module
         value = {"code_generator_ids": code_generator_id.ids}

@@ -1,5 +1,5 @@
 {
-    "name": "Code Generator Demo Website Snippet",
+    "name": "Code Generator Demo Website Multiple Snippet",
     "version": "12.0.1.0",
     "author": "TechnoLibre",
     "license": "AGPL-3",
@@ -8,6 +8,7 @@
     "depends": [
         "code_generator",
         "code_generator_website_snippet",
+        "code_generator_demo_portal",
     ],
     "installable": True,
     "post_init_hook": "post_init_hook",
