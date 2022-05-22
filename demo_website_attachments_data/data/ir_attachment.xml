@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_attachment_/website/static/src/scss/options/colors/user_theme_color_palette_custom_web_assets_common_scss" model="ir.attachment">
+            <field name="datas_fname">user_theme_color_palette.scss</field>
+            <field name="name">/website/static/src/scss/options/colors/user_theme_color_palette.custom.web.assets_common.scss</field>
+            <field name="type">url</field>
+            <field name="url">/demo_website_attachments_data/static/src/scss/user_theme_color_palette.custom.web.assets_common.scss</field>
+        </record>
+        <record id="ir_attachment_/website/static/src/scss/options/colors/user_color_palette_custom_web_assets_common_scss" model="ir.attachment">
+            <field name="datas_fname">user_color_palette.scss</field>
+            <field name="name">/website/static/src/scss/options/colors/user_color_palette.custom.web.assets_common.scss</field>
+            <field name="type">url</field>
+            <field name="url">/demo_website_attachments_data/static/src/scss/user_color_palette.custom.web.assets_common.scss</field>
+        </record>
+        <record id="ir_attachment_/web/static/src/scss/bootstrap_overridden_frontend_custom_web_assets_frontend_scss" model="ir.attachment">
+            <field name="datas_fname">bootstrap_overridden_frontend.scss</field>
+            <field name="name">/web/static/src/scss/bootstrap_overridden_frontend.custom.web.assets_frontend.scss</field>
+            <field name="type">url</field>
+            <field name="url">/demo_website_attachments_data/static/src/scss/bootstrap_overridden_frontend.custom.web.assets_frontend.scss</field>
+        </record>
+        <record id="ir_attachment_nearly_1000_mysterious_jpg" model="ir.attachment">
+            <field name="datas_fname">nearly-1000-mysterious_eccbc8.jpg</field>
+            <field name="name">nearly-1000-mysterious_eccbc8.jpg</field>
+            <field name="public">True</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/demo_website_attachments_data/static/src/img/nearly-1000-mysterious_eccbc8.jpg</field>
+        </record>
+        <record id="ir_attachment_nearly_1000_mysterious_jpg_1" model="ir.attachment">
+            <field name="datas_fname">nearly-1000-mysterious_a87ff6.jpg</field>
+            <field name="name">nearly-1000-mysterious_a87ff6.jpg</field>
+            <field name="public">True</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/demo_website_attachments_data/static/src/img/nearly-1000-mysterious_a87ff6.jpg</field>
+        </record>
+    </data>
+</odoo>
