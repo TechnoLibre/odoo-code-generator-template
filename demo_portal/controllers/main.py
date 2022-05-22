@@ -11,15 +11,17 @@ _logger = logging.getLogger(__name__)
 
 class DemoPortalController(http.Controller):
     @http.route(
-        ["/demo_portal/helloworld"],
+        ["/demo_portal/get_last_item"],
         type="json",
         auth="public",
         website=True,
         methods=["POST", "GET"],
         csrf=False,
     )
-    def hello_world(self):
-        data_id = http.request.env["demo.model.portal"].search([])
+    def get_last_item(self):
+        data_id = http.request.env["demo.model.portal"].search(
+            [], order="create_date desc", limit=1
+        )
         dct_value = {}
         if data_id:
             dct_value["demo_boolean"] = data_id.demo_boolean

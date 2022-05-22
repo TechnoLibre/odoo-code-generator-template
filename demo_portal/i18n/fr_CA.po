@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-20 06:37+0000\n"
-"PO-Revision-Date: 2022-01-20 06:37+0000\n"
+"POT-Creation-Date: 2022-04-09 07:14+0000\n"
+"PO-Revision-Date: 2022-04-09 07:14+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,106 @@ msgstr ""
 #. module: demo_portal
 #: model_terms:ir.ui.view,arch_db:demo_portal.portal_my_demo_model_portal
 msgid "<b>Text demo:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_binary:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_binary_image:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_boolean:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_char:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_date:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_date_time:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_external_link:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_float:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_float_time:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_html:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_integer:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_many2many:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_one2many_dst:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_one2many_src:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_selection:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>demo_text:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>diagram_id:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>name:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>xpos:</b>"
+msgstr ""
+
+#. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "<b>ypos:</b>"
 msgstr ""
 
 #. module: demo_portal
@@ -527,6 +627,11 @@ msgid "Is Follower"
 msgstr "Est un abonné"
 
 #. module: demo_portal
+#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
+msgid "LOADING..."
+msgstr ""
+
+#. module: demo_portal
 #: model:ir.model.fields,field_description:demo_portal.field_demo_model_2_portal____last_update
 #: model:ir.model.fields,field_description:demo_portal.field_demo_model_3_portal_diagram____last_update
 #: model:ir.model.fields,field_description:demo_portal.field_demo_model_portal____last_update
@@ -885,69 +990,9 @@ msgid "Ypos"
 msgstr ""
 
 #. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_binary :"
-msgstr ""
-
-#. module: demo_portal
 #: model_terms:ir.ui.view,arch_db:demo_portal.portal_my_demo_model_3_portal_diagram
 #: model_terms:ir.ui.view,arch_db:demo_portal.portal_my_demo_model_portal
 msgid "demo_binary_image"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_binary_image :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_boolean :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_char :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_date :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_date_time :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_external_link :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_float :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_float_time :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_html :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_integer :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_many2many :"
 msgstr ""
 
 #. module: demo_portal
@@ -966,46 +1011,6 @@ msgid "demo_model_portal"
 msgstr ""
 
 #. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_one2many_dst :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_one2many_src :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_selection :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "demo_text :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "diagram_id :"
-msgstr ""
-
-#. module: demo_portal
 #: model_terms:ir.ui.view,arch_db:demo_portal.portal_create_demo_model_portal
 msgid "hh:mm"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "name :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "xpos :"
-msgstr ""
-
-#. module: demo_portal
-#: model_terms:ir.ui.view,arch_db:demo_portal.s_demo_portal
-msgid "ypos :"
 msgstr ""
