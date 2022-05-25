@@ -791,4 +791,1719 @@
             </div>
         </t>
     </template>
+    <template id="demo_model_portal_unit_list_item_structure_generic" name="Demo Model Portal">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_portal_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">demo_model_portal_id non existante</font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_portal_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_portal_id.name"
+                                        t-if="demo_model_portal_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_portal_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_binary"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary_image"
+                                >
+                                    <img
+                                        t-if="demo_model_portal_id.demo_binary_image"
+                                        t-att-src="image_data_uri(demo_model_portal_id.demo_binary_image)"
+                                        alt="demo_binary_image"
+                                        class="img img-fluid d-block mx-auto"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_boolean"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_boolean"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_char"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_char"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date_time"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date_time"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_external_link"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <a
+                                            target="_blank"
+                                            t-attf-href="{{demo_model_portal_id.demo_external_link}}"
+                                            t-field="demo_model_portal_id.demo_external_link"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_float"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float_time"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <span
+                                            t-field="demo_model_portal_id.demo_float_time"
+                                            t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_html"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_html"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_integer"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_integer"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_many2many"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_many2many"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_dst"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_dst"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_src"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_src"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_selection"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_selection"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_text"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_text"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.diagram_id"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.diagram_id"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.xpos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.xpos"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.ypos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.ypos"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_portal_list_list_item_structure_generic" name="Demo Model Portal List">
+        <t t-ignore="true">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="demo_model_portal_s">
+                            <div t-foreach="demo_model_portal_s" t-as="demo_model_portal">
+                                <a
+                                    t-if="demo_model_portal"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_portal/%d' % demo_model_portal.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="demo_model_portal.name"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.name"
+                                            />
+                                            <h4 t-if="not demo_model_portal.name" class="o_default_snippet_text">
+                                                EMPTY
+                                            </h4>
+                                            <p
+                                                t-if="demo_model_portal.demo_binary"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_binary"
+                                            />
+                                            <div>
+                                                <img
+                                                    t-if="demo_model_portal.demo_binary_image"
+                                                    t-att-src="image_data_uri(demo_model_portal.demo_binary_image)"
+                                                    alt="demo_binary_image"
+                                                    class="img img-fluid d-block mx-auto"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="demo_model_portal.demo_boolean"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_boolean"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_char"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_char"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_date"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_date"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_date_time"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_date_time"
+                                            />
+                                            <div t-if="demo_model_portal.demo_external_link">
+                                                <a
+                                                    target="_blank"
+                                                    t-attf-href="{{demo_model_portal.demo_external_link}}"
+                                                    t-field="demo_model_portal.demo_external_link"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="demo_model_portal.demo_float"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_float"
+                                            />
+                                            <div>
+                                                <span
+                                                    t-field="demo_model_portal.demo_float_time"
+                                                    t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="demo_model_portal.demo_html"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_html"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_integer"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_integer"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_many2many"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_many2many"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_one2many_dst"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_one2many_dst"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_one2many_src"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_one2many_src"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_selection"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_selection"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.demo_text"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.demo_text"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.diagram_id"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.diagram_id"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.xpos"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.xpos"
+                                            />
+                                            <p
+                                                t-if="demo_model_portal.ypos"
+                                                class="o_default_snippet_text"
+                                                t-field="demo_model_portal.ypos"
+                                            />
+                                            <p
+                                                t-if="len(lst_time) >= demo_model_portal_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time[demo_model_portal_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not demo_model_portal_s">Aucune demo_model_portal disponible.</div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_portal_unit_list_item_structure_double" name="Double Portal Demo Model Portal">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_portal_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">demo_model_portal_id non existante</font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_portal_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_portal_id.name"
+                                        t-if="demo_model_portal_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_portal_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_binary"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary_image"
+                                >
+                                    <img
+                                        t-if="demo_model_portal_id.demo_binary_image"
+                                        t-att-src="image_data_uri(demo_model_portal_id.demo_binary_image)"
+                                        alt="demo_binary_image"
+                                        class="img img-fluid d-block mx-auto"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_boolean"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_boolean"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_char"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_char"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date_time"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date_time"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_external_link"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <a
+                                            target="_blank"
+                                            t-attf-href="{{demo_model_portal_id.demo_external_link}}"
+                                            t-field="demo_model_portal_id.demo_external_link"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_float"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float_time"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <span
+                                            t-field="demo_model_portal_id.demo_float_time"
+                                            t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_html"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_html"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_integer"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_integer"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_many2many"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_many2many"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_dst"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_dst"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_src"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_src"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_selection"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_selection"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_text"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_text"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.diagram_id"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.diagram_id"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.xpos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.xpos"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.ypos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.ypos"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_2_portal_unit_list_item_structure_double" name="Double Portal Demo Model 2 Portal">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_2_portal_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">demo_model_2_portal_id non existante</font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_2_portal_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_2_portal_id.name"
+                                        t-if="demo_model_2_portal_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_2_portal_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.demo_many2one_dst"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.demo_many2one_dst"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.demo_many2one_src"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.demo_many2one_src"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.diagram_id"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.diagram_id"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template
+        id="demo_model_3_portal_diagram_unit_list_item_structure_double"
+        name="Double Portal Demo Model 3 Portal Diagram"
+    >
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_3_portal_diagram_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">
+                                            demo_model_3_portal_diagram_id non existante
+                                        </font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_3_portal_diagram_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.name"
+                                        t-if="demo_model_3_portal_diagram_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_3_portal_diagram_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_3_portal_diagram_id.diagram_demo2_ids"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.diagram_demo2_ids"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_3_portal_diagram_id.diagram_demo_ids"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.diagram_demo_ids"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template
+        id="demo_model_portal_and_demo_model_2_portal_and_demo_model_3_portal_diagram_list_list_item_structure_double"
+        name="Double Portal List"
+    >
+        <t t-ignore="true">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="double_portal_demo_model_portal_s">
+                            <div t-foreach="double_portal_demo_model_portal_s" t-as="double_portal_demo_model_portal">
+                                <a
+                                    t-if="double_portal_demo_model_portal"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_portal/%d' % double_portal_demo_model_portal.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="double_portal_demo_model_portal.name"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.name"
+                                            />
+                                            <h4
+                                                t-if="not double_portal_demo_model_portal.name"
+                                                class="o_default_snippet_text"
+                                            >
+                                                EMPTY
+                                            </h4>
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_binary"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_binary"
+                                            />
+                                            <div>
+                                                <img
+                                                    t-if="double_portal_demo_model_portal.demo_binary_image"
+                                                    t-att-src="image_data_uri(double_portal_demo_model_portal.demo_binary_image)"
+                                                    alt="demo_binary_image"
+                                                    class="img img-fluid d-block mx-auto"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_boolean"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_boolean"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_char"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_char"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_date"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_date"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_date_time"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_date_time"
+                                            />
+                                            <div t-if="double_portal_demo_model_portal.demo_external_link">
+                                                <a
+                                                    target="_blank"
+                                                    t-attf-href="{{double_portal_demo_model_portal.demo_external_link}}"
+                                                    t-field="double_portal_demo_model_portal.demo_external_link"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_float"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_float"
+                                            />
+                                            <div>
+                                                <span
+                                                    t-field="double_portal_demo_model_portal.demo_float_time"
+                                                    t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_html"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_html"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_integer"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_integer"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_many2many"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_many2many"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_one2many_dst"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_one2many_dst"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_one2many_src"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_one2many_src"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_selection"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_selection"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.demo_text"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.demo_text"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.diagram_id"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.diagram_id"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.xpos"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.xpos"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_portal.ypos"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_portal.ypos"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_demo_model_portal) >= double_portal_demo_model_portal_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_demo_model_portal[double_portal_demo_model_portal_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not double_portal_demo_model_portal_s">
+                            Aucune double_portal_demo_model_portal disponible.
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="double_portal_demo_model_2_portal_s">
+                            <div
+                                t-foreach="double_portal_demo_model_2_portal_s"
+                                t-as="double_portal_demo_model_2_portal"
+                            >
+                                <a
+                                    t-if="double_portal_demo_model_2_portal"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_2_portal/%d' % double_portal_demo_model_2_portal.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="double_portal_demo_model_2_portal.name"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_2_portal.name"
+                                            />
+                                            <h4
+                                                t-if="not double_portal_demo_model_2_portal.name"
+                                                class="o_default_snippet_text"
+                                            >
+                                                EMPTY
+                                            </h4>
+                                            <p
+                                                t-if="double_portal_demo_model_2_portal.demo_many2one_dst"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_2_portal.demo_many2one_dst"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_2_portal.demo_many2one_src"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_2_portal.demo_many2one_src"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_2_portal.diagram_id"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_2_portal.diagram_id"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_demo_model_2_portal) >= double_portal_demo_model_2_portal_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_demo_model_2_portal[double_portal_demo_model_2_portal_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not double_portal_demo_model_2_portal_s">
+                            Aucune double_portal_demo_model_2_portal disponible.
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="double_portal_demo_model_3_portal_diagram_s">
+                            <div
+                                t-foreach="double_portal_demo_model_3_portal_diagram_s"
+                                t-as="double_portal_demo_model_3_portal_diagram"
+                            >
+                                <a
+                                    t-if="double_portal_demo_model_3_portal_diagram"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_3_portal_diagram/%d' % double_portal_demo_model_3_portal_diagram.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="double_portal_demo_model_3_portal_diagram.name"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_3_portal_diagram.name"
+                                            />
+                                            <h4
+                                                t-if="not double_portal_demo_model_3_portal_diagram.name"
+                                                class="o_default_snippet_text"
+                                            >
+                                                EMPTY
+                                            </h4>
+                                            <p
+                                                t-if="double_portal_demo_model_3_portal_diagram.diagram_demo2_ids"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_3_portal_diagram.diagram_demo2_ids"
+                                            />
+                                            <p
+                                                t-if="double_portal_demo_model_3_portal_diagram.diagram_demo_ids"
+                                                class="o_default_snippet_text"
+                                                t-field="double_portal_demo_model_3_portal_diagram.diagram_demo_ids"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_demo_model_3_portal_diagram) >= double_portal_demo_model_3_portal_diagram_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_demo_model_3_portal_diagram[double_portal_demo_model_3_portal_diagram_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not double_portal_demo_model_3_portal_diagram_s">
+                            Aucune double_portal_demo_model_3_portal_diagram disponible.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_portal_unit_list_item_structure_double_short" name="Dp Dmp">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_portal_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">demo_model_portal_id non existante</font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_portal_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_portal_id.name"
+                                        t-if="demo_model_portal_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_portal_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_binary"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_binary_image"
+                                >
+                                    <img
+                                        t-if="demo_model_portal_id.demo_binary_image"
+                                        t-att-src="image_data_uri(demo_model_portal_id.demo_binary_image)"
+                                        alt="demo_binary_image"
+                                        class="img img-fluid d-block mx-auto"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_boolean"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_boolean"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_char"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_char"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_date_time"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_date_time"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_external_link"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <a
+                                            target="_blank"
+                                            t-attf-href="{{demo_model_portal_id.demo_external_link}}"
+                                            t-field="demo_model_portal_id.demo_external_link"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_float"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_float_time"
+                                >
+                                    <p class="lead o_default_snippet_text" style="text-align: center;">
+                                        <span
+                                            t-field="demo_model_portal_id.demo_float_time"
+                                            t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                        />
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_html"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_html"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_integer"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_integer"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_many2many"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_many2many"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_dst"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_dst"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_one2many_src"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_one2many_src"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_selection"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_selection"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.demo_text"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.demo_text"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.diagram_id"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.diagram_id"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.xpos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.xpos"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_portal_id.ypos"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_portal_id.ypos"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_2_portal_unit_list_item_structure_double_short" name="Dp Dm2P">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_2_portal_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">demo_model_2_portal_id non existante</font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_2_portal_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_2_portal_id.name"
+                                        t-if="demo_model_2_portal_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_2_portal_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.demo_many2one_dst"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.demo_many2one_dst"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.demo_many2one_src"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.demo_many2one_src"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_2_portal_id.diagram_id"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_2_portal_id.diagram_id"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="demo_model_3_portal_diagram_unit_list_item_structure_double_short" name="Dp Dm3Pd">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt32 pb32" t-if="not demo_model_3_portal_diagram_id">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title pt16 pb16" style="text-align: center;">
+                                    <h1 class="s_title_default">
+                                        <font style="font-size: 62px;">
+                                            demo_model_3_portal_diagram_id non existante
+                                        </font>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        t-if="demo_model_3_portal_diagram_id"
+                        class="s_cover parallax s_parallax_is_fixed bg-black-50 pt96 pb96 s_parallax_no_overflow_hidden"
+                        data-scroll-background-ratio="1"
+                        style="background-image: none;"
+                    >
+                        <span
+                            class="s_parallax_bg oe_img_bg oe_custom_bg"
+                            style="background-image: url('/web/image/website.s_cover_default_image'); background-position: 50% 0;"
+                        />
+                        <div class="container">
+                            <div class="row s_nb_column_fixed">
+                                <div class="col-lg-12 s_title" data-name="Title">
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.name"
+                                        t-if="demo_model_3_portal_diagram_id.name"
+                                    />
+                                    <h1
+                                        class="s_title_thin"
+                                        style="font-size: 62px; text-align: center;"
+                                        t-if="not demo_model_3_portal_diagram_id.name"
+                                    >
+                                        EMPTY
+                                    </h1>
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_3_portal_diagram_id.diagram_demo2_ids"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.diagram_demo2_ids"
+                                    />
+                                </div>
+                                <div
+                                    class="col-lg-12 s_text pt16 pb16"
+                                    data-name="Text"
+                                    t-if="demo_model_3_portal_diagram_id.diagram_demo_ids"
+                                >
+                                    <p
+                                        class="lead o_default_snippet_text"
+                                        style="text-align: center;"
+                                        t-field="demo_model_3_portal_diagram_id.diagram_demo_ids"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template
+        id="demo_model_portal_and_demo_model_2_portal_and_demo_model_3_portal_diagram_list_list_item_structure_double_short"
+        name="Dp Dmp Demo Model Portal And Dp Dm2P Demo Model 2 Portal And Dp Dm3Pd Demo Model 3 Portal Diagram List"
+    >
+        <t t-ignore="true">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="dp_dmps">
+                            <div t-foreach="dp_dmps" t-as="dp_dmp">
+                                <a
+                                    t-if="dp_dmp"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_portal/%d' % dp_dmp.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="dp_dmp.name"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.name"
+                                            />
+                                            <h4 t-if="not dp_dmp.name" class="o_default_snippet_text">EMPTY</h4>
+                                            <p
+                                                t-if="dp_dmp.demo_binary"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_binary"
+                                            />
+                                            <div>
+                                                <img
+                                                    t-if="dp_dmp.demo_binary_image"
+                                                    t-att-src="image_data_uri(dp_dmp.demo_binary_image)"
+                                                    alt="demo_binary_image"
+                                                    class="img img-fluid d-block mx-auto"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="dp_dmp.demo_boolean"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_boolean"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_char"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_char"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_date"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_date"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_date_time"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_date_time"
+                                            />
+                                            <div t-if="dp_dmp.demo_external_link">
+                                                <a
+                                                    target="_blank"
+                                                    t-attf-href="{{dp_dmp.demo_external_link}}"
+                                                    t-field="dp_dmp.demo_external_link"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="dp_dmp.demo_float"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_float"
+                                            />
+                                            <div>
+                                                <span
+                                                    t-field="dp_dmp.demo_float_time"
+                                                    t-options="{&quot;widget&quot;: &quot;duration&quot;, &quot;unit&quot;: &quot;hour&quot;, &quot;round&quot;: &quot;minute&quot;}"
+                                                />
+                                            </div>
+                                            <p
+                                                t-if="dp_dmp.demo_html"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_html"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_integer"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_integer"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_many2many"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_many2many"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_one2many_dst"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_one2many_dst"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_one2many_src"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_one2many_src"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_selection"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_selection"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.demo_text"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.demo_text"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.diagram_id"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.diagram_id"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.xpos"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.xpos"
+                                            />
+                                            <p
+                                                t-if="dp_dmp.ypos"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dmp.ypos"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_dp_dmp) >= dp_dmp_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_dp_dmp[dp_dmp_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not dp_dmps">Aucune dp_dmp disponible.</div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="dp_dm2ps">
+                            <div t-foreach="dp_dm2ps" t-as="dp_dm2p">
+                                <a
+                                    t-if="dp_dm2p"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_2_portal/%d' % dp_dm2p.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="dp_dm2p.name"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm2p.name"
+                                            />
+                                            <h4 t-if="not dp_dm2p.name" class="o_default_snippet_text">EMPTY</h4>
+                                            <p
+                                                t-if="dp_dm2p.demo_many2one_dst"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm2p.demo_many2one_dst"
+                                            />
+                                            <p
+                                                t-if="dp_dm2p.demo_many2one_src"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm2p.demo_many2one_src"
+                                            />
+                                            <p
+                                                t-if="dp_dm2p.diagram_id"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm2p.diagram_id"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_dp_dm2p) >= dp_dm2p_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_dp_dm2p[dp_dm2p_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not dp_dm2ps">Aucune dp_dm2p disponible.</div>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6 s_col_no_bgcolor pb24">
+                        <div class="row" t-if="dp_dm3pds">
+                            <div t-foreach="dp_dm3pds" t-as="dp_dm3pd">
+                                <a
+                                    t-if="dp_dm3pd"
+                                    t-att-href="'/demo_website_multiple_snippet/demo_model_3_portal_diagram/%d' % dp_dm3pd.id"
+                                >
+                                    <div class="col-lg-12 pt16 pb16" data-name="Box">
+                                        <i class="fa fa-2x fa-files-o rounded-circle bg-primary s_features_grid_icon" />
+                                        <div class="s_features_grid_content">
+                                            <h4
+                                                t-if="dp_dm3pd.name"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm3pd.name"
+                                            />
+                                            <h4 t-if="not dp_dm3pd.name" class="o_default_snippet_text">EMPTY</h4>
+                                            <p
+                                                t-if="dp_dm3pd.diagram_demo2_ids"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm3pd.diagram_demo2_ids"
+                                            />
+                                            <p
+                                                t-if="dp_dm3pd.diagram_demo_ids"
+                                                class="o_default_snippet_text"
+                                                t-field="dp_dm3pd.diagram_demo_ids"
+                                            />
+                                            <p
+                                                t-if="len(lst_time_dp_dm3pd) >= dp_dm3pd_index"
+                                                class="o_default_snippet_text"
+                                                t-raw="lst_time_dp_dm3pd[dp_dm3pd_index]"
+                                            />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" t-if="not dp_dm3pds">Aucune dp_dm3pd disponible.</div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

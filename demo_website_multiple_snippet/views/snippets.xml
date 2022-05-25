@@ -137,6 +137,30 @@
         </section>
     </template>
     <template
+        id="s_demo_website_multiple_snippet_list_item_structure_generic"
+        name="Demo Website Multiple Snippet List Item Structure Generic"
+    >
+        <section class="o_demo_website_multiple_snippet_list_item_structure_generic oe_snippet_body">
+            <div class="container" />
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_list_item_structure_double"
+        name="Demo Website Multiple Snippet List Item Structure Double"
+    >
+        <section class="o_demo_website_multiple_snippet_list_item_structure_double oe_snippet_body">
+            <div class="container" />
+        </section>
+    </template>
+    <template
+        id="s_demo_website_multiple_snippet_list_item_structure_double_short"
+        name="Demo Website Multiple Snippet List Item Structure Double Short"
+    >
+        <section class="o_demo_website_multiple_snippet_list_item_structure_double_short oe_snippet_body">
+            <div class="container" />
+        </section>
+    </template>
+    <template
         id="s_demo_website_multiple_snippet_helloworld_effect"
         name="Demo Website Multiple Snippet Helloworld Effect"
     >
@@ -466,6 +490,18 @@
                 t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_item_structure"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_item_structure_generic"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_item_structure_double"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
+            <t
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_item_structure_double_short"
+                t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
+            />
         </xpath>
     </template>
     <template id="snippet_content" inherit_id="website.snippets">
@@ -535,6 +571,21 @@
             <link
                 rel="stylesheet"
                 type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_list_item_structure_generic.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_list_item_structure_double.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_list_item_structure_double_short.scss"
+            />
+            <link
+                rel="stylesheet"
+                type="text/scss"
                 href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_helloworld_effect.scss"
             />
             <link
@@ -579,6 +630,18 @@
             <script
                 type="text/javascript"
                 src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_item_structure.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_item_structure_generic.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_item_structure_double.animation.js"
+            />
+            <script
+                type="text/javascript"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_item_structure_double_short.animation.js"
             />
             <script
                 type="text/javascript"
