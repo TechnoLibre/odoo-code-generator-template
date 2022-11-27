@@ -14,7 +14,7 @@ odoo.define("demo_website_leaflet.animation", function (require) {
         features = "",
         geojson = "";
 
-    sAnimation.registry.form_builder_send = sAnimation.Class.extend({
+    sAnimation.registry.website_leaflet = sAnimation.Class.extend({
         selector: ".demo_website_leaflet",
 
         start: function () {
