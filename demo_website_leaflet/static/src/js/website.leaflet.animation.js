@@ -67,9 +67,9 @@ odoo.define("demo_website_leaflet.animation", function (require) {
                     console.error("Cannot manage multiple map in one snippet.");
                     return;
                 }
-                div_map.width(size_width);
+                // div_map.width(size_width);
                 // $('#mapid').css('width', size_width);
-                div_map.height(size_height);
+                // div_map.height(size_height);
                 // $('#mapid').css('height', size_height)
                 // hide google icon
                 // $('.img-fluid').hide();
