@@ -1,3 +1,11 @@
+function force_refresh_map(map) {
+    map.invalidateSize(true);
+
+    setTimeout(function () {
+        force_refresh_map(map);
+    }, 1000);
+}
+
 odoo.define("demo_website_leaflet.animation", function (require) {
     "use strict";
 
@@ -86,6 +94,7 @@ odoo.define("demo_website_leaflet.animation", function (require) {
 
                 var point = new L.LatLng(lat, lng);
                 var map = L.map(map_id).setView(point, zoom);
+                force_refresh_map(map);
                 L.tileLayer.provider(provider).addTo(map);
                 if (geojson) {
                     L.geoJSON(geojson, {
