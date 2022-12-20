@@ -3836,34 +3836,54 @@ return""",
                 "help": "Will sync with code on drive when generate.",
                 "ttype": "boolean",
             },
+            "exclude_dependencies_str": {
+                "code_generator_sequence": 18,
+                "field_description": "Exclude Dependencies Str",
+                "help": (
+                    "Exclude from list dependencies_id about"
+                    " code.generator.module.dependency name separate by ;"
+                ),
+                "ttype": "char",
+            },
+            "export_website_optimize_binary_image": {
+                "code_generator_sequence": 17,
+                "field_description": "Export Website Optimize Binary Image",
+                "help": (
+                    "Associate with nomenclator export data. Search url"
+                    " /web/image/ in website page and remove ir.attachment who"
+                    " is not into view. Remove duplicate same attachment,"
+                    " image or scss."
+                ),
+                "ttype": "boolean",
+            },
             "icon_child_image": {
                 "code_generator_form_simple_view_sequence": 10,
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 20,
                 "code_generator_tree_view_sequence": 10,
                 "field_description": "Generated icon",
                 "ttype": "binary",
             },
             "icon_image": {
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 21,
                 "field_description": "Icon",
                 "ttype": "binary",
             },
             "icon_real_image": {
                 "code_generator_form_simple_view_sequence": 11,
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 22,
                 "code_generator_tree_view_sequence": 11,
                 "field_description": "Replace icon",
                 "help": "This will replace icon_image",
                 "ttype": "binary",
             },
             "latest_version": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 23,
                 "field_description": "Installed Version",
                 "ttype": "char",
             },
             "license": {
                 "code_generator_form_simple_view_sequence": 18,
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 24,
                 "code_generator_tree_view_sequence": 18,
                 "default": "AGPL-3",
                 "field_description": "License",
@@ -3880,8 +3900,18 @@ return""",
                 ),
                 "ttype": "selection",
             },
+            "list_scss_process_hook": {
+                "code_generator_sequence": 25,
+                "field_description": "List Scss Process Hook",
+                "help": (
+                    "READONLY, use by computation. Value are separated by ;."
+                    " List of xml_id to compute scss in hook when export"
+                    " website data with scss modification."
+                ),
+                "ttype": "char",
+            },
             "maintainer": {
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 26,
                 "field_description": "Maintainer",
                 "ttype": "char",
             },
@@ -3895,7 +3925,7 @@ return""",
             },
             "nomenclator_only": {
                 "code_generator_form_simple_view_sequence": 23,
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 27,
                 "code_generator_tree_view_sequence": 23,
                 "field_description": "Only export data",
                 "help": "Useful to export data with existing model.",
@@ -3903,7 +3933,7 @@ return""",
             },
             "path_sync_code": {
                 "code_generator_form_simple_view_sequence": 21,
-                "code_generator_sequence": 52,
+                "code_generator_sequence": 55,
                 "code_generator_tree_view_sequence": 21,
                 "default": "_default_path_sync_code",
                 "field_description": "Directory",
@@ -3914,13 +3944,13 @@ return""",
                 "ttype": "char",
             },
             "published_version": {
-                "code_generator_sequence": 41,
+                "code_generator_sequence": 44,
                 "field_description": "Published Version",
                 "ttype": "char",
             },
             "shortdesc": {
                 "code_generator_form_simple_view_sequence": 13,
-                "code_generator_sequence": 42,
+                "code_generator_sequence": 45,
                 "code_generator_tree_view_sequence": 13,
                 "field_description": "Module Name",
                 "required": True,
@@ -3928,7 +3958,7 @@ return""",
             },
             "state": {
                 "code_generator_form_simple_view_sequence": 26,
-                "code_generator_sequence": 43,
+                "code_generator_sequence": 46,
                 "code_generator_tree_view_sequence": 12,
                 "default": "uninstalled",
                 "field_description": "Status",
@@ -3942,13 +3972,13 @@ return""",
             },
             "summary": {
                 "code_generator_form_simple_view_sequence": 16,
-                "code_generator_sequence": 44,
+                "code_generator_sequence": 47,
                 "code_generator_tree_view_sequence": 16,
                 "field_description": "Summary",
                 "ttype": "char",
             },
             "template_inherit_model_name": {
-                "code_generator_sequence": 45,
+                "code_generator_sequence": 48,
                 "field_description": "Functions models inherit",
                 "help": (
                     "Add model from list, separate by ';' and generate"
@@ -3957,7 +3987,7 @@ return""",
                 "ttype": "char",
             },
             "template_model_name": {
-                "code_generator_sequence": 46,
+                "code_generator_sequence": 49,
                 "field_description": "Functions models",
                 "help": (
                     "Add model from list, separate by ';' and generate"
@@ -3967,14 +3997,14 @@ return""",
             },
             "template_module_id": {
                 "code_generator_compute": "_fill_template_module_id",
-                "code_generator_sequence": 47,
+                "code_generator_sequence": 50,
                 "field_description": "Template module id",
                 "help": "Child module to generate.",
                 "relation": "ir.module.module",
                 "ttype": "many2one",
             },
             "template_module_name": {
-                "code_generator_sequence": 48,
+                "code_generator_sequence": 51,
                 "field_description": "Generated module name",
                 "help": (
                     "Can be empty in case of code_generator_demo, else it's"
@@ -3983,12 +4013,12 @@ return""",
                 "ttype": "char",
             },
             "url": {
-                "code_generator_sequence": 49,
+                "code_generator_sequence": 52,
                 "field_description": "URL",
                 "ttype": "char",
             },
             "website": {
-                "code_generator_sequence": 50,
+                "code_generator_sequence": 53,
                 "code_generator_tree_view_sequence": 10,
                 "field_description": "Website",
                 "ttype": "char",
@@ -4219,12 +4249,14 @@ for cg in self:
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """for field_name, field_info in dct_field.items():
-    if (
-        field_info.get("is_show_whitelist_model_inherit") is None
-        and field_info.get("is_hide_blacklist_model_inherit") is None
-    ):
-        field_info["is_show_whitelist_model_inherit"] = True
+                    "code": """if dct_field:
+    for field_name, field_info in dct_field.items():
+        if (
+            field_info.get("is_show_whitelist_model_inherit") is None
+            and field_info.get("is_hide_blacklist_model_inherit")
+            is None
+        ):
+            field_info["is_show_whitelist_model_inherit"] = True
 model_id = self.env["ir.model"].search([("model", "=", model_model)])
 if model_name is None:
     model_name = model_model.replace(".", "_")
@@ -4296,6 +4328,8 @@ else:
                 dct_model,
                 value,
             )
+    else:
+        dct_model = {}
     rec_name = dct_model.get("rec_name")
     has_already_rec_name = False
     if not rec_name:
@@ -4340,6 +4374,22 @@ else:
     if not has_already_rec_name:
         if has_field_name:
             value["rec_name"] = "name"
+        elif not dct_field:
+            # TODO this will create x_name field
+            # value["rec_name"] = None
+            value["rec_name"] = "name"
+            # value["field_id"] = {"name": {"name": "name", "ttype": "char"}}
+            value["field_id"] = [
+                (
+                    0,
+                    0,
+                    {
+                        "name": "name",
+                        "field_description": "Name",
+                        "ttype": "char",
+                    },
+                )
+            ]
         else:
             _logger.error(
                 f"Cannot found rec_name for model {model_model}."
@@ -5095,6 +5145,7 @@ if records:
                 "code": """import ast
 import base64
 import glob
+import hashlib
 import io
 import logging
 import os
@@ -5817,6 +5868,15 @@ with cw.block(delim=("{", "}")):
         lst_depend = module.dependencies_id.mapped(
             lambda did: f"'{did.depend_id.name}'"
         )
+        # Remove exclude_dependencies_str
+        if module.exclude_dependencies_str:
+            lst_exclude_depend = [
+                f"'{a}'"
+                for a in module.exclude_dependencies_str.split(";")
+            ]
+            lst_depend = list(
+                set(lst_depend) - set(lst_exclude_depend)
+            )
         cw.emit_list(
             lst_depend, ("[", "]"), before="'depends': ", after=","
         )
@@ -5937,7 +5997,10 @@ if ir_model_data:
     else:
         result = f"{ir_model_data[0].module}.{ir_model_data[0].name}"
 elif give_a_default:
-    if record._rec_name:
+    if force_field_name:
+        name_v = getattr(record, force_field_name)
+        second = self._lower_replace(name_v)
+    elif record._rec_name:
         rec_name_v = getattr(record, record._rec_name)
         if not rec_name_v:
             rec_name_v = uuid.uuid1().int
@@ -5989,7 +6052,8 @@ if type(result) is str:
 return result''',
                     "name": "_get_ir_model_data",
                     "param": (
-                        "self, record, give_a_default=False, module_name=''"
+                        "self, record, give_a_default=False, module_name='',"
+                        " force_field_name=None"
                     ),
                     "sequence": 21,
                     "m2o_module": code_generator_id.id,
@@ -6156,11 +6220,12 @@ Function to set the module data file
 """
 
 expression_export_data = model.expression_export_data
-search = (
-    []
-    if not expression_export_data
-    else [ast.literal_eval(expression_export_data)]
-)
+if not expression_export_data:
+    search = []
+elif expression_export_data[0] == "[":
+    search = ast.literal_eval(expression_export_data)
+else:
+    search = [ast.literal_eval(expression_export_data)]
 # Search with active_test to support when active is False
 nomenclador_data = (
     self.env[model.model]
@@ -6170,6 +6235,24 @@ nomenclador_data = (
 )
 if not nomenclador_data:
     return
+
+ignore_name_export_data = model.ignore_name_export_data
+if ignore_name_export_data:
+    lst_ignore_name_export_data = ignore_name_export_data.strip(
+        ";"
+    ).split(";")
+    if lst_ignore_name_export_data:
+        new_nomenclator_data_list = [
+            a.id
+            for b in lst_ignore_name_export_data
+            for a in nomenclador_data
+            if not a.name.split("/")[-1].endswith(b.strip())
+            and not a.name == b.strip()
+        ]
+        if len(new_nomenclator_data_list) != len(nomenclador_data):
+            nomenclador_data = self.env[model.model].browse(
+                new_nomenclator_data_list
+            )
 
 lst_data_xml = []
 lst_id = []
@@ -6182,12 +6265,20 @@ lst_field_id_whitelist = [
     a.m2o_fields.id
     for a in model.m2o_module.o2m_nomenclator_whitelist_fields
 ]
+lst_record = []
+lst_new_data_to_write = []
+dct_search_and_replace_in_file = defaultdict(list)
+lst_scss_process_hook = []
 for record in nomenclador_data:
-
+    add_scss_hook = False
+    new_data_to_write = None
+    force_field_name_xml_id = None
     f2exports = model.field_id.filtered(
         lambda field: field.name not in MAGIC_FIELDS
     )
     lst_field = []
+    lst_end_field = []
+    lst_ignore_field_name = []
     for rfield in f2exports:
         # whitelist check
         if (
@@ -6197,6 +6288,8 @@ for record in nomenclador_data:
             continue
         # blacklist check
         if rfield.id in lst_field_id_blacklist:
+            continue
+        if rfield.name in lst_ignore_field_name:
             continue
         record_value = getattr(record, rfield.name)
         child = None
@@ -6260,11 +6353,78 @@ for record in nomenclador_data:
                 )
 
             elif rfield.ttype == "binary":
-                # Transform binary in string and remove b''
-                child = E.field(
-                    {"name": rfield.name},
-                    str(record_value)[2:-1],
-                )
+                add_in_search_and_replace_file = False
+                manage_scss = False
+                sub_dir = "img"
+                # Create file if image, else create binary
+                if record.index_content == "image":
+                    manage_scss = True
+                elif record.mimetype in ["text/css", "text/scss"]:
+                    force_field_name_xml_id = "datas_fname"
+                    manage_scss = True
+                    sub_dir = "scss"
+                elif (
+                    record.mimetype in ["application/octet-stream"]
+                    and ".custom." in record.name
+                    and record.name.endswith(".scss")
+                ):
+                    manage_scss = True
+                    add_scss_hook = True
+                    add_in_search_and_replace_file = True
+                    sub_dir = "scss"
+                # Check record.index_content or record.mimetype
+                if manage_scss:
+                    new_filename = (
+                        record.datas_fname
+                        if not add_scss_hook
+                        else record.name.rsplit("/", maxsplit=1)[1]
+                    )
+                    url_path_file_module = os.path.join(
+                        "static",
+                        "src",
+                        sub_dir,
+                        new_filename,
+                    )
+                    url_path_file = os.path.join(
+                        "/",
+                        module.name,
+                        "static",
+                        "src",
+                        sub_dir,
+                        new_filename,
+                    )
+                    child_end = E.field({"name": "type"}, "url")
+                    lst_end_field.append(child_end)
+                    lst_ignore_field_name.append("type")
+
+                    child_end = E.field({"name": "url"}, url_path_file)
+                    lst_end_field.append(child_end)
+                    lst_ignore_field_name.append("url")
+
+                    new_data_to_write = [
+                        record_value,
+                        url_path_file_module,
+                    ]
+                    # decode_record = base64.b64decode(record_value)
+                    # self.code_generator_data.write_file_binary(
+                    #     url_path_file_module,
+                    #     decode_record,
+                    # )
+                    if add_in_search_and_replace_file:
+                        pattern_str = (
+                            '<attribute name="href">%s</attribute>'
+                        )
+                        str_to_search = pattern_str % record.name
+                        str_to_replace = pattern_str % url_path_file
+                        dct_search_and_replace_in_file[
+                            "data/ir_ui_view.xml"
+                        ].append((str_to_search, str_to_replace))
+                else:
+                    # Transform binary in string and remove b''
+                    child = E.field(
+                        {"name": rfield.name},
+                        str(record_value)[2:-1],
+                    )
             elif rfield.ttype == "boolean":
                 # Don't show boolean if same value of default
                 if str(record_value) != rfield.default:
@@ -6298,38 +6458,403 @@ for record in nomenclador_data:
     # else:
     #     rec_name_v = uuid.uuid1().int
     id_record = self._get_ir_model_data(
-        record, give_a_default=True, module_name=module.name
+        record,
+        give_a_default=True,
+        module_name=module.name,
+        force_field_name=force_field_name_xml_id,
     )
     lst_id.append(id_record)
+    lst_total_field = lst_field + lst_end_field
     record_xml = E.record(
-        {"id": id_record, "model": model.model}, *lst_field
+        {"id": id_record, "model": model.model}, *lst_total_field
     )
     lst_data_xml.append(record_xml)
+    lst_record.append(record)
+    lst_new_data_to_write.append(new_data_to_write)
 
-# TODO find when is noupdate and not noupdate
-# <data noupdate="1">
-xml_no_update = E.data({"noupdate": "1"}, *lst_data_xml)
-module_file = E.odoo({}, xml_no_update)
-data_file_path = os.path.join(
-    self.code_generator_data.data_path, f"{model_model}.xml"
-)
-result = XML_VERSION_HEADER.encode("utf-8") + ET.tostring(
-    module_file, pretty_print=True
-)
-self.code_generator_data.write_file_binary(
-    data_file_path, result, data_file=True
-)
+    if add_scss_hook:
+        lst_scss_process_hook.append(id_record)
 
-abs_path_file = os.path.join("data", f"{model_model}.xml")
+# Do xml update for attachment later
+if model_model == "ir_attachment":
+    result = ""
+else:
+    # TODO find when is noupdate and not noupdate
+    # <data noupdate="1">
+    # xml_no_update = E.data({"noupdate": "1"}, *lst_data_xml)
+    # module_file = E.odoo({}, xml_no_update)
+    #
+    # result = XML_VERSION_HEADER.encode("utf-8") + ET.tostring(
+    #     module_file, pretty_print=True
+    # )
+    # TODO bug some character is missing, check code_generator_demo_website_attachments_data, use this method instead
+    result = (
+        XML_VERSION_HEADER.encode("utf-8")
+        + b"<odoo>\\n"
+        + ET.tostring(E.data({"noupdate": "1"}, *lst_data_xml))
+        + b"\\n</odoo>\\n"
+    )
 
-self.code_generator_data.dct_data_metadata_file[abs_path_file] = lst_id
-if lst_depend:
-    self.code_generator_data.dct_data_depend[
-        abs_path_file
-    ] = lst_depend''',
+return {
+    model_model: [
+        result,
+        lst_data_xml,
+        lst_id,
+        lst_depend,
+        lst_record,
+        lst_new_data_to_write,
+        dct_search_and_replace_in_file,
+        lst_scss_process_hook,
+    ]
+}''',
                     "name": "_set_model_xmldata_file",
                     "param": "self, module, model, model_model",
                     "sequence": 28,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": '''if "ir_attachment" in dct_result.keys():
+    dct_ir_attachment = dct_result.get("ir_attachment")
+    lst_scss_process_hook = dct_ir_attachment[7]
+    if lst_scss_process_hook:
+        str_scss_process_hook = ";".join(lst_scss_process_hook)
+        # self.write({"list_scss_process_hook":str_scss_process_hook})
+        module.post_init_hook_show = True
+        module.list_scss_process_hook = str_scss_process_hook
+        module.hook_constant_code = """import logging
+import base64
+_logger = logging.getLogger(__name__)"""
+
+# filter ir_attachment with ir_ui_view from website export data
+if (
+    "website_page" not in dct_result.keys()
+    or "ir_attachment" not in dct_result.keys()
+    or "ir_ui_view" not in dct_result.keys()
+):
+    return
+# lst_attach_image_index_keep = []
+dct_replace_view = {}
+lst_attachment_id_to_keep = []
+lst_attachment_id_check = []
+result_view = dct_result.get("ir_ui_view")[0]
+lst_view_id = dct_result.get("ir_ui_view")[4]
+lst_ele_attach_xml = dct_ir_attachment[1]
+lst_attach_xml_id = dct_ir_attachment[2]
+lst_attach_id = dct_ir_attachment[4]
+lst_new_data_to_write = dct_ir_attachment[5]
+dct_associate_duplicate_attach_id = {}  # ref to master
+dct_associate_duplicate_attach_id_index = {}  # ref to master
+lst_attachment_id_index_has_rename = []
+
+# TODO do algorithme to detect duplicate image reference. To test it, upload 2 same image and add it in html
+# Detect duplicate and create association with master
+if module.export_website_optimize_binary_image:
+    i = -1
+    for attach_id in lst_attach_id:
+        i += 1
+        for i_attach, attach_id_iter in enumerate(lst_attach_id):
+            if i_attach == i:
+                # same file...
+                continue
+
+            if (
+                i not in dct_associate_duplicate_attach_id_index.keys()
+                and attach_id.datas_fname == attach_id_iter.datas_fname
+            ):
+                if attach_id.datas == attach_id_iter.datas:
+                    dct_associate_duplicate_attach_id[
+                        attach_id_iter.id
+                    ] = attach_id.id
+                    dct_associate_duplicate_attach_id_index[
+                        i_attach
+                    ] = i
+                else:
+                    # Support rename for picture, the name is the same, but it's a different picture
+                    new_data_to_write = lst_new_data_to_write[i_attach]
+                    if (
+                        new_data_to_write
+                        and attach_id_iter.index_content == "image"
+                        and i_attach
+                        not in lst_attachment_id_index_has_rename
+                    ):
+                        (
+                            record_value,
+                            url_path_file_module,
+                        ) = new_data_to_write
+                        unique_str = hashlib.md5(
+                            str(i_attach).encode("utf-8")
+                        ).hexdigest()[:6]
+
+                        new_data_to_write[
+                            1
+                        ] = self.rename_filename_with_uuid(
+                            url_path_file_module, unique_str
+                        )
+
+                        element = ET.tostring(
+                            lst_ele_attach_xml[i_attach]
+                        ).decode("utf-8")
+                        new_name = self.rename_filename_with_uuid(
+                            attach_id.name, unique_str
+                        )
+                        new_datas_fname = (
+                            self.rename_filename_with_uuid(
+                                attach_id.datas_fname, unique_str
+                            )
+                        )
+                        new_element = element.replace(
+                            attach_id.name, new_name
+                        ).replace(
+                            attach_id.datas_fname, new_datas_fname
+                        )
+                        lst_ele_attach_xml[i_attach] = ET.fromstring(
+                            new_element
+                        )
+                        lst_attachment_id_index_has_rename.append(
+                            i_attach
+                        )
+
+# Detect /web/image/ in views, change attachment_id.id to his xml_id
+for view_id in lst_view_id:
+    str_view = view_id.arch
+    iter_find = self.findall("/web/image/", str_view)
+    lst_find = list(iter_find)
+    for index in lst_find:
+        preview_char_find = str_view[index - 1]
+        if preview_char_find == '"':
+            keyword_str = '"'
+        elif preview_char_find == ";":
+            # extract &quot;
+            if index > 6 and str_view[index - 6 : index] == "&quot;":
+                keyword_str = "&quot;"
+            else:
+                _logger.warning(
+                    "Cannot extract /web/image/ in view name"
+                    f" {view_id.name},"
+                    f" ...'{str_view[index-30:index+30]}'..."
+                )
+                continue
+        else:
+            _logger.warning(
+                "Cannot extract /web/image/ in view name"
+                f" {view_id.name},"
+                f" ...'{str_view[index-30:index+30]}'..."
+            )
+            continue
+        # TODO this will not work if the filename include the keyword_str, need to detect it
+        last_index = view_id.arch.find(keyword_str, index + 1)
+        attach_link = view_id.arch[index:last_index]
+        if attach_link.count("/") != 4:
+            _logger.warning(
+                f"Not support attach_link web/image of '{attach_link}'"
+            )
+            continue
+        lst_attach = attach_link.split("/")
+        i_attach_id = lst_attach[3]
+        if i_attach_id.isdigit():
+            i_attach_id = int(i_attach_id)
+        else:
+            # Support only id
+            _logger.warning(f"Ignore attach_link '{attach_link}'")
+            continue
+        # Ignore processing if already got this information
+        if i_attach_id in lst_attachment_id_check:
+            continue
+        lst_attachment_id_check.append(i_attach_id)
+        # Search this picture if exist
+        i = -1
+        for attach_id in lst_attach_id:
+            i += 1
+            if attach_id.id == i_attach_id:
+                # lst_attach_image_index_keep.append(i)
+                break
+        else:
+            _logger.warning(
+                f"Not found attachment for attach_link '{attach_link}'"
+                f" into {view_id.name}"
+            )
+            continue
+        if (
+            module.export_website_optimize_binary_image
+            and i in dct_associate_duplicate_attach_id_index.keys()
+        ):
+            # change link, to the master
+            new_i = dct_associate_duplicate_attach_id_index[i]
+            new_i_attach_id = dct_associate_duplicate_attach_id[
+                i_attach_id
+            ]
+        else:
+            new_i = i
+            new_i_attach_id = i_attach_id
+
+        # Rewrite link
+        xml_id_link = f"{module.name}.{lst_attach_xml_id[new_i]}"
+        new_lst_attach = lst_attach[:]
+        new_lst_attach[3] = xml_id_link
+        new_attach_link = "/".join(new_lst_attach)
+        dct_replace_view[attach_link] = new_attach_link
+        if new_i_attach_id not in lst_attachment_id_to_keep:
+            lst_attachment_id_to_keep.append(new_i_attach_id)
+
+# Replace all link
+if dct_replace_view:
+    str_result_view = result_view.decode("utf-8")
+    for attach_link, new_attach_link in dct_replace_view.items():
+        str_result_view = str_result_view.replace(
+            attach_link, new_attach_link
+        )
+    dct_result.get("ir_ui_view")[0] = str_result_view.encode("utf-8")
+
+# Remove unused image, missing from /web/image/ link
+if module.export_website_optimize_binary_image:
+    lst_index_to_delete = []
+    i = -1
+    for attach_id in lst_attach_id:
+        i += 1
+        if (
+            attach_id.id in lst_attachment_id_to_keep
+            or attach_id.index_content != "image"
+        ):
+            continue
+        lst_index_to_delete.append(i)
+    # Add slave attachment in the list
+    for slave_index in dct_associate_duplicate_attach_id_index:
+        if slave_index not in lst_index_to_delete:
+            lst_index_to_delete.append(slave_index)
+    lst_index_to_delete.sort(reverse=True)
+    for index_to_delete in lst_index_to_delete:
+        attach_id = lst_attach_id[index_to_delete]
+        attach_xml_id = lst_attach_xml_id[index_to_delete]
+        _logger.info(
+            "Ignore export attachment id"
+            f" {attach_id.id} '{attach_id.datas_fname}', xml_id"
+            f" '{attach_xml_id}'."
+        )
+        dct_ir_attachment[1].pop(index_to_delete)
+        dct_ir_attachment[2].pop(index_to_delete)
+        dct_ir_attachment[4].pop(index_to_delete)
+        dct_ir_attachment[5].pop(index_to_delete)''',
+                    "name": "_compute_xml_data_file",
+                    "param": "self, module, dct_result",
+                    "sequence": 29,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": '''"""Yields all the positions of
+the pattern p in the string s."""
+i = s.find(p)
+while i != -1:
+    yield i
+    i = s.find(p, i + 1)''',
+                    "name": "findall",
+                    "decorator": "@staticmethod",
+                    "param": "p, s",
+                    "sequence": 30,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """if "." in name:
+    lst_new_name = name.rsplit(".", maxsplit=1)
+    new_url_path = f"{lst_new_name[0]}_{s_uuid}.{lst_new_name[1]}"
+else:
+    new_url_path = f"{name}_{s_uuid}"
+return new_url_path""",
+                    "name": "rename_filename_with_uuid",
+                    "decorator": "@staticmethod",
+                    "param": "name, s_uuid",
+                    "sequence": 31,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """dct_search_and_replace_in_file_global = defaultdict(list)
+for model_model, tpl_result in dct_result.items():
+    (
+        result,
+        lst_data_xml,
+        lst_id,
+        lst_depend,
+        lst_record,
+        lst_new_data_to_write,
+        dct_search_and_replace_in_file,
+        lst_scss_process_hook,
+    ) = tpl_result
+    if dct_search_and_replace_in_file:
+        for (
+            file_name,
+            lst_value,
+        ) in dct_search_and_replace_in_file.items():
+            dct_search_and_replace_in_file_global[file_name].extend(
+                lst_value
+            )
+for model_model, tpl_result in dct_result.items():
+    (
+        result,
+        lst_data_xml,
+        lst_id,
+        lst_depend,
+        lst_record,
+        lst_new_data_to_write,
+        dct_search_and_replace_in_file,
+        lst_scss_process_hook,
+    ) = tpl_result
+    if not any(tpl_result):
+        # it's empty
+        continue
+    data_file_path = os.path.join(
+        self.code_generator_data.data_path, f"{model_model}.xml"
+    )
+
+    for new_data_to_write in lst_new_data_to_write:
+        if not new_data_to_write:
+            continue
+        record_value, url_path_file_module = new_data_to_write
+        decode_record = base64.b64decode(record_value)
+        self.code_generator_data.write_file_binary(
+            url_path_file_module,
+            decode_record,
+        )
+
+    if not result:
+        # Need to recompute the result
+        # TODO find when is noupdate and not noupdate
+        # <data noupdate="1">
+        xml_no_update = E.data({"noupdate": "1"}, *lst_data_xml)
+        module_file = E.odoo({}, xml_no_update)
+
+        new_result = XML_VERSION_HEADER.encode("utf-8") + ET.tostring(
+            module_file, pretty_print=True
+        )
+    else:
+        new_result = result
+    lst_to_replace = dct_search_and_replace_in_file_global.get(
+        data_file_path
+    )
+    if lst_to_replace:
+        for str_search, str_replace in lst_to_replace:
+            new_result = new_result.replace(
+                str_search.encode(), str_replace.encode()
+            )
+
+    self.code_generator_data.write_file_binary(
+        data_file_path, new_result, data_file=True
+    )
+
+    abs_path_file = os.path.join("data", f"{model_model}.xml")
+
+    self.code_generator_data.dct_data_metadata_file[
+        abs_path_file
+    ] = lst_id
+    if lst_depend:
+        self.code_generator_data.dct_data_depend[
+            abs_path_file
+        ] = lst_depend""",
+                    "name": "_write_xml_data_file",
+                    "param": "self, dct_result",
+                    "sequence": 32,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -6490,7 +7015,7 @@ self.code_generator_data.write_file_str(
 return application_icon''',
                     "name": "_set_module_menus",
                     "param": "self, module",
-                    "sequence": 29,
+                    "sequence": 33,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -6506,7 +7031,7 @@ return super_content""",
                     "name": "_setup_xml_indent",
                     "decorator": "@staticmethod",
                     "param": "content, indent=0, is_end=False",
-                    "sequence": 30,
+                    "sequence": 34,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -6525,7 +7050,7 @@ return new_content""",
                     "name": "_change_xml_2_to_4_spaces",
                     "decorator": "@staticmethod",
                     "param": "content",
-                    "sequence": 31,
+                    "sequence": 35,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7030,7 +7555,7 @@ if dct_replace_template:
     )''',
                     "name": "_set_model_xmlview_file",
                     "param": "self, module, model, model_model",
-                    "sequence": 32,
+                    "sequence": 36,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7137,7 +7662,7 @@ self.code_generator_data.write_file_lst_content(
 )''',
                     "name": "_set_model_xmlreport_file",
                     "param": "self, module, model, model_model",
-                    "sequence": 33,
+                    "sequence": 37,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7164,7 +7689,7 @@ return lst_model''',
                     "name": "_get_lst_inherit_model",
                     "decorator": "@staticmethod",
                     "param": "model_id",
-                    "sequence": 34,
+                    "sequence": 38,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7190,7 +7715,7 @@ if lst_rec_name_inherit and result_rec_name:
 return result_rec_name""",
                     "name": "_get_rec_name_inherit_model",
                     "param": "self, model",
-                    "sequence": 35,
+                    "sequence": 39,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7333,7 +7858,7 @@ self.code_generator_data.write_file_str(model_file_path, cw.render())
 return model_file_path''',
                     "name": "_set_model_py_file",
                     "param": "self, module, model, model_model",
-                    "sequence": 36,
+                    "sequence": 40,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7408,7 +7933,7 @@ if len(l_model_csv_access) > 1:
     )''',
                     "name": "_set_module_security",
                     "param": "self, module, l_model_rules, l_model_csv_access",
-                    "sequence": 37,
+                    "sequence": 41,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7470,7 +7995,7 @@ for access in model.access_ids:
 return l_model_csv_access''',
                     "name": "_get_model_access",
                     "param": "self, module, model",
-                    "sequence": 38,
+                    "sequence": 42,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7546,7 +8071,7 @@ for rule in model.rule_ids:
 return l_model_rules''',
                     "name": "_get_model_rules",
                     "param": "self, module, model",
-                    "sequence": 39,
+                    "sequence": 43,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7564,7 +8089,7 @@ return '<field name="groups_id" eval="[(6,0, [%s])]" />' % ", ".join(
 )''',
                     "name": "_get_m2m_groups",
                     "param": "self, m2m_groups",
-                    "sequence": 40,
+                    "sequence": 44,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7583,7 +8108,7 @@ var = ", ".join(
 return E.field({"name": "groups_id", "eval": f"[(6,0, [{var}])]"})''',
                     "name": "_get_m2m_groups_etree",
                     "param": "self, m2m_groups",
-                    "sequence": 41,
+                    "sequence": 45,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -7997,7 +8522,7 @@ return lst_field_attribute, has_endline, compute, True""",
                         "self, f2export, model_name, lst_field_inherit,"
                         " dct_field_attr_diff"
                     ),
-                    "sequence": 42,
+                    "sequence": 46,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8051,7 +8576,7 @@ if model.inherit_model_ids:
     #     )
 
 # Force field name first
-field_rec_name = model.rec_name if model.rec_name else model._rec_name
+field_rec_name = model.get_rec_name()
 if not field_rec_name:
     field_rec_name = "name"
 lst_field_rec_name = f2exports.filtered(
@@ -8176,7 +8701,7 @@ for (
                 cw.emit(line.rstrip())''',
                     "name": "_get_model_fields",
                     "param": "self, cw, model, module",
-                    "sequence": 43,
+                    "sequence": 47,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8193,7 +8718,7 @@ if lst_field:
 return False""",
                     "name": "_get_compute_fct",
                     "param": "self, field_id",
-                    "sequence": 44,
+                    "sequence": 48,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8210,7 +8735,7 @@ if not default_value:
 return default_value""",
                     "name": "_get_default",
                     "param": "self, field_id",
-                    "sequence": 45,
+                    "sequence": 49,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8223,7 +8748,7 @@ if inherit_compute and not actual_compute:
                     "param": (
                         "self, dct_field_attr_diff, f2export, field_inherit"
                     ),
-                    "sequence": 46,
+                    "sequence": 50,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8236,7 +8761,7 @@ if inherit_default != actual_default:
                     "param": (
                         "self, dct_field_attr_diff, f2export, field_inherit"
                     ),
-                    "sequence": 47,
+                    "sequence": 51,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8253,20 +8778,23 @@ return super(CodeGeneratorWriter, self).create(new_list)''',
                     "name": "create",
                     "decorator": "@api.model_create_multi",
                     "param": "self, vals_list",
-                    "sequence": 48,
+                    "sequence": 52,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
                     "code": """l_model_csv_access = []
 l_model_rules = []
+dct_model_model_xmldata = {}
 
 module.view_file_sync = {}
 module.module_file_sync = {}
 
 if module.template_model_name or module.template_inherit_model_name:
     i = -1
-    lst_model = f"{module.template_model_name};{module.template_inherit_model_name}".split(
+    lst_model = f"{module.template_model_name};{module.template_inherit_model_name}".strip(
+        ";"
+    ).split(
         ";"
     )
     for model in lst_model:
@@ -8303,7 +8831,11 @@ for model in module.o2m_models:
     if s_data2export != "nomenclator" or (
         s_data2export == "nomenclator" and model.nomenclator
     ):
-        self._set_model_xmldata_file(module, model, model_model)
+        dct_result_xmldata = self._set_model_xmldata_file(
+            module, model, model_model
+        )
+        if dct_result_xmldata:
+            dct_model_model_xmldata.update(dct_result_xmldata)
 
     if not module.nomenclator_only:
         l_model_csv_access += self._get_model_access(module, model)
@@ -8314,6 +8846,8 @@ l_model_csv_access = sorted(
     list(set(l_model_csv_access)),
     key=lambda x: x,
 )
+self._compute_xml_data_file(module, dct_model_model_xmldata)
+self._write_xml_data_file(dct_model_model_xmldata)
 
 if not module.nomenclator_only:
     application_icon = self._set_module_menus(module)
@@ -8353,7 +8887,7 @@ if module.enable_pylint_check:
     self.code_generator_data.pylint_check()""",
                     "name": "get_lst_file_generate",
                     "param": "self, module, python_controller_writer",
-                    "sequence": 49,
+                    "sequence": 53,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8361,7 +8895,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_xml_data_file",
                     "param": "self, module",
-                    "sequence": 50,
+                    "sequence": 54,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8369,7 +8903,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_xml_views_file",
                     "param": "self, module",
-                    "sequence": 51,
+                    "sequence": 55,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8377,7 +8911,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_module_css_file",
                     "param": "self, module",
-                    "sequence": 52,
+                    "sequence": 56,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8385,7 +8919,7 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_module_python_file",
                     "param": "self, module",
-                    "sequence": 53,
+                    "sequence": 57,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8393,7 +8927,79 @@ if module.enable_pylint_check:
                     "code": """pass""",
                     "name": "set_extra_get_lst_file_generate",
                     "param": "self, module",
-                    "sequence": 54,
+                    "sequence": 58,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """pass""",
+                    "name": "write_extra_pre_init_hook",
+                    "param": "self, module, cw",
+                    "sequence": 59,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """if module.list_scss_process_hook:
+    lst_scss_process_hook = [
+        a.strip() for a in module.list_scss_process_hook.split(";")
+    ]
+    for scss_process_hook in lst_scss_process_hook:
+        cw.emit(f'xml_id = "{scss_process_hook}"')
+        cw.emit("update_datas_ir_attachment_from_xmlid(env, xml_id)")
+    cw.emit()""",
+                    "name": "write_extra_post_init_hook",
+                    "param": "self, module, cw",
+                    "sequence": 60,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """pass""",
+                    "name": "write_extra_uninstall_hook",
+                    "param": "self, module, cw",
+                    "sequence": 61,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_code_generator_writer.id,
+                },
+                {
+                    "code": """if module.list_scss_process_hook:
+    cw.emit("def update_datas_ir_attachment_from_xmlid(env, xml_id):")
+    with cw.indent():
+        cw.emit(
+            "dir_path ="
+            " os.path.normpath(os.path.join(os.path.dirname(__file__),"
+            ' ".."))'
+        )
+        cw.emit(
+            'ir_attach_id_name = env["ir.model.data"].search([("name",'
+            ' "=", xml_id)])'
+        )
+        cw.emit("if not ir_attach_id_name:")
+        with cw.indent():
+            cw.emit(
+                '_logger.warning(f"Cannot find ir.attachment id'
+                " '{xml_id}'\")"
+            )
+            cw.emit("return")
+        cw.emit(
+            "ir_attach_id ="
+            ' env["ir.attachment"].browse(ir_attach_id_name.res_id)'
+        )
+        cw.emit("file_path = dir_path + ir_attach_id.url")
+        cw.emit("if not os.path.isfile(file_path):")
+        with cw.indent():
+            cw.emit(
+                "_logger.warning(f\"File not exist '{file_path}'\")"
+            )
+            cw.emit("return")
+        cw.emit(
+            'datas = base64.b64encode(open(file_path, "rb").read())'
+        )
+        cw.emit('ir_attach_id.write({"datas": datas})')""",
+                    "name": "write_extra_extra_function_hook",
+                    "param": "self, module, cw",
+                    "sequence": 62,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8447,7 +9053,7 @@ return vals""",
                     "name": "generate_writer",
                     "decorator": "@api.multi",
                     "param": "self, vals",
-                    "sequence": 55,
+                    "sequence": 63,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8455,7 +9061,7 @@ return vals""",
                     "code": """return self.list_path_file.split(";")""",
                     "name": "get_list_path_file",
                     "param": "self",
-                    "sequence": 56,
+                    "sequence": 64,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_code_generator_writer.id,
                 },
@@ -8978,7 +9584,7 @@ elif self.model_id and self.state == "code":
             },
             "expression_export_data": {
                 "code_generator_sequence": 14,
-                "field_description": "Expression export data",
+                "field_description": "Expression Export Data",
                 "help": (
                     "Set an expression to apply filter when exporting data."
                     ' example ("website_id", "in", [1,2]). Keep it empty to'
@@ -8987,9 +9593,16 @@ elif self.model_id and self.state == "code":
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
+            "ignore_name_export_data": {
+                "code_generator_sequence": 15,
+                "field_description": "Ignore Name Export Data",
+                "help": "List of ignore file_name separate by ;",
+                "is_show_whitelist_model_inherit": True,
+                "ttype": "char",
+            },
             "inherit_model_ids": {
                 "code_generator_form_simple_view_sequence": 15,
-                "code_generator_sequence": 15,
+                "code_generator_sequence": 16,
                 "field_description": "Inherit ir Model",
                 "help": "Inherit Model",
                 "is_show_whitelist_model_inherit": True,
@@ -8998,7 +9611,7 @@ elif self.model_id and self.state == "code":
             },
             "m2o_inherit_py_class": {
                 "code_generator_form_simple_view_sequence": 14,
-                "code_generator_sequence": 16,
+                "code_generator_sequence": 17,
                 "field_description": "Python Class",
                 "help": "Python Class",
                 "is_show_whitelist_model_inherit": True,
@@ -9007,7 +9620,7 @@ elif self.model_id and self.state == "code":
             },
             "m2o_module": {
                 "code_generator_form_simple_view_sequence": 13,
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 18,
                 "field_description": "Module",
                 "help": "Module",
                 "is_show_whitelist_model_inherit": True,
@@ -9015,7 +9628,7 @@ elif self.model_id and self.state == "code":
                 "ttype": "many2one",
             },
             "menu_group": {
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 19,
                 "field_description": "Menu Group",
                 "help": (
                     "If not empty, will create a group of element in menu when"
@@ -9025,14 +9638,14 @@ elif self.model_id and self.state == "code":
                 "ttype": "char",
             },
             "menu_label": {
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 20,
                 "field_description": "Menu Label",
                 "help": "Force label menu to use this value.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
             "menu_name_keep_application": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 21,
                 "field_description": "Menu Name Keep Application",
                 "help": (
                     "When generate menu name, do we keep application name in"
@@ -9042,7 +9655,7 @@ elif self.model_id and self.state == "code":
                 "ttype": "boolean",
             },
             "menu_parent": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 22,
                 "field_description": "Menu Parent",
                 "help": (
                     "If not empty, will create a new root menu of element in"
@@ -9053,7 +9666,7 @@ elif self.model_id and self.state == "code":
             },
             "nomenclator": {
                 "code_generator_form_simple_view_sequence": 16,
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 23,
                 "field_description": "Nomenclator?",
                 "help": "Set this if you want this model as a nomenclator",
                 "is_show_whitelist_model_inherit": True,
@@ -9061,7 +9674,7 @@ elif self.model_id and self.state == "code":
             },
             "rec_name": {
                 "code_generator_form_simple_view_sequence": 12,
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 31,
                 "default": "name",
                 "field_description": "Rec Name",
                 "help": (
@@ -9167,6 +9780,14 @@ return dict(
                     "m2o_model": model_ir_model.id,
                 },
                 {
+                    "code": """return self.rec_name if self.rec_name else self._rec_name""",
+                    "name": "get_rec_name",
+                    "param": "self",
+                    "sequence": 2,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model.id,
+                },
+                {
                     "code": '''"""
 
 :param model_name: list or string
@@ -9264,7 +9885,7 @@ for ir_model in self:
                     "name": "add_model_inherit",
                     "decorator": "@api.multi",
                     "param": "self, model_name",
-                    "sequence": 2,
+                    "sequence": 3,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model.id,
                 },
@@ -9278,7 +9899,7 @@ return False""",
                     "name": "has_same_model_in_inherit_model",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 3,
+                    "sequence": 4,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model.id,
                 },
@@ -9342,7 +9963,7 @@ return custommodelclass""",
                     "name": "_instanciate",
                     "decorator": "@api.model",
                     "param": "self, model_data",
-                    "sequence": 4,
+                    "sequence": 5,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model.id,
                 },
@@ -9441,7 +10062,7 @@ def sql_constraint(el_self, constraints):
             return True
 
     result = False
-    for (sql_key, sql_definition, _) in constraints:
+    for sql_key, sql_definition, _ in constraints:
         if foreign_key_re.match(sql_definition):
             el_self.pool.post_init(process, sql_key, sql_definition)
         else:
@@ -10577,12 +11198,14 @@ for cg in self:
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """for field_name, field_info in dct_field.items():
-    if (
-        field_info.get("is_show_whitelist_model_inherit") is None
-        and field_info.get("is_hide_blacklist_model_inherit") is None
-    ):
-        field_info["is_show_whitelist_model_inherit"] = True
+                    "code": """if dct_field:
+    for field_name, field_info in dct_field.items():
+        if (
+            field_info.get("is_show_whitelist_model_inherit") is None
+            and field_info.get("is_hide_blacklist_model_inherit")
+            is None
+        ):
+            field_info["is_show_whitelist_model_inherit"] = True
 model_id = self.env["ir.model"].search([("model", "=", model_model)])
 if model_name is None:
     model_name = model_model.replace(".", "_")
@@ -10654,6 +11277,8 @@ else:
                 dct_model,
                 value,
             )
+    else:
+        dct_model = {}
     rec_name = dct_model.get("rec_name")
     has_already_rec_name = False
     if not rec_name:
@@ -10698,6 +11323,22 @@ else:
     if not has_already_rec_name:
         if has_field_name:
             value["rec_name"] = "name"
+        elif not dct_field:
+            # TODO this will create x_name field
+            # value["rec_name"] = None
+            value["rec_name"] = "name"
+            # value["field_id"] = {"name": {"name": "name", "ttype": "char"}}
+            value["field_id"] = [
+                (
+                    0,
+                    0,
+                    {
+                        "name": "name",
+                        "field_description": "Name",
+                        "ttype": "char",
+                    },
+                )
+            ]
         else:
             _logger.error(
                 f"Cannot found rec_name for model {model_model}."
@@ -10872,10 +11513,7 @@ return super(CodeGeneratorModule, self).unlink()""",
         model_name = "ir_module_module_dependency"
         lst_depend_model = ["ir.module.module.dependency"]
         dct_model = {
-            "description": (
-                "Code Generator Module Template Dependency, set by"
-                " code_generator_template"
-            ),
+            "description": "Code Generator Module Dependency",
         }
         dct_field = {
             "depend_id": {
@@ -11118,21 +11756,21 @@ return super(CodeGeneratorModule, self).unlink()""",
             "external_dependencies_id": {
                 "field_description": "External Dependencies",
                 "ttype": "one2many",
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 19,
                 "relation": "code.generator.module.external.dependency",
                 "relation_field": "module_id",
             },
             "o2m_codes": {
                 "field_description": "O2M Codes",
                 "ttype": "one2many",
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 28,
                 "relation": "code.generator.model.code",
                 "relation_field": "m2o_module",
             },
             "o2m_groups": {
                 "field_description": "O2M Groups",
                 "ttype": "one2many",
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 29,
                 "code_generator_form_simple_view_sequence": 27,
                 "code_generator_tree_view_sequence": 27,
                 "relation": "res.groups",
@@ -11141,7 +11779,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_menus": {
                 "field_description": "O2M Menus",
                 "ttype": "one2many",
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 30,
                 "code_generator_form_simple_view_sequence": 42,
                 "code_generator_tree_view_sequence": 42,
                 "field_context": "{'ir.ui.menu.full_list': True}",
@@ -11151,7 +11789,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_access": {
                 "field_description": "O2M Model Access",
                 "ttype": "one2many",
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 31,
                 "code_generator_form_simple_view_sequence": 31,
                 "code_generator_tree_view_sequence": 31,
                 "code_generator_compute": "_get_models_info",
@@ -11160,7 +11798,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_act_server": {
                 "field_description": "O2M Model Act Server",
                 "ttype": "one2many",
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 32,
                 "code_generator_form_simple_view_sequence": 41,
                 "code_generator_tree_view_sequence": 41,
                 "code_generator_compute": "_get_models_info",
@@ -11169,21 +11807,21 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_act_todo": {
                 "field_description": "O2M Model Act Todo",
                 "ttype": "one2many",
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 33,
                 "relation": "ir.actions.todo",
                 "relation_field": "m2o_code_generator",
             },
             "o2m_model_act_url": {
                 "field_description": "O2M Model Act Url",
                 "ttype": "one2many",
-                "code_generator_sequence": 31,
+                "code_generator_sequence": 34,
                 "relation": "ir.actions.act_url",
                 "relation_field": "m2o_code_generator",
             },
             "o2m_model_act_window": {
                 "field_description": "O2M Model Act Window",
                 "ttype": "one2many",
-                "code_generator_sequence": 32,
+                "code_generator_sequence": 35,
                 "code_generator_form_simple_view_sequence": 40,
                 "code_generator_tree_view_sequence": 40,
                 "code_generator_compute": "_get_models_info",
@@ -11192,7 +11830,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_constraints": {
                 "field_description": "O2M Model Constraints",
                 "ttype": "one2many",
-                "code_generator_sequence": 33,
+                "code_generator_sequence": 36,
                 "code_generator_form_simple_view_sequence": 33,
                 "code_generator_tree_view_sequence": 33,
                 "relation": "ir.model.constraint",
@@ -11201,7 +11839,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_reports": {
                 "field_description": "O2M Model Reports",
                 "ttype": "one2many",
-                "code_generator_sequence": 34,
+                "code_generator_sequence": 37,
                 "code_generator_form_simple_view_sequence": 43,
                 "code_generator_tree_view_sequence": 43,
                 "code_generator_compute": "_get_models_info",
@@ -11210,7 +11848,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_rules": {
                 "field_description": "O2M Model Rules",
                 "ttype": "one2many",
-                "code_generator_sequence": 35,
+                "code_generator_sequence": 38,
                 "code_generator_form_simple_view_sequence": 32,
                 "code_generator_tree_view_sequence": 32,
                 "code_generator_compute": "_get_models_info",
@@ -11219,7 +11857,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_server_constrains": {
                 "field_description": "O2M Model Server Constrains",
                 "ttype": "one2many",
-                "code_generator_sequence": 36,
+                "code_generator_sequence": 39,
                 "code_generator_form_simple_view_sequence": 34,
                 "code_generator_tree_view_sequence": 34,
                 "code_generator_compute": "_get_models_info",
@@ -11228,7 +11866,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_views": {
                 "field_description": "O2M Model Views",
                 "ttype": "one2many",
-                "code_generator_sequence": 37,
+                "code_generator_sequence": 40,
                 "code_generator_form_simple_view_sequence": 39,
                 "code_generator_tree_view_sequence": 39,
                 "code_generator_compute": "_get_models_info",
@@ -11237,7 +11875,7 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_models": {
                 "field_description": "O2M Models",
                 "ttype": "one2many",
-                "code_generator_sequence": 38,
+                "code_generator_sequence": 41,
                 "code_generator_form_simple_view_sequence": 28,
                 "code_generator_tree_view_sequence": 28,
                 "relation": "ir.model",
@@ -11247,7 +11885,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "O2M Nomenclator Blacklist Fields",
                 "ttype": "one2many",
                 "domain": [("nomenclature_blacklist", "=", True)],
-                "code_generator_sequence": 39,
+                "code_generator_sequence": 42,
                 "code_generator_form_simple_view_sequence": 30,
                 "code_generator_tree_view_sequence": 30,
                 "relation": "code.generator.ir.model.fields",
@@ -11257,7 +11895,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "O2M Nomenclator Whitelist Fields",
                 "ttype": "one2many",
                 "domain": [("nomenclature_whitelist", "=", True)],
-                "code_generator_sequence": 40,
+                "code_generator_sequence": 43,
                 "code_generator_form_simple_view_sequence": 29,
                 "code_generator_tree_view_sequence": 29,
                 "relation": "code.generator.ir.model.fields",
@@ -11284,7 +11922,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "field_description": "Act window",
                 "ttype": "one2many",
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 24,
                 "relation": "ir.actions.act_window",
                 "relation_field": "m2o_res_model",
             },
@@ -11292,7 +11930,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "field_description": "Codes import",
                 "ttype": "one2many",
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 25,
                 "relation": "code.generator.model.code.import",
                 "relation_field": "m2o_model",
             },
@@ -11300,7 +11938,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "field_description": "Codes",
                 "ttype": "one2many",
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 26,
                 "relation": "code.generator.model.code",
                 "relation_field": "m2o_model",
             },
@@ -11309,7 +11947,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "Constraints",
                 "ttype": "one2many",
                 "domain": [("type", "=", "u"), ("message", "!=", None)],
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 27,
                 "relation": "ir.model.constraint",
                 "relation_field": "model",
             },
@@ -11318,7 +11956,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "Reports",
                 "ttype": "one2many",
                 "help": "Reports associated with this model",
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 28,
                 "relation": "ir.actions.report",
                 "relation_field": "m2o_model",
             },
@@ -11333,7 +11971,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                     ("state", "=", "multi"),
                     ("usage", "=", "ir_actions_server"),
                 ],
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 29,
                 "relation": "ir.actions.server",
                 "relation_field": "model_id",
             },
@@ -11342,7 +11980,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "Server Constrains",
                 "ttype": "one2many",
                 "help": "Server Constrains attach to this model",
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 30,
                 "code_generator_form_simple_view_sequence": 17,
                 "relation": "ir.model.server_constrain",
                 "relation_field": "m2o_ir_model",
