@@ -74,6 +74,7 @@ def post_init_hook(cr, e):
             },
             "id_name": {
                 "code_generator_sequence": 4,
+                "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "Action id",
                 "help": "Specify id name of this action window.",
                 "ttype": "char",
@@ -125,6 +126,15 @@ def post_init_hook(cr, e):
             },
             "field_ids": {
                 "code_generator_sequence": 3,
+                "comment_before": """option_adding = fields.Selection([
+('inherit', 'Inherit Model'),
+('nomenclator', 'Nomenclator'),
+], required=True, default='nomenclator', help=\"Inherit to inherit a new model.\nNomenclator to export data.\")
+option_blacklist = fields.Selection([
+('blacklist', 'Blacklist'),
+('whitelist', 'Whitelist'),
+], required=True, default='whitelist', help=\"When whitelist, all selected fields will be added.\n\"
+\"When blacklist, all selected fields will be ignored.\")""",
                 "field_description": "Fields",
                 "help": "Select the field you want to inherit or import data.",
                 "relation": "ir.model.fields",
@@ -460,6 +470,15 @@ for model_id in self.model_ids:
             },
             "name": {
                 "code_generator_sequence": 2,
+                "comment_before": """@api.model
+def default_get(self, fields):
+result = super(CodeGeneratorGenerateViewsWizard, self).default_get(fields)
+code_generator_id = self.env[\"code.generator.module\"].browse(result.get(\"code_generator_id\"))
+lst_model_id = [a.id for a in code_generator_id.o2m_models]
+Don't need that solution
+result[\"selected_model_tree_view_ids\"] = [(6, 0, lst_model_id)]
+result[\"selected_model_form_view_ids\"] = [(6, 0, lst_model_id)]
+return result""",
                 "field_description": "Name",
                 "ttype": "char",
             },
@@ -3439,18 +3458,36 @@ elif not is_generic_menu:
                 "help": "Compute method to code_generator_writer.",
                 "ttype": "char",
             },
-            "default_lambda": {
+            "comment_after": {
                 "code_generator_sequence": 4,
+                "field_description": "Comment after field",
+                "help": (
+                    "Will show comment after writing field in python. Support"
+                    " multiline. The comment is after if at the end of file."
+                ),
+                "ttype": "char",
+            },
+            "comment_before": {
+                "code_generator_sequence": 5,
+                "field_description": "Comment before field",
+                "help": (
+                    "Will show comment before writing field in python. Support"
+                    " multiline."
+                ),
+                "ttype": "char",
+            },
+            "default_lambda": {
+                "code_generator_sequence": 6,
                 "field_description": "Default lambda value",
                 "ttype": "char",
             },
             "field_context": {
-                "code_generator_sequence": 5,
+                "code_generator_sequence": 7,
                 "field_description": "Field Context",
                 "ttype": "char",
             },
             "filter_field_attribute": {
-                "code_generator_sequence": 6,
+                "code_generator_sequence": 8,
                 "field_description": "Filter Field Attribute",
                 "help": (
                     "Separate by ; to enumerate your attribute to filter, like"
@@ -3459,7 +3496,7 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "is_show_whitelist_model_inherit": {
-                "code_generator_sequence": 7,
+                "code_generator_sequence": 9,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -3468,13 +3505,13 @@ elif not is_generic_menu:
                 "ttype": "boolean",
             },
             "m2o_fields": {
-                "code_generator_sequence": 8,
+                "code_generator_sequence": 10,
                 "field_description": "Fields",
                 "relation": "ir.model.fields",
                 "ttype": "many2one",
             },
             "m2o_module": {
-                "code_generator_sequence": 9,
+                "code_generator_sequence": 11,
                 "field_description": "Module",
                 "help": "Module",
                 "relation": "code.generator.module",
@@ -3488,17 +3525,17 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "nomenclature_blacklist": {
-                "code_generator_sequence": 10,
+                "code_generator_sequence": 12,
                 "field_description": "Ignore from nomenclature.",
                 "ttype": "boolean",
             },
             "nomenclature_whitelist": {
-                "code_generator_sequence": 11,
+                "code_generator_sequence": 13,
                 "field_description": "Force to nomenclature.",
                 "ttype": "boolean",
             },
             "selection": {
-                "code_generator_sequence": 12,
+                "code_generator_sequence": 14,
                 "field_description": "Selection Options",
                 "help": (
                     "List of options for a selection field, specified as a"
@@ -3555,6 +3592,10 @@ elif not is_generic_menu:
         dct_field = {
             "code_generator_id": {
                 "code_generator_sequence": 3,
+                "comment_before": (
+                    "TODO missing groups_id and active and web_icon or"
+                    " web_icon_data"
+                ),
                 "field_description": "Code Generator",
                 "relation": "code.generator.module",
                 "required": True,
@@ -3562,6 +3603,7 @@ elif not is_generic_menu:
             },
             "id_name": {
                 "code_generator_sequence": 4,
+                "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "Menu id",
                 "help": "Specify id name of this menu.",
                 "ttype": "char",
@@ -3587,6 +3629,9 @@ elif not is_generic_menu:
             },
             "parent_id_name": {
                 "code_generator_sequence": 7,
+                "comment_before": (
+                    "TODO use ir.model.data instead if parent_id_name"
+                ),
                 "field_description": "Menu parent id",
                 "help": "Specify id name of parent menu, optional.",
                 "ttype": "char",
@@ -3832,12 +3877,13 @@ return""",
                 "code_generator_form_simple_view_sequence": 20,
                 "code_generator_sequence": 16,
                 "code_generator_tree_view_sequence": 20,
+                "comment_before": "Dev binding code",
                 "field_description": "Enable Sync Code",
                 "help": "Will sync with code on drive when generate.",
                 "ttype": "boolean",
             },
             "exclude_dependencies_str": {
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 17,
                 "field_description": "Exclude Dependencies Str",
                 "help": (
                     "Exclude from list dependencies_id about"
@@ -3846,7 +3892,7 @@ return""",
                 "ttype": "char",
             },
             "export_website_optimize_binary_image": {
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 18,
                 "field_description": "Export Website Optimize Binary Image",
                 "help": (
                     "Associate with nomenclator export data. Search url"
@@ -3933,7 +3979,7 @@ return""",
             },
             "path_sync_code": {
                 "code_generator_form_simple_view_sequence": 21,
-                "code_generator_sequence": 55,
+                "code_generator_sequence": 44,
                 "code_generator_tree_view_sequence": 21,
                 "default": "_default_path_sync_code",
                 "field_description": "Directory",
@@ -3944,13 +3990,13 @@ return""",
                 "ttype": "char",
             },
             "published_version": {
-                "code_generator_sequence": 44,
+                "code_generator_sequence": 45,
                 "field_description": "Published Version",
                 "ttype": "char",
             },
             "shortdesc": {
                 "code_generator_form_simple_view_sequence": 13,
-                "code_generator_sequence": 45,
+                "code_generator_sequence": 46,
                 "code_generator_tree_view_sequence": 13,
                 "field_description": "Module Name",
                 "required": True,
@@ -3958,7 +4004,7 @@ return""",
             },
             "state": {
                 "code_generator_form_simple_view_sequence": 26,
-                "code_generator_sequence": 46,
+                "code_generator_sequence": 47,
                 "code_generator_tree_view_sequence": 12,
                 "default": "uninstalled",
                 "field_description": "Status",
@@ -3972,13 +4018,13 @@ return""",
             },
             "summary": {
                 "code_generator_form_simple_view_sequence": 16,
-                "code_generator_sequence": 47,
+                "code_generator_sequence": 48,
                 "code_generator_tree_view_sequence": 16,
                 "field_description": "Summary",
                 "ttype": "char",
             },
             "template_inherit_model_name": {
-                "code_generator_sequence": 48,
+                "code_generator_sequence": 49,
                 "field_description": "Functions models inherit",
                 "help": (
                     "Add model from list, separate by ';' and generate"
@@ -3987,7 +4033,7 @@ return""",
                 "ttype": "char",
             },
             "template_model_name": {
-                "code_generator_sequence": 49,
+                "code_generator_sequence": 50,
                 "field_description": "Functions models",
                 "help": (
                     "Add model from list, separate by ';' and generate"
@@ -3997,14 +4043,14 @@ return""",
             },
             "template_module_id": {
                 "code_generator_compute": "_fill_template_module_id",
-                "code_generator_sequence": 50,
+                "code_generator_sequence": 51,
                 "field_description": "Template module id",
                 "help": "Child module to generate.",
                 "relation": "ir.module.module",
                 "ttype": "many2one",
             },
             "template_module_name": {
-                "code_generator_sequence": 51,
+                "code_generator_sequence": 52,
                 "field_description": "Generated module name",
                 "help": (
                     "Can be empty in case of code_generator_demo, else it's"
@@ -4013,12 +4059,12 @@ return""",
                 "ttype": "char",
             },
             "url": {
-                "code_generator_sequence": 52,
+                "code_generator_sequence": 53,
                 "field_description": "URL",
                 "ttype": "char",
             },
             "website": {
-                "code_generator_sequence": 53,
+                "code_generator_sequence": 54,
                 "code_generator_tree_view_sequence": 10,
                 "field_description": "Website",
                 "ttype": "char",
@@ -4290,6 +4336,7 @@ if model_id:
                     value_ir_model_fields
                 )
             else:
+                # Support model of code generator or model already existing (like inherit)
                 value_ir_model_fields = {
                     "m2o_fields": field_id.id,
                 }
@@ -4301,6 +4348,16 @@ if model_id:
                 )
                 self._update_dict(
                     "code_generator_compute",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self._update_dict(
+                    "comment_before",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self._update_dict(
+                    "comment_after",
                     field_info,
                     value_ir_model_fields,
                 )
@@ -4471,16 +4528,34 @@ if model_id:
 
             self.env["ir.model.fields"].create(value_field_one2many)
         else:
-            if "field_context" in field_info.keys():
+            # Support model of code generator or model already existing (like inherit)
+            if (
+                "field_context" in field_info.keys()
+                or "comment_before" in field_info.keys()
+                or "comment_after" in field_info.keys()
+            ):
                 value_ir_model_fields = {
                     "m2o_fields": field_id.id,
                 }
-                # TODO find missing attribute
-                self._update_dict(
-                    "field_context",
-                    field_info,
-                    value_ir_model_fields,
-                )
+                if "field_context" in field_info.keys():
+                    # TODO find missing attribute
+                    self._update_dict(
+                        "field_context",
+                        field_info,
+                        value_ir_model_fields,
+                    )
+                if "comment_before" in field_info.keys():
+                    self._update_dict(
+                        "comment_before",
+                        field_info,
+                        value_ir_model_fields,
+                    )
+                if "comment_after" in field_info.keys():
+                    self._update_dict(
+                        "comment_after",
+                        field_info,
+                        value_ir_model_fields,
+                    )
                 self.env["code.generator.ir.model.fields"].create(
                     value_ir_model_fields
                 )
@@ -4636,6 +4711,10 @@ if records:
             },
             "is_template": {
                 "code_generator_sequence": 4,
+                "comment_before": (
+                    "TODO this is wrong, an hack because ir_module_module !="
+                    " code_generator_module"
+                ),
                 "field_description": "Is template",
                 "help": "Will be affect template module.",
                 "ttype": "boolean",
@@ -4773,6 +4852,7 @@ if records:
             },
             "id_name": {
                 "code_generator_sequence": 4,
+                "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "View id",
                 "help": "Specify id name of this view.",
                 "ttype": "char",
@@ -4889,6 +4969,10 @@ if records:
             },
             "button_type": {
                 "code_generator_sequence": 7,
+                "comment_before": """(\"bg-success-light\", \"Success light\"),
+(\"bg-warning-light\", \"Warning light\"),
+(\"bg-info-light\", \"Info light\"),
+(\"bg-danger-light\", \"Danger light\"),""",
                 "field_description": "Button Type",
                 "help": "Choose item type to generate.",
                 "selection": (
@@ -4984,6 +5068,7 @@ if records:
             },
             "label": {
                 "code_generator_sequence": 22,
+                "comment_before": "TODO create HTML for specific label",
                 "field_description": "Label",
                 "ttype": "char",
             },
@@ -8649,7 +8734,14 @@ for (
     has_endline,
     compute,
 ) in lst_field_to_write:
+    # Write comment
     cw.emit()
+    str_comment_before = f2export.get_comment_before()
+    if str_comment_before:
+        for str_comment in str_comment_before.split("\\n"):
+            cw.emit(f"# {str_comment}")
+
+    # Write field
     if not has_endline:
         cw.emit_list(
             lst_field_attribute,
@@ -8678,6 +8770,13 @@ for (
                 else:
                     cw.emit(f"{item},")
         cw.emit(")")
+
+    # Write comment
+    str_comment_after = f2export.get_comment_after()
+    if str_comment_after:
+        for str_comment in str_comment_after.split("\\n"):
+            cw.emit(f"# {str_comment}")
+        cw.emit()
 
     if compute:
         cw.emit()
@@ -8963,7 +9062,7 @@ if module.enable_pylint_check:
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """if module.list_scss_process_hook:
+                    "code": '''if module.list_scss_process_hook:
     cw.emit("def update_datas_ir_attachment_from_xmlid(env, xml_id):")
     with cw.indent():
         cw.emit(
@@ -8978,8 +9077,7 @@ if module.enable_pylint_check:
         cw.emit("if not ir_attach_id_name:")
         with cw.indent():
             cw.emit(
-                '_logger.warning(f"Cannot find ir.attachment id'
-                " '{xml_id}'\")"
+                """_logger.warning(f"Cannot find ir.attachment id '{xml_id}'")"""
             )
             cw.emit("return")
         cw.emit(
@@ -8990,13 +9088,13 @@ if module.enable_pylint_check:
         cw.emit("if not os.path.isfile(file_path):")
         with cw.indent():
             cw.emit(
-                "_logger.warning(f\"File not exist '{file_path}'\")"
+                """_logger.warning(f"File not exist '{file_path}'")"""
             )
             cw.emit("return")
         cw.emit(
             'datas = base64.b64encode(open(file_path, "rb").read())'
         )
-        cw.emit('ir_attach_id.write({"datas": datas})')""",
+        cw.emit('ir_attach_id.write({"datas": datas})')''',
                     "name": "write_extra_extra_function_hook",
                     "param": "self, module, cw",
                     "sequence": 62,
@@ -10287,6 +10385,9 @@ return super(IrModelConstraint, self).unlink()""",
             },
             "code_generator_sequence": {
                 "code_generator_sequence": 10,
+                "comment_before": (
+                    "This is used to choose order to show field in model"
+                ),
                 "field_description": "Sequence Code Generator",
                 "help": "Sequence to write this field from Code Generator.",
                 "is_show_whitelist_model_inherit": True,
@@ -10294,6 +10395,10 @@ return super(IrModelConstraint, self).unlink()""",
             },
             "code_generator_tree_view_sequence": {
                 "code_generator_sequence": 11,
+                "comment_before": """TODO remove code_generator_tree_view_sequence and code_generator_search_sequence
+TODO wrong architecture, separate view order from model
+TODO This was a work around
+TODO or maybe it's useful in first iteration of code generator, remove this later when A USE C GENERATE B""",
                 "field_description": "Tree view sequence",
                 "help": (
                     "Sequence to write this field in tree view from Code"
@@ -10302,26 +10407,46 @@ return super(IrModelConstraint, self).unlink()""",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "integer",
             },
-            "default": {
+            "comment_after": {
                 "code_generator_sequence": 12,
+                "field_description": "Comment after field",
+                "help": (
+                    "Will show comment after writing field in python. Support"
+                    " multiline. The comment is after if at the end of file."
+                ),
+                "is_show_whitelist_model_inherit": True,
+                "ttype": "char",
+            },
+            "comment_before": {
+                "code_generator_sequence": 13,
+                "field_description": "Comment before field",
+                "help": (
+                    "Will show comment before writing field in python. Support"
+                    " multiline."
+                ),
+                "is_show_whitelist_model_inherit": True,
+                "ttype": "char",
+            },
+            "default": {
+                "code_generator_sequence": 14,
                 "field_description": "Default value",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
             "default_lambda": {
-                "code_generator_sequence": 13,
+                "code_generator_sequence": 15,
                 "field_description": "Default lambda value",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
             "field_context": {
-                "code_generator_sequence": 14,
+                "code_generator_sequence": 16,
                 "field_description": "Field Context",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
             "force_widget": {
-                "code_generator_sequence": 15,
+                "code_generator_sequence": 17,
                 "field_description": "Force widget",
                 "help": "Use this widget for this field when create views.",
                 "is_show_whitelist_model_inherit": True,
@@ -10394,28 +10519,28 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "selection",
             },
             "ignore_on_code_generator_writer": {
-                "code_generator_sequence": 16,
+                "code_generator_sequence": 18,
                 "field_description": "Ignore On Code Generator Writer",
                 "help": "Enable this to ignore it when write code.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_date_end_view": {
-                "code_generator_sequence": 17,
+                "code_generator_sequence": 19,
                 "field_description": "Show end date view",
                 "help": "View timeline only, end field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_date_start_view": {
-                "code_generator_sequence": 18,
+                "code_generator_sequence": 20,
                 "field_description": "Show start date view",
                 "help": "View timeline only, start field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_calendar_view": {
-                "code_generator_sequence": 19,
+                "code_generator_sequence": 21,
                 "field_description": "Hide in blacklist calendar view",
                 "help": (
                     "Hide from view when field is blacklisted. View calendar"
@@ -10425,7 +10550,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_form_view": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 22,
                 "field_description": "Hide in blacklist form view",
                 "help": (
                     "Hide from view when field is blacklisted. View form only."
@@ -10434,7 +10559,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_graph_view": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 23,
                 "field_description": "Hide in blacklist graph view",
                 "help": (
                     "Hide from view when field is blacklisted. View graph"
@@ -10444,7 +10569,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_kanban_view": {
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 24,
                 "field_description": "Hide in blacklist kanban view",
                 "help": (
                     "Hide from view when field is blacklisted. View kanban"
@@ -10454,7 +10579,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_list_view": {
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 25,
                 "field_description": "Hide in blacklist list view",
                 "help": (
                     "Hide from view when field is blacklisted. View list only."
@@ -10463,14 +10588,14 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_model_inherit": {
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 26,
                 "field_description": "Hide in blacklist model inherit",
                 "help": "Hide from model inherit when field is blacklisted.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_pivot_view": {
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 27,
                 "field_description": "Hide in blacklist pivot view",
                 "help": (
                     "Hide from view when field is blacklisted. View pivot"
@@ -10480,7 +10605,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_hide_blacklist_search_view": {
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 28,
                 "field_description": "Hide in blacklist search view",
                 "help": (
                     "Hide from view when field is blacklisted. View search"
@@ -10490,7 +10615,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_calendar_view": {
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 29,
                 "field_description": "Show in whitelist calendar view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10500,7 +10625,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_form_view": {
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 30,
                 "field_description": "Show in whitelist form view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10510,7 +10635,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_graph_view": {
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 31,
                 "field_description": "Show in whitelist graph view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10520,7 +10645,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_kanban_view": {
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 32,
                 "field_description": "Show in whitelist kanban view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10530,7 +10655,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_list_view": {
-                "code_generator_sequence": 31,
+                "code_generator_sequence": 33,
                 "field_description": "Show in whitelist list view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10540,7 +10665,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_model_inherit": {
-                "code_generator_sequence": 32,
+                "code_generator_sequence": 34,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -10550,7 +10675,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_pivot_view": {
-                "code_generator_sequence": 33,
+                "code_generator_sequence": 35,
                 "field_description": "Show in whitelist pivot view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10560,7 +10685,7 @@ return super(IrModelConstraint, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_search_view": {
-                "code_generator_sequence": 34,
+                "code_generator_sequence": 36,
                 "field_description": "Show in whitelist search view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10752,12 +10877,34 @@ return self.default_lambda""",
                 },
                 {
                     "code": """if self.code_generator_ir_model_fields_ids:
+    return self.code_generator_ir_model_fields_ids.comment_before
+return self.comment_before""",
+                    "name": "get_comment_before",
+                    "decorator": "@api.model",
+                    "param": "self",
+                    "sequence": 3,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
+                    "code": """if self.code_generator_ir_model_fields_ids:
+    return self.code_generator_ir_model_fields_ids.comment_after
+return self.comment_after""",
+                    "name": "get_comment_after",
+                    "decorator": "@api.model",
+                    "param": "self",
+                    "sequence": 4,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
+                    "code": """if self.code_generator_ir_model_fields_ids:
     return self.code_generator_ir_model_fields_ids.field_context
 return self.field_context""",
                     "name": "get_field_context",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 3,
+                    "sequence": 5,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10786,7 +10933,7 @@ return self.code_generator_compute""",
                     "name": "get_code_generator_compute",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 4,
+                    "sequence": 6,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10846,7 +10993,7 @@ return return_value""",
                     "name": "get_selection",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 5,
+                    "sequence": 7,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10870,7 +11017,7 @@ visitor.visit(tree)
 return visitor.get_result()""",
                     "name": "_extract_lambda_in_selection",
                     "param": "self, source_code",
-                    "sequence": 6,
+                    "sequence": 8,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10942,7 +11089,7 @@ return res""",
                     "name": "create",
                     "decorator": "@api.model",
                     "param": "self, vals",
-                    "sequence": 7,
+                    "sequence": 9,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -11239,6 +11386,7 @@ if model_id:
                     value_ir_model_fields
                 )
             else:
+                # Support model of code generator or model already existing (like inherit)
                 value_ir_model_fields = {
                     "m2o_fields": field_id.id,
                 }
@@ -11250,6 +11398,16 @@ if model_id:
                 )
                 self._update_dict(
                     "code_generator_compute",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self._update_dict(
+                    "comment_before",
+                    field_info,
+                    value_ir_model_fields,
+                )
+                self._update_dict(
+                    "comment_after",
                     field_info,
                     value_ir_model_fields,
                 )
@@ -11420,16 +11578,34 @@ if model_id:
 
             self.env["ir.model.fields"].create(value_field_one2many)
         else:
-            if "field_context" in field_info.keys():
+            # Support model of code generator or model already existing (like inherit)
+            if (
+                "field_context" in field_info.keys()
+                or "comment_before" in field_info.keys()
+                or "comment_after" in field_info.keys()
+            ):
                 value_ir_model_fields = {
                     "m2o_fields": field_id.id,
                 }
-                # TODO find missing attribute
-                self._update_dict(
-                    "field_context",
-                    field_info,
-                    value_ir_model_fields,
-                )
+                if "field_context" in field_info.keys():
+                    # TODO find missing attribute
+                    self._update_dict(
+                        "field_context",
+                        field_info,
+                        value_ir_model_fields,
+                    )
+                if "comment_before" in field_info.keys():
+                    self._update_dict(
+                        "comment_before",
+                        field_info,
+                        value_ir_model_fields,
+                    )
+                if "comment_after" in field_info.keys():
+                    self._update_dict(
+                        "comment_after",
+                        field_info,
+                        value_ir_model_fields,
+                    )
                 self.env["code.generator.ir.model.fields"].create(
                     value_ir_model_fields
                 )
@@ -11830,6 +12006,11 @@ return super(CodeGeneratorModule, self).unlink()""",
             "o2m_model_constraints": {
                 "field_description": "O2M Model Constraints",
                 "ttype": "one2many",
+                "comment_before": (
+                    "o2m_model_constraints ="
+                    ' fields.One2many("ir.model.constraint",'
+                    ' compute="_get_models_info")'
+                ),
                 "code_generator_sequence": 36,
                 "code_generator_form_simple_view_sequence": 33,
                 "code_generator_tree_view_sequence": 33,
