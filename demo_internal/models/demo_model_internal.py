@@ -8,6 +8,7 @@ class DemoModelInternal(models.Model):
 
     name = fields.Char()
 
+    # Banana demo
     banana = fields.Boolean(string="Banana demo")
 
     date_end = fields.Datetime(string="Date end")
@@ -15,3 +16,4 @@ class DemoModelInternal(models.Model):
     date_start = fields.Datetime(string="Date start")
 
     empty = fields.Text()
+    # End of DemoModelInternal
