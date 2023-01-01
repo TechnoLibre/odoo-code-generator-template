@@ -10,6 +10,7 @@
             <field name="name">test2</field>
             <field name="number">HT00002</field>
             <field name="priority">1</field>
+            <field name="sequence">10</field>
             <field name="stage_id" ref="helpdesk_mgmt.helpdesk_ticket_stage_new" />
             <field name="unattended">True</field>
             <field name="user_id" ref="base.user_root" />
@@ -22,6 +23,7 @@
             <field name="name">test1</field>
             <field name="number">HT00001</field>
             <field name="priority">1</field>
+            <field name="sequence">10</field>
             <field name="stage_id" ref="helpdesk_mgmt.helpdesk_ticket_stage_new" />
             <field name="unattended">True</field>
         </record>
