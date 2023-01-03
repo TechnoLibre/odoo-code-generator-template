@@ -591,7 +591,9 @@ MAGIC_FIELDS = MAGIC_COLUMNS + [
             # Generate code model
             lst_value = [
                 {
-                    "code": """if self.clear_all_access and self.code_generator_id.o2m_model_access:
+                    "code": """# if self.clear_all_view and self.code_generator_id.o2m_model_views:
+#     self.code_generator_id.o2m_model_views.unlink()
+if self.clear_all_access and self.code_generator_id.o2m_model_access:
     self.code_generator_id.o2m_model_access.unlink()
 if self.clear_all_menu and self.code_generator_id.o2m_menus:
     self.code_generator_id.o2m_menus.unlink()
@@ -631,8 +633,14 @@ else:
         view_id = self._generate_specific_form_views_models(
             code_generator_view_id, dct_value_to_create
         )
-        lst_view_generated.append(view_id.type)
-        lst_model_id.append(view_id.m2o_model)
+        if not view_id:
+            _logger.error(
+                "Cannot create view_id or find existing. Skip for"
+                f" '{code_generator_view_id.id_name}'"
+            )
+        else:
+            lst_view_generated.append(view_id.type)
+            lst_model_id.append(view_id.m2o_model)
     lst_model_id = list(set(lst_model_id))
     for model_id in lst_model_id:
         self._generate_model_access(model_id)
@@ -662,7 +670,8 @@ return status""",
                     "m2o_model": model_code_generator_generate_views_wizard.id,
                 },
                 {
-                    "code": """o2m_models_view_tree = (
+                    "code": """# before_time = time.process_time()
+o2m_models_view_tree = (
     self.code_generator_id.o2m_models
     if self.all_model
     else self.selected_model_tree_view_ids
@@ -1064,7 +1073,8 @@ return True""",
                     "m2o_model": model_code_generator_generate_views_wizard.id,
                 },
                 {
-                    "code": """for code_generator in self.code_generator_id:
+                    "code": """# Check if need to add mail dependency
+for code_generator in self.code_generator_id:
     need_mail_depend = any(
         [a.enable_activity for a in code_generator.o2m_models]
     )
@@ -2832,7 +2842,7 @@ if code_generator_view_id.inherit_view_name:
 
         form_xml = E.data(dct_attr_view, *lst_item_form)
     else:
-        form_xml = lst_item_form[0]
+        form_xml = lst_item_form[0] if len(lst_item_form) else None
 elif view_type == "form":
     form_xml = E.form(dct_attr_view, *lst_item_form)
 elif view_type == "search":
@@ -2851,8 +2861,15 @@ else:
     )
     return
 
-str_arch = ET.tostring(form_xml, pretty_print=True)
-str_content = str_arch.decode()
+if form_xml is not None:
+    str_arch = ET.tostring(form_xml, pretty_print=True)
+    str_content = str_arch.decode()
+else:
+    _logger.error(
+        f"Cannot find view type of id '{model_id}' and model"
+        f" '{model_name}'"
+    )
+    str_content = ""
 
 for key, value in dct_replace.items():
     str_content = str_content.replace(key, value)
@@ -2881,12 +2898,19 @@ lst_search = [
 ]
 view_value = self.env["ir.ui.view"].search(lst_search)
 if not view_value:
-    view_value = self.env["ir.ui.view"].create(dct_view_value)
+    if not dct_view_value:
+        view_value = None
+    elif not dct_view_value.get("arch"):
+        _logger.error(f"Cannot generate view name '{dct_view_value}'")
+    else:
+        view_value = self.env["ir.ui.view"].create(dct_view_value)
 else:
     view_value.m2o_model = code_generator_view_id.m2o_model.id
     # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 
-if code_generator_view_id.id_name:
+if not view_value:
+    _logger.error(f"Cannot create view '{view_name}'")
+elif code_generator_view_id.id_name:
     ir_model_data_id = self.env["ir.model.data"].search(
         [
             ("name", "=", code_generator_view_id.id_name),
@@ -4102,7 +4126,8 @@ _logger = logging.getLogger(__name__)""",
             # Generate code model
             lst_value = [
                 {
-                    "code": """sibling = os.path.normpath(
+                    "code": """# sibling directory odoo-code-generator-template
+sibling = os.path.normpath(
     os.path.join(
         os.path.dirname(__file__),
         "..",
@@ -4198,7 +4223,8 @@ for cg in self:
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """for module in self:
+                    "code": """# TODO not use anymore (soon), mapping has some problem with update
+for module in self:
     module.o2m_model_access = module.o2m_models.mapped("access_ids")
     module.o2m_model_rules = module.o2m_models.mapped("rule_ids")
     module.o2m_model_constraints = module.o2m_models.mapped(
@@ -4295,7 +4321,8 @@ for cg in self:
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """if dct_field:
+                    "code": """# When this is called, all field is in whitelist
+if dct_field:
     for field_name, field_info in dct_field.items():
         if (
             field_info.get("is_show_whitelist_model_inherit") is None
@@ -4495,7 +4522,8 @@ else:
                     "m2o_model": model_code_generator_module.id,
                 },
                 {
-                    "code": """for field_name, field_info in dct_field.items():
+                    "code": """# When this is called, all field is in whitelist
+for field_name, field_info in dct_field.items():
     if (
         field_info.get("is_show_whitelist_model_inherit") is None
         and field_info.get("is_hide_blacklist_model_inherit") is None
@@ -4630,10 +4658,8 @@ return super(CodeGeneratorModule, self).unlink()""",
                     "model_id": model_code_generator_module.id,
                     "binding_model_id": model_code_generator_module.id,
                     "state": "code",
-                    "code": """
-if records:
-    action = {"type": "ir.actions.act_url", "target": "self", "url": "/code_generator/%s" % ','.join(records.mapped(lambda r: str(r.id)))}
-    """,
+                    "code": """if records:
+    action = {"type": "ir.actions.act_url", "target": "self", "url": "/code_generator/%s" % ','.join(records.mapped(lambda r: str(r.id)))}""",
                 }
             )
 
@@ -7779,7 +7805,8 @@ return lst_model''',
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """lst_rec_name_inherit = []
+                    "code": """# search in inherit
+lst_rec_name_inherit = []
 for inherit_model in model.inherit_model_ids:
     model_inherit_id = inherit_model.depend_id
     if model_inherit_id.id != model.id:
@@ -8198,7 +8225,9 @@ return E.field({"name": "groups_id", "eval": f"[(6,0, [{var}])]"})''',
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """if lst_field_inherit and not dct_field_attr_diff:
+                    "code": """# Documentation to understand how attributes work, check file odoo/odoo/addons/base/models/ir_model.py function _instanciate_attrs
+# Check odoo/odoo/fields.py in documentation
+if lst_field_inherit and not dct_field_attr_diff:
     return [], False, None, False
 has_endline = False
 lst_attribute_to_filter = []
@@ -9031,7 +9060,8 @@ if module.enable_pylint_check:
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """pass""",
+                    "code": """# Depend on code_generator_hook
+pass""",
                     "name": "write_extra_pre_init_hook",
                     "param": "self, module, cw",
                     "sequence": 59,
@@ -9039,7 +9069,8 @@ if module.enable_pylint_check:
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """if module.list_scss_process_hook:
+                    "code": """# Depend on code_generator_hook
+if module.list_scss_process_hook:
     lst_scss_process_hook = [
         a.strip() for a in module.list_scss_process_hook.split(";")
     ]
@@ -9054,7 +9085,8 @@ if module.enable_pylint_check:
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": """pass""",
+                    "code": """# Depend on code_generator_hook
+pass""",
                     "name": "write_extra_uninstall_hook",
                     "param": "self, module, cw",
                     "sequence": 61,
@@ -9062,7 +9094,8 @@ if module.enable_pylint_check:
                     "m2o_model": model_code_generator_writer.id,
                 },
                 {
-                    "code": '''if module.list_scss_process_hook:
+                    "code": '''# Depend on code_generator_hook
+if module.list_scss_process_hook:
     cw.emit("def update_datas_ir_attachment_from_xmlid(env, xml_id):")
     with cw.indent():
         cw.emit(
@@ -10852,7 +10885,8 @@ FORCE_WIDGET_TYPES = [
                     "m2o_model": model_ir_model_fields.id,
                 },
                 {
-                    "code": """if self.code_generator_ir_model_fields_ids:
+                    "code": """# TODO bug when multiple id
+if self.code_generator_ir_model_fields_ids:
     return (
         self.code_generator_ir_model_fields_ids.is_show_whitelist_model_inherit
     )
@@ -10998,7 +11032,9 @@ return return_value""",
                     "m2o_model": model_ir_model_fields.id,
                 },
                 {
-                    "code": """tree = ast.parse(source_code)
+                    "code": """# TODO move this function in code extractor
+# Extract lambda name
+tree = ast.parse(source_code)
 
 class LambdaVisitor(ast.NodeVisitor):
     def __init__(self):
@@ -11152,7 +11188,8 @@ _logger = logging.getLogger(__name__)""",
             # Generate code model
             lst_value = [
                 {
-                    "code": """sibling = os.path.normpath(
+                    "code": """# sibling directory odoo-code-generator-template
+sibling = os.path.normpath(
     os.path.join(
         os.path.dirname(__file__),
         "..",
@@ -11248,7 +11285,8 @@ for cg in self:
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """for module in self:
+                    "code": """# TODO not use anymore (soon), mapping has some problem with update
+for module in self:
     module.o2m_model_access = module.o2m_models.mapped("access_ids")
     module.o2m_model_rules = module.o2m_models.mapped("rule_ids")
     module.o2m_model_constraints = module.o2m_models.mapped(
@@ -11345,7 +11383,8 @@ for cg in self:
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """if dct_field:
+                    "code": """# When this is called, all field is in whitelist
+if dct_field:
     for field_name, field_info in dct_field.items():
         if (
             field_info.get("is_show_whitelist_model_inherit") is None
@@ -11545,7 +11584,8 @@ else:
                     "m2o_model": model_ir_module_module.id,
                 },
                 {
-                    "code": """for field_name, field_info in dct_field.items():
+                    "code": """# When this is called, all field is in whitelist
+for field_name, field_info in dct_field.items():
     if (
         field_info.get("is_show_whitelist_model_inherit") is None
         and field_info.get("is_hide_blacklist_model_inherit") is None
