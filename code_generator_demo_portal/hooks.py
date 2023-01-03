@@ -182,7 +182,8 @@ def post_init_hook(cr, e):
             # Generate code model
             lst_value = [
                 {
-                    "code": """super(DemoModelPortal, self)._compute_access_url()
+                    "code": """# This is a comment need it for test, thanks
+super(DemoModelPortal, self)._compute_access_url()
 for demo_model_portal in self:
     demo_model_portal.access_url = (
         "/my/demo_model_portal/%s" % demo_model_portal.id
@@ -334,7 +335,8 @@ for demo_model_2_portal in self:
             # Generate code model
             lst_value = [
                 {
-                    "code": """super(DemoModel3PortalDiagram, self)._compute_access_url()
+                    "code": """# This is a comment need it for test, thanks
+super(DemoModel3PortalDiagram, self)._compute_access_url()
 for demo_model_3_portal_diagram in self:
     demo_model_3_portal_diagram.access_url = (
         "/my/demo_model_3_portal_diagram/%s"

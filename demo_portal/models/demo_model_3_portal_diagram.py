@@ -21,6 +21,7 @@ class DemoModel3PortalDiagram(models.Model):
     )
 
     def _compute_access_url(self):
+        # This is a comment need it for test, thanks
         super(DemoModel3PortalDiagram, self)._compute_access_url()
         for demo_model_3_portal_diagram in self:
             demo_model_3_portal_diagram.access_url = (
