@@ -31,7 +31,7 @@ def post_init_hook(cr, e):
             "summary": "Code Generator Module",
             "author": "Mathben (mathben@technolibre.ca)",
             "website": "",
-            "application": False,
+            "application": True,
             "enable_sync_code": True,
             "path_sync_code": path_module_generate,
             "icon": os.path.join(
@@ -45,9 +45,9 @@ def post_init_hook(cr, e):
         # TODO HUMAN: enable your functionality to generate
         value["enable_sync_template"] = True
         value["ignore_fields"] = ""
-        value["post_init_hook_show"] = False
+        value["post_init_hook_show"] = True
         value["uninstall_hook_show"] = False
-        value["post_init_hook_feature_code_generator"] = False
+        value["post_init_hook_feature_code_generator"] = True
         value["uninstall_hook_feature_code_generator"] = False
 
         value["hook_constant_code"] = f'MODULE_NAME = "{MODULE_NAME}"'
