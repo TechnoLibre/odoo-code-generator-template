@@ -66,27 +66,35 @@ def post_init_hook(cr, e):
         }
         dct_field = {
             "code_generator_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Code Generator",
                 "relation": "code.generator.module",
                 "required": True,
                 "ttype": "many2one",
             },
             "id_name": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "Action id",
                 "help": "Specify id name of this action window.",
                 "ttype": "char",
             },
             "model_name": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Model Name",
                 "help": "The associate model, if empty, no association.",
                 "ttype": "char",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "name",
                 "ttype": "char",
             },
@@ -1197,11 +1205,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_tree"),
+        # ("name", "=", f"{model_name_str}_tree"),
         ("type", "=", "tree"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -1213,6 +1221,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_tree' of model '{model_name}' already"
+        " exist."
     )
 
 return view_value""",
@@ -1383,14 +1396,24 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_form"),
+        # ("name", "=", f"{model_name_str}_form"),
         ("type", "=", "form"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
-if not view_value:
+
+model_data_value = self.env["ir.model.data"].search(
+    [
+        ("name", "=", f"{model_name_str}_view_form"),
+        ("model", "=", "ir.ui.view"),
+        ("module", "=", module.name),
+        # ("res_id", "=", view_value.id)
+    ]
+)
+
+if not view_value and not model_data_value:
     view_value = self.env["ir.ui.view"].create(
         {
             "name": f"{model_name_str}_form",
@@ -1409,6 +1432,11 @@ if not view_value:
             "res_id": view_value.id,
             "noupdate": True,  # If it's False, target record (res_id) will be removed while module update
         }
+    )
+else:
+    _logger.warning(
+        f"Cannot generate view '{model_name_str}_form' of model"
+        f" '{model_name}'"
     )
 
 return view_value""",
@@ -1577,11 +1605,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_kanban"),
+        # ("name", "=", f"{model_name_str}_kanban"),
         ("type", "=", "kanban"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -1593,6 +1621,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_kanban' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -1733,11 +1766,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_search"),
+        # ("name", "=", f"{model_name_str}_search"),
         ("type", "=", "search"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -1749,6 +1782,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_search' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -1877,11 +1915,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_pivot"),
+        # ("name", "=", f"{model_name_str}_pivot"),
         ("type", "=", "pivot"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -1893,6 +1931,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_pivot' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -2026,11 +2069,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_calendar"),
+        # ("name", "=", f"{model_name_str}_calendar"),
         ("type", "=", "calendar"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -2042,6 +2085,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_calendar' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -2170,11 +2218,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_graph"),
+        # ("name", "=", f"{model_name_str}_graph"),
         ("type", "=", "graph"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -2186,6 +2234,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_graph' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -2242,11 +2295,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_timeline"),
+        # ("name", "=", f"{model_name_str}_timeline"),
         ("type", "=", "timeline"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -2258,6 +2311,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_timeline' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -2378,11 +2436,11 @@ str_arch = b'<?xml version="1.0"?>\\n' + str_arch
 # dct_value_to_create["ir.ui.view"].append(ir_ui_view_value)
 view_value = self.env["ir.ui.view"].search(
     [
-        ("name", "=", f"{model_name_str}_diagram"),
+        # ("name", "=", f"{model_name_str}_diagram"),
         ("type", "=", "diagram"),
         ("model", "=", model_name),
         # ("arch", "=", str_arch),
-        ("m2o_model", "=", model_created.id),
+        # ("m2o_model", "=", model_created.id),
     ]
 )
 if not view_value:
@@ -2394,6 +2452,11 @@ if not view_value:
             "arch": str_arch,
             "m2o_model": model_created.id,
         }
+    )
+else:
+    _logger.warning(
+        f"View '{model_name_str}_diagram' of model '{model_name}'"
+        " already exist."
     )
 
 return view_value""",
@@ -3163,19 +3226,43 @@ if module.application and is_generic_menu:
             )
     else:
         menu_name = model_name
-    # Create action
-    v = {
-        "name": menu_name,
-        "res_model": model_name,
-        "type": "ir.actions.act_window",
-        "view_mode": view_mode,
-        "view_type": view_type,
-        # 'help': help_str,
-        # 'search_view_id': self.search_view_id.id,
-        "context": {},
-        "m2o_res_model": model_created.id,
-    }
-    action_id = self.env["ir.actions.act_window"].create(v)
+
+    action_data_value = self.env["ir.actions.act_window"].search(
+        [
+            ("name", "=", menu_name),
+            ("res_model", "=", model_name),
+            ("type", "=", "ir.actions.act_window"),
+        ]
+    )
+
+    if not action_data_value:
+        # Create action
+        v = {
+            "name": menu_name,
+            "res_model": model_name,
+            "type": "ir.actions.act_window",
+            "view_mode": view_mode,
+            "view_type": view_type,
+            # 'help': help_str,
+            # 'search_view_id': self.search_view_id.id,
+            "context": {},
+            "m2o_res_model": model_created.id,
+        }
+        action_id = self.env["ir.actions.act_window"].create(v)
+    else:
+        s_more_info = ""
+        if len(action_data_value) > 1:
+            s_more_info = " Detect 2 act_window."
+        elif action_data_value.view_mode != view_mode:
+            s_more_info = (
+                f" Detect new view_mode '{view_mode}'. Old view_mode"
+                f" '{action_data_value.view_mode}'"
+            )
+        _logger.warning(
+            f"Ir Actions Act_window '{menu_name}' of model"
+            f" '{model_name}' already exist.{s_more_info}"
+        )
+        action_id = action_data_value[0]
 
     # TODO check function _get_action_data_name in code_generator_writer.py
     fix_action_id_name = (
@@ -3189,14 +3276,28 @@ if module.application and is_generic_menu:
         f"{model_name_str}_{fix_action_id_name}_action_window"
     )
 
-    v_ir_model_data = {
-        "name": action_id_name,
-        "model": "ir.actions.act_window",
-        "module": module.name,
-        "res_id": action_id.id,
-        "noupdate": True,
-    }
-    self.env["ir.model.data"].create(v_ir_model_data)
+    model_data_value = self.env["ir.model.data"].search(
+        [
+            ("name", "=", action_id_name),
+            ("model", "=", "ir.actions.act_window"),
+            ("module", "=", module.name),
+            # ("res_id", "=", view_value.id)
+        ]
+    )
+    if not model_data_value:
+        v_ir_model_data = {
+            "name": action_id_name,
+            "model": "ir.actions.act_window",
+            "module": module.name,
+            "res_id": action_id.id,
+            "noupdate": True,
+        }
+        self.env["ir.model.data"].create(v_ir_model_data)
+    else:
+        _logger.warning(
+            f"ir.model.data '{action_id_name}' of model"
+            " 'ir.actions.act_window' already exist."
+        )
 
     self.nb_sub_menu += 1
 
@@ -3225,14 +3326,30 @@ if module.application and is_generic_menu:
         .lower()
     )
 
-    v_ir_model_data = {
-        "name": menu_id_name,
-        "model": "ir.ui.menu",
-        "module": module.name,
-        "res_id": new_menu_id.id,
-        "noupdate": True,
-    }
-    self.env["ir.model.data"].create(v_ir_model_data)
+    model_data_value = self.env["ir.model.data"].search(
+        [
+            ("name", "=", menu_id_name),
+            ("model", "=", "ir.ui.menu"),
+            ("module", "=", module.name),
+            # ("res_id", "=", view_value.id)
+        ]
+    )
+
+    if not model_data_value:
+        v_ir_model_data = {
+            "name": menu_id_name,
+            "model": "ir.ui.menu",
+            "module": module.name,
+            "res_id": new_menu_id.id,
+            "noupdate": True,
+        }
+        self.env["ir.model.data"].create(v_ir_model_data)
+    else:
+        _logger.warning(
+            f"ir.model.data '{action_id_name}' of model 'ir.ui.menu'"
+            " already exist."
+        )
+
 elif not is_generic_menu:
     cg_menu_ids = model_created.m2o_module.code_generator_menus_id
     # TODO check different case, with act_window, without, multiple menu, single menu
@@ -3421,14 +3538,18 @@ elif not is_generic_menu:
         }
         dct_field = {
             "depend_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Dependency",
                 "relation": "ir.model",
                 "ttype": "many2one",
             },
             "name": {
                 "code_generator_compute": "compute_name",
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Name",
                 "ttype": "char",
             },
@@ -3477,13 +3598,17 @@ elif not is_generic_menu:
         }
         dct_field = {
             "code_generator_compute": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Compute Code Generator",
                 "help": "Compute method to code_generator_writer.",
                 "ttype": "char",
             },
             "comment_after": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Comment after field",
                 "help": (
                     "Will show comment after writing field in python. Support"
@@ -3492,7 +3617,9 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "comment_before": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Comment before field",
                 "help": (
                     "Will show comment before writing field in python. Support"
@@ -3501,17 +3628,23 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "default_lambda": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Default lambda value",
                 "ttype": "char",
             },
             "field_context": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 14,
                 "field_description": "Field Context",
                 "ttype": "char",
             },
             "filter_field_attribute": {
+                "code_generator_form_simple_view_sequence": 15,
                 "code_generator_sequence": 8,
+                "code_generator_tree_view_sequence": 15,
                 "field_description": "Filter Field Attribute",
                 "help": (
                     "Separate by ; to enumerate your attribute to filter, like"
@@ -3520,7 +3653,9 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "is_show_whitelist_model_inherit": {
+                "code_generator_form_simple_view_sequence": 16,
                 "code_generator_sequence": 9,
+                "code_generator_tree_view_sequence": 16,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -3529,13 +3664,17 @@ elif not is_generic_menu:
                 "ttype": "boolean",
             },
             "m2o_fields": {
+                "code_generator_form_simple_view_sequence": 17,
                 "code_generator_sequence": 10,
+                "code_generator_tree_view_sequence": 17,
                 "field_description": "Fields",
                 "relation": "ir.model.fields",
                 "ttype": "many2one",
             },
             "m2o_module": {
+                "code_generator_form_simple_view_sequence": 18,
                 "code_generator_sequence": 11,
+                "code_generator_tree_view_sequence": 18,
                 "field_description": "Module",
                 "help": "Module",
                 "relation": "code.generator.module",
@@ -3543,23 +3682,31 @@ elif not is_generic_menu:
             },
             "name": {
                 "code_generator_compute": "_change_m2o_fields",
+                "code_generator_form_simple_view_sequence": 19,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 19,
                 "field_description": "Name",
                 "help": "Name of selected field.",
                 "ttype": "char",
             },
             "nomenclature_blacklist": {
+                "code_generator_form_simple_view_sequence": 20,
                 "code_generator_sequence": 12,
+                "code_generator_tree_view_sequence": 20,
                 "field_description": "Ignore from nomenclature.",
                 "ttype": "boolean",
             },
             "nomenclature_whitelist": {
+                "code_generator_form_simple_view_sequence": 21,
                 "code_generator_sequence": 13,
+                "code_generator_tree_view_sequence": 21,
                 "field_description": "Force to nomenclature.",
                 "ttype": "boolean",
             },
             "selection": {
+                "code_generator_form_simple_view_sequence": 22,
                 "code_generator_sequence": 14,
+                "code_generator_tree_view_sequence": 22,
                 "field_description": "Selection Options",
                 "help": (
                     "List of options for a selection field, specified as a"
@@ -3615,7 +3762,9 @@ elif not is_generic_menu:
         }
         dct_field = {
             "code_generator_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "comment_before": (
                     "TODO missing groups_id and active and web_icon or"
                     " web_icon_data"
@@ -3626,33 +3775,43 @@ elif not is_generic_menu:
                 "ttype": "many2one",
             },
             "id_name": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "Menu id",
                 "help": "Specify id name of this menu.",
                 "ttype": "char",
             },
             "ignore_act_window": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Ignore Act Window",
                 "help": "Set True to force no act_window, like a parent menu.",
                 "ttype": "boolean",
             },
             "m2o_act_window": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Action Windows",
                 "help": "Act window to open when click on this menu.",
                 "relation": "code.generator.act_window",
                 "ttype": "many2one",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 14,
                 "field_description": "Name",
                 "help": "Menu name",
                 "ttype": "char",
             },
             "parent_id_name": {
+                "code_generator_form_simple_view_sequence": 15,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 15,
                 "comment_before": (
                     "TODO use ir.model.data instead if parent_id_name"
                 ),
@@ -3661,12 +3820,16 @@ elif not is_generic_menu:
                 "ttype": "char",
             },
             "sequence": {
+                "code_generator_form_simple_view_sequence": 16,
                 "code_generator_sequence": 8,
+                "code_generator_tree_view_sequence": 16,
                 "field_description": "Sequence",
                 "ttype": "integer",
             },
             "web_icon": {
+                "code_generator_form_simple_view_sequence": 17,
                 "code_generator_sequence": 9,
+                "code_generator_tree_view_sequence": 17,
                 "field_description": "Web Icon",
                 "help": "Icon menu",
                 "ttype": "char",
@@ -3698,65 +3861,86 @@ elif not is_generic_menu:
         }
         dct_field = {
             "code": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "default": """
 return""",
                 "field_description": "Code of pre_init_hook",
+                "force_widget": "ace",
                 "ttype": "text",
             },
             "decorator": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Decorator",
                 "help": "Like @api.model. Use ; for multiple decorator.",
                 "ttype": "char",
             },
             "is_templated": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Templated",
                 "help": "Code for code generator from template.",
                 "ttype": "boolean",
             },
             "is_wip": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Work in progress",
                 "help": "Temporary function to be fill later.",
                 "ttype": "boolean",
             },
             "m2o_model": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 14,
                 "field_description": "Model",
                 "help": "Model",
                 "relation": "ir.model",
                 "ttype": "many2one",
             },
             "m2o_module": {
+                "code_generator_form_simple_view_sequence": 15,
                 "code_generator_sequence": 8,
+                "code_generator_tree_view_sequence": 15,
                 "field_description": "Module",
                 "help": "Module",
                 "relation": "code.generator.module",
                 "ttype": "many2one",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 16,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 16,
                 "field_description": "Method name",
                 "help": "Method name",
                 "required": True,
                 "ttype": "char",
             },
             "param": {
+                "code_generator_form_simple_view_sequence": 17,
                 "code_generator_sequence": 9,
+                "code_generator_tree_view_sequence": 17,
                 "field_description": "Param",
                 "help": "Like : name,color",
                 "ttype": "char",
             },
             "returns": {
+                "code_generator_form_simple_view_sequence": 18,
                 "code_generator_sequence": 10,
+                "code_generator_tree_view_sequence": 18,
                 "field_description": "Return type",
                 "help": "Annotation to return type value.",
                 "ttype": "char",
             },
             "sequence": {
+                "code_generator_form_simple_view_sequence": 19,
                 "code_generator_sequence": 11,
+                "code_generator_tree_view_sequence": 19,
                 "field_description": "Sequence",
                 "help": "Order of sequence code.",
                 "ttype": "integer",
@@ -3788,39 +3972,52 @@ return""",
         }
         dct_field = {
             "code": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Code",
+                "force_widget": "ace",
                 "help": "Code of import header of python file",
                 "ttype": "text",
             },
             "is_templated": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Templated",
                 "help": "Code for code generator from template.",
                 "ttype": "boolean",
             },
             "m2o_model": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Model",
                 "help": "Model",
                 "relation": "ir.model",
                 "ttype": "many2one",
             },
             "m2o_module": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Module",
                 "help": "Module",
                 "relation": "code.generator.module",
                 "ttype": "many2one",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 14,
                 "field_description": "Import name",
                 "help": "import name",
                 "ttype": "char",
             },
             "sequence": {
+                "code_generator_form_simple_view_sequence": 15,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 15,
                 "field_description": "Sequence",
                 "help": "Order of sequence code.",
                 "ttype": "integer",
@@ -4683,13 +4880,17 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "depend_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Dependency",
                 "relation": "ir.module.module",
                 "ttype": "many2one",
             },
             "module_id": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Module",
                 "relation": "code.generator.module",
                 "ttype": "many2one",
@@ -4724,19 +4925,25 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "application_type": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 10,
                 "default": "python",
                 "field_description": "Application Type",
                 "selection": "[('python', 'python'), ('bin', 'bin')]",
                 "ttype": "selection",
             },
             "depend": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Dependency name",
                 "ttype": "char",
             },
             "is_template": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 12,
                 "comment_before": (
                     "TODO this is wrong, an hack because ir_module_module !="
                     " code_generator_module"
@@ -4746,7 +4953,9 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "boolean",
             },
             "module_id": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Module",
                 "relation": "code.generator.module",
                 "ttype": "many2one",
@@ -4784,13 +4993,17 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "depend_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Dependency",
                 "relation": "ir.module.module",
                 "ttype": "many2one",
             },
             "module_id": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Module",
                 "relation": "code.generator.module",
                 "ttype": "many2one",
@@ -4825,13 +5038,17 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "module": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Class path",
                 "help": "Class path",
                 "ttype": "char",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Class name",
                 "help": "Class name",
                 "required": True,
@@ -4864,27 +5081,35 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "code_generator_id": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Code Generator",
                 "relation": "code.generator.module",
                 "required": True,
                 "ttype": "many2one",
             },
             "has_body_sheet": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Sheet format",
                 "help": "Use sheet presentation for body of form view.",
                 "ttype": "boolean",
             },
             "id_name": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 12,
                 "comment_before": "TODO use ir.model.data instead if id_name",
                 "field_description": "View id",
                 "help": "Specify id name of this view.",
                 "ttype": "char",
             },
             "inherit_view_name": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Inherit View Name",
                 "help": (
                     "Set inherit view name, use record id (ir.model.data)."
@@ -4892,36 +5117,48 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "char",
             },
             "m2o_model": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 14,
                 "field_description": "Code generator Model",
                 "help": "Model related with this report",
                 "relation": "ir.model",
                 "ttype": "many2one",
             },
             "view_attr_class": {
+                "code_generator_form_simple_view_sequence": 15,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 15,
                 "field_description": "Class attribute",
                 "ttype": "char",
             },
             "view_attr_string": {
+                "code_generator_form_simple_view_sequence": 16,
                 "code_generator_sequence": 8,
+                "code_generator_tree_view_sequence": 16,
                 "field_description": "String attribute",
                 "ttype": "char",
             },
             "view_item_ids": {
+                "code_generator_form_simple_view_sequence": 17,
                 "code_generator_sequence": 9,
+                "code_generator_tree_view_sequence": 17,
                 "field_description": "View item",
                 "help": "Item view to add in this view.",
                 "relation": "code.generator.view.item",
                 "ttype": "many2many",
             },
             "view_name": {
+                "code_generator_form_simple_view_sequence": 18,
                 "code_generator_sequence": 10,
+                "code_generator_tree_view_sequence": 18,
                 "field_description": "View name",
                 "ttype": "char",
             },
             "view_type": {
+                "code_generator_form_simple_view_sequence": 19,
                 "code_generator_sequence": 11,
+                "code_generator_tree_view_sequence": 19,
                 "default": "form",
                 "field_description": "View Type",
                 "help": "Choose view type to generate.",
@@ -4961,18 +5198,24 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "action_name": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Action name",
                 "ttype": "char",
             },
             "aria_label": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Aria Label",
                 "help": "aria-label attribute",
                 "ttype": "char",
             },
             "attrs": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Attributes",
                 "help": (
                     "Specific condition, search attrs for more information."
@@ -4980,7 +5223,9 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "char",
             },
             "background_type": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 6,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Background Type",
                 "help": "Choose background color of HTML.",
                 "selection": (
@@ -4994,7 +5239,9 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "button_type": {
+                "code_generator_form_simple_view_sequence": 14,
                 "code_generator_sequence": 7,
+                "code_generator_tree_view_sequence": 14,
                 "comment_before": """(\"bg-success-light\", \"Success light\"),
 (\"bg-warning-light\", \"Warning light\"),
 (\"bg-info-light\", \"Info light\"),
@@ -5011,75 +5258,101 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "class_attr": {
+                "code_generator_form_simple_view_sequence": 16,
                 "code_generator_sequence": 9,
+                "code_generator_tree_view_sequence": 16,
                 "field_description": "Class Attr",
                 "help": "Update class attribute",
                 "ttype": "char",
             },
             "colspan": {
+                "code_generator_form_simple_view_sequence": 17,
                 "code_generator_sequence": 10,
+                "code_generator_tree_view_sequence": 17,
                 "default": 1,
                 "field_description": "Colspan",
                 "help": "Use this to fill more column, check HTML table.",
                 "ttype": "integer",
             },
             "context": {
+                "code_generator_form_simple_view_sequence": 18,
                 "code_generator_sequence": 11,
+                "code_generator_tree_view_sequence": 18,
                 "field_description": "Context",
                 "help": "context attribute",
                 "ttype": "char",
             },
             "domain": {
+                "code_generator_form_simple_view_sequence": 19,
                 "code_generator_sequence": 12,
+                "code_generator_tree_view_sequence": 19,
                 "field_description": "Domain",
                 "help": "domain attribute",
                 "ttype": "char",
             },
             "edit_only": {
+                "code_generator_form_simple_view_sequence": 20,
                 "code_generator_sequence": 13,
+                "code_generator_tree_view_sequence": 20,
                 "field_description": "Edit only",
                 "ttype": "boolean",
             },
             "expr": {
+                "code_generator_form_simple_view_sequence": 21,
                 "code_generator_sequence": 14,
+                "code_generator_tree_view_sequence": 21,
                 "field_description": "Expr",
                 "help": "Example: //field[@name='name']",
                 "ttype": "char",
             },
             "has_label": {
+                "code_generator_form_simple_view_sequence": 22,
                 "code_generator_sequence": 15,
+                "code_generator_tree_view_sequence": 22,
                 "field_description": "Labeled",
                 "help": "Label for title.",
                 "ttype": "boolean",
             },
             "icon": {
+                "code_generator_form_simple_view_sequence": 23,
                 "code_generator_sequence": 16,
+                "code_generator_tree_view_sequence": 23,
                 "field_description": "Icon",
                 "help": "Example fa-television. Only supported with button.",
                 "ttype": "char",
             },
             "is_help": {
+                "code_generator_form_simple_view_sequence": 24,
                 "code_generator_sequence": 17,
+                "code_generator_tree_view_sequence": 24,
                 "field_description": "Help",
                 "ttype": "boolean",
             },
             "is_invisible": {
+                "code_generator_form_simple_view_sequence": 25,
                 "code_generator_sequence": 18,
+                "code_generator_tree_view_sequence": 25,
                 "field_description": "Invisible",
                 "ttype": "boolean",
             },
             "is_readonly": {
+                "code_generator_form_simple_view_sequence": 26,
                 "code_generator_sequence": 19,
+                "code_generator_tree_view_sequence": 26,
                 "field_description": "Readonly",
                 "ttype": "boolean",
             },
             "is_required": {
+                "code_generator_form_simple_view_sequence": 27,
                 "code_generator_sequence": 20,
+                "code_generator_tree_view_sequence": 27,
                 "field_description": "Required",
                 "ttype": "boolean",
             },
             "item_type": {
+                "code_generator_form_simple_view_sequence": 28,
                 "code_generator_sequence": 21,
+                "code_generator_tree_view_sequence": 28,
                 "default": "field",
                 "field_description": "Item Type",
                 "help": "Choose item type to generate.",
@@ -5093,36 +5366,48 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "label": {
+                "code_generator_form_simple_view_sequence": 29,
                 "code_generator_sequence": 22,
+                "code_generator_tree_view_sequence": 29,
                 "comment_before": "TODO create HTML for specific label",
                 "field_description": "Label",
                 "ttype": "char",
             },
             "name": {
+                "code_generator_form_simple_view_sequence": 30,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 30,
                 "field_description": "Name",
                 "help": "name attribute",
                 "ttype": "char",
             },
             "parent_id": {
+                "code_generator_form_simple_view_sequence": 31,
                 "code_generator_sequence": 23,
+                "code_generator_tree_view_sequence": 31,
                 "field_description": "Parent",
                 "relation": "code.generator.view.item",
                 "ttype": "many2one",
             },
             "password": {
+                "code_generator_form_simple_view_sequence": 32,
                 "code_generator_sequence": 24,
+                "code_generator_tree_view_sequence": 32,
                 "field_description": "Password",
                 "help": "Hide character.",
                 "ttype": "boolean",
             },
             "placeholder": {
+                "code_generator_form_simple_view_sequence": 33,
                 "code_generator_sequence": 25,
+                "code_generator_tree_view_sequence": 33,
                 "field_description": "Placeholder",
                 "ttype": "char",
             },
             "position": {
+                "code_generator_form_simple_view_sequence": 34,
                 "code_generator_sequence": 26,
+                "code_generator_tree_view_sequence": 34,
                 "field_description": "Position",
                 "selection": (
                     "[('inside', 'Inside'), ('replace', 'Replace'), ('after',"
@@ -5132,13 +5417,17 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "role": {
+                "code_generator_form_simple_view_sequence": 35,
                 "code_generator_sequence": 27,
+                "code_generator_tree_view_sequence": 35,
                 "field_description": "Role",
                 "help": "role attribute",
                 "ttype": "char",
             },
             "section_type": {
+                "code_generator_form_simple_view_sequence": 36,
                 "code_generator_sequence": 28,
+                "code_generator_tree_view_sequence": 36,
                 "default": "body",
                 "field_description": "Section Type",
                 "help": "Choose item type to generate.",
@@ -5149,37 +5438,49 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "sequence": {
+                "code_generator_form_simple_view_sequence": 37,
                 "code_generator_sequence": 29,
+                "code_generator_tree_view_sequence": 37,
                 "default": 1,
                 "field_description": "Sequence",
                 "ttype": "integer",
             },
             "t_attf_class": {
+                "code_generator_form_simple_view_sequence": 38,
                 "code_generator_sequence": 30,
+                "code_generator_tree_view_sequence": 38,
                 "field_description": "T Attf Class",
                 "help": "t-attf-class attribute",
                 "ttype": "char",
             },
             "t_if": {
+                "code_generator_form_simple_view_sequence": 39,
                 "code_generator_sequence": 31,
+                "code_generator_tree_view_sequence": 39,
                 "field_description": "T If",
                 "help": "t-if attribute",
                 "ttype": "char",
             },
             "t_name": {
+                "code_generator_form_simple_view_sequence": 40,
                 "code_generator_sequence": 32,
+                "code_generator_tree_view_sequence": 40,
                 "field_description": "T Name",
                 "help": "t_name attribute",
                 "ttype": "char",
             },
             "title": {
+                "code_generator_form_simple_view_sequence": 41,
                 "code_generator_sequence": 33,
+                "code_generator_tree_view_sequence": 41,
                 "field_description": "Title",
                 "help": "title attribute",
                 "ttype": "char",
             },
             "type": {
+                "code_generator_form_simple_view_sequence": 42,
                 "code_generator_sequence": 34,
+                "code_generator_tree_view_sequence": 42,
                 "field_description": "Type",
                 "help": "Statistique type.",
                 "selection": (
@@ -5188,7 +5489,9 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "selection",
             },
             "widget": {
+                "code_generator_form_simple_view_sequence": 43,
                 "code_generator_sequence": 35,
+                "code_generator_tree_view_sequence": 43,
                 "field_description": "Widget",
                 "help": "widget attribute",
                 "ttype": "char",
@@ -5220,24 +5523,32 @@ return super(CodeGeneratorModule, self).unlink()""",
         }
         dct_field = {
             "basename": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 2,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Base name",
                 "ttype": "char",
             },
             "code_generator_ids": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 11,
                 "field_description": "Code Generator",
                 "relation": "code.generator.module",
                 "ttype": "many2many",
             },
             "list_path_file": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "List path file",
                 "help": "Value are separated by ;",
                 "ttype": "char",
             },
             "rootdir": {
+                "code_generator_form_simple_view_sequence": 13,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 13,
                 "field_description": "Root dir",
                 "ttype": "char",
             },
@@ -9208,14 +9519,18 @@ return vals""",
         }
         dct_field = {
             "constrained": {
+                "code_generator_form_simple_view_sequence": 10,
                 "code_generator_sequence": 3,
+                "code_generator_tree_view_sequence": 10,
                 "field_description": "Constrained",
                 "help": "Constrained fields, ej: name, age",
                 "required": True,
                 "ttype": "char",
             },
             "m2o_ir_model": {
+                "code_generator_form_simple_view_sequence": 11,
                 "code_generator_sequence": 4,
+                "code_generator_tree_view_sequence": 11,
                 "domain": [("transient", "=", False)],
                 "field_description": "Code generator Model",
                 "help": "Model that will hold this server constrain",
@@ -9224,7 +9539,9 @@ return vals""",
                 "ttype": "many2one",
             },
             "txt_code": {
+                "code_generator_form_simple_view_sequence": 12,
                 "code_generator_sequence": 5,
+                "code_generator_tree_view_sequence": 12,
                 "field_description": "Code",
                 "help": "Code to execute",
                 "required": True,
@@ -9340,7 +9657,9 @@ def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
         lst_depend_model = ["ir.actions.act_url"]
         dct_field = {
             "m2o_code_generator": {
+                "code_generator_form_simple_view_sequence": 18,
                 "code_generator_sequence": 1,
+                "code_generator_tree_view_sequence": 18,
                 "field_description": "Code Generator",
                 "help": "Code Generator relation",
                 "is_show_whitelist_model_inherit": True,
@@ -9439,6 +9758,7 @@ def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
             "m2o_model": {
                 "code_generator_compute": "_compute_m2os",
                 "code_generator_sequence": 1,
+                "comment_before": "TODO missing link to code_generator",
                 "field_description": "Code generator Model",
                 "help": "Model related with this report",
                 "is_show_whitelist_model_inherit": True,
@@ -9453,6 +9773,7 @@ def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
                 "help": "Template related with this report",
                 "is_show_whitelist_model_inherit": True,
                 "relation": "ir.ui.view",
+                "store": True,
                 "ttype": "many2one",
             },
         }
@@ -9516,6 +9837,22 @@ def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "char",
             },
+            "is_code_generator": {
+                "code_generator_compute": "_compute_is_code_generator",
+                "code_generator_sequence": 2,
+                "comment_before": (
+                    "TODO this is wrong, use instead link to code_generator."
+                    " Check _get_models_info from code_generator_module.py"
+                ),
+                "field_description": "Is Code Generator",
+                "help": (
+                    "Do a link with code generator to show associate actions"
+                    " server"
+                ),
+                "is_show_whitelist_model_inherit": True,
+                "store": True,
+                "ttype": "boolean",
+            },
         }
         model_ir_actions_server = code_generator_id.add_update_model(
             model_model,
@@ -9537,6 +9874,22 @@ def common_4constrains(el_self, code, message=SYNTAXERRORMSG):
 
             # Generate code model
             lst_value = [
+                {
+                    "code": """for rec in self:
+    # TODO this is wrong, because it will show if multiple code.generator.module
+    cgs = self.env["code.generator.module"].search([])
+    if cgs:
+        for cg in cgs:
+            model_ids = cg.o2m_models
+            if rec.model_id.id in model_ids.ids:
+                rec.is_code_generator = True""",
+                    "name": "_compute_is_code_generator",
+                    "decorator": '@api.depends("model_id")',
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_actions_server.id,
+                },
                 {
                     "code": """if self.model_id.m2o_module and (
     self.state == "code" or self.state == "multi"
@@ -9569,7 +9922,7 @@ elif self.model_id and self.state == "code":
                     "name": "_onchange_model_id_state",
                     "decorator": '@api.onchange("model_id", "state")',
                     "param": "self",
-                    "sequence": 0,
+                    "sequence": 1,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_actions_server.id,
                 },
@@ -9852,12 +10205,9 @@ MAGIC_FIELDS = MAGIC_COLUMNS + [
             lst_value = [
                 {
                     "code": """if self.m2o_module:
-
     name4filter = "x_name"
     name4newfield = "name"
-
 else:
-
     name4filter = "xname"
     name4newfield = "x_name"
 
@@ -10558,22 +10908,36 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
-            "is_date_end_view": {
+            "is_code_generator": {
+                "code_generator_compute": "_compute_is_code_generator",
                 "code_generator_sequence": 19,
+                "comment_before": """TODO this is wrong, use instead link to code_generator.
+TODO this technique doesn't work... use code_generator""",
+                "field_description": "Is Code Generator",
+                "help": (
+                    "Do a link with code generator to show associate model"
+                    " fields"
+                ),
+                "is_show_whitelist_model_inherit": True,
+                "store": True,
+                "ttype": "boolean",
+            },
+            "is_date_end_view": {
+                "code_generator_sequence": 20,
                 "field_description": "Show end date view",
                 "help": "View timeline only, end field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_date_start_view": {
-                "code_generator_sequence": 20,
+                "code_generator_sequence": 21,
                 "field_description": "Show start date view",
                 "help": "View timeline only, start field.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_calendar_view": {
-                "code_generator_sequence": 21,
+                "code_generator_sequence": 22,
                 "field_description": "Hide in blacklist calendar view",
                 "help": (
                     "Hide from view when field is blacklisted. View calendar"
@@ -10583,7 +10947,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_form_view": {
-                "code_generator_sequence": 22,
+                "code_generator_sequence": 23,
                 "field_description": "Hide in blacklist form view",
                 "help": (
                     "Hide from view when field is blacklisted. View form only."
@@ -10592,7 +10956,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_graph_view": {
-                "code_generator_sequence": 23,
+                "code_generator_sequence": 24,
                 "field_description": "Hide in blacklist graph view",
                 "help": (
                     "Hide from view when field is blacklisted. View graph"
@@ -10602,7 +10966,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_kanban_view": {
-                "code_generator_sequence": 24,
+                "code_generator_sequence": 25,
                 "field_description": "Hide in blacklist kanban view",
                 "help": (
                     "Hide from view when field is blacklisted. View kanban"
@@ -10612,7 +10976,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_list_view": {
-                "code_generator_sequence": 25,
+                "code_generator_sequence": 26,
                 "field_description": "Hide in blacklist list view",
                 "help": (
                     "Hide from view when field is blacklisted. View list only."
@@ -10621,14 +10985,14 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_model_inherit": {
-                "code_generator_sequence": 26,
+                "code_generator_sequence": 27,
                 "field_description": "Hide in blacklist model inherit",
                 "help": "Hide from model inherit when field is blacklisted.",
                 "is_show_whitelist_model_inherit": True,
                 "ttype": "boolean",
             },
             "is_hide_blacklist_pivot_view": {
-                "code_generator_sequence": 27,
+                "code_generator_sequence": 28,
                 "field_description": "Hide in blacklist pivot view",
                 "help": (
                     "Hide from view when field is blacklisted. View pivot"
@@ -10638,7 +11002,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_hide_blacklist_search_view": {
-                "code_generator_sequence": 28,
+                "code_generator_sequence": 29,
                 "field_description": "Hide in blacklist search view",
                 "help": (
                     "Hide from view when field is blacklisted. View search"
@@ -10648,7 +11012,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_calendar_view": {
-                "code_generator_sequence": 29,
+                "code_generator_sequence": 30,
                 "field_description": "Show in whitelist calendar view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10658,7 +11022,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_form_view": {
-                "code_generator_sequence": 30,
+                "code_generator_sequence": 31,
                 "field_description": "Show in whitelist form view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10668,7 +11032,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_graph_view": {
-                "code_generator_sequence": 31,
+                "code_generator_sequence": 32,
                 "field_description": "Show in whitelist graph view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10678,7 +11042,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_kanban_view": {
-                "code_generator_sequence": 32,
+                "code_generator_sequence": 33,
                 "field_description": "Show in whitelist kanban view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10688,7 +11052,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_list_view": {
-                "code_generator_sequence": 33,
+                "code_generator_sequence": 34,
                 "field_description": "Show in whitelist list view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10698,7 +11062,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_model_inherit": {
-                "code_generator_sequence": 34,
+                "code_generator_sequence": 35,
                 "field_description": "Show in whitelist model inherit",
                 "help": (
                     "If a field in model is in whitelist, will be show in"
@@ -10708,7 +11072,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_pivot_view": {
-                "code_generator_sequence": 35,
+                "code_generator_sequence": 36,
                 "field_description": "Show in whitelist pivot view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10718,7 +11082,7 @@ TODO or maybe it's useful in first iteration of code generator, remove this late
                 "ttype": "boolean",
             },
             "is_show_whitelist_search_view": {
-                "code_generator_sequence": 36,
+                "code_generator_sequence": 37,
                 "field_description": "Show in whitelist search view",
                 "help": (
                     "If a field in model is in whitelist, all is not will be"
@@ -10857,6 +11221,22 @@ FORCE_WIDGET_TYPES = [
             # Generate code model
             lst_value = [
                 {
+                    "code": """for rec in self:
+    # TODO this is wrong, because it will show if multiple code.generator.module
+    cgs = self.env["code.generator.module"].search([])
+    if cgs:
+        for cg in cgs:
+            model_ids = cg.o2m_models
+            if rec.model_id.id in model_ids.ids:
+                rec.is_code_generator = True""",
+                    "name": "_compute_is_code_generator",
+                    "decorator": '@api.depends("model_id")',
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_model_fields.id,
+                },
+                {
                     "code": """for field in self:
     if field.state == "manual":
         if (
@@ -10880,7 +11260,7 @@ FORCE_WIDGET_TYPES = [
                     "name": "_check_name",
                     "decorator": '@api.constrains("name", "state")',
                     "param": "self",
-                    "sequence": 0,
+                    "sequence": 1,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10894,7 +11274,7 @@ return self.is_show_whitelist_model_inherit""",
                     "name": "is_show_whitelist_model_inherit_call",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 1,
+                    "sequence": 2,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10905,7 +11285,7 @@ return self.default_lambda""",
                     "name": "get_default_lambda",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 2,
+                    "sequence": 3,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10916,7 +11296,7 @@ return self.comment_before""",
                     "name": "get_comment_before",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 3,
+                    "sequence": 4,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10927,7 +11307,7 @@ return self.comment_after""",
                     "name": "get_comment_after",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 4,
+                    "sequence": 5,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10938,7 +11318,7 @@ return self.field_context""",
                     "name": "get_field_context",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 5,
+                    "sequence": 6,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -10967,7 +11347,7 @@ return self.code_generator_compute""",
                     "name": "get_code_generator_compute",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 6,
+                    "sequence": 7,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -11027,7 +11407,7 @@ return return_value""",
                     "name": "get_selection",
                     "decorator": "@api.model",
                     "param": "self",
-                    "sequence": 7,
+                    "sequence": 8,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -11053,7 +11433,7 @@ visitor.visit(tree)
 return visitor.get_result()""",
                     "name": "_extract_lambda_in_selection",
                     "param": "self, source_code",
-                    "sequence": 8,
+                    "sequence": 9,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -11125,7 +11505,7 @@ return res""",
                     "name": "create",
                     "decorator": "@api.model",
                     "param": "self, vals",
-                    "sequence": 9,
+                    "sequence": 10,
                     "m2o_module": code_generator_id.id,
                     "m2o_model": model_ir_model_fields.id,
                 },
@@ -11810,8 +12190,24 @@ return super(CodeGeneratorModule, self).unlink()""",
         model_name = "ir_ui_view"
         lst_depend_model = ["ir.ui.view"]
         dct_field = {
-            "is_hide_blacklist_write_view": {
+            "is_code_generator": {
+                "code_generator_compute": "_compute_is_code_generator",
                 "code_generator_sequence": 1,
+                "comment_before": (
+                    "TODO this is wrong, use instead link to code_generator."
+                    " Check _get_models_info from code_generator_module.py"
+                ),
+                "field_description": "Is Code Generator",
+                "help": (
+                    "Do a link with code generator to show associate"
+                    " ir.ui.view"
+                ),
+                "is_show_whitelist_model_inherit": True,
+                "store": True,
+                "ttype": "boolean",
+            },
+            "is_hide_blacklist_write_view": {
+                "code_generator_sequence": 2,
                 "field_description": (
                     "Hide in blacklist when writing code view"
                 ),
@@ -11820,7 +12216,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "boolean",
             },
             "is_show_whitelist_write_view": {
-                "code_generator_sequence": 2,
+                "code_generator_sequence": 3,
                 "field_description": (
                     "Show in whitelist when writing code view"
                 ),
@@ -11832,7 +12228,7 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "boolean",
             },
             "m2o_model": {
-                "code_generator_sequence": 3,
+                "code_generator_sequence": 4,
                 "field_description": "Code generator Model",
                 "help": "Model",
                 "is_show_whitelist_model_inherit": True,
@@ -11857,6 +12253,27 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "m2o_model": model_ir_ui_view.id,
             }
             env["code.generator.model.code.import"].create(value)
+
+            # Generate code model
+            lst_value = [
+                {
+                    "code": """for rec in self:
+    # TODO this is wrong, because it will show if multiple code.generator.module
+    cgs = self.env["code.generator.module"].search([])
+    if cgs:
+        for cg in cgs:
+            model_ids = cg.o2m_models
+            if rec.m2o_model.id in model_ids.ids:
+                rec.is_code_generator = True""",
+                    "name": "_compute_is_code_generator",
+                    "decorator": '@api.depends("m2o_model")',
+                    "param": "self",
+                    "sequence": 0,
+                    "m2o_module": code_generator_id.id,
+                    "m2o_model": model_ir_ui_view.id,
+                },
+            ]
+            env["code.generator.model.code"].create(lst_value)
 
         # Add/Update Res Config Settings
         model_model = "res.config.settings"
@@ -11925,6 +12342,8 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "ttype": "one2many",
                 "help": "Origin model with dependency",
                 "code_generator_sequence": 4,
+                "code_generator_form_simple_view_sequence": 11,
+                "code_generator_tree_view_sequence": 11,
                 "relation": "ir.model",
             },
         }
@@ -12131,6 +12550,8 @@ return super(CodeGeneratorModule, self).unlink()""",
                 "field_description": "Child",
                 "ttype": "one2many",
                 "code_generator_sequence": 8,
+                "code_generator_form_simple_view_sequence": 15,
+                "code_generator_tree_view_sequence": 15,
                 "relation": "code.generator.view.item",
                 "relation_field": "parent_id",
             },
