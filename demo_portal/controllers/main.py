@@ -350,6 +350,9 @@ class DemoPortalController(http.Controller):
             ]
             vals["demo_many2many"] = lst_value_demo_many2many
 
+        if kw.get("demo_selection"):
+            vals["demo_selection"] = kw.get("demo_selection")
+
         if kw.get("demo_text"):
             vals["demo_text"] = kw.get("demo_text")
 
