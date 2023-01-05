@@ -19,7 +19,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="name"
+                            t-attf-value="#{name}"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,8 +58,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="demo_boolean"
-                            t-att-id="demo_boolean"
+                            id="demo_boolean"
                             t-att-value="True"
                             t-att-checked="default_demo_boolean"
                         />
@@ -63,23 +69,28 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_char">Demo_char</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="demo_char" t-att-value="default_demo_char" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="demo_char"
+                            t-att-value="default_demo_char"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_date">Demo_date</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="demo_date_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="demo_date_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="demo_date_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="demo_date"
                                 t-att-value="default_demo_date"
+                                t-attf-data-target="#demo_date_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="demo_date_datepicker"
+                                t-attf-data-target="#demo_date_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -92,17 +103,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_date_time">Demo_date_time</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="demo_date_time_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="demo_date_time_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="demo_date_time_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="demo_date_time"
                                 t-att-value="default_demo_date_time"
+                                t-attf-data-target="#demo_date_time_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="demo_date_time_datepicker"
+                                t-attf-data-target="#demo_date_time_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -117,7 +128,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="demo_external_link"
                             t-att-value="default_demo_external_link"
                         />
@@ -126,25 +137,46 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_float">Demo_float</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="demo_float" t-att-value="default_demo_float" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="demo_float"
+                            t-att-value="default_demo_float"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_float_time">Demo_float_time</label>
                     <div class="col-md-7 col-sm-8">
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="demo_float_time"
-                            placeholder="hh:mm"
-                            t-att-value="default_demo_float_time"
-                        />
+                        <div
+                            class="input-group date"
+                            data-target-input="nearest"
+                            t-attf-id="demo_float_time_datepicker"
+                        >
+                            <input
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_clock"
+                                name="demo_float_time"
+                                placeholder="hh:mm"
+                                t-att-value="default_demo_float_time"
+                                t-attf-data-target="#demo_float_time_datepicker"
+                                type="text"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-attf-data-target="#demo_float_time_datepicker"
+                                data-toggle="datetimepicker"
+                            >
+                                <div class="input-group-text">
+                                    <i class="fa fa-clock-o" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_html">Demo_html</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="demo_html" style="min-height: 120px"><t t-esc="default_demo_html"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="demo_html" style="min-height: 120px"><t t-esc="default_demo_html"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
@@ -152,7 +184,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="demo_integer"
                             t-att-value="default_demo_integer"
                         />
@@ -164,6 +196,7 @@
                         <t t-foreach="demo_many2many" t-as="dem">
                             <input
                                 type="checkbox"
+                                class="form-control o_website_form_input"
                                 name="demo_many2many"
                                 t-att-id="'demo_many2many_' + dem.name + '_' + str(dem_index)"
                                 t-att-value="dem.id"
@@ -181,7 +214,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_selection">Demo_selection</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="demo_selection" name="demo_selection">
+                        <select class="form-control o_website_form_input" id="demo_selection" name="demo_selection">
                             <t t-foreach="demo_selection" t-as="dem" t-att-selected="default_demo_selection == dem[0]">
                                 <option t-attf-value="#{dem[0]}">
                                     <t t-esc="dem[1]" />
@@ -193,13 +226,13 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_text">Demo_text</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="demo_text" style="min-height: 120px"><t t-esc="default_demo_text"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="demo_text" style="min-height: 120px"><t t-esc="default_demo_text"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="diagram_id">Diagram_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="diagram_id" name="diagram_id">
+                        <select class="form-control o_website_form_input" id="diagram_id" name="diagram_id">
                             <t t-foreach="diagram_id" t-as="dia">
                                 <option t-attf-value="#{dia.id}" t-att-selected="default_diagram_id == dia.id">
                                     <t t-esc="dia.name" />
@@ -211,13 +244,23 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="xpos">Xpos</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="xpos" t-att-value="default_xpos" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="xpos"
+                            t-att-value="default_xpos"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="ypos">Ypos</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="ypos" t-att-value="default_ypos" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="ypos"
+                            t-att-value="default_ypos"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -248,13 +291,22 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="name"
+                            t-attf-value="#{name}"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_many2one_dst">Demo_many2one_dst</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="demo_many2one_dst" name="demo_many2one_dst">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="demo_many2one_dst"
+                            name="demo_many2one_dst"
+                        >
                             <t t-foreach="demo_many2one_dst" t-as="dem">
                                 <option t-attf-value="#{dem.id}" t-att-selected="default_demo_many2one_dst == dem.id">
                                     <t t-esc="dem.name" />
@@ -266,7 +318,11 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demo_many2one_src">Demo_many2one_src</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="demo_many2one_src" name="demo_many2one_src">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="demo_many2one_src"
+                            name="demo_many2one_src"
+                        >
                             <t t-foreach="demo_many2one_src" t-as="dem">
                                 <option t-attf-value="#{dem.id}" t-att-selected="default_demo_many2one_src == dem.id">
                                     <t t-esc="dem.name" />
@@ -278,7 +334,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="diagram_id">Diagram_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="diagram_id" name="diagram_id">
+                        <select class="form-control o_website_form_input" id="diagram_id" name="diagram_id">
                             <t t-foreach="diagram_id" t-as="dia">
                                 <option t-attf-value="#{dia.id}" t-att-selected="default_diagram_id == dia.id">
                                     <t t-esc="dia.name" />
@@ -315,7 +371,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="name"
+                            t-attf-value="#{name}"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -768,6 +829,12 @@
                 </t>
             </t>
         </t>
+    </template>
+
+    <template id="assets_frontend_demo_portal_portal" name="Portal assets frontend" inherit_id="web.assets_frontend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/demo_portal/static/src/js/portal.demo_portal.js" />
+        </xpath>
     </template>
 
     <template id="demo_portal.portal_my_demo_model_portals" name="My Demo Model Portals">

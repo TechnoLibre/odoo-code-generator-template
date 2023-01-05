@@ -1,14 +1,14 @@
 odoo.define(
-    "demo_website_multiple_snippet_Individual_item_content.animation",
+    "demo_website_multiple_snippet_individual_item_structure.animation",
     function (require) {
         "use strict";
 
         let sAnimation = require("website.content.snippets.animation");
 
-        sAnimation.registry.demo_website_multiple_snippet_Individual_item_content =
+        sAnimation.registry.demo_website_multiple_snippet_individual_item_structure =
             sAnimation.Class.extend({
                 selector:
-                    ".o_demo_website_multiple_snippet_Individual_item_content",
+                    ".o_demo_website_multiple_snippet_individual_item_structure",
 
                 start: function () {
                     let self = this;
@@ -25,7 +25,7 @@ odoo.define(
 
                         if (_.isEmpty(data)) {
                             self.$(
-                                ".o_loading_demo_website_multiple_snippet_Individual_item_content"
+                                ".o_loading_demo_website_multiple_snippet_individual_item_structure"
                             ).text("NO DATA");
                             return;
                         }
@@ -117,7 +117,7 @@ odoo.define(
                             self.$(".ypos_value").text(data["ypos"]);
                         }
                         self.$(
-                            ".o_loading_demo_website_multiple_snippet_Individual_item_content"
+                            ".o_loading_demo_website_multiple_snippet_individual_item_structure"
                         ).remove();
                     });
 

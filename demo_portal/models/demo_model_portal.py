@@ -77,6 +77,7 @@ class DemoModelPortal(models.Model):
     )
 
     def _compute_access_url(self):
+        # This is a comment need it for test, thanks
         super(DemoModelPortal, self)._compute_access_url()
         for demo_model_portal in self:
             demo_model_portal.access_url = (

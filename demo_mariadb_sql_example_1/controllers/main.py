@@ -270,6 +270,9 @@ class DemoMariadbSqlExample1Controller(http.Controller):
         if kw.get("autre_situation"):
             vals["autre_situation"] = kw.get("autre_situation")
 
+        if kw.get("confidentiel"):
+            vals["confidentiel"] = kw.get("confidentiel")
+
         default_consulter_organization = (
             http.request.env["organization.commentaire"]
             .default_get(["consulter_organization"])
@@ -300,6 +303,9 @@ class DemoMariadbSqlExample1Controller(http.Controller):
 
         if kw.get("datetime_creation"):
             vals["datetime_creation"] = kw.get("datetime_creation")
+
+        if kw.get("degre_satisfaction"):
+            vals["degre_satisfaction"] = kw.get("degre_satisfaction")
 
         if (
             kw.get("demande_service_id")
@@ -339,8 +345,14 @@ class DemoMariadbSqlExample1Controller(http.Controller):
         if kw.get("resumer_situation"):
             vals["resumer_situation"] = kw.get("resumer_situation")
 
+        if kw.get("situation_impliquant"):
+            vals["situation_impliquant"] = kw.get("situation_impliquant")
+
         if kw.get("solution_pour_regler"):
             vals["solution_pour_regler"] = kw.get("solution_pour_regler")
+
+        if kw.get("type_offre"):
+            vals["type_offre"] = kw.get("type_offre")
 
         new_organization_commentaire = (
             request.env["organization.commentaire"].sudo().create(vals)
@@ -1022,6 +1034,9 @@ class DemoMariadbSqlExample1Controller(http.Controller):
 
         if kw.get("remarque"):
             vals["remarque"] = kw.get("remarque")
+
+        if kw.get("type_echange"):
+            vals["type_echange"] = kw.get("type_echange")
 
         new_organization_echange_service = (
             request.env["organization.echange.service"].sudo().create(vals)
@@ -1736,6 +1751,9 @@ class DemoMariadbSqlExample1Controller(http.Controller):
 
         if kw.get("revenu_familial") and kw.get("revenu_familial").isdigit():
             vals["revenu_familial"] = int(kw.get("revenu_familial"))
+
+        if kw.get("sexe"):
+            vals["sexe"] = kw.get("sexe")
 
         if kw.get("situation_maison") and kw.get("situation_maison").isdigit():
             vals["situation_maison"] = int(kw.get("situation_maison"))

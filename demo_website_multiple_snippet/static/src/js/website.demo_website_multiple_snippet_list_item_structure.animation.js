@@ -1,14 +1,14 @@
 odoo.define(
-    "demo_website_multiple_snippet_List_item_structure.animation",
+    "demo_website_multiple_snippet_list_item_structure.animation",
     function (require) {
         "use strict";
 
         let sAnimation = require("website.content.snippets.animation");
 
-        sAnimation.registry.demo_website_multiple_snippet_List_item_structure =
+        sAnimation.registry.demo_website_multiple_snippet_list_item_structure =
             sAnimation.Class.extend({
                 selector:
-                    ".o_demo_website_multiple_snippet_List_item_structure",
+                    ".o_demo_website_multiple_snippet_list_item_structure",
 
                 start: function () {
                     let self = this;

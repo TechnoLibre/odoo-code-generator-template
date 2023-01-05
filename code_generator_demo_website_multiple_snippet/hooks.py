@@ -59,23 +59,28 @@ def post_init_hook(cr, e):
         code_generator_id.add_module_dependency(lst_depend_module)
 
         # Generate snippet
+        # Documentation Case 1
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "helloworld",
             "name": "helloworld static structure",
             "snippet_type": "structure",
+            "debug_doc": "case 1",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 2
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "helloworld",
             "enable_javascript": True,
             "name": "helloworld structure",
             "snippet_type": "structure",
+            "debug_doc": "case 2",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 3
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_individual",
@@ -83,9 +88,11 @@ def post_init_hook(cr, e):
             "model_name": "demo.model.portal",
             "name": "Individual item structure",
             "snippet_type": "structure",
+            "debug_doc": "case 3",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 4
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_list",
@@ -97,9 +104,11 @@ def post_init_hook(cr, e):
             "show_diff_time": True,
             "show_recent_item": True,
             "snippet_type": "structure",
+            "debug_doc": "case 4",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 5
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_list",
@@ -111,18 +120,70 @@ def post_init_hook(cr, e):
             "show_diff_time": False,
             "show_recent_item": True,
             "snippet_type": "structure",
+            "debug_doc": "case 5",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 6
+        value_snippet = {
+            "code_generator_id": code_generator_id.id,
+            "controller_feature": "model_show_item_list",
+            "enable_javascript": True,
+            "limitation_item": 3,
+            "model_name": "demo.model.portal",
+            # "model_short_name": "portal",
+            "name": "List item structure generic",
+            "show_diff_time": True,
+            "show_recent_item": True,
+            "snippet_type": "structure",
+            "debug_doc": "case 6",
+        }
+        env["code.generator.snippet"].create(value_snippet)
+
+        # Documentation Case 7
+        value_snippet = {
+            "code_generator_id": code_generator_id.id,
+            "controller_feature": "model_show_item_list",
+            "enable_javascript": True,
+            "limitation_item": 3,
+            "model_name": "demo.model.portal;demo.model_2.portal;demo.model_3.portal.diagram",
+            "model_short_name": "double_portal",
+            "name": "List item structure double",
+            "show_diff_time": True,
+            "show_recent_item": True,
+            "snippet_type": "structure",
+            "debug_doc": "case 7",
+        }
+        env["code.generator.snippet"].create(value_snippet)
+
+        # Documentation Case 8
+        value_snippet = {
+            "code_generator_id": code_generator_id.id,
+            "controller_feature": "model_show_item_list",
+            "enable_javascript": True,
+            "limitation_item": 3,
+            "model_name": "demo.model.portal;demo.model_2.portal;demo.model_3.portal.diagram",
+            "model_short_name": "dp_dmp;dp_dm2p;dp_dm3pd",
+            "name": "List item structure double short",
+            "show_diff_time": True,
+            "show_recent_item": True,
+            "snippet_type": "structure",
+            "debug_doc": "case 8",
+        }
+        env["code.generator.snippet"].create(value_snippet)
+
+        # Documentation Case 9
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "helloworld",
             "enable_javascript": True,
             "name": "helloworld effect",
             "snippet_type": "effect",
+            "debug_doc": "case 9",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 10
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_individual",
@@ -130,18 +191,22 @@ def post_init_hook(cr, e):
             "model_name": "demo.model.portal",
             "name": "Individual item effect",
             "snippet_type": "effect",
+            "debug_doc": "case 10",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 11
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "helloworld",
             "enable_javascript": True,
             "name": "helloworld feature",
             "snippet_type": "feature",
+            "debug_doc": "case 11",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 12
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_individual",
@@ -149,18 +214,22 @@ def post_init_hook(cr, e):
             "model_name": "demo.model.portal",
             "name": "Individual item feature",
             "snippet_type": "feature",
+            "debug_doc": "case 12",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 13
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "helloworld",
             "enable_javascript": True,
             "name": "helloworld content",
             "snippet_type": "content",
+            "debug_doc": "case 13",
         }
         env["code.generator.snippet"].create(value_snippet)
 
+        # Documentation Case 14
         value_snippet = {
             "code_generator_id": code_generator_id.id,
             "controller_feature": "model_show_item_individual",
@@ -168,6 +237,7 @@ def post_init_hook(cr, e):
             "model_name": "demo.model.portal",
             "name": "Individual item content",
             "snippet_type": "content",
+            "debug_doc": "case 14",
         }
         env["code.generator.snippet"].create(value_snippet)
 
