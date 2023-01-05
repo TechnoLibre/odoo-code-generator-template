@@ -19,13 +19,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="ville">Ville</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="ville" name="ville">
+                        <select class="form-control o_website_form_input" id="ville" name="ville">
                             <t t-foreach="ville" t-as="vil">
                                 <option t-attf-value="#{vil.id}" t-att-selected="default_ville == vil.id">
                                     <t t-esc="vil.nom" />
@@ -62,7 +67,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="autre_commentaire">Autre_commentaire</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="autre_commentaire" style="min-height: 120px"><t t-esc="default_autre_commentaire"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="autre_commentaire" style="min-height: 120px"><t t-esc="default_autre_commentaire"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
@@ -70,7 +75,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="autre_situation"
                             t-att-value="default_autre_situation"
                         />
@@ -79,7 +84,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="confidentiel">Confidentiel</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="confidentiel" name="confidentiel">
+                        <select class="form-control o_website_form_input" id="confidentiel" name="confidentiel">
                             <t t-foreach="confidentiel" t-as="con" t-att-selected="default_confidentiel == con[0]">
                                 <option t-attf-value="#{con[0]}">
                                     <t t-esc="con[1]" />
@@ -95,8 +100,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="consulter_organization"
-                            t-att-id="consulter_organization"
+                            id="consulter_organization"
                             t-att-value="True"
                             t-att-checked="default_consulter_organization"
                         />
@@ -107,8 +113,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="consulter_reseau"
-                            t-att-id="consulter_reseau"
+                            id="consulter_reseau"
                             t-att-value="True"
                             t-att-checked="default_consulter_reseau"
                         />
@@ -117,17 +124,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_incident">Date_incident</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_incident_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_incident_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_incident_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_incident"
                                 t-att-value="default_date_incident"
+                                t-attf-data-target="#date_incident_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_incident_datepicker"
+                                t-attf-data-target="#date_incident_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -143,18 +150,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -170,18 +177,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="datetime_creation_datepicker"
+                            t-attf-id="datetime_creation_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="datetime_creation_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="datetime_creation"
                                 t-att-value="default_datetime_creation"
+                                t-attf-data-target="#datetime_creation_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="datetime_creation_datepicker"
+                                t-attf-data-target="#datetime_creation_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -194,7 +201,11 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="degre_satisfaction">Degre_satisfaction</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="degre_satisfaction" name="degre_satisfaction">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="degre_satisfaction"
+                            name="degre_satisfaction"
+                        >
                             <t
                                 t-foreach="degre_satisfaction"
                                 t-as="deg"
@@ -210,7 +221,11 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demande_service_id">Demande_service_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="demande_service_id" name="demande_service_id">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="demande_service_id"
+                            name="demande_service_id"
+                        >
                             <t t-foreach="demande_service_id" t-as="dem">
                                 <option t-attf-value="#{dem.id}" t-att-selected="default_demande_service_id == dem.id">
                                     <t t-esc="dem.titre" />
@@ -222,13 +237,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demarche">Demarche</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="demarche" style="min-height: 120px"><t t-esc="default_demarche"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="demarche" style="min-height: 120px"><t t-esc="default_demarche"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre_source">Membre_source</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre_source" name="membre_source" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="membre_source"
+                            name="membre_source"
+                            required="True"
+                        >
                             <t t-foreach="membre_source" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre_source == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -240,7 +260,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre_viser">Membre_viser</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre_viser" name="membre_viser">
+                        <select class="form-control o_website_form_input" id="membre_viser" name="membre_viser">
                             <t t-foreach="membre_viser" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre_viser == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -252,19 +272,29 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_comite">Nom_comite</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_comite" t-att-value="default_nom_comite" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_comite"
+                            t-att-value="default_nom_comite"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="note_administrative">Note_administrative</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="note_administrative" style="min-height: 120px"><t t-esc="default_note_administrative"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="note_administrative" style="min-height: 120px"><t t-esc="default_note_administrative"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
@@ -272,7 +302,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="number"
                             t-att-value="default_number"
                             required="True"
@@ -282,7 +312,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="offre_service_id">Offre_service_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="offre_service_id" name="offre_service_id">
+                        <select class="form-control o_website_form_input" id="offre_service_id" name="offre_service_id">
                             <t t-foreach="offre_service_id" t-as="off">
                                 <option t-attf-value="#{off.id}" t-att-selected="default_offre_service_id == off.id">
                                     <t t-esc="off.description" />
@@ -294,7 +324,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="point_service">Point_service</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="point_service" name="point_service" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="point_service"
+                            name="point_service"
+                            required="True"
+                        >
                             <t t-foreach="point_service" t-as="poi">
                                 <option t-attf-value="#{poi.id}" t-att-selected="default_point_service == poi.id">
                                     <t t-esc="poi.nom" />
@@ -306,7 +341,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="resumer_situation">Resumer_situation</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="resumer_situation" style="min-height: 120px"><t t-esc="default_resumer_situation"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="resumer_situation" style="min-height: 120px"><t t-esc="default_resumer_situation"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
@@ -314,7 +349,11 @@
                         Situation_impliquant
                     </label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="situation_impliquant" name="situation_impliquant">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="situation_impliquant"
+                            name="situation_impliquant"
+                        >
                             <t
                                 t-foreach="situation_impliquant"
                                 t-as="sit"
@@ -332,13 +371,13 @@
                         Solution_pour_regler
                     </label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="solution_pour_regler" style="min-height: 120px"><t t-esc="default_solution_pour_regler"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="solution_pour_regler" style="min-height: 120px"><t t-esc="default_solution_pour_regler"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="type_offre">Type_offre</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="type_offre" name="type_offre">
+                        <select class="form-control o_website_form_input" id="type_offre" name="type_offre">
                             <t t-foreach="type_offre" t-as="typ" t-att-selected="default_type_offre == typ[0]">
                                 <option t-attf-value="#{typ[0]}">
                                     <t t-esc="typ[1]" />
@@ -377,8 +416,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -387,7 +427,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="courriel">Courriel</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="courriel" t-att-value="default_courriel" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="courriel"
+                            t-att-value="default_courriel"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -396,18 +441,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -422,8 +467,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="en_attente"
-                            t-att-id="en_attente"
+                            id="en_attente"
                             t-att-value="True"
                             t-att-checked="default_en_attente"
                         />
@@ -432,19 +478,34 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="organization"
+                            name="organization"
+                            required="True"
+                        >
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -456,19 +517,34 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="poste">Poste</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="poste" t-att-value="default_poste" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="poste"
+                            t-att-value="default_poste"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="prenom">Prenom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="prenom" t-att-value="default_prenom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="prenom"
+                            t-att-value="default_prenom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone">Telephone</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telephone" t-att-value="default_telephone" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telephone"
+                            t-att-value="default_telephone"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -476,8 +552,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="transferer"
-                            t-att-id="transferer"
+                            id="transferer"
                             t-att-value="True"
                             t-att-checked="default_transferer"
                         />
@@ -513,8 +590,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -525,8 +603,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="approuver"
-                            t-att-id="approuver"
+                            id="approuver"
                             t-att-value="True"
                             t-att-checked="default_approuver"
                         />
@@ -535,17 +614,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_debut">Date_debut</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_debut_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_debut_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_debut_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_debut"
                                 t-att-value="default_date_debut"
+                                t-attf-data-target="#date_debut_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_debut_datepicker"
+                                t-attf-data-target="#date_debut_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -558,17 +637,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_fin">Date_fin</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_fin_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_fin_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_fin_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_fin"
                                 t-att-value="default_date_fin"
+                                t-attf-data-target="#date_fin_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_fin_datepicker"
+                                t-attf-data-target="#date_fin_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -581,13 +660,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="description">Description</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="description" t-att-value="default_description" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="description"
+                            t-att-value="default_description"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre">Membre</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre" name="membre">
+                        <select class="form-control o_website_form_input" id="membre" name="membre">
                             <t t-foreach="membre" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -599,7 +683,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization">
+                        <select class="form-control o_website_form_input" id="organization" name="organization">
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -611,7 +695,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="titre">Titre</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="titre" t-att-value="default_titre" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="titre"
+                            t-att-value="default_titre"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -646,8 +735,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="consulter_etat_compte"
-                            t-att-id="consulter_etat_compte"
+                            id="consulter_etat_compte"
                             t-att-value="True"
                             t-att-checked="default_consulter_etat_compte"
                         />
@@ -658,8 +748,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="consulter_profil"
-                            t-att-id="consulter_profil"
+                            id="consulter_profil"
                             t-att-value="True"
                             t-att-checked="default_consulter_profil"
                         />
@@ -670,8 +761,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_dmd"
-                            t-att-id="gestion_dmd"
+                            id="gestion_dmd"
                             t-att-value="True"
                             t-att-checked="default_gestion_dmd"
                         />
@@ -682,8 +774,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_fichier"
-                            t-att-id="gestion_fichier"
+                            id="gestion_fichier"
                             t-att-value="True"
                             t-att-checked="default_gestion_fichier"
                         />
@@ -694,8 +787,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_offre"
-                            t-att-id="gestion_offre"
+                            id="gestion_offre"
                             t-att-value="True"
                             t-att-checked="default_gestion_offre"
                         />
@@ -708,8 +802,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_offre_service"
-                            t-att-id="gestion_offre_service"
+                            id="gestion_offre_service"
                             t-att-value="True"
                             t-att-checked="default_gestion_offre_service"
                         />
@@ -720,8 +815,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_profil"
-                            t-att-id="gestion_profil"
+                            id="gestion_profil"
                             t-att-value="True"
                             t-att-checked="default_gestion_profil"
                         />
@@ -734,8 +830,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="gestion_type_service"
-                            t-att-id="gestion_type_service"
+                            id="gestion_type_service"
                             t-att-value="True"
                             t-att-checked="default_gestion_type_service"
                         />
@@ -746,8 +843,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="groupe_achat"
-                            t-att-id="groupe_achat"
+                            id="groupe_achat"
                             t-att-value="True"
                             t-att-checked="default_groupe_achat"
                         />
@@ -756,7 +854,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre">Membre</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre" name="membre">
+                        <select class="form-control o_website_form_input" id="membre" name="membre">
                             <t t-foreach="membre" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -768,7 +866,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -776,8 +879,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="saisie_echange"
-                            t-att-id="saisie_echange"
+                            id="saisie_echange"
                             t-att-value="True"
                             t-att-checked="default_saisie_echange"
                         />
@@ -788,8 +892,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="validation"
-                            t-att-id="validation"
+                            id="validation"
                             t-att-value="True"
                             t-att-checked="default_validation"
                         />
@@ -823,23 +928,28 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="commentaire">Commentaire</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="commentaire" t-att-value="default_commentaire" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="commentaire"
+                            t-att-value="default_commentaire"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_echange">Date_echange</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_echange_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_echange_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_echange_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_echange"
                                 t-att-value="default_date_echange"
+                                t-attf-data-target="#date_echange_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_echange_datepicker"
+                                t-attf-data-target="#date_echange_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -852,7 +962,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="demande_service">Demande_service</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="demande_service" name="demande_service">
+                        <select class="form-control o_website_form_input" id="demande_service" name="demande_service">
                             <t t-foreach="demande_service" t-as="dem">
                                 <option t-attf-value="#{dem.id}" t-att-selected="default_demande_service == dem.id">
                                     <t t-esc="dem.titre" />
@@ -864,7 +974,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre_acheteur">Membre_acheteur</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre_acheteur" name="membre_acheteur">
+                        <select class="form-control o_website_form_input" id="membre_acheteur" name="membre_acheteur">
                             <t t-foreach="membre_acheteur" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre_acheteur == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -876,7 +986,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre_vendeur">Membre_vendeur</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre_vendeur" name="membre_vendeur">
+                        <select class="form-control o_website_form_input" id="membre_vendeur" name="membre_vendeur">
                             <t t-foreach="membre_vendeur" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre_vendeur == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -888,25 +998,42 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nb_heure">Nb_heure</label>
                     <div class="col-md-7 col-sm-8">
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="nb_heure"
-                            placeholder="hh:mm"
-                            t-att-value="default_nb_heure"
-                        />
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="nb_heure_datepicker">
+                            <input
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_clock"
+                                name="nb_heure"
+                                placeholder="hh:mm"
+                                t-att-value="default_nb_heure"
+                                t-attf-data-target="#nb_heure_datepicker"
+                                type="text"
+                            />
+                            <div
+                                class="input-group-append"
+                                t-attf-data-target="#nb_heure_datepicker"
+                                data-toggle="datetimepicker"
+                            >
+                                <div class="input-group-text">
+                                    <i class="fa fa-clock-o" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="offre_service">Offre_service</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="offre_service" name="offre_service">
+                        <select class="form-control o_website_form_input" id="offre_service" name="offre_service">
                             <t t-foreach="offre_service" t-as="off">
                                 <option t-attf-value="#{off.id}" t-att-selected="default_offre_service == off.id">
                                     <t t-esc="off.description" />
@@ -918,7 +1045,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="point_service">Point_service</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="point_service" name="point_service">
+                        <select class="form-control o_website_form_input" id="point_service" name="point_service">
                             <t t-foreach="point_service" t-as="poi">
                                 <option t-attf-value="#{poi.id}" t-att-selected="default_point_service == poi.id">
                                     <t t-esc="poi.nom" />
@@ -930,13 +1057,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="remarque">Remarque</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="remarque" t-att-value="default_remarque" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="remarque"
+                            t-att-value="default_remarque"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="type_echange">Type_echange</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="type_echange" name="type_echange">
+                        <select class="form-control o_website_form_input" id="type_echange" name="type_echange">
                             <t t-foreach="type_echange" t-as="typ" t-att-selected="default_type_echange == typ[0]">
                                 <option t-attf-value="#{typ[0]}">
                                     <t t-esc="typ[1]" />
@@ -976,18 +1108,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1014,13 +1146,24 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" required="True" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                            required="True"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="organization"
+                            name="organization"
+                            required="True"
+                        >
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -1034,8 +1177,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="si_admin"
-                            t-att-id="si_admin"
+                            id="si_admin"
                             t-att-value="True"
                             t-att-checked="default_si_admin"
                         />
@@ -1046,8 +1190,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="si_disponible"
-                            t-att-id="si_disponible"
+                            id="si_disponible"
                             t-att-value="True"
                             t-att-checked="default_si_disponible"
                         />
@@ -1060,8 +1205,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="si_organization_local_seulement"
-                            t-att-id="si_organization_local_seulement"
+                            id="si_organization_local_seulement"
                             t-att-value="True"
                             t-att-checked="default_si_organization_local_seulement"
                         />
@@ -1070,7 +1216,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="type_fichier">Type_fichier</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="type_fichier" name="type_fichier" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="type_fichier"
+                            name="type_fichier"
+                            required="True"
+                        >
                             <t t-foreach="type_fichier" t-as="typ">
                                 <option t-attf-value="#{typ.id}" t-att-selected="default_type_fichier == typ.id">
                                     <t t-esc="typ.nom" />
@@ -1109,8 +1260,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="achat_regrouper"
-                            t-att-id="achat_regrouper"
+                            id="achat_regrouper"
                             t-att-value="True"
                             t-att-checked="default_achat_regrouper"
                         />
@@ -1121,8 +1273,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -1131,7 +1284,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="adresse">Adresse</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="adresse" t-att-value="default_adresse" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="adresse"
+                            t-att-value="default_adresse"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1139,7 +1297,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="annee_naissance"
                             t-att-value="default_annee_naissance"
                         />
@@ -1148,7 +1306,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="arrondissement">Arrondissement</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="arrondissement" name="arrondissement">
+                        <select class="form-control o_website_form_input" id="arrondissement" name="arrondissement">
                             <t t-foreach="arrondissement" t-as="arr">
                                 <option t-attf-value="#{arr.id}" t-att-selected="default_arrondissement == arr.id">
                                     <t t-esc="arr.nom" />
@@ -1162,8 +1320,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="bottin_courriel"
-                            t-att-id="bottin_courriel"
+                            id="bottin_courriel"
                             t-att-value="True"
                             t-att-checked="default_bottin_courriel"
                         />
@@ -1174,8 +1333,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="bottin_tel"
-                            t-att-id="bottin_tel"
+                            id="bottin_tel"
                             t-att-value="True"
                             t-att-checked="default_bottin_tel"
                         />
@@ -1184,29 +1344,39 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="codepostal">Codepostal</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="codepostal" t-att-value="default_codepostal" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="codepostal"
+                            t-att-value="default_codepostal"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="courriel">Courriel</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="courriel" t-att-value="default_courriel" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="courriel"
+                            t-att-value="default_courriel"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_adhesion">Date_adhesion</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_adhesion_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_adhesion_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_adhesion_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_adhesion"
                                 t-att-value="default_date_adhesion"
+                                t-attf-data-target="#date_adhesion_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_adhesion_datepicker"
+                                t-attf-data-target="#date_adhesion_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1222,18 +1392,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1248,8 +1418,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="description_membre"
-                            t-att-id="description_membre"
+                            id="description_membre"
                             t-att-value="True"
                             t-att-checked="default_description_membre"
                         />
@@ -1262,8 +1433,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="est_un_point_service"
-                            t-att-id="est_un_point_service"
+                            id="est_un_point_service"
                             t-att-value="True"
                             t-att-checked="default_est_un_point_service"
                         />
@@ -1274,8 +1446,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="membre_ca"
-                            t-att-id="membre_ca"
+                            id="membre_ca"
                             t-att-value="True"
                             t-att-checked="default_membre_ca"
                         />
@@ -1286,8 +1459,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="membre_conjoint"
-                            t-att-id="membre_conjoint"
+                            id="membre_conjoint"
                             t-att-value="True"
                             t-att-checked="default_membre_conjoint"
                         />
@@ -1298,7 +1472,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="membre_conjoint_id"
                             t-att-value="default_membre_conjoint_id"
                         />
@@ -1309,8 +1483,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="membre_principal"
-                            t-att-id="membre_principal"
+                            id="membre_principal"
                             t-att-value="True"
                             t-att-checked="default_membre_principal"
                         />
@@ -1319,19 +1494,29 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="memo">Memo</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="memo" style="min-height: 120px"><t t-esc="default_memo"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="memo" style="min-height: 120px"><t t-esc="default_memo"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1339,7 +1524,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="nom_utilisateur"
                             t-att-value="default_nom_utilisateur"
                         />
@@ -1348,7 +1533,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="occupation">Occupation</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="occupation" name="occupation">
+                        <select class="form-control o_website_form_input" id="occupation" name="occupation">
                             <t t-foreach="occupation" t-as="occ">
                                 <option t-attf-value="#{occ.id}" t-att-selected="default_occupation == occ.id">
                                     <t t-esc="occ.nom" />
@@ -1360,7 +1545,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="organization"
+                            name="organization"
+                            required="True"
+                        >
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -1372,7 +1562,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="origine">Origine</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="origine" name="origine">
+                        <select class="form-control o_website_form_input" id="origine" name="origine">
                             <t t-foreach="origine" t-as="ori">
                                 <option t-attf-value="#{ori.id}" t-att-selected="default_origine == ori.id">
                                     <t t-esc="ori.nom" />
@@ -1386,8 +1576,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="part_social_paye"
-                            t-att-id="part_social_paye"
+                            id="part_social_paye"
                             t-att-value="True"
                             t-att-checked="default_part_social_paye"
                         />
@@ -1398,8 +1589,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="pas_communication"
-                            t-att-id="pas_communication"
+                            id="pas_communication"
                             t-att-value="True"
                             t-att-checked="default_pas_communication"
                         />
@@ -1408,7 +1600,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="point_service">Point_service</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="point_service" name="point_service">
+                        <select class="form-control o_website_form_input" id="point_service" name="point_service">
                             <t t-foreach="point_service" t-as="poi">
                                 <option t-attf-value="#{poi.id}" t-att-selected="default_point_service == poi.id">
                                     <t t-esc="poi.nom" />
@@ -1420,7 +1612,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="prenom">Prenom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="prenom" t-att-value="default_prenom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="prenom"
+                            t-att-value="default_prenom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1428,8 +1625,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="pret_actif"
-                            t-att-id="pret_actif"
+                            id="pret_actif"
                             t-att-value="True"
                             t-att-checked="default_pret_actif"
                         />
@@ -1440,8 +1638,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="profil_approuver"
-                            t-att-id="profil_approuver"
+                            id="profil_approuver"
                             t-att-value="True"
                             t-att-checked="default_profil_approuver"
                         />
@@ -1450,7 +1649,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="provenance">Provenance</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="provenance" name="provenance">
+                        <select class="form-control o_website_form_input" id="provenance" name="provenance">
                             <t t-foreach="provenance" t-as="pro">
                                 <option t-attf-value="#{pro.id}" t-att-selected="default_provenance == pro.id">
                                     <t t-esc="pro.nom" />
@@ -1462,7 +1661,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="quartier">Quartier</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="quartier" name="quartier">
+                        <select class="form-control o_website_form_input" id="quartier" name="quartier">
                             <t t-foreach="quartier" t-as="qua">
                                 <option t-attf-value="#{qua.id}" t-att-selected="default_quartier == qua.id">
                                     <t t-esc="qua.nom" />
@@ -1478,8 +1677,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="recevoir_courriel_groupe"
-                            t-att-id="recevoir_courriel_groupe"
+                            id="recevoir_courriel_groupe"
                             t-att-value="True"
                             t-att-checked="default_recevoir_courriel_groupe"
                         />
@@ -1488,7 +1688,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="region">Region</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="region" name="region" required="True">
+                        <select class="form-control o_website_form_input" id="region" name="region" required="True">
                             <t t-foreach="region" t-as="reg">
                                 <option t-attf-value="#{reg.id}" t-att-selected="default_region == reg.id">
                                     <t t-esc="reg.nom" />
@@ -1500,7 +1700,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="revenu_familial">Revenu_familial</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="revenu_familial" name="revenu_familial">
+                        <select class="form-control o_website_form_input" id="revenu_familial" name="revenu_familial">
                             <t t-foreach="revenu_familial" t-as="rev">
                                 <option t-attf-value="#{rev.id}" t-att-selected="default_revenu_familial == rev.id">
                                     <t t-esc="rev.nom" />
@@ -1512,7 +1712,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="sexe">Sexe</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="sexe" name="sexe">
+                        <select class="form-control o_website_form_input" id="sexe" name="sexe">
                             <t t-foreach="sexe" t-as="sex" t-att-selected="default_sexe == sex[0]">
                                 <option t-attf-value="#{sex[0]}">
                                     <t t-esc="sex[1]" />
@@ -1524,7 +1724,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="situation_maison">Situation_maison</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="situation_maison" name="situation_maison">
+                        <select class="form-control o_website_form_input" id="situation_maison" name="situation_maison">
                             <t t-foreach="situation_maison" t-as="sit">
                                 <option t-attf-value="#{sit.id}" t-att-selected="default_situation_maison == sit.id">
                                     <t t-esc="sit.nom" />
@@ -1536,19 +1736,34 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_1">Telephone_1</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telephone_1" t-att-value="default_telephone_1" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telephone_1"
+                            t-att-value="default_telephone_1"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_2">Telephone_2</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telephone_2" t-att-value="default_telephone_2" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telephone_2"
+                            t-att-value="default_telephone_2"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_3">Telephone_3</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telephone_3" t-att-value="default_telephone_3" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telephone_3"
+                            t-att-value="default_telephone_3"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1556,7 +1771,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="telephone_poste_1"
                             t-att-value="default_telephone_poste_1"
                         />
@@ -1567,7 +1782,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="telephone_poste_2"
                             t-att-value="default_telephone_poste_2"
                         />
@@ -1578,7 +1793,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="telephone_poste_3"
                             t-att-value="default_telephone_poste_3"
                         />
@@ -1587,7 +1802,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_type_1">Telephone_type_1</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="telephone_type_1" name="telephone_type_1">
+                        <select class="form-control o_website_form_input" id="telephone_type_1" name="telephone_type_1">
                             <t t-foreach="telephone_type_1" t-as="tel">
                                 <option t-attf-value="#{tel.id}" t-att-selected="default_telephone_type_1 == tel.id">
                                     <t t-esc="tel.nom" />
@@ -1599,7 +1814,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_type_2">Telephone_type_2</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="telephone_type_2" name="telephone_type_2">
+                        <select class="form-control o_website_form_input" id="telephone_type_2" name="telephone_type_2">
                             <t t-foreach="telephone_type_2" t-as="tel">
                                 <option t-attf-value="#{tel.id}" t-att-selected="default_telephone_type_2 == tel.id">
                                     <t t-esc="tel.nom" />
@@ -1611,7 +1826,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone_type_3">Telephone_type_3</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="telephone_type_3" name="telephone_type_3">
+                        <select class="form-control o_website_form_input" id="telephone_type_3" name="telephone_type_3">
                             <t t-foreach="telephone_type_3" t-as="tel">
                                 <option t-attf-value="#{tel.id}" t-att-selected="default_telephone_type_3 == tel.id">
                                     <t t-esc="tel.nom" />
@@ -1625,7 +1840,11 @@
                         Transfert_organization
                     </label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="transfert_organization" name="transfert_organization">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="transfert_organization"
+                            name="transfert_organization"
+                        >
                             <t t-foreach="transfert_organization" t-as="tra">
                                 <option
                                     t-attf-value="#{tra.id}"
@@ -1640,7 +1859,11 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="type_communication">Type_communication</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="type_communication" name="type_communication">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="type_communication"
+                            name="type_communication"
+                        >
                             <t t-foreach="type_communication" t-as="typ">
                                 <option t-attf-value="#{typ.id}" t-att-selected="default_type_communication == typ.id">
                                     <t t-esc="typ.nom" />
@@ -1652,7 +1875,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="ville">Ville</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="ville" name="ville" required="True">
+                        <select class="form-control o_website_form_input" id="ville" name="ville" required="True">
                             <t t-foreach="ville" t-as="vil">
                                 <option t-attf-value="#{vil.id}" t-att-selected="default_ville == vil.id">
                                     <t t-esc="vil.nom" />
@@ -1689,7 +1912,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1722,8 +1950,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="accompli"
-                            t-att-id="accompli"
+                            id="accompli"
                             t-att-value="True"
                             t-att-checked="default_accompli"
                         />
@@ -1734,8 +1963,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -1746,8 +1976,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="approuve"
-                            t-att-id="approuve"
+                            id="approuve"
                             t-att-value="True"
                             t-att-checked="default_approuve"
                         />
@@ -1756,7 +1987,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="condition">Condition</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="condition" t-att-value="default_condition" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="condition"
+                            t-att-value="default_condition"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1764,7 +2000,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="condition_autre"
                             t-att-value="default_condition_autre"
                         />
@@ -1773,17 +2009,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_affichage">Date_affichage</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_affichage_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_affichage_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_affichage_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_affichage"
                                 t-att-value="default_date_affichage"
+                                t-attf-data-target="#date_affichage_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_affichage_datepicker"
+                                t-attf-data-target="#date_affichage_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1796,17 +2032,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_debut">Date_debut</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_debut_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_debut_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_debut_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_debut"
                                 t-att-value="default_date_debut"
+                                t-attf-data-target="#date_debut_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_debut_datepicker"
+                                t-attf-data-target="#date_debut_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1819,17 +2055,17 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="date_fin">Date_fin</label>
                     <div class="col-md-7 col-sm-8">
-                        <div class="input-group date" data-target-input="nearest" t-att-id="date_fin_datepicker">
+                        <div class="input-group date" data-target-input="nearest" t-attf-id="date_fin_datepicker">
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_fin_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input o_website_form_date"
+                                name="date_fin"
                                 t-att-value="default_date_fin"
+                                t-attf-data-target="#date_fin_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_fin_datepicker"
+                                t-attf-data-target="#date_fin_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1845,18 +2081,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -1869,7 +2105,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="description">Description</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="description" t-att-value="default_description" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="description"
+                            t-att-value="default_description"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -1877,7 +2118,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="disponibilite"
                             t-att-value="default_disponibilite"
                         />
@@ -1886,7 +2127,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre">Membre</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre" name="membre">
+                        <select class="form-control o_website_form_input" id="membre" name="membre">
                             <t t-foreach="membre" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -1900,7 +2141,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="nb_consultation"
                             t-att-value="default_nb_consultation"
                         />
@@ -1911,7 +2152,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="nom_offre_special"
                             t-att-value="default_nom_offre_special"
                         />
@@ -1922,8 +2163,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="offre_special"
-                            t-att-id="offre_special"
+                            id="offre_special"
                             t-att-value="True"
                             t-att-checked="default_offre_special"
                         />
@@ -1932,7 +2174,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization">
+                        <select class="form-control o_website_form_input" id="organization" name="organization">
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -1944,13 +2186,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="tarif">Tarif</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="tarif" t-att-value="default_tarif" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="tarif"
+                            t-att-value="default_tarif"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="type_service_id">Type_service_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="type_service_id" name="type_service_id">
+                        <select class="form-control o_website_form_input" id="type_service_id" name="type_service_id">
                             <t t-foreach="type_service_id" t-as="typ">
                                 <option t-attf-value="#{typ.id}" t-att-selected="default_type_service_id == typ.id">
                                     <t t-esc="typ.nom_complet" />
@@ -1989,8 +2236,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -1999,13 +2247,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="adresse">Adresse</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="adresse" t-att-value="default_adresse" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="adresse"
+                            t-att-value="default_adresse"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="arrondissement">Arrondissement</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="arrondissement" name="arrondissement">
+                        <select class="form-control o_website_form_input" id="arrondissement" name="arrondissement">
                             <t t-foreach="arrondissement" t-as="arr">
                                 <option t-attf-value="#{arr.id}" t-att-selected="default_arrondissement == arr.id">
                                     <t t-esc="arr.nom" />
@@ -2017,13 +2270,23 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="code_postal">Code_postal</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="code_postal" t-att-value="default_code_postal" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="code_postal"
+                            t-att-value="default_code_postal"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="courriel">Courriel</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="courriel" t-att-value="default_courriel" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="courriel"
+                            t-att-value="default_courriel"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2032,18 +2295,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -2060,8 +2323,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="grp_achat_administrateur"
-                            t-att-id="grp_achat_administrateur"
+                            id="grp_achat_administrateur"
                             t-att-value="True"
                             t-att-checked="default_grp_achat_administrateur"
                         />
@@ -2072,8 +2336,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="grp_achat_membre"
-                            t-att-id="grp_achat_membre"
+                            id="grp_achat_membre"
                             t-att-value="True"
                             t-att-checked="default_grp_achat_membre"
                         />
@@ -2090,25 +2355,31 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="message_accueil">Message_accueil</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="message_accueil" style="min-height: 120px"><t t-esc="default_message_accueil"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="message_accueil" style="min-height: 120px"><t t-esc="default_message_accueil"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="message_grp_achat">Message_grp_achat</label>
                     <div class="col-md-7 col-sm-8">
-        <!-- prettier-ignore-start --><textarea class="form-control" name="message_grp_achat" style="min-height: 120px"><t t-esc="default_message_grp_achat"/></textarea><!-- prettier-ignore-end -->
+        <!-- prettier-ignore-start --><textarea class="form-control o_website_form_input" name="message_grp_achat" style="min-height: 120px"><t t-esc="default_message_grp_achat"/></textarea><!-- prettier-ignore-end -->
         </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" required="True" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                            required="True"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="region">Region</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="region" name="region">
+                        <select class="form-control o_website_form_input" id="region" name="region">
                             <t t-foreach="region" t-as="reg">
                                 <option t-attf-value="#{reg.id}" t-att-selected="default_region == reg.id">
                                     <t t-esc="reg.nom" />
@@ -2120,19 +2391,34 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telecopieur">Telecopieur</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telecopieur" t-att-value="default_telecopieur" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telecopieur"
+                            t-att-value="default_telecopieur"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="telephone">Telephone</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="telephone" t-att-value="default_telephone" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="telephone"
+                            t-att-value="default_telephone"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="url_public">Url_public</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="url_public" t-att-value="default_url_public" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="url_public"
+                            t-att-value="default_url_public"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2140,7 +2426,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="url_transactionnel"
                             t-att-value="default_url_transactionnel"
                         />
@@ -2149,7 +2435,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="ville">Ville</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="ville" name="ville">
+                        <select class="form-control o_website_form_input" id="ville" name="ville">
                             <t t-foreach="ville" t-as="vil">
                                 <option t-attf-value="#{vil.id}" t-att-selected="default_ville == vil.id">
                                     <t t-esc="vil.nom" />
@@ -2186,7 +2472,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2220,18 +2511,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -2244,13 +2535,23 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="organization">Organization</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="organization" name="organization" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="organization"
+                            name="organization"
+                            required="True"
+                        >
                             <t t-foreach="organization" t-as="org">
                                 <option t-attf-value="#{org.id}" t-att-selected="default_organization == org.id">
                                     <t t-esc="org.nom" />
@@ -2262,7 +2563,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="sequence">Sequence</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="sequence" t-att-value="default_sequence" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="sequence"
+                            t-att-value="default_sequence"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2293,7 +2599,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2324,7 +2635,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="arrondissement">Arrondissement</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="arrondissement" name="arrondissement" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="arrondissement"
+                            name="arrondissement"
+                            required="True"
+                        >
                             <t t-foreach="arrondissement" t-as="arr">
                                 <option t-attf-value="#{arr.id}" t-att-selected="default_arrondissement == arr.id">
                                     <t t-esc="arr.nom" />
@@ -2336,7 +2652,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2369,7 +2690,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="code"
                             t-att-value="default_code"
                             required="True"
@@ -2379,7 +2700,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2410,7 +2736,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2441,7 +2772,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2472,7 +2808,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2505,8 +2846,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="admin"
-                            t-att-id="admin"
+                            id="admin"
                             t-att-value="True"
                             t-att-checked="default_admin"
                         />
@@ -2517,8 +2859,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="admin_chef"
-                            t-att-id="admin_chef"
+                            id="admin_chef"
                             t-att-value="True"
                             t-att-checked="default_admin_chef"
                         />
@@ -2531,8 +2874,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="admin_ord_point_service"
-                            t-att-id="admin_ord_point_service"
+                            id="admin_ord_point_service"
                             t-att-value="True"
                             t-att-checked="default_admin_ord_point_service"
                         />
@@ -2543,8 +2887,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="admin_point_service"
-                            t-att-id="admin_point_service"
+                            id="admin_point_service"
                             t-att-value="True"
                             t-att-checked="default_admin_point_service"
                         />
@@ -2553,7 +2898,7 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="membre">Membre</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="membre" name="membre">
+                        <select class="form-control o_website_form_input" id="membre" name="membre">
                             <t t-foreach="membre" t-as="mem">
                                 <option t-attf-value="#{mem.id}" t-att-selected="default_membre == mem.id">
                                     <t t-esc="mem.nom_complet" />
@@ -2565,7 +2910,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2573,8 +2923,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="organizateur_simple"
-                            t-att-id="organizateur_simple"
+                            id="organizateur_simple"
                             t-att-value="True"
                             t-att-checked="default_organizateur_simple"
                         />
@@ -2585,8 +2936,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="reseau"
-                            t-att-id="reseau"
+                            id="reseau"
                             t-att-value="True"
                             t-att-checked="default_reseau"
                         />
@@ -2597,8 +2949,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="spip"
-                            t-att-id="spip"
+                            id="spip"
                             t-att-value="True"
                             t-att-checked="default_spip"
                         />
@@ -2635,18 +2988,18 @@
                         <div
                             class="input-group date"
                             data-target-input="nearest"
-                            t-att-id="date_mise_a_jour_datepicker"
+                            t-attf-id="date_mise_a_jour_datepicker"
                         >
                             <input
-                                type="text"
-                                class="form-control datetimepicker-input"
-                                t-att-data-target="date_mise_a_jour_datepicker"
-                                t-att-name="prefix"
+                                class="form-control datetimepicker-input o_website_form_input"
+                                name="date_mise_a_jour"
                                 t-att-value="default_date_mise_a_jour"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
+                                type="text"
                             />
                             <div
                                 class="input-group-append"
-                                t-att-data-target="date_mise_a_jour_datepicker"
+                                t-attf-data-target="#date_mise_a_jour_datepicker"
                                 data-toggle="datetimepicker"
                             >
                                 <div class="input-group-text">
@@ -2659,7 +3012,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2692,8 +3050,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -2704,8 +3063,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="approuve"
-                            t-att-id="approuve"
+                            id="approuve"
                             t-att-value="True"
                             t-att-checked="default_approuve"
                         />
@@ -2714,37 +3074,66 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="description">Description</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="description" t-att-value="default_description" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="description"
+                            t-att-value="default_description"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="identifiant">Identifiant</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="identifiant" t-att-value="default_identifiant" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="identifiant"
+                            t-att-value="default_identifiant"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom_complet">Nom_complet</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom_complet" t-att-value="default_nom_complet" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom_complet"
+                            t-att-value="default_nom_complet"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="numero">Numero</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="numero" t-att-value="default_numero" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="numero"
+                            t-att-value="default_numero"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="sous_categorie_id">Sous_categorie_id</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="sous_categorie_id" name="sous_categorie_id">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="sous_categorie_id"
+                            name="sous_categorie_id"
+                        >
                             <t t-foreach="sous_categorie_id" t-as="sou">
                                 <option t-attf-value="#{sou.id}" t-att-selected="default_sous_categorie_id == sou.id">
                                     <t t-esc="sou.nom" />
@@ -2783,8 +3172,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -2795,8 +3185,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="approuve"
-                            t-att-id="approuve"
+                            id="approuve"
                             t-att-value="True"
                             t-att-checked="default_approuve"
                         />
@@ -2807,7 +3198,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="nocategorie"
                             t-att-value="default_nocategorie"
                             required="True"
@@ -2817,7 +3208,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2853,8 +3249,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="active"
-                            t-att-id="active"
+                            id="active"
                             t-att-value="True"
                             t-att-checked="default_active"
                         />
@@ -2865,8 +3262,9 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="checkbox"
+                            class="form-control o_website_form_input"
                             name="approuver"
-                            t-att-id="approuver"
+                            id="approuver"
                             t-att-value="True"
                             t-att-checked="default_approuver"
                         />
@@ -2875,7 +3273,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="categorie">Categorie</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="categorie" name="categorie" required="True">
+                        <select
+                            class="form-control o_website_form_input"
+                            id="categorie"
+                            name="categorie"
+                            required="True"
+                        >
                             <t t-foreach="categorie" t-as="cat">
                                 <option t-attf-value="#{cat.id}" t-att-selected="default_categorie == cat.id">
                                     <t t-esc="cat.nom" />
@@ -2887,7 +3290,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2897,7 +3305,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="sous_categorie_service"
                             t-att-value="default_sous_categorie_service"
                             required="True"
@@ -2932,7 +3340,12 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
@@ -2965,7 +3378,7 @@
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control o_website_form_input"
                             name="code"
                             t-att-value="default_code"
                             required="True"
@@ -2975,13 +3388,18 @@
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="nom">Nom</label>
                     <div class="col-md-7 col-sm-8">
-                        <input type="text" class="form-control" name="nom" t-att-value="default_nom" />
+                        <input
+                            type="text"
+                            class="form-control o_website_form_input"
+                            name="nom"
+                            t-att-value="default_nom"
+                        />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="region">Region</label>
                     <div class="col-md-7 col-sm-8">
-                        <select class="form-control" id="region" name="region">
+                        <select class="form-control o_website_form_input" id="region" name="region">
                             <t t-foreach="region" t-as="reg">
                                 <option t-attf-value="#{reg.id}" t-att-selected="default_region == reg.id">
                                     <t t-esc="reg.nom" />
@@ -9634,6 +10052,19 @@
                 </t>
             </t>
         </t>
+    </template>
+
+    <template
+        id="assets_frontend_demo_mariadb_sql_example_1_portal"
+        name="Portal assets frontend"
+        inherit_id="web.assets_frontend"
+    >
+        <xpath expr="//script[last()]" position="after">
+            <script
+                type="text/javascript"
+                src="/demo_mariadb_sql_example_1/static/src/js/portal.demo_mariadb_sql_example_1.js"
+            />
+        </xpath>
     </template>
 
     <template
