@@ -89,6 +89,7 @@ def post_init_hook(cr, e):
         lst_depend = [
             "code_generator",
             "code_generator_hook",
+            "code_generator_portal",
         ]
         code_generator_id.add_module_dependency(lst_depend)
 
