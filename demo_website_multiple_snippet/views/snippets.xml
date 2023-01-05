@@ -31,12 +31,12 @@
         </section>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_Individual_item_structure"
+        id="s_demo_website_multiple_snippet_individual_item_structure"
         name="Demo Website Multiple Snippet Individual Item Structure"
     >
-        <section class="o_demo_website_multiple_snippet_Individual_item_structure oe_snippet_body">
+        <section class="o_demo_website_multiple_snippet_individual_item_structure oe_snippet_body">
             <div class="container">
-                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_structure">LOADING...</h3>
+                <h3 class="o_loading_demo_website_multiple_snippet_individual_item_structure">LOADING...</h3>
                 <div class="row mt16 mb16">
                     <b>demo_binary:</b>
                     <div class="text-center demo_binary_value" />
@@ -121,18 +121,18 @@
         </section>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_List_show_time_item_structure"
+        id="s_demo_website_multiple_snippet_list_show_time_item_structure"
         name="Demo Website Multiple Snippet List Show Time Item Structure"
     >
-        <section class="o_demo_website_multiple_snippet_List_show_time_item_structure oe_snippet_body">
+        <section class="o_demo_website_multiple_snippet_list_show_time_item_structure oe_snippet_body">
             <div class="container" />
         </section>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_List_item_structure"
+        id="s_demo_website_multiple_snippet_list_item_structure"
         name="Demo Website Multiple Snippet List Item Structure"
     >
-        <section class="o_demo_website_multiple_snippet_List_item_structure oe_snippet_body">
+        <section class="o_demo_website_multiple_snippet_list_item_structure oe_snippet_body">
             <div class="container" />
         </section>
     </template>
@@ -147,12 +147,12 @@
         </section>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_Individual_item_effect"
+        id="s_demo_website_multiple_snippet_individual_item_effect"
         name="Demo Website Multiple Snippet Individual Item Effect"
     >
-        <section class="o_demo_website_multiple_snippet_Individual_item_effect">
+        <section class="o_demo_website_multiple_snippet_individual_item_effect">
             <div class="container">
-                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_effect">LOADING...</h3>
+                <h3 class="o_loading_demo_website_multiple_snippet_individual_item_effect">LOADING...</h3>
                 <div class="row mt16 mb16">
                     <b>demo_binary:</b>
                     <div class="text-center demo_binary_value" />
@@ -247,12 +247,12 @@
         </section>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_Individual_item_feature"
+        id="s_demo_website_multiple_snippet_individual_item_feature"
         name="Demo Website Multiple Snippet Individual Item Feature"
     >
-        <section class="o_demo_website_multiple_snippet_Individual_item_feature">
+        <section class="o_demo_website_multiple_snippet_individual_item_feature">
             <div class="container">
-                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_feature">LOADING...</h3>
+                <h3 class="o_loading_demo_website_multiple_snippet_individual_item_feature">LOADING...</h3>
                 <div class="row mt16 mb16">
                     <b>demo_binary:</b>
                     <div class="text-center demo_binary_value" />
@@ -347,12 +347,12 @@
         </div>
     </template>
     <template
-        id="s_demo_website_multiple_snippet_Individual_item_content"
+        id="s_demo_website_multiple_snippet_individual_item_content"
         name="Demo Website Multiple Snippet Individual Item Content"
     >
-        <div class="o_demo_website_multiple_snippet_Individual_item_content">
+        <div class="o_demo_website_multiple_snippet_individual_item_content">
             <div class="container">
-                <h3 class="o_loading_demo_website_multiple_snippet_Individual_item_content">LOADING...</h3>
+                <h3 class="o_loading_demo_website_multiple_snippet_individual_item_content">LOADING...</h3>
                 <div class="row mt16 mb16">
                     <b>demo_binary:</b>
                     <div class="demo_binary_value" />
@@ -440,7 +440,7 @@
     <template id="snippet_options" inherit_id="website.snippet_options">
         <xpath expr=".">
             <div data-selector=".o_demo_website_multiple_snippet_helloworld_content" data-drop-in=".row > div" />
-            <div data-selector=".o_demo_website_multiple_snippet_Individual_item_content" data-drop-in=".row > div" />
+            <div data-selector=".o_demo_website_multiple_snippet_individual_item_content" data-drop-in=".row > div" />
         </xpath>
     </template>
     <!-- Add snippets to menu -->
@@ -455,15 +455,15 @@
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_structure"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_individual_item_structure"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_List_show_time_item_structure"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_show_time_item_structure"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_List_item_structure"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_list_item_structure"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
         </xpath>
@@ -475,7 +475,7 @@
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_content"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_individual_item_content"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
         </xpath>
@@ -487,7 +487,7 @@
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_feature"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_individual_item_feature"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
         </xpath>
@@ -499,7 +499,7 @@
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
             <t
-                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_Individual_item_effect"
+                t-snippet="demo_website_multiple_snippet.s_demo_website_multiple_snippet_individual_item_effect"
                 t-thumbnail="/demo_website_multiple_snippet/static/description/icon.png"
             />
         </xpath>
@@ -520,17 +520,17 @@
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_structure.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_individual_item_structure.scss"
             />
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_List_show_time_item_structure.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_list_show_time_item_structure.scss"
             />
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_List_item_structure.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_list_item_structure.scss"
             />
             <link
                 rel="stylesheet"
@@ -540,7 +540,7 @@
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_effect.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_individual_item_effect.scss"
             />
             <link
                 rel="stylesheet"
@@ -550,7 +550,7 @@
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_feature.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_individual_item_feature.scss"
             />
             <link
                 rel="stylesheet"
@@ -560,7 +560,7 @@
             <link
                 rel="stylesheet"
                 type="text/scss"
-                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_Individual_item_content.scss"
+                href="/demo_website_multiple_snippet/static/src/scss/demo_website_multiple_snippet_individual_item_content.scss"
             />
         </xpath>
         <xpath expr="//script[last()]" position="after">
@@ -570,15 +570,15 @@
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_structure.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_individual_item_structure.animation.js"
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_List_show_time_item_structure.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_show_time_item_structure.animation.js"
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_List_item_structure.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_list_item_structure.animation.js"
             />
             <script
                 type="text/javascript"
@@ -586,7 +586,7 @@
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_effect.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_individual_item_effect.animation.js"
             />
             <script
                 type="text/javascript"
@@ -594,7 +594,7 @@
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_feature.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_individual_item_feature.animation.js"
             />
             <script
                 type="text/javascript"
@@ -602,7 +602,7 @@
             />
             <script
                 type="text/javascript"
-                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_Individual_item_content.animation.js"
+                src="/demo_website_multiple_snippet/static/src/js/website.demo_website_multiple_snippet_individual_item_content.animation.js"
             />
         </xpath>
     </template>
