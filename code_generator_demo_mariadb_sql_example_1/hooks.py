@@ -4014,9 +4014,7 @@ for organization_ville in self:
                     "name": "Catégorie de services",
                     "id_name": "categorie_de_services",
                     "sequence": 23,
-                    "parent_id_name": (
-                        "demo_mariadb_sql_example_1.group_categoriedeservices"
-                    ),
+                    "parent_id_name": "demo_mariadb_sql_example_1.group_categorie_de_services",
                     "m2o_act_window": organization_type_service_categorie_categorie_de_services_action_window.id,
                 }
             )
@@ -4106,7 +4104,7 @@ for organization_ville in self:
                 {
                     "code_generator_id": code_generator_id.id,
                     "name": "Catégorie de services",
-                    "id_name": "group_categoriedeservices",
+                    "id_name": "group_categorie_de_services",
                     "sequence": 0,
                     "parent_id_name": (
                         "demo_mariadb_sql_example_1.parent_service"
@@ -4384,9 +4382,7 @@ for organization_ville in self:
                     "name": "Sous-catégorie de services",
                     "id_name": "sous_categorie_de_services",
                     "sequence": 24,
-                    "parent_id_name": (
-                        "demo_mariadb_sql_example_1.group_categoriedeservices"
-                    ),
+                    "parent_id_name": "demo_mariadb_sql_example_1.group_categorie_de_services",
                     "m2o_act_window": organization_type_service_sous_categorie_sous_categorie_de_services_action_window.id,
                 }
             )
@@ -4432,9 +4428,7 @@ for organization_ville in self:
                     "name": "Type de services",
                     "id_name": "type_de_services",
                     "sequence": 22,
-                    "parent_id_name": (
-                        "demo_mariadb_sql_example_1.group_categoriedeservices"
-                    ),
+                    "parent_id_name": "demo_mariadb_sql_example_1.group_categorie_de_services",
                     "m2o_act_window": organization_type_service_type_de_services_action_window.id,
                 }
             )

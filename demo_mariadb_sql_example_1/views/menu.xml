@@ -17,7 +17,7 @@
 
     <menuitem id="parent_service" name="Service" sequence="3" parent="demo_mariadb_sql_example_1" />
 
-    <menuitem id="group_categoriedeservices" name="Cat&#233;gorie de services" sequence="0" parent="parent_service" />
+    <menuitem id="group_categorie_de_services" name="Cat&#233;gorie de services" sequence="0" parent="parent_service" />
 
     <menuitem id="group_configuration" name="Configuration" sequence="1" parent="parent_configuration" />
 
@@ -48,7 +48,7 @@
         name="Cat&#233;gorie de services"
         action="organization_type_service_categorie_categorie_de_services_action_window"
         sequence="23"
-        parent="group_categoriedeservices"
+        parent="group_categorie_de_services"
     />
 
     <menuitem
@@ -194,7 +194,7 @@
         name="Sous-cat&#233;gorie de services"
         action="organization_type_service_sous_categorie_sous_categorie_de_services_action_window"
         sequence="24"
-        parent="group_categoriedeservices"
+        parent="group_categorie_de_services"
     />
 
     <menuitem
@@ -226,7 +226,7 @@
         name="Type de services"
         action="organization_type_service_type_de_services_action_window"
         sequence="22"
-        parent="group_categoriedeservices"
+        parent="group_categorie_de_services"
     />
 
     <menuitem
