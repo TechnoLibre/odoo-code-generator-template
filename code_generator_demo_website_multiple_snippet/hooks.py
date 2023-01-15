@@ -55,9 +55,8 @@ def post_init_hook(cr, e):
         code_generator_id = env["code.generator.module"].create(value)
 
         # Add dependencies
-        lst_depend_module = ["website", "demo_portal"]
+        lst_depend_module = ["demo_portal", "website"]
         code_generator_id.add_module_dependency(lst_depend_module)
-
         # Generate snippet
         # Documentation Case 1
         value_snippet = {
