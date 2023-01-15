@@ -61,7 +61,7 @@ odoo.define("demo_website_leaflet.animation", function (require) {
                 try {
                     geojson = JSON.parse(data_json["geojson"]);
                 } catch (error) {
-                    console.error(error);
+                    console.warn(error);
                     console.debug(data_json["geojson"]);
                     geojson = "";
                 }
