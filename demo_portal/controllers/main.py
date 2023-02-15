@@ -11,35 +11,6 @@ _logger = logging.getLogger(__name__)
 
 class DemoPortalController(http.Controller):
     @http.route(
-        ["/demo_portal/get_last_item"],
-        type="json",
-        auth="public",
-        website=True,
-        methods=["POST", "GET"],
-        csrf=False,
-    )
-    def get_last_item(self):
-        data_id = http.request.env["demo.model.portal"].search(
-            [], order="create_date desc", limit=1
-        )
-        dct_value = {}
-        if data_id:
-            dct_value["demo_boolean"] = data_id.demo_boolean
-            dct_value["demo_char"] = data_id.demo_char
-            dct_value["demo_date"] = data_id.demo_date
-            dct_value["demo_date_time"] = data_id.demo_date_time
-            dct_value["demo_external_link"] = data_id.demo_external_link
-            dct_value["demo_float"] = data_id.demo_float
-            dct_value["demo_float_time"] = data_id.demo_float_time
-            dct_value["demo_html"] = data_id.demo_html
-            dct_value["demo_integer"] = data_id.demo_integer
-            dct_value["demo_text"] = data_id.demo_text
-            dct_value["name"] = data_id.name
-            dct_value["xpos"] = data_id.xpos
-            dct_value["ypos"] = data_id.ypos
-        return dct_value
-
-    @http.route(
         "/new/demo_model_2_portal", type="http", auth="user", website=True
     )
     def create_new_demo_model_2_portal(self, **kw):
@@ -375,3 +346,32 @@ class DemoPortalController(http.Controller):
         return werkzeug.utils.redirect(
             f"/my/demo_model_portal/{new_demo_model_portal.id}"
         )
+
+    @http.route(
+        ["/demo_portal/get_last_item"],
+        type="json",
+        auth="public",
+        website=True,
+        methods=["POST", "GET"],
+        csrf=False,
+    )
+    def get_last_item(self):
+        data_id = http.request.env["demo.model.portal"].search(
+            [], order="create_date desc", limit=1
+        )
+        dct_value = {}
+        if data_id:
+            dct_value["demo_boolean"] = data_id.demo_boolean
+            dct_value["demo_char"] = data_id.demo_char
+            dct_value["demo_date"] = data_id.demo_date
+            dct_value["demo_date_time"] = data_id.demo_date_time
+            dct_value["demo_external_link"] = data_id.demo_external_link
+            dct_value["demo_float"] = data_id.demo_float
+            dct_value["demo_float_time"] = data_id.demo_float_time
+            dct_value["demo_html"] = data_id.demo_html
+            dct_value["demo_integer"] = data_id.demo_integer
+            dct_value["demo_text"] = data_id.demo_text
+            dct_value["name"] = data_id.name
+            dct_value["xpos"] = data_id.xpos
+            dct_value["ypos"] = data_id.ypos
+        return dct_value
