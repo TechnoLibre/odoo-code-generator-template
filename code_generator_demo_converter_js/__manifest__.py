@@ -7,7 +7,6 @@
     "application": True,
     "depends": [
         "code_generator",
-        "code_generator_hook",
     ],
     "installable": True,
     "post_init_hook": "post_init_hook",

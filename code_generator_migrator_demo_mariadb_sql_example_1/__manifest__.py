@@ -7,7 +7,6 @@
     "application": False,
     "depends": [
         "code_generator",
-        "code_generator_hook",
         "code_generator_db_servers",
     ],
     "installable": True,
