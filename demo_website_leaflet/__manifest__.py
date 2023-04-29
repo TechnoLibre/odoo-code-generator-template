@@ -8,8 +8,8 @@
     "website": "https://technolibre.ca",
     "application": True,
     "depends": [
-        "website",
         "base_geoengine",
+        "website",
     ],
     "external_dependencies": {
         "python": ["pyproj"],

@@ -7,9 +7,9 @@
     "website": "https://technolibre.ca",
     "application": True,
     "depends": [
-        "website",
         "mail",
         "portal",
+        "website",
     ],
     "data": [
         "security/ir.model.access.csv",
