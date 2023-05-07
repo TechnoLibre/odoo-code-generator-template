@@ -7,8 +7,8 @@
     "website": "https://technolibre.ca",
     "application": True,
     "depends": [
-        "website",
         "demo_portal",
+        "website",
     ],
     "data": [
         "views/snippets.xml",
